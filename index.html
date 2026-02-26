@@ -99,7 +99,7 @@ alert("Digite uma cidade.");
 return;
 }
 
-const query = `Eventos em ${cidade} nos próximos 7 dias. Ordem cronológica. Incluir shows, cultura, gastronomia, esportes, feiras e festivais. Para cada evento: nome, data, horário, local e link. Categorias: 🍻 Gastronomia e Bar, 🎶 Eventos e Shows, 🎭 Cultura e Arte, 🌱 Parque e Natureza, ✨ Outros.`;
+const query = `Todos os eventos em ${cidade} nos próximos 7 dias. Ordem cronológica. Incluir shows, cultura, gastronomia, bares, esportes, feiras e festivais. Para cada evento: nome, data, horário, local e link. Categorias: 🍻 Gastronomia e Bar, 🎶 Eventos e Shows, 🎭 Cultura e Arte, 🌱 Parque e Natureza, ✨ Outros.`;
 
 const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
 location.href = url;
