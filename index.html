@@ -100,18 +100,21 @@ return;
 
 const query = `
 Liste TODOS os eventos confirmados que acontecem em ${cidade} nos próximos 7 dias.
-Inclua absolutamente TODOS os eventos que ocorram dentro desse período, sem omitir nenhum.
-Coloque ordem cronológica (do mais próximo para o mais distante).
-Considerar eventos culturais, shows, esportivos, religiosos, institucionais, feiras, festivais, eventos públicos ou privados abertos ao público.
-Mostrar horário de funcionamento do evento.
+Inclua absolutamente TODOS os eventos, sem omitir nenhum, em ordem cronológica.
+Incluir: eventos culturais, shows, esportivos, religiosos, institucionais, feiras, festivais, eventos públicos e privados abertos ao público.
+
+Para cada evento informar:
+- Nome do evento
+- Data e horário
+- Local / endereço
+- Link oficial (site, Instagram, Sympla, Eventbrite ou prefeitura)
+
 Organizar nas categorias:
 🍻 Gastronomia e Bar
 🎶 Eventos e Shows
 🎭 Cultura e Arte
 🌱 Parque e Natureza
 ✨ Outros / Diversos
-Em cada item informar:
-- Link oficial do site, Instagram, Sympla, Eventbrite ou site da prefeitura
 `;
 
 const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
