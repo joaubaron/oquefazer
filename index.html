@@ -97,8 +97,13 @@ if (!cidade) {
 alert("Digite uma cidade.");
 return;
 }
+
 const query = `
-Liste TODOS os eventos confirmados que acontecem em ${cidade} nos próximos 7 dias. Inclua absolutamente TODOS os eventos que ocorram dentro desse período, sem omitir nenhum e em ordem cronológica (do mais próximo para o mais distante). Considerar eventos culturais, shows, esportivos, religiosos, institucionais, feiras, festivais, eventos públicos ou privados abertos ao público.
+Liste TODOS os eventos confirmados que acontecem em ${cidade} nos próximos 7 dias.
+Inclua absolutamente TODOS os eventos que ocorram dentro desse período, sem omitir nenhum.
+Coloque ordem cronológica (do mais próximo para o mais distante).
+Considerar eventos culturais, shows, esportivos, religiosos, institucionais, feiras, festivais, eventos públicos ou privados abertos ao público.
+Mostrar horário de funcionamento do evento.
 Organizar nas categorias:
 🍻 Gastronomia e Bar
 🎶 Eventos e Shows
@@ -108,6 +113,7 @@ Organizar nas categorias:
 Em cada item informar:
 - Link oficial do site, Instagram, Sympla, Eventbrite ou site da prefeitura
 `;
+
 const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
 window.open(url, "_system");
 }
