@@ -60,6 +60,11 @@ font-weight: bold;
 cursor: pointer;
 background: linear-gradient(135deg, #fa7e1e, #d62976);
 color: white;
+margin-bottom: 12px;
+}
+button.maps {
+background: linear-gradient(135deg, #34a853, #1a73e8);
+margin-bottom: 0;
 }
 </style>
 </head>
@@ -77,7 +82,7 @@ justify-content: center;
 z-index: 9999;
 transition: opacity 0.5s ease;
 ">
-<img src="splash.png" style="width: 300px;">
+<img src="splash.png" style="width: 80%; max-width: 320px;">
 </div>
 
 <div class="container">
@@ -88,6 +93,7 @@ transition: opacity 0.5s ease;
 <form onsubmit="buscar(); return false;">
 <input type="text" id="cidade" value="Blumenau">
 <button type="submit">Buscar eventos</button>
+<button type="button" class="maps" onclick="buscarRestaurantes()">🍽️ Restaurantes no Maps</button>
 </form>
 </div>
 
@@ -98,11 +104,18 @@ if (!cidade) {
 alert("Digite uma cidade.");
 return;
 }
-
 const query = `Todos os eventos em ${cidade} nos próximos 7 dias. Calendário 📆 em ordem cronológica. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Para cada evento: nome, data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Gastronomia e Bar, 🎶 Eventos e Shows, 🎭 Cultura e Arte, 🌱 Parque e Natureza, ✨ Outros.`;
-
 const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
+location.href = url;
+}
 
+function buscarRestaurantes() {
+const cidade = document.getElementById("cidade").value.trim();
+if (!cidade) {
+alert("Digite uma cidade.");
+return;
+}
+const url = "https://www.google.com/maps/search/restaurantes+em+" + encodeURIComponent(cidade);
 location.href = url;
 }
 </script>
