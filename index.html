@@ -101,7 +101,7 @@ return;
 
 const query = `Todos os eventos em ${cidade} nos próximos 7 dias. Calendário 📆 em ordem cronológica. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Para cada evento: nome, data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Gastronomia e Bar, 🎶 Eventos e Shows, 🎭 Cultura e Arte, 🌱 Parque e Natureza, ✨ Outros.`;
 
-const url = "https://gemini.google.com/app?q=" + encodeURIComponent(query);
+const url = "https://www.google.com/search?hl=pt-BR&q=" + encodeURIComponent(query);
 
 location.href = url;
 }
