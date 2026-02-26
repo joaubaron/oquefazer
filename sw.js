@@ -1,4 +1,4 @@
-const CACHE = 'oquefazer-v1';
+const CACHE = 'oquefazer-v2';
 const FILES = ['/oquefazer/', '/oquefazer/index.html', '/oquefazer/icone.png'];
 
 self.addEventListener('install', e => {
