@@ -115,7 +115,8 @@ if (!cidade) {
 alert("Digite uma cidade.");
 return;
 }
-const url = "https://www.google.com/maps/search/restaurantes+em+" + encodeURIComponent(cidade);
+const query = `Todos os restaurantes abertos em ${cidade}. Para cada um: nome, especialidade, endereço, horário de funcionamento e link.`;
+const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
 location.href = url;
 }
 </script>
