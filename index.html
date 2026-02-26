@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O que fazer</title>
+
+<style>
+body {
+margin: 0;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+background: linear-gradient(135deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+background-size: 300% 300%;
+animation: gradientMove 10s ease infinite;
+display: flex;
+align-items: center;
+justify-content: center;
+height: 100vh;
+}
+
+@keyframes gradientMove {
+0% { background-position: 0% 50%; }
+50% { background-position: 100% 50%; }
+100% { background-position: 0% 50%; }
+}
+
+.container {
+background: white;
+padding: 40px 30px;
+border-radius: 25px;
+box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+width: 90%;
+max-width: 420px;
+text-align: center;
+}
+
+h3 {
+margin-bottom: 10px;
+font-size: 22px;
+color: #333;
+}
+
+.categorias {
+font-size: 20px;
+margin-bottom: 25px;
+letter-spacing: 6px;
+}
+
+input {
+width: 100%;
+padding: 14px;
+border-radius: 14px;
+border: 1px solid #ddd;
+font-size: 16px;
+margin-bottom: 20px;
+outline: none;
+}
+
+input:focus {
+border-color: #d62976;
+box-shadow: 0 0 0 3px rgba(214,41,118,0.2);
+}
+
+button {
+width: 100%;
+padding: 14px;
+border: none;
+border-radius: 14px;
+font-size: 16px;
+font-weight: bold;
+cursor: pointer;
+background: linear-gradient(135deg, #fa7e1e, #d62976);
+color: white;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+<h3>O que fazer na cidade</h3>
+
+<div class="categorias">
+🍻 🎶 🎭 🌱
+</div>
+
+<form onsubmit="buscar(); return false;">
+<input type="text" id="cidade" value="Blumenau">
+<button type="submit">Buscar eventos</button>
+</form>
+
+</div>
+
+<script>
+function buscar() {
+
+const cidade = document.getElementById("cidade").value.trim();
+
+if (!cidade) {
+alert("Digite uma cidade.");
+return;
+}
+
+const query = `
+Liste TODOS os eventos confirmados que acontecem em ${cidade} nos próximos 7 dias. Inclua absolutamente TODOS os eventos que ocorram dentro desse período, sem omitir nenhum e em ordem cronológica (do mais próximo para o mais distante). Considerar eventos culturais, shows, esportivos, religiosos, institucionais, feiras, festivais, eventos públicos ou privados abertos ao público.
+
+Organizar nas categorias:
+🍻 Gastronomia e Bar
+🎶 Eventos e Shows
+🎭 Cultura e Arte
+🌱 Parque e Natureza
+✨ Outros / Diversos
+
+Em cada item informar:
+- Link oficial do site, Instagram, Sympla, Eventbrite ou site da prefeitura
+`;
+
+const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
+
+window.open(url, "_system");
+}
+</script>
+
+</body>
+</html>
