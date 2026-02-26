@@ -98,7 +98,21 @@ alert("Digite uma cidade.");
 return;
 }
 
-const query = `Eventos em ${cidade} nos próximos 7 dias. Para cada evento: nome, data, horário, local e link. Categorias: 🍻 Gastronomia e Bar, 🎶 Eventos e Shows, 🎭 Cultura e Arte, 🌱 Parque e Natureza, ✨ Outros / Diversos.`;
+const query = `
+Liste TODOS os eventos confirmados que acontecem em ${cidade} nos próximos 7 dias em ordem cronológica.
+Incluir: eventos culturais, shows, esportivos, religiosos, institucionais, feiras, festivais, eventos públicos e privados abertos ao público.
+Para cada evento informar:
+- Data e horário
+- Local / endereço
+- Link oficial (site, Instagram, Sympla, Eventbrite, prefeitura ou outro que encontrar)
+Organizar nas categorias:
+🍻 Gastronomia e Bar
+🎶 Eventos e Shows
+🎭 Cultura e Arte
+🌱 Parque e Natureza
+✨ Outros / Diversos
+`;
+
 const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
   
 window.open(url, "_system");
