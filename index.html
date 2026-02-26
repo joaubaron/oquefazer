@@ -120,6 +120,10 @@ const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURICompon
 window.open(url, "_system");
 }
 </script>
-
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/oquefazer/sw.js');
+  }
+</script>
 </body>
 </html>
