@@ -4,9 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Oquefazer</title>
+
 <link rel="icon" href="icone.png">
 <link rel="apple-touch-icon" href="icone.png">
 <link rel="manifest" href="manifest.json">
+
 <style>
 body {
 margin: 0;
@@ -18,8 +20,9 @@ padding-bottom: 80px;
 justify-content: center;
 height: 100vh;
 box-sizing: border-box;
-overflow-y: hidden;
+overflow-y: auto; /* corrigido */
 }
+
 .container {
 background: rgba(255, 255, 255, 0.85);
 padding: 15px 30px;
@@ -29,11 +32,13 @@ width: 90%;
 max-width: 420px;
 text-align: center;
 }
+
 h3 {
 margin-bottom: 10px;
 font-size: 22px;
 color: #333;
 }
+
 input {
 width: 100%;
 padding: 14px;
@@ -44,10 +49,12 @@ margin-bottom: 20px;
 outline: none;
 box-sizing: border-box;
 }
+
 input:focus {
 border-color: #6eb233;
 box-shadow: 0 0 0 3px rgba(110,179,51,0.2);
 }
+
 button {
 width: 100%;
 padding: 14px;
@@ -59,17 +66,22 @@ cursor: pointer;
 background: #6eb233;
 color: white;
 }
+
+button:active {
+transform: scale(0.98);
+}
 </style>
 </head>
+
 <body>
 
+<!-- SPLASH -->
 <div id="splash" style="
 position: fixed;
 top: 0; left: 0;
 width: 100%; height: 100%;
 background: #000000;
 display: flex;
-flex-direction: column;
 align-items: center;
 justify-content: center;
 z-index: 9999;
@@ -80,32 +92,138 @@ transition: opacity 0.5s ease;
 
 <div class="container">
 <h3>Eventos perto de você</h3>
+
 <form onsubmit="buscar(); return false;">
-<input type="text" id="cidade">
+<input type="text" id="cidade" placeholder="Ex: Blumenau, Pomerode, Joinville" enterkeyhint="search">
+
 <button type="submit">Ver o que rola essa semana</button>
+
 <p style="margin-top: 10px; font-size: 14px; color: #555;">
 IA pode trazer eventos diferentes a cada busca
 </p>
+
 <p style="margin-top: 35px; font-size: 14px; color: #555;">
-<a href="https://www.instagram.com/joseaugustobaron/" target="_blank" style="color: #6eb233; text-decoration: none;">@joseaugustobaron</a>
+<a href="https://www.instagram.com/joseaugustobaron/" target="_blank"
+style="color: #6eb233; text-decoration: none;">
+@joseaugustobaron
+</a>
 </p>
+
 </form>
 </div>
 
-<!-- Modal -->
-<div id="modal" onclick="if(event.target===this)this.style.display='none';" style="
-position: fixed;
-top: 0; left: 0; width: 100%; height: 100%;
-background: rgba(0,0,0,0.6);
-display: none;
-align-items: center; justify-content: center;
-z-index: 10000;
-">
-<div style="
-background: white;
-padding: 25px 20px;
-border-radius: 20px;
-text-align: center;
+<!-- MODAL -->
+<div id="modal" onclick="if(event.target===this)this.style.display='none';"
+style="position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+display: none; align-items: center; justify-content: center; z-index: 10000;">
+
+<div style="background: white; padding: 25px 20px;
+border-radius: 20px; text-align: center; max-width: 300px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.25);">
+
+<p style="margin-bottom: 20px; font-size: 16px; color: #333;">
+Por favor, digite uma cidade
+</p>
+
+<button onclick="document.getElementById('modal').style.display='none';
+document.getElementById('cidade').focus();"
+style="padding: 7px 14px; border: none; border-radius: 10px;
+font-size: 13px; font-weight: bold; cursor: pointer;
+background: #6eb233; color: white;">
+Entendi
+</button>
+
+</div>
+</div>
+
+<script>
+function buscar() {
+const cidade = document.getElementById("cidade").value.trim();
+
+if (!cidade) {
+document.getElementById('modal').style.display = 'flex';
+return;
+}
+
+localStorage.setItem('cidade', cidade);
+
+const query = `Todos os eventos reais em ${cidade} nos próximos 7 dias a partir de hoje, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Gastronomia e Bar, 🍴 Restaurante, 🎶 Eventos e Shows, 🎭 Cultura e Arte, 🌱 Parque e Natureza, 🎾 Esportes, ⭐ Outros. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente que não há eventos oficiais encontrados.`;
+
+const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
+
+location.href = url;
+}
+</script>
+
+<!-- DETECÇÃO AUTOMÁTICA DE CIDADE -->
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+
+const campo = document.getElementById('cidade');
+const ultima = localStorage.getItem('cidade');
+
+if (ultima) {
+campo.value = ultima;
+return;
+}
+
+if (!navigator.geolocation) {
+campo.value = 'Blumenau';
+return;
+}
+
+navigator.geolocation.getCurrentPosition(async (pos) => {
+
+const lat = pos.coords.latitude;
+const lon = pos.coords.longitude;
+
+try {
+const resp = await fetch(
+`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`
+);
+
+const data = await resp.json();
+
+const cidadeDetectada =
+data.address.city ||
+data.address.town ||
+data.address.village;
+
+campo.value = cidadeDetectada || 'Blumenau';
+localStorage.setItem('cidade', campo.value);
+
+} catch {
+campo.value = 'Blumenau';
+}
+
+}, () => {
+campo.value = 'Blumenau';
+});
+
+});
+</script>
+
+<!-- SPLASH -->
+<script>
+window.addEventListener('load', () => {
+setTimeout(() => {
+const splash = document.getElementById('splash');
+splash.style.opacity = '0';
+splash.style.pointerEvents = 'none';
+setTimeout(() => splash.remove(), 500);
+}, 1800);
+});
+</script>
+
+<!-- SERVICE WORKER -->
+<script>
+if ('serviceWorker' in navigator) {
+navigator.serviceWorker.register('sw.js');
+}
+</script>
+
+</body>
+</html>text-align: center;
 max-width: 300px;
 box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 ">
