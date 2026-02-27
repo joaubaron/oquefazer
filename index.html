@@ -137,34 +137,11 @@ document.getElementById('modal').style.display = 'flex';
 return;
 }
 
-// Salvar cidade
 localStorage.setItem('cidade', cidade);
-
-// Mostrar tela de carregamento
-const loading = document.createElement('div');
-loading.style.cssText = `
-  position: fixed; top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.75);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  z-index: 99999; color: white;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-`;
-loading.innerHTML = `<div style="font-size: 36px; margin-bottom: 16px;">🔎</div>
-<div style="font-size: 18px; font-weight: bold;">Buscando eventos em ${cidade}...</div>
-<div style="font-size: 14px; margin-top: 8px; color: #aaa;">Pode levar alguns segundos</div>`;
-document.body.appendChild(loading);
 
 const query = `Todos os eventos reais em ${cidade} nos próximos 7 dias a partir de hoje, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Gastronomia e Bar, 🍴 Restaurante, 🎶 Eventos e Shows, 🎭 Cultura e Arte, 🌱 Parque e Natureza, 🎾 Esportes, ⭐ Outros. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura.`;
 const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
-
-setTimeout(() => { 
-window.open(url, '_blank');
-document.body.removeChild(loading);
-}, 2000);
+location.replace(url);
 }
 </script>
 
