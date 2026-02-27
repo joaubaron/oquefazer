@@ -78,7 +78,7 @@ transition: opacity 0.5s ease;
 <div class="container">
 <h3>Eventos perto de você</h3>
 <form onsubmit="buscar(); return false;">
-<input type="text" id="cidade">
+<input type="text" id="cidade" value="Blumenau">
 <button type="submit">Ver o que rola essa semana</button>
 <p style="margin-top: 10px; font-size: 14px; color: #555;">
 IA pode trazer eventos diferentes a cada busca
@@ -124,12 +124,6 @@ width: auto;
 </div>
 
 <script>
-// Carregar última cidade salva
-window.addEventListener('DOMContentLoaded', () => {
-  const ultima = localStorage.getItem('cidade');
-  document.getElementById('cidade').value = ultima || 'Blumenau';
-});
-
 function buscar() {
 const cidade = document.getElementById("cidade").value.trim();
 if (!cidade) {
@@ -137,11 +131,9 @@ document.getElementById('modal').style.display = 'flex';
 return;
 }
 
-localStorage.setItem('cidade', cidade);
-
 const query = `Todos os eventos reais em ${cidade} nos próximos 7 dias a partir de hoje, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Gastronomia e Bar, 🍴 Restaurante, 🎶 Eventos e Shows, 🎭 Cultura e Arte, 🌱 Parque e Natureza, 🎾 Esportes, ⭐ Outros. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura.`;
 const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
-location.replace(url);
+location.href = url;
 }
 </script>
 
