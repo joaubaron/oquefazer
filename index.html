@@ -19,7 +19,7 @@ height: 100vh;
 }
 .container {
 background: rgba(255, 255, 255, 0.85);
-padding: 40px 30px;
+padding: 15px 30px;
 border-radius: 25px;
 box-shadow: 0 25px 60px rgba(0,0,0,0.25);
 width: 90%;
@@ -78,12 +78,12 @@ transition: opacity 0.5s ease;
 <div class="container">
 <h3>Eventos perto de você</h3>
 <form onsubmit="buscar(); return false;">
-<input type="text" id="cidade" value="Blumenau">
+<input type="text" id="cidade">
 <button type="submit">Ver o que rola essa semana</button>
 <p style="margin-top: 10px; font-size: 14px; color: #555;">
 IA pode trazer eventos diferentes a cada busca
 </p>
-<p style="margin-top: 25px; font-size: 14px; color: #555;">
+<p style="margin-top: 35px; font-size: 14px; color: #555;">
 <a href="https://www.instagram.com/joseaugustobaron/" target="_blank" style="color: #d62976; text-decoration: none;">@joseaugustobaron</a>
 </p>
 </form>
@@ -131,10 +131,19 @@ document.getElementById('modal').style.display = 'flex';
 return;
 }
 
+localStorage.setItem('cidade', cidade);
+
 const query = `Todos os eventos reais em ${cidade} nos próximos 7 dias a partir de hoje, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Gastronomia e Bar, 🍴 Restaurante, 🎶 Eventos e Shows, 🎭 Cultura e Arte, 🌱 Parque e Natureza, 🎾 Esportes, ⭐ Outros. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura.`;
 const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
 location.href = url;
 }
+</script>
+
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  const ultima = localStorage.getItem('cidade');
+  document.getElementById('cidade').value = ultima || 'Blumenau';
+});
 </script>
 
 <script>
