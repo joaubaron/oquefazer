@@ -128,8 +128,7 @@ function buscar() {
     return;
   }
 
-  const query = `Todos os eventos em ${cidade} nos próximos 7 dias em ordem cronológica no formato 📆 calendário. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Inclua apenas eventos com data confirmada dentro do período solicitado. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Separe nessas categorias: 🍻 Gastronomia e Bar, 🍴 Restaurante, 🎶 Eventos e Shows, 🎭 Cultura e Arte, 🌱 Parque e Natureza, 🎾 Esportes, ⭐ Outros. Em cada item informar: Link oficial do site, Instagram, Sympla, Eventbrite ou site da prefeitura.`;
-
+  const query = `Todos os eventos reais em ${cidade} nos próximos 7 dias a partir de hoje, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Gastronomia e Bar, 🍴 Restaurante, 🎶 Eventos e Shows, 🎭 Cultura e Arte, 🌱 Parque e Natureza, 🎾 Esportes, ⭐ Outros. Para cada evento incluir pelo menos um link: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura.`;
   const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
   location.href = url;
 }
