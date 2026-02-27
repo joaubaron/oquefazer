@@ -89,7 +89,7 @@ button {
     <input type="text" id="cidade" value="Blumenau">
     <button type="submit">Buscar eventos</button>
     <p style="margin-top: 10px; font-size: 14px; color: #555;">
-      IA pode trazer eventos diferentes a cada busca!
+      IA pode trazer eventos diferentes a cada busca
     </p>
   </form>
 </div>
@@ -136,7 +136,7 @@ function buscar() {
     return;
   }
 
-  const query = `Todos os eventos em ${cidade} nos próximos 7 dias em ordem cronológica no formato 📆 calendário. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Inclua apenas eventos com data confirmada dentro do período solicitado. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Separe nessas categorias: 🍻 Gastronomia e Bar, 🍴 Restaurante, 🎶 Eventos e Shows, 🎭 Cultura e Arte, 🌱 Parque e Natureza, ⭐ Outros. Em cada item informar: Link oficial do site, Instagram, Sympla, Eventbrite ou site da prefeitura.`;
+  const query = `Todos os eventos em ${cidade} nos próximos 7 dias em ordem cronológica no formato 📆 calendário. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Inclua apenas eventos com data confirmada dentro do período solicitado. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Separe nessas categorias: 🍻 Gastronomia e Bar, 🍴 Restaurante, 🎶 Eventos e Shows, 🎭 Cultura e Arte, 🌱 Parque e Natureza, 🎾 Esportes, ⭐ Outros. Em cada item informar: Link oficial do site, Instagram, Sympla, Eventbrite ou site da prefeitura.`;
 
   const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
   location.href = url;
