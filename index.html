@@ -147,7 +147,7 @@ transition: opacity 0.5s ease;
   <div class="cat-group">
     <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Natureza')">🌱 Natureza</button>
     <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Esporte')">🎾 Esporte</button>
-    <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Outros')">🎉 Outros</button>
+    <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Feiras')">🎪 Feiras</button>
   </div>
   <div class="btn-group">
     <button type="button" onclick="buscar('hoje')" style="flex:1">Hoje</button>
@@ -234,7 +234,7 @@ if (periodo === 'hoje') {
 
 const filtroCategoria = categoriaSelecionada ? ` Mostrar apenas eventos da categoria: ${categoriaSelecionada}.` : '';
 
-const query = `Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Bares, 🎶 Shows, 🎭 Cultura, 🌱 Natureza, 🎾 Esporte, 🎉 Outros. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente que não há eventos oficiais encontrados.${filtroCategoria}`;
+const query = `Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Bares, 🎶 Shows, 🎭 Cultura, 🌱 Natureza, 🎾 Esporte, 🎪 Feiras. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente que não há eventos oficiais encontrados.${filtroCategoria}`;
 const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
 location.href = url;
 }
