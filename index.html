@@ -251,7 +251,9 @@ const { latitude, longitude } = pos.coords;
 try {
 const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`);
 const data = await res.json();
-const cidade = data.address.city || data.address.town || data.address.village || data.address.county;
+const bairro = data.address.suburb || data.address.neighbourhood || '';
+const municipio = data.address.city || data.address.town || data.address.village || data.address.county || '';
+const cidade = bairro ? `${bairro}, ${municipio}` : municipio;
 if (cidade) {
 document.getElementById('cidade').value = cidade;
 localStorage.setItem('cidade', cidade);
