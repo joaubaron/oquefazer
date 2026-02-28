@@ -1,8 +1,8 @@
 [{
-  "relation": ["delegate_permission/common.handle_all_urls"],
-  "target": {
-    "namespace": "android_app",
-    "package_name": "io.github.joaubaron.twa",
-    "sha256_cert_fingerprints": ["9E:C2:76:85:42:D4:FA:1C:51:8C:29:A3:A5:1F:9E:41:F7:07:C7:EE:AC:02:E5:83:9E:0F:C2:28:9D:F9:55:21"]
-  }
-}]
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "io.github.joaubaron.twa",
+        "sha256_cert_fingerprints": ["5E:9B:44:5A:75:31:57:B2:F3:AD:9F:25:3C:95:D4:C0:10:D9:04:B0:71:45:2A:02:DA:3B:57:23:C6:2C:FF:7F"]
+      }
+    }]
