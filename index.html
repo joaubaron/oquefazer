@@ -90,7 +90,7 @@ margin-bottom: 0;
 }
 .btn-group button {
 font-size: 13px;
-padding: 12px 6px;
+padding: 7px 6px;
 }
 </style>
 </head>
@@ -119,9 +119,9 @@ transition: opacity 0.5s ease;
     <button type="button" class="geo-btn" onclick="detectarCidade()" title="Detectar minha cidade">🔍</button>
   </div>
   <div class="btn-group">
-    <button type="button" onclick="buscar('hoje')">Hoje</button>
-    <button type="button" onclick="buscar('fimdesemana')">Fim de semana</button>
-    <button type="button" onclick="buscar('7dias')">7 dias</button>
+    <button type="button" onclick="buscar('hoje')" style="flex:1">Hoje</button>
+    <button type="button" onclick="buscar('fimdesemana')" style="flex:2">Fim de semana</button>
+    <button type="button" onclick="buscar('7dias')" style="flex:1">7 dias</button>
   </div>
   <p style="margin-top: 10px; font-size: 14px; color: #555;">
     IA pode trazer eventos diferentes a cada busca
