@@ -1,14 +1,14 @@
-# 📍 O Que Fazer
+# 📍 OQueFazer
 
 > 🇧🇷 Português | [🇺🇸 English below](#-oquefazer---english)
 
 ---
 
-## 🇧🇷 O Que Fazer — Português
+## 🇧🇷 OQueFazer — Português
 
 **Descubra eventos na sua cidade com o poder da IA!**
 
-O **O Que Fazer** é um app web progressivo (PWA) que encontra eventos reais perto de você — shows, festivais, restaurantes, bares, esportes, cultura, feiras e muito mais — nos próximos 7 dias, usando inteligência artificial.
+O **OQueFazer** é um app web progressivo (PWA) que encontra eventos reais perto de você — shows, festivais, restaurantes, bares, esportes, cultura, feiras e muito mais — nos próximos 7 dias, usando inteligência artificial.
 
 ---
 
@@ -38,7 +38,7 @@ O **O Que Fazer** é um app web progressivo (PWA) que encontra eventos reais per
 
 ### 📱 Instalação como app
 
-O **O Que Fazer** pode ser instalado diretamente no seu celular como um app nativo:
+O **OQueFazer** pode ser instalado diretamente no seu celular como um app nativo:
 
 - **Android:** Acesse pelo Chrome → Menu → "Adicionar à tela inicial"
 - **iPhone:** Acesse pelo Safari → Compartilhar → "Adicionar à tela de início"
@@ -48,7 +48,6 @@ O **O Que Fazer** pode ser instalado diretamente no seu celular como um app nati
 ### 📬 Contato
 
 - Instagram: [@joseaugustobaron](https://www.instagram.com/joseaugustobaron/)
-
 ---
 
 ### ⚖️ Licença
