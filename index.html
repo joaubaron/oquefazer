@@ -83,6 +83,15 @@ background: white;
 color: #6eb233;
 border: 2px solid #6eb233;
 }
+.btn-group {
+display: flex;
+gap: 8px;
+margin-bottom: 0;
+}
+.btn-group button {
+font-size: 13px;
+padding: 12px 6px;
+}
 </style>
 </head>
 <body>
@@ -104,12 +113,16 @@ transition: opacity 0.5s ease;
 
 <div class="container">
 <h3>Eventos perto de você</h3>
-<form onsubmit="buscar(); return false;">
+<form onsubmit="return false;">
   <div class="input-wrapper">
     <input type="text" id="cidade">
     <button type="button" class="geo-btn" onclick="detectarCidade()" title="Detectar minha cidade">🔍</button>
   </div>
-  <button type="submit">Ver o que rola essa semana</button>
+  <div class="btn-group">
+    <button type="button" onclick="buscar('hoje')">Hoje</button>
+    <button type="button" onclick="buscar('fimdesemana')">Fim de semana</button>
+    <button type="button" onclick="buscar('7dias')">7 dias</button>
+  </div>
   <p style="margin-top: 10px; font-size: 14px; color: #555;">
     IA pode trazer eventos diferentes a cada busca
   </p>
@@ -156,7 +169,7 @@ width: auto;
 </div>
 
 <script>
-function buscar() {
+function buscar(periodo) {
 const cidade = document.getElementById("cidade").value.trim();
 if (!cidade) {
 document.getElementById('modal').style.display = 'flex';
@@ -165,7 +178,16 @@ return;
 
 localStorage.setItem('cidade', cidade);
 
-const query = `Todos os eventos reais em ${cidade} nos próximos 7 dias a partir de hoje, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Gastronomia e Bar, 🍴 Restaurante, 🎶 Eventos e Shows, 🎭 Cultura e Arte, 🌱 Parque e Natureza, 🎾 Esportes, ⭐ Outros. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente que não há eventos oficiais encontrados.`;
+let tempo;
+if (periodo === 'hoje') {
+  tempo = 'hoje';
+} else if (periodo === 'fimdesemana') {
+  tempo = 'neste fim de semana (sexta, sábado e domingo)';
+} else {
+  tempo = 'nos próximos 7 dias a partir de hoje';
+}
+
+const query = `Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Gastronomia e Bar, 🍴 Restaurante, 🎶 Eventos e Shows, 🎭 Cultura e Arte, 🌱 Parque e Natureza, 🎾 Esportes, ⭐ Outros. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente que não há eventos oficiais encontrados.`;
 const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
 location.href = url;
 }
