@@ -92,6 +92,27 @@ margin-bottom: 0;
 font-size: 13px;
 padding: 7px 6px;
 }
+.cat-group {
+display: flex;
+gap: 6px;
+margin-bottom: 10px;
+}
+.cat-btn {
+flex: 1;
+font-size: 11px;
+padding: 6px 2px;
+background: white;
+color: #6eb233;
+border: 1.5px solid #6eb233;
+border-radius: 14px;
+cursor: pointer;
+font-weight: bold;
+width: auto;
+}
+.cat-btn.ativo {
+background: #6eb233;
+color: white;
+}
 </style>
 </head>
 <body>
@@ -117,6 +138,16 @@ transition: opacity 0.5s ease;
   <div class="input-wrapper">
     <input type="text" id="cidade">
     <button type="button" class="geo-btn" onclick="detectarCidade()" title="Detectar minha cidade">🔍</button>
+  </div>
+  <div class="cat-group">
+    <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Bares')">🍻 Bares</button>
+    <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Shows')">🎶 Shows</button>
+    <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Cultura')">🎭 Cultura</button>
+  </div>
+  <div class="cat-group">
+    <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Natureza')">🌱 Natureza</button>
+    <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Esporte')">🎾 Esporte</button>
+    <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Outros')">🎉 Outros</button>
   </div>
   <div class="btn-group">
     <button type="button" onclick="buscar('hoje')" style="flex:1">Hoje</button>
@@ -169,6 +200,20 @@ width: auto;
 </div>
 
 <script>
+let categoriaSelecionada = '';
+
+function toggleCategoria(btn, categoria) {
+  const todos = document.querySelectorAll('.cat-btn');
+  if (categoriaSelecionada === categoria) {
+    btn.classList.remove('ativo');
+    categoriaSelecionada = '';
+  } else {
+    todos.forEach(b => b.classList.remove('ativo'));
+    btn.classList.add('ativo');
+    categoriaSelecionada = categoria;
+  }
+}
+
 function buscar(periodo) {
 const cidade = document.getElementById("cidade").value.trim();
 if (!cidade) {
@@ -187,7 +232,9 @@ if (periodo === 'hoje') {
   tempo = 'nos próximos 7 dias a partir de hoje';
 }
 
-const query = `Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Gastronomia e Bar, 🍴 Restaurante, 🎶 Eventos e Shows, 🎭 Cultura e Arte, 🌱 Parque e Natureza, 🎾 Esportes, ⭐ Outros. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente que não há eventos oficiais encontrados.`;
+const filtroCategoria = categoriaSelecionada ? ` Mostrar apenas eventos da categoria: ${categoriaSelecionada}.` : '';
+
+const query = `Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Bares, 🎶 Shows, 🎭 Cultura, 🌱 Natureza, 🎾 Esporte, 🎉 Outros. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente que não há eventos oficiais encontrados.${filtroCategoria}`;
 const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
 location.href = url;
 }
