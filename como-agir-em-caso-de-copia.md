@@ -1,4 +1,4 @@
-# ⚖️ Como Agir em Caso de Cópia — O Que Fazer App
+# ⚖️ Como Agir em Caso de Cópia
 © 2026 José Augusto Baron
 
 ---
