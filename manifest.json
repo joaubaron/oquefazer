@@ -6,7 +6,7 @@
   "start_url": "/oquefazer/index.html",
   "display": "standalone",
   "background_color": "#000000",
-  "theme_color": "#6eb233",
+  "theme_color": "#000000"
   "orientation": "portrait",
   "icons": [
     {
