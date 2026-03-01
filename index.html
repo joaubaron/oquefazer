@@ -142,14 +142,14 @@ display: none;
 padding-right: 14px;
 }
 
-/* PARCEIRO DA SEMANA */
+/* PARCEIRO DO MÊS */
 .parceiro-card {
 display: block;
 background: linear-gradient(135deg, #f4fbed 0%, #edf7e0 100%);
 border: 1.5px solid #a8d870;
 border-radius: 14px;
 padding: 10px 14px;
-margin-bottom: 10px;
+margin-bottom: 7px;
 text-decoration: none;
 overflow: hidden;
 position: relative;
@@ -203,9 +203,53 @@ color: #6eb233;
 font-weight: 700;
 white-space: nowrap;
 }
-.parceiro-acesse svg {
-width: 16px;
-height: 16px;
+.parceiro-acesse svg { width: 16px; height: 16px; }
+
+/* PARCEIROS DA SEMANA */
+.semana-group {
+display: flex;
+gap: 6px;
+margin-bottom: 10px;
+}
+.semana-card {
+flex: 1;
+display: block;
+background: white;
+border: 1.5px solid #c8e89a;
+border-radius: 12px;
+padding: 8px 8px 8px 8px;
+text-decoration: none;
+position: relative;
+text-align: left;
+overflow: hidden;
+}
+.semana-badge {
+display: block;
+font-size: 7px;
+color: #5a8a2a;
+font-weight: 700;
+letter-spacing: 0.3px;
+text-transform: uppercase;
+margin-bottom: 4px;
+opacity: 0.7;
+}
+.semana-linha {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 4px;
+}
+.semana-nome {
+font-size: 10px;
+font-weight: bold;
+color: #1a2a0a;
+line-height: 1.2;
+flex: 1;
+}
+.semana-emoji {
+font-size: 16px;
+flex-shrink: 0;
+line-height: 1;
 }
 </style>
 </head>
@@ -253,16 +297,16 @@ transition: opacity 0.5s ease;
   <!-- PARCEIRO DO MÊS -->
   <a href="https://www.instagram.com/innaturacomidadeverdade?igsh=bzJlemN1cXBjOGY4" target="_blank" class="parceiro-card">
     <div class="parceiro-linha" style="margin-bottom:5px">
-      <span class="parceiro-label">Parceiro do mês <span style="font-size:18px;">🍻</span></span>
+      <span class="parceiro-label">Parceiro do mês <span style="font-size:16px;line-height:1;vertical-align:middle;">🌱</span></span>
       <span class="parceiro-badge">Patrocinado</span>
     </div>
     <div class="parceiro-linha">
       <span class="parceiro-nome">Inatura — Comida de Verdade</span>
       <span class="parceiro-acesse">
         Acesse
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <radialGradient id="ig" cx="30%" cy="107%" r="150%">
+            <radialGradient id="ig1" cx="30%" cy="107%" r="150%">
               <stop offset="0%" stop-color="#fdf497"/>
               <stop offset="5%" stop-color="#fdf497"/>
               <stop offset="45%" stop-color="#fd5949"/>
@@ -270,13 +314,42 @@ transition: opacity 0.5s ease;
               <stop offset="90%" stop-color="#285AEB"/>
             </radialGradient>
           </defs>
-          <rect width="24" height="24" rx="6" fill="url(#ig)"/>
+          <rect width="24" height="24" rx="6" fill="url(#ig1)"/>
           <path d="M12 7.2C9.33 7.2 7.2 9.33 7.2 12C7.2 14.67 9.33 16.8 12 16.8C14.67 16.8 16.8 14.67 16.8 12C16.8 9.33 14.67 7.2 12 7.2ZM12 15.2C10.23 15.2 8.8 13.77 8.8 12C8.8 10.23 10.23 8.8 12 8.8C13.77 8.8 15.2 10.23 15.2 12C15.2 13.77 13.77 15.2 12 15.2Z" fill="white"/>
           <circle cx="17" cy="7" r="1.2" fill="white"/>
         </svg>
       </span>
     </div>
   </a>
+
+  <!-- PARCEIROS DA SEMANA — 3 mini cards -->
+  <div class="semana-group">
+
+    <a href="https://www.instagram.com/parceiro1" target="_blank" class="semana-card">
+      <span class="semana-badge">Patrocinado</span>
+      <div class="semana-linha">
+        <span class="semana-nome">Bar do João</span>
+        <span class="semana-emoji">🍻</span>
+      </div>
+    </a>
+
+    <a href="https://www.instagram.com/parceiro2" target="_blank" class="semana-card">
+      <span class="semana-badge">Patrocinado</span>
+      <div class="semana-linha">
+        <span class="semana-nome">Estúdio Move</span>
+        <span class="semana-emoji">🎾</span>
+      </div>
+    </a>
+
+    <a href="https://www.instagram.com/parceiro3" target="_blank" class="semana-card">
+      <span class="semana-badge">Patrocinado</span>
+      <div class="semana-linha">
+        <span class="semana-nome">Feira Orgânica</span>
+        <span class="semana-emoji">🛍️</span>
+      </div>
+    </a>
+
+  </div>
 
   <div class="btn-group">
     <button type="button" onclick="buscar('hoje')" style="flex:1">Hoje</button>
