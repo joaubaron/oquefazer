@@ -351,7 +351,8 @@ navigator.clipboard.writeText(texto).then(() => alert('Link copiado!'));
 <script>
 window.addEventListener('DOMContentLoaded', () => {
   const ultima = localStorage.getItem('cidade');
-  document.getElementById('cidade').value = ultima || 'Blumenau';
+  document.getElementById('cidade').value = ultima || '';
+  document.getElementById('cidade').placeholder = ultima ? '' : 'Digite sua cidade';
 });
 </script>
 
