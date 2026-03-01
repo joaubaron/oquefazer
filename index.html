@@ -1,272 +1,195 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#000000">
 <title>Oquefazer</title>
+
+<link rel="preload" as="image" href="fundo.jpg">
 <link rel="icon" href="icone.png">
 <link rel="apple-touch-icon" href="icone.png">
 <link rel="manifest" href="manifest.json">
+
 <style>
 body {
-margin: 0;
-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-background: url('fundo.jpg') center/cover no-repeat;
-display: flex;
-align-items: flex-end;
-padding-bottom: 6.7vh;
-justify-content: center;
-height: 100vh;
-box-sizing: border-box;
-overflow-y: hidden;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  background: url('fundo.jpg') center/cover no-repeat;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 100vh;
+  padding-bottom: 6vh;
+  box-sizing: border-box;
+  overflow-y: auto;
 }
+
 .container {
-background: rgba(255, 255, 255, 0.85);
-padding: 10px 30px;
-border-radius: 25px;
-box-shadow: 0 25px 60px rgba(0,0,0,0.25);
-width: 90%;
-max-width: 420px;
-text-align: center;
+  background: rgba(255,255,255,0.9);
+  padding: 18px 26px;
+  border-radius: 25px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+  width: 90%;
+  max-width: 420px;
+  text-align: center;
+  backdrop-filter: blur(6px);
 }
+
 h3 {
-margin-bottom: 10px;
-font-size: 22px;
-color: #333;
+  margin-bottom: 15px;
+  font-size: 22px;
+  color: #333;
 }
+
 .input-wrapper {
-position: relative;
-margin-bottom: 20px;
+  position: relative;
 }
+
 input {
-width: 100%;
-padding: 10px;
-padding-right: 48px;
-border-radius: 14px;
-border: 1px solid #ddd;
-font-size: 16px;
-outline: none;
-box-sizing: border-box;
+  width: 100%;
+  padding: 11px;
+  padding-right: 48px;
+  border-radius: 14px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  outline: none;
+  box-sizing: border-box;
+  transition: 0.2s;
 }
+
 input:focus {
-border-color: #6eb233;
-box-shadow: 0 0 0 3px rgba(110,179,51,0.2);
+  border-color: #6eb233;
+  box-shadow: 0 0 0 3px rgba(110,179,51,0.2);
 }
+
 .geo-btn {
-position: absolute;
-right: 10px;
-top: 50%;
-transform: translateY(-50%);
-background: none;
-border: none;
-cursor: pointer;
-font-size: 22px;
-padding: 0;
-width: auto;
-line-height: 1;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
 }
+
 button {
-width: 100%;
-padding: 14px;
-border: none;
-border-radius: 14px;
-font-size: 16px;
-font-weight: bold;
-cursor: pointer;
-background: #6eb233;
-color: white;
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  background: #6eb233;
+  color: white;
+  transition: all 0.2s ease;
 }
-.btn-group {
-display: flex;
-gap: 8px;
-margin-bottom: 0;
+
+button:active {
+  transform: scale(0.97);
 }
-.btn-group button {
-font-size: 13px;
-padding: 7px 6px;
-}
+
 .cat-group {
-display: flex;
-gap: 6px;
-margin-bottom: 10px;
+  display: flex;
+  gap: 6px;
+  margin: 10px 0;
 }
+
 .cat-btn {
-flex: 1;
-font-size: 12px;
-padding: 6px 2px;
-background: white;
-color: #6eb233;
-border: 1.5px solid #6eb233;
-border-radius: 14px;
-cursor: pointer;
-font-weight: bold;
-width: auto;
+  flex: 1;
+  font-size: 12px;
+  padding: 6px 2px;
+  background: white;
+  color: #6eb233;
+  border: 1.5px solid #6eb233;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
 }
+
 .cat-btn.ativo {
-background: #6eb233;
-color: white;
+  background: #6eb233;
+  color: white;
 }
-.cidade-row {
-display: flex;
-gap: 8px;
-margin-bottom: 10px;
-align-items: center;
+
+.btn-group {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
 }
-.cidade-row .input-wrapper {
-flex: 1;
-margin-bottom: 0;
+
+.btn-group button {
+  font-size: 13px;
+  padding: 8px;
 }
-.evento-btn {
-width: auto;
-padding: 10px 12px;
-font-size: 13px;
-white-space: nowrap;
-flex-shrink: 0;
-background: white;
-color: #6eb233;
-border: 1.5px solid #6eb233;
+
+.loading {
+  opacity: 0.7;
+  pointer-events: none;
 }
-.evento-btn.ativo {
-background: #6eb233;
-color: white;
+
+#splash {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease;
 }
-.evento-wrapper {
-margin-bottom: 10px;
-display: none;
-}
-.evento-wrapper input {
-padding-right: 14px;
-}
+
 </style>
 </head>
 <body>
 
-<div id="splash" style="
-position: fixed;
-top: 0; left: 0;
-width: 100%; height: 100%;
-background: #000000;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-z-index: 9999;
-transition: opacity 0.5s ease;
-">
-<img src="splash.png" style="width: 300px;">
+<div id="splash">
+  <img src="splash.png" style="width:260px;">
 </div>
 
 <div class="container">
 <h3>Eventos perto de você</h3>
-<form onsubmit="return false;">
-  <div class="cidade-row">
-    <div class="input-wrapper">
-      <input type="text" id="cidade">
-      <button type="button" class="geo-btn" onclick="detectarCidade()" title="Detectar minha cidade">🔍</button>
-    </div>
-    <button type="button" class="evento-btn" onclick="toggleEvento()">🎫 Evento</button>
-  </div>
-  <div class="evento-wrapper" id="eventoWrapper">
-    <input type="text" id="evento" placeholder="Nome do evento ou artista">
-  </div>
-  <div class="cat-group">
-    <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Bares')">🍻 Bares</button>
-    <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Shows')">🎶 Shows</button>
-    <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Cultura')">🎭 Cultura</button>
-  </div>
-  <div class="cat-group">
-    <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Natureza')">🌱 Natureza</button>
-    <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Esporte')">🎾 Esporte</button>
-    <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Feiras')">🛍️ Feiras</button>
-  </div>
-  <div class="btn-group">
-    <button type="button" onclick="buscar('hoje')" style="flex:1">Hoje</button>
-    <button type="button" onclick="buscar('fimdesemana')" style="flex:2">Fim de semana</button>
-    <button type="button" onclick="buscar('7dias')" style="flex:1">7 dias</button>
-  </div>
-  <p style="margin-top: 10px; font-size: 14px; color: #555;">
-    Escolha categoria e período, ou busque com IA
-  </p>
-  <p style="margin-top: 25px; font-size: 14px; color: #555;">
-    <a href="https://www.instagram.com/joseaugustobaron/" target="_blank" style="color: #6eb233; text-decoration: none;">@joseaugustobaron</a>
-    &nbsp;&nbsp;&nbsp;
-    <a onclick="compartilhar(); return false;" href="#" style="color: #6eb233; text-decoration: none;">🔗 Indique o app</a>
-  </p>
-</form>
+
+<div class="input-wrapper">
+  <input type="text" id="cidade" placeholder="Digite sua cidade">
+  <button class="geo-btn" onclick="detectarCidade()">📍</button>
 </div>
 
-<!-- Modal -->
-<div id="modal" onclick="if(event.target===this)this.style.display='none';" style="
-position: fixed;
-top: 0; left: 0; width: 100%; height: 100%;
-background: rgba(0,0,0,0.6);
-display: none;
-align-items: center; justify-content: center;
-z-index: 10000;
-">
-<div style="
-background: white;
-padding: 25px 20px;
-border-radius: 20px;
-text-align: center;
-max-width: 300px;
-box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-">
-<p style="margin-bottom: 20px; font-size: 16px; color: #333;">
-Por favor, digite uma cidade
-</p>
-<button onclick="document.getElementById('modal').style.display='none'; document.getElementById('cidade').focus();" style="
-padding: 7px 14px;
-border: none;
-border-radius: 10px;
-font-size: 13px;
-font-weight: bold;
-cursor: pointer;
-background: #6eb233;
-color: white;
-width: auto;
-">Entendi</button>
+<div class="cat-group">
+  <button class="cat-btn" onclick="toggleCategoria(this,'Bares')">🍻 Bares</button>
+  <button class="cat-btn" onclick="toggleCategoria(this,'Shows')">🎶 Shows</button>
+  <button class="cat-btn" onclick="toggleCategoria(this,'Cultura')">🎭 Cultura</button>
 </div>
+
+<div class="cat-group">
+  <button class="cat-btn" onclick="toggleCategoria(this,'Natureza')">🌱 Natureza</button>
+  <button class="cat-btn" onclick="toggleCategoria(this,'Esporte')">🎾 Esporte</button>
+  <button class="cat-btn" onclick="toggleCategoria(this,'Feiras')">🛍️ Feiras</button>
+</div>
+
+<div class="btn-group">
+  <button onclick="buscar('hoje')">Hoje</button>
+  <button onclick="buscar('fimdesemana')">Fim de semana</button>
+  <button onclick="buscar('7dias')">7 dias</button>
+</div>
+
+<p style="margin-top:12px;font-size:13px;color:#555;">
+Escolha categoria e período
+</p>
+
 </div>
 
 <script>
 let categoriaSelecionada = '';
 
-function toggleEvento() {
-  const cats = document.querySelectorAll('.cat-btn');
-  const wrapper = document.getElementById('eventoWrapper');
-  const btn = document.querySelector('.evento-btn');
-  if (wrapper.style.display === 'none' || wrapper.style.display === '') {
-    wrapper.style.display = 'block';
-    document.getElementById('evento').focus();
-    btn.classList.add('ativo');
-    cats.forEach(b => {
-      b.classList.remove('ativo');
-      b.disabled = true;
-      b.style.opacity = '0.4';
-      b.style.cursor = 'not-allowed';
-    });
-    categoriaSelecionada = '';
-  } else {
-    wrapper.style.display = 'none';
-    document.getElementById('evento').value = '';
-    btn.classList.remove('ativo');
-    cats.forEach(b => {
-      b.disabled = false;
-      b.style.opacity = '1';
-      b.style.cursor = 'pointer';
-    });
-  }
-}
-
 function toggleCategoria(btn, categoria) {
-  const todos = document.querySelectorAll('.cat-btn');
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('ativo'));
   if (categoriaSelecionada === categoria) {
-    btn.classList.remove('ativo');
     categoriaSelecionada = '';
   } else {
-    todos.forEach(b => b.classList.remove('ativo'));
     btn.classList.add('ativo');
     categoriaSelecionada = categoria;
   }
@@ -275,85 +198,65 @@ function toggleCategoria(btn, categoria) {
 function buscar(periodo) {
   const cidade = document.getElementById("cidade").value.trim();
   if (!cidade) {
-    document.getElementById('modal').style.display = 'flex';
+    alert("Digite uma cidade");
     return;
   }
-  localStorage.setItem('cidade', cidade);
-  let tempo;
-  if (periodo === 'hoje') {
-    tempo = 'hoje';
-  } else if (periodo === 'fimdesemana') {
-    tempo = 'neste fim de semana (sexta, sábado e domingo)';
-  } else {
-    tempo = 'nos próximos 7 dias a partir de hoje';
-  }
-  const eventoEspecifico = document.getElementById('evento').value.trim();
-  let query;
-  if (eventoEspecifico) {
-    query = `Buscar APENAS informações sobre: ${eventoEspecifico} em ${cidade} ${tempo}. Mostrar somente este evento. Não mostrar outros eventos. Informar: data, horário, local, descrição e links. Se não encontrar, informar claramente que não há informações confirmadas sobre este evento.`;
-  } else {
-    const filtroCategoria = categoriaSelecionada ? ` Mostrar apenas eventos da categoria: ${categoriaSelecionada}.` : '';
-    query = `Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Bares, 🎶 Shows, 🎭 Cultura, 🌱 Natureza, 🎾 Esporte, 🛍️ Feiras. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente que não há eventos oficiais encontrados.${filtroCategoria}`;
-  }
+
+  document.querySelector('.container').classList.add('loading');
+
+  let tempo = periodo === 'hoje'
+    ? 'hoje'
+    : periodo === 'fimdesemana'
+    ? 'neste fim de semana'
+    : 'nos próximos 7 dias';
+
+  const filtroCategoria = categoriaSelecionada 
+    ? ` Mostrar apenas eventos da categoria ${categoriaSelecionada}.` 
+    : '';
+
+  const query = `Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica. Não invente eventos. Mostrar data, horário, local e link.${filtroCategoria}`;
+
   const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
-  location.href = url;
+
+  setTimeout(() => {
+    window.location.href = url;
+  }, 800);
 }
 
 function detectarCidade() {
-  if (!navigator.geolocation) {
-    alert('Geolocalização não suportada neste dispositivo.');
-    return;
-  }
+  if (!navigator.geolocation) return;
+
   const btn = document.querySelector('.geo-btn');
   btn.textContent = '⏳';
+
   navigator.geolocation.getCurrentPosition(async (pos) => {
     const { latitude, longitude } = pos.coords;
     try {
       const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`);
       const data = await res.json();
-      const cidade = data.address.city || data.address.town || data.address.village || data.address.county;
+      const cidade = data.address.city || data.address.town || data.address.village;
       if (cidade) {
         document.getElementById('cidade').value = cidade;
-        localStorage.setItem('cidade', cidade);
       }
-    } catch(e) {
-      alert('Não foi possível detectar a cidade.');
-    } finally {
-      btn.textContent = '🔍';
-    }
+    } catch(e) {}
+    btn.textContent = '📍';
   }, () => {
-    alert('Permissão de localização negada.');
-    btn.textContent = '🔍';
+    btn.textContent = '📍';
   });
 }
-
-function compartilhar() {
-  const texto = 'Descubra eventos na sua cidade! 👉 https://joaubaron.github.io/oquefazer/';
-  if (navigator.share) {
-    navigator.share({ text: texto });
-  } else {
-    navigator.clipboard.writeText(texto).then(() => alert('Link copiado!'));
-  }
-}
-
-window.addEventListener('DOMContentLoaded', () => {
-  const ultima = localStorage.getItem('cidade');
-  document.getElementById('cidade').value = ultima || '';
-  document.getElementById('cidade').placeholder = ultima ? '' : 'Digite sua cidade';
-});
 
 window.addEventListener('load', () => {
   setTimeout(() => {
     const splash = document.getElementById('splash');
     splash.style.opacity = '0';
-    splash.style.pointerEvents = 'none';
     setTimeout(() => splash.remove(), 500);
-  }, 3000);
+  }, 1500);
 });
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/oquefazer/sw.js');
 }
 </script>
+
 </body>
 </html>
