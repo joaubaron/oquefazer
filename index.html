@@ -151,9 +151,8 @@ border-radius: 14px;
 padding: 10px 14px;
 margin-bottom: 10px;
 text-decoration: none;
-text-align: left;
-position: relative;
 overflow: hidden;
+position: relative;
 }
 .parceiro-card::before {
 content: '';
@@ -168,31 +167,19 @@ animation: shine 3.5s ease-in-out infinite;
 0% { left: -60%; }
 65%, 100% { left: 120%; }
 }
+.parceiro-linha {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
 .parceiro-label {
 font-size: 10px;
 color: #5a8a2a;
-display: block;
-margin-bottom: 3px;
 font-weight: 700;
 letter-spacing: 0.4px;
 text-transform: uppercase;
 }
-.parceiro-nome {
-font-size: 13px;
-font-weight: bold;
-color: #1a2a0a;
-display: block;
-margin-bottom: 3px;
-}
-.parceiro-link {
-font-size: 12px;
-color: #6eb233;
-font-weight: 700;
-}
 .parceiro-badge {
-position: absolute;
-top: 8px;
-right: 10px;
 background: rgba(110,178,51,0.12);
 color: #5a8a2a;
 font-size: 8px;
@@ -201,6 +188,24 @@ border-radius: 5px;
 padding: 2px 6px;
 letter-spacing: 0.5px;
 text-transform: uppercase;
+}
+.parceiro-nome {
+font-size: 13px;
+font-weight: bold;
+color: #1a2a0a;
+}
+.parceiro-acesse {
+display: flex;
+align-items: center;
+gap: 4px;
+font-size: 12px;
+color: #6eb233;
+font-weight: 700;
+white-space: nowrap;
+}
+.parceiro-acesse svg {
+width: 16px;
+height: 16px;
 }
 </style>
 </head>
@@ -247,10 +252,21 @@ transition: opacity 0.5s ease;
 
   <!-- PARCEIRO DA SEMANA -->
   <a href="https://www.instagram.com/innaturacomidadeverdade?igsh=bzJlemN1cXBjOGY4" target="_blank" class="parceiro-card">
-    <span class="parceiro-badge">Patrocinado</span>
-    <span class="parceiro-label">Parceiro da semana</span>
-    <span class="parceiro-nome">Inatura — Comida de Verdade</span>
-    <span class="parceiro-link">Ver no Instagram →</span>
+    <div class="parceiro-linha" style="margin-bottom:5px">
+      <span class="parceiro-label">Parceiro da semana</span>
+      <span class="parceiro-badge">Patrocinado</span>
+    </div>
+    <div class="parceiro-linha">
+      <span class="parceiro-nome">Inatura — Comida de Verdade</span>
+      <span class="parceiro-acesse">
+        Acesse
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="24" height="24" rx="6" fill="#6eb233"/>
+          <path d="M12 7.2C9.33 7.2 7.2 9.33 7.2 12C7.2 14.67 9.33 16.8 12 16.8C14.67 16.8 16.8 14.67 16.8 12C16.8 9.33 14.67 7.2 12 7.2ZM12 15.2C10.23 15.2 8.8 13.77 8.8 12C8.8 10.23 10.23 8.8 12 8.8C13.77 8.8 15.2 10.23 15.2 12C15.2 13.77 13.77 15.2 12 15.2Z" fill="white"/>
+          <circle cx="17" cy="7" r="1.2" fill="white"/>
+        </svg>
+      </span>
+    </div>
   </a>
 
   <div class="btn-group">
