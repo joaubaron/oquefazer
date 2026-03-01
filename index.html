@@ -129,6 +129,13 @@ padding: 14px 12px;
 font-size: 13px;
 white-space: nowrap;
 flex-shrink: 0;
+background: white;
+color: #6eb233;
+border: 1.5px solid #6eb233;
+}
+.evento-btn.ativo {
+background: #6eb233;
+color: white;
 }
 .evento-wrapper {
 margin-bottom: 10px;
@@ -233,13 +240,29 @@ width: auto;
 let categoriaSelecionada = '';
 
 function toggleEvento() {
+  const cats = document.querySelectorAll('.cat-btn');
   const wrapper = document.getElementById('eventoWrapper');
+  const btn = document.querySelector('.evento-btn');
   if (wrapper.style.display === 'none' || wrapper.style.display === '') {
     wrapper.style.display = 'block';
     document.getElementById('evento').focus();
+    btn.classList.add('ativo');
+    cats.forEach(b => {
+      b.classList.remove('ativo');
+      b.disabled = true;
+      b.style.opacity = '0.4';
+      b.style.cursor = 'not-allowed';
+    });
+    categoriaSelecionada = '';
   } else {
     wrapper.style.display = 'none';
     document.getElementById('evento').value = '';
+    btn.classList.remove('ativo');
+    cats.forEach(b => {
+      b.disabled = false;
+      b.style.opacity = '1';
+      b.style.cursor = 'pointer';
+    });
   }
 }
 
