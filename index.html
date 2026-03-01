@@ -346,12 +346,17 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 window.addEventListener('load', () => {
-  setTimeout(() => {
-    const splash = document.getElementById('splash');
-    splash.style.opacity = '0';
-    splash.style.pointerEvents = 'none';
-    setTimeout(() => splash.remove(), 500);
-  }, 3000);
+  const splash = document.getElementById('splash');
+  if (sessionStorage.getItem('splashVisto')) {
+    splash.remove();
+  } else {
+    sessionStorage.setItem('splashVisto', '1');
+    setTimeout(() => {
+      splash.style.opacity = '0';
+      splash.style.pointerEvents = 'none';
+      setTimeout(() => splash.remove(), 500);
+    }, 3000);
+  }
 });
 
 if ('serviceWorker' in navigator) {
