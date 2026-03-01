@@ -279,97 +279,86 @@ function toggleCategoria(btn, categoria) {
 }
 
 function buscar(periodo) {
-const cidade = document.getElementById("cidade").value.trim();
-if (!cidade) {
-document.getElementById('modal').style.display = 'flex';
-return;
-}
-
-localStorage.setItem('cidade', cidade);
-
-let tempo;
-if (periodo === 'hoje') {
-  tempo = 'hoje';
-} else if (periodo === 'fimdesemana') {
-  tempo = 'neste fim de semana (sexta, sábado e domingo)';
-} else {
-  tempo = 'nos próximos 7 dias a partir de hoje';
-}
-
-const eventoEspecifico = document.getElementById('evento').value.trim();
-
-let query;
-if (eventoEspecifico) {
-  query = `Buscar APENAS informações sobre: ${eventoEspecifico} em ${cidade} ${tempo}. Mostrar somente este evento. Não mostrar outros eventos. Informar: data, horário, local, descrição e links. Se não encontrar, informar claramente que não há informações confirmadas sobre este evento.`;
-} else {
-  const filtroCategoria = categoriaSelecionada ? ` Mostrar apenas eventos da categoria: ${categoriaSelecionada}.` : '';
-  query = `Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Bares, 🎶 Shows, 🎭 Cultura, 🌱 Natureza, 🎾 Esporte, 🛍️ Feiras. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente que não há eventos oficiais encontrados.${filtroCategoria}`;
-}
-
-const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
-location.href = url;
+  const cidade = document.getElementById("cidade").value.trim();
+  if (!cidade) {
+    document.getElementById('modal').style.display = 'flex';
+    return;
+  }
+  localStorage.setItem('cidade', cidade);
+  let tempo;
+  if (periodo === 'hoje') {
+    tempo = 'hoje';
+  } else if (periodo === 'fimdesemana') {
+    tempo = 'neste fim de semana (sexta, sábado e domingo)';
+  } else {
+    tempo = 'nos próximos 7 dias a partir de hoje';
+  }
+  const eventoEspecifico = document.getElementById('evento').value.trim();
+  let query;
+  if (eventoEspecifico) {
+    query = `Buscar APENAS informações sobre: ${eventoEspecifico} em ${cidade} ${tempo}. Mostrar somente este evento. Não mostrar outros eventos. Informar: data, horário, local, descrição e links. Se não encontrar, informar claramente que não há informações confirmadas sobre este evento.`;
+  } else {
+    const filtroCategoria = categoriaSelecionada ? ` Mostrar apenas eventos da categoria: ${categoriaSelecionada}.` : '';
+    query = `Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Bares, 🎶 Shows, 🎭 Cultura, 🌱 Natureza, 🎾 Esporte, 🛍️ Feiras. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente que não há eventos oficiais encontrados.${filtroCategoria}`;
+  }
+  const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
+  location.href = url;
 }
 
 function detectarCidade() {
-if (!navigator.geolocation) {
-alert('Geolocalização não suportada neste dispositivo.');
-return;
-}
-const btn = document.querySelector('.geo-btn');
-btn.textContent = '⏳';
-navigator.geolocation.getCurrentPosition(async (pos) => {
-const { latitude, longitude } = pos.coords;
-try {
-const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`);
-const data = await res.json();
-const cidade = data.address.city || data.address.town || data.address.village || data.address.county;
-if (cidade) {
-document.getElementById('cidade').value = cidade;
-localStorage.setItem('cidade', cidade);
-}
-} catch(e) {
-alert('Não foi possível detectar a cidade.');
-} finally {
-btn.textContent = '🔍';
-}
-}, () => {
-alert('Permissão de localização negada.');
-btn.textContent = '🔍';
-});
+  if (!navigator.geolocation) {
+    alert('Geolocalização não suportada neste dispositivo.');
+    return;
+  }
+  const btn = document.querySelector('.geo-btn');
+  btn.textContent = '⏳';
+  navigator.geolocation.getCurrentPosition(async (pos) => {
+    const { latitude, longitude } = pos.coords;
+    try {
+      const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`);
+      const data = await res.json();
+      const cidade = data.address.city || data.address.town || data.address.village || data.address.county;
+      if (cidade) {
+        document.getElementById('cidade').value = cidade;
+        localStorage.setItem('cidade', cidade);
+      }
+    } catch(e) {
+      alert('Não foi possível detectar a cidade.');
+    } finally {
+      btn.textContent = '🔍';
+    }
+  }, () => {
+    alert('Permissão de localização negada.');
+    btn.textContent = '🔍';
+  });
 }
 
 function compartilhar() {
-const texto = 'Descubra eventos na sua cidade! 👉 https://joaubaron.github.io/oquefazer/';
-if (navigator.share) {
-navigator.share({ text: texto });
-} else {
-navigator.clipboard.writeText(texto).then(() => alert('Link copiado!'));
+  const texto = 'Descubra eventos na sua cidade! 👉 https://joaubaron.github.io/oquefazer/';
+  if (navigator.share) {
+    navigator.share({ text: texto });
+  } else {
+    navigator.clipboard.writeText(texto).then(() => alert('Link copiado!'));
+  }
 }
-}
-</script>
 
-<script>
 window.addEventListener('DOMContentLoaded', () => {
   const ultima = localStorage.getItem('cidade');
   document.getElementById('cidade').value = ultima || '';
   document.getElementById('cidade').placeholder = ultima ? '' : 'Digite sua cidade';
 });
-</script>
 
-<script>
 window.addEventListener('load', () => {
-setTimeout(() => {
-const splash = document.getElementById('splash');
-splash.style.opacity = '0';
-splash.style.pointerEvents = 'none';
-setTimeout(() => splash.remove(), 500);
-}, 3000);
+  setTimeout(() => {
+    const splash = document.getElementById('splash');
+    splash.style.opacity = '0';
+    splash.style.pointerEvents = 'none';
+    setTimeout(() => splash.remove(), 500);
+  }, 3000);
 });
-</script>
 
-<script>
 if ('serviceWorker' in navigator) {
-navigator.serviceWorker.register('/oquefazer/sw.js');
+  navigator.serviceWorker.register('/oquefazer/sw.js');
 }
 </script>
 </body>
