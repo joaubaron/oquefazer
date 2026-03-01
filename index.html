@@ -20,36 +20,43 @@ body {
   align-items: flex-end;
   justify-content: center;
   height: 100vh;
-  padding-bottom: 6vh;
+  padding-bottom: 6.5vh;
   box-sizing: border-box;
   overflow-y: auto;
 }
 
 .container {
-  background: rgba(255,255,255,0.9);
-  padding: 18px 26px;
+  background: rgba(255,255,255,0.92);
+  padding: 16px 28px;
   border-radius: 25px;
   box-shadow: 0 25px 60px rgba(0,0,0,0.25);
   width: 90%;
   max-width: 420px;
   text-align: center;
   backdrop-filter: blur(6px);
+  transition: opacity 0.3s ease;
+}
+
+.container.loading {
+  opacity: 0.6;
+  pointer-events: none;
 }
 
 h3 {
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   font-size: 22px;
   color: #333;
 }
 
 .input-wrapper {
   position: relative;
+  margin-bottom: 0;
 }
 
 input {
   width: 100%;
-  padding: 11px;
-  padding-right: 48px;
+  padding: 10px;
+  padding-right: 46px;
   border-radius: 14px;
   border: 1px solid #ddd;
   font-size: 16px;
@@ -91,6 +98,17 @@ button:active {
   transform: scale(0.97);
 }
 
+.btn-group {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.btn-group button {
+  font-size: 13px;
+  padding: 8px;
+}
+
 .cat-group {
   display: flex;
   gap: 6px;
@@ -115,20 +133,34 @@ button:active {
   color: white;
 }
 
-.btn-group {
+.cidade-row {
   display: flex;
   gap: 8px;
-  margin-top: 10px;
+  margin-bottom: 10px;
+  align-items: center;
 }
 
-.btn-group button {
+.cidade-row .input-wrapper {
+  flex: 1;
+}
+
+.evento-btn {
+  width: auto;
+  padding: 10px 12px;
   font-size: 13px;
-  padding: 8px;
+  background: white;
+  color: #6eb233;
+  border: 1.5px solid #6eb233;
 }
 
-.loading {
-  opacity: 0.7;
-  pointer-events: none;
+.evento-btn.ativo {
+  background: #6eb233;
+  color: white;
+}
+
+.evento-wrapper {
+  margin-bottom: 10px;
+  display: none;
 }
 
 #splash {
@@ -141,9 +173,9 @@ button:active {
   z-index: 9999;
   transition: opacity 0.5s ease;
 }
-
 </style>
 </head>
+
 <body>
 
 <div id="splash">
@@ -153,31 +185,38 @@ button:active {
 <div class="container">
 <h3>Eventos perto de você</h3>
 
-<div class="input-wrapper">
-  <input type="text" id="cidade" placeholder="Digite sua cidade">
-  <button class="geo-btn" onclick="detectarCidade()">📍</button>
+<div class="cidade-row">
+  <div class="input-wrapper">
+    <input type="text" id="cidade">
+    <button type="button" class="geo-btn" onclick="detectarCidade()">📍</button>
+  </div>
+  <button type="button" class="evento-btn" onclick="toggleEvento()">🎫 Evento</button>
+</div>
+
+<div class="evento-wrapper" id="eventoWrapper">
+  <input type="text" id="evento" placeholder="Nome do evento ou artista">
 </div>
 
 <div class="cat-group">
-  <button class="cat-btn" onclick="toggleCategoria(this,'Bares')">🍻 Bares</button>
-  <button class="cat-btn" onclick="toggleCategoria(this,'Shows')">🎶 Shows</button>
-  <button class="cat-btn" onclick="toggleCategoria(this,'Cultura')">🎭 Cultura</button>
+  <button type="button" class="cat-btn" onclick="toggleCategoria(this,'Bares')">🍻 Bares</button>
+  <button type="button" class="cat-btn" onclick="toggleCategoria(this,'Shows')">🎶 Shows</button>
+  <button type="button" class="cat-btn" onclick="toggleCategoria(this,'Cultura')">🎭 Cultura</button>
 </div>
 
 <div class="cat-group">
-  <button class="cat-btn" onclick="toggleCategoria(this,'Natureza')">🌱 Natureza</button>
-  <button class="cat-btn" onclick="toggleCategoria(this,'Esporte')">🎾 Esporte</button>
-  <button class="cat-btn" onclick="toggleCategoria(this,'Feiras')">🛍️ Feiras</button>
+  <button type="button" class="cat-btn" onclick="toggleCategoria(this,'Natureza')">🌱 Natureza</button>
+  <button type="button" class="cat-btn" onclick="toggleCategoria(this,'Esporte')">🎾 Esporte</button>
+  <button type="button" class="cat-btn" onclick="toggleCategoria(this,'Feiras')">🛍️ Feiras</button>
 </div>
 
 <div class="btn-group">
-  <button onclick="buscar('hoje')">Hoje</button>
-  <button onclick="buscar('fimdesemana')">Fim de semana</button>
-  <button onclick="buscar('7dias')">7 dias</button>
+  <button type="button" onclick="buscar('hoje')">Hoje</button>
+  <button type="button" onclick="buscar('fimdesemana')">Fim de semana</button>
+  <button type="button" onclick="buscar('7dias')">7 dias</button>
 </div>
 
 <p style="margin-top:12px;font-size:13px;color:#555;">
-Escolha categoria e período
+Escolha categoria e período, ou busque evento específico
 </p>
 
 </div>
@@ -185,11 +224,43 @@ Escolha categoria e período
 <script>
 let categoriaSelecionada = '';
 
-function toggleCategoria(btn, categoria) {
-  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('ativo'));
-  if (categoriaSelecionada === categoria) {
+function toggleEvento() {
+  const cats = document.querySelectorAll('.cat-btn');
+  const wrapper = document.getElementById('eventoWrapper');
+  const btn = document.querySelector('.evento-btn');
+
+  if (wrapper.style.display === 'none' || wrapper.style.display === '') {
+    wrapper.style.display = 'block';
+    btn.classList.add('ativo');
+    document.getElementById('evento').focus();
+
+    cats.forEach(b => {
+      b.classList.remove('ativo');
+      b.disabled = true;
+      b.style.opacity = '0.4';
+    });
+
     categoriaSelecionada = '';
   } else {
+    wrapper.style.display = 'none';
+    btn.classList.remove('ativo');
+    document.getElementById('evento').value = '';
+
+    cats.forEach(b => {
+      b.disabled = false;
+      b.style.opacity = '1';
+    });
+  }
+}
+
+function toggleCategoria(btn, categoria) {
+  const todos = document.querySelectorAll('.cat-btn');
+
+  if (categoriaSelecionada === categoria) {
+    btn.classList.remove('ativo');
+    categoriaSelecionada = '';
+  } else {
+    todos.forEach(b => b.classList.remove('ativo'));
     btn.classList.add('ativo');
     categoriaSelecionada = categoria;
   }
@@ -204,23 +275,31 @@ function buscar(periodo) {
 
   document.querySelector('.container').classList.add('loading');
 
-  let tempo = periodo === 'hoje'
-    ? 'hoje'
-    : periodo === 'fimdesemana'
-    ? 'neste fim de semana'
-    : 'nos próximos 7 dias';
+  let tempo =
+    periodo === 'hoje'
+      ? 'hoje'
+      : periodo === 'fimdesemana'
+      ? 'neste fim de semana (sexta, sábado e domingo)'
+      : 'nos próximos 7 dias a partir de hoje';
 
-  const filtroCategoria = categoriaSelecionada 
-    ? ` Mostrar apenas eventos da categoria ${categoriaSelecionada}.` 
-    : '';
+  const eventoEspecifico = document.getElementById('evento').value.trim();
+  let query;
 
-  const query = `Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica. Não invente eventos. Mostrar data, horário, local e link.${filtroCategoria}`;
+  if (eventoEspecifico) {
+    query = `Buscar APENAS informações sobre ${eventoEspecifico} em ${cidade} ${tempo}. Mostrar somente este evento. Informar data, horário, local e links oficiais. Se não houver confirmação, informar claramente.`;
+  } else {
+    const filtroCategoria = categoriaSelecionada
+      ? ` Mostrar apenas eventos da categoria ${categoriaSelecionada}.`
+      : '';
+
+    query = `Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica. Não invente eventos. Mostrar data, horário, local e link.${filtroCategoria}`;
+  }
 
   const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
 
   setTimeout(() => {
     window.location.href = url;
-  }, 800);
+  }, 700);
 }
 
 function detectarCidade() {
@@ -239,6 +318,7 @@ function detectarCidade() {
         document.getElementById('cidade').value = cidade;
       }
     } catch(e) {}
+
     btn.textContent = '📍';
   }, () => {
     btn.textContent = '📍';
