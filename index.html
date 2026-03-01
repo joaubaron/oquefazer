@@ -15,7 +15,7 @@ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-
 background: url('fundo.jpg') center/cover no-repeat;
 display: flex;
 align-items: flex-end;
-padding-bottom: 4vh;
+padding-bottom: 75px;
 justify-content: center;
 height: 100vh;
 box-sizing: border-box;
@@ -99,7 +99,7 @@ margin-bottom: 10px;
 }
 .cat-btn {
 flex: 1;
-font-size: 12px;
+font-size: 11px;
 padding: 6px 2px;
 background: white;
 color: #6eb233;
@@ -112,6 +112,30 @@ width: auto;
 .cat-btn.ativo {
 background: #6eb233;
 color: white;
+}
+.cidade-row {
+display: flex;
+gap: 8px;
+margin-bottom: 10px;
+align-items: center;
+}
+.cidade-row .input-wrapper {
+flex: 1;
+margin-bottom: 0;
+}
+.evento-btn {
+width: auto;
+padding: 14px 12px;
+font-size: 13px;
+white-space: nowrap;
+flex-shrink: 0;
+}
+.evento-wrapper {
+margin-bottom: 10px;
+display: none;
+}
+.evento-wrapper input {
+padding-right: 14px;
 }
 </style>
 </head>
@@ -135,9 +159,15 @@ transition: opacity 0.5s ease;
 <div class="container">
 <h3>Eventos perto de você</h3>
 <form onsubmit="return false;">
-  <div class="input-wrapper">
-    <input type="text" id="cidade">
-    <button type="button" class="geo-btn" onclick="detectarCidade()" title="Detectar minha cidade">🔍</button>
+  <div class="cidade-row">
+    <div class="input-wrapper">
+      <input type="text" id="cidade">
+      <button type="button" class="geo-btn" onclick="detectarCidade()" title="Detectar minha cidade">🔍</button>
+    </div>
+    <button type="button" class="evento-btn" onclick="toggleEvento()">🔎 Evento</button>
+  </div>
+  <div class="evento-wrapper" id="eventoWrapper">
+    <input type="text" id="evento" placeholder="Nome do evento ou artista">
   </div>
   <div class="cat-group">
     <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Bares')">🍻 Bares</button>
@@ -147,7 +177,7 @@ transition: opacity 0.5s ease;
   <div class="cat-group">
     <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Natureza')">🌱 Natureza</button>
     <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Esporte')">🎾 Esporte</button>
-    <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Feiras')">🛍️ Feiras</button>
+    <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Feiras')">🎪 Feiras</button>
   </div>
   <div class="btn-group">
     <button type="button" onclick="buscar('hoje')" style="flex:1">Hoje</button>
@@ -155,7 +185,7 @@ transition: opacity 0.5s ease;
     <button type="button" onclick="buscar('7dias')" style="flex:1">7 dias</button>
   </div>
   <p style="margin-top: 10px; font-size: 14px; color: #555;">
-    Escolha categoria e período, ou busque com IA
+    IA pode trazer eventos diferentes a cada busca
   </p>
   <p style="margin-top: 25px; font-size: 14px; color: #555;">
     <a href="https://www.instagram.com/joseaugustobaron/" target="_blank" style="color: #6eb233; text-decoration: none;">@joseaugustobaron</a>
@@ -202,6 +232,17 @@ width: auto;
 <script>
 let categoriaSelecionada = '';
 
+function toggleEvento() {
+  const wrapper = document.getElementById('eventoWrapper');
+  if (wrapper.style.display === 'none' || wrapper.style.display === '') {
+    wrapper.style.display = 'block';
+    document.getElementById('evento').focus();
+  } else {
+    wrapper.style.display = 'none';
+    document.getElementById('evento').value = '';
+  }
+}
+
 function toggleCategoria(btn, categoria) {
   const todos = document.querySelectorAll('.cat-btn');
   if (categoriaSelecionada === categoria) {
@@ -233,8 +274,10 @@ if (periodo === 'hoje') {
 }
 
 const filtroCategoria = categoriaSelecionada ? ` Mostrar apenas eventos da categoria: ${categoriaSelecionada}.` : '';
+const eventoEspecifico = document.getElementById('evento').value.trim();
+const filtroEvento = eventoEspecifico ? ` Buscar especificamente pelo evento ou artista: ${eventoEspecifico}.` : '';
 
-const query = `Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Bares, 🎶 Shows, 🎭 Cultura, 🌱 Natureza, 🎾 Esporte, 🛍️ Feiras. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente que não há eventos oficiais encontrados.${filtroCategoria}`;
+const query = `Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Bares, 🎶 Shows, 🎭 Cultura, 🌱 Natureza, 🎾 Esporte, 🎪 Feiras. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente que não há eventos oficiais encontrados.${filtroCategoria}${filtroEvento}`;
 const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
 location.href = url;
 }
@@ -251,7 +294,9 @@ const { latitude, longitude } = pos.coords;
 try {
 const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`);
 const data = await res.json();
-const cidade = data.address.city || data.address.town || data.address.village || data.address.county;
+const bairro = data.address.suburb || data.address.neighbourhood || '';
+const municipio = data.address.city || data.address.town || data.address.village || data.address.county || '';
+const cidade = bairro ? `${bairro}, ${municipio}` : municipio;
 if (cidade) {
 document.getElementById('cidade').value = cidade;
 localStorage.setItem('cidade', cidade);
