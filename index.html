@@ -305,72 +305,110 @@ transition: opacity 0.5s ease;
   </div>
 
   <!-- ========================================
-       PARCEIRO DO MÊS — R$ 199
-       Trocar: href, emoji após "Parceiro do mês" e parceiro-nome
-       Emojis disponíveis: 🍻 🎶 🎭 🌱 🎾 🛍️
-       ======================================== -->
-  <a href="https://www.instagram.com" target="_blank" class="parceiro-card">
-    <div class="parceiro-linha" style="margin-bottom:5px">
-      <span class="parceiro-label">Parceiro do mês <span style="font-size:16px;line-height:1;vertical-align:middle;">🛍️</span></span>
-      <span class="parceiro-badge">Patrocinado</span>
-    </div>
-    <div class="parceiro-linha">
-      <span class="parceiro-nome">Espaço disponível. Anuncie aqui</span>
-      <span class="parceiro-acesse">
-        Acesse
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <radialGradient id="ig1" cx="30%" cy="107%" r="150%">
-              <stop offset="0%" stop-color="#fdf497"/>
-              <stop offset="5%" stop-color="#fdf497"/>
-              <stop offset="45%" stop-color="#fd5949"/>
-              <stop offset="60%" stop-color="#d6249f"/>
-              <stop offset="90%" stop-color="#285AEB"/>
-            </radialGradient>
-          </defs>
-          <rect width="24" height="24" rx="6" fill="url(#ig1)"/>
-          <path d="M12 7.2C9.33 7.2 7.2 9.33 7.2 12C7.2 14.67 9.33 16.8 12 16.8C14.67 16.8 16.8 14.67 16.8 12C16.8 9.33 14.67 7.2 12 7.2ZM12 15.2C10.23 15.2 8.8 13.77 8.8 12C8.8 10.23 10.23 8.8 12 8.8C13.77 8.8 15.2 10.23 15.2 12C15.2 13.77 13.77 15.2 12 15.2Z" fill="white"/>
-          <circle cx="17" cy="7" r="1.2" fill="white"/>
-        </svg>
-      </span>
+     PARCEIRO DO MÊS — R$ 199
+     ID: parceiromes (NÃO MUDAR)
+     Trocar: href, texto do .parceiro-nome e emoji
+     Emojis: 🍻 🎶 🎭 🌱 🎾 🛍️
+     ======================================== -->
+<a href="https://www.instagram.com" 
+   target="_blank" 
+   class="parceiro-card"
+   onclick="gtag('event', 'clique_anuncio', {
+     'anunciante_id': 'parceiromes',
+     'anunciante_nome': this.querySelector('.parceiro-nome').innerText,
+     'local': 'card_principal',
+     'periodo': 'mensal',
+     'data_clique': new Date().toISOString().split('T')[0]
+   });">
+  <div class="parceiro-linha" style="margin-bottom:5px">
+    <span class="parceiro-label">Parceiro do mês <span style="font-size:16px;line-height:1;vertical-align:middle;">🛍️</span></span>
+    <span class="parceiro-badge">Patrocinado</span>
+  </div>
+  <div class="parceiro-linha">
+    <span class="parceiro-nome">Espaço disponível. Anuncie aqui</span>
+    <span class="parceiro-acesse">
+      Acesse
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="ig1" cx="30%" cy="107%" r="150%">
+            <stop offset="0%" stop-color="#fdf497"/>
+            <stop offset="5%" stop-color="#fdf497"/>
+            <stop offset="45%" stop-color="#fd5949"/>
+            <stop offset="60%" stop-color="#d6249f"/>
+            <stop offset="90%" stop-color="#285AEB"/>
+          </radialGradient>
+        </defs>
+        <rect width="24" height="24" rx="6" fill="url(#ig1)"/>
+        <path d="M12 7.2C9.33 7.2 7.2 9.33 7.2 12C7.2 14.67 9.33 16.8 12 16.8C14.67 16.8 16.8 14.67 16.8 12C16.8 9.33 14.67 7.2 12 7.2ZM12 15.2C10.23 15.2 8.8 13.77 8.8 12C8.8 10.23 10.23 8.8 12 8.8C13.77 8.8 15.2 10.23 15.2 12C15.2 13.77 13.77 15.2 12 15.2Z" fill="white"/>
+        <circle cx="17" cy="7" r="1.2" fill="white"/>
+      </svg>
+    </span>
+  </div>
+</a>
+
+<!-- ========================================
+     PARCEIROS DA SEMANA — R$ 79 cada
+     IDs: parceirosemana1, parceirosemana2, parceirosemana3 (NÃO MUDAR)
+     Trocar em cada card: href, .semana-nome e .semana-emoji
+     Emojis: 🍻 🎶 🎭 🌱 🎾 🛍️
+     ======================================== -->
+<div class="semana-group">
+
+  <!-- PARCEIRO SEMANA 1 -->
+  <a href="https://www.instagram.com" 
+     target="_blank" 
+     class="semana-card"
+     onclick="gtag('event', 'clique_anuncio', {
+       'anunciante_id': 'parceirosemana1',
+       'anunciante_nome': this.querySelector('.semana-nome').innerText,
+       'local': 'card_semana_esquerda',
+       'periodo': 'semanal',
+       'data_clique': new Date().toISOString().split('T')[0]
+     });">
+    <span class="semana-badge">Patrocinado</span>
+    <div class="semana-linha">
+      <span class="semana-nome">Anuncie</span>
+      <span class="semana-emoji">🍻</span>
     </div>
   </a>
 
-  <!-- ========================================
-       PARCEIROS DA SEMANA — R$ 79 cada
-       Trocar em cada card: href, semana-nome e semana-emoji
-       Emojis disponíveis: 🍻 🎶 🎭 🌱 🎾 🛍️
-       ======================================== -->
-  <div class="semana-group">
+  <!-- PARCEIRO SEMANA 2 -->
+  <a href="https://www.instagram.com" 
+     target="_blank" 
+     class="semana-card"
+     onclick="gtag('event', 'clique_anuncio', {
+       'anunciante_id': 'parceirosemana2',
+       'anunciante_nome': this.querySelector('.semana-nome').innerText,
+       'local': 'card_semana_meio',
+       'periodo': 'semanal',
+       'data_clique': new Date().toISOString().split('T')[0]
+     });">
+    <span class="semana-badge">Patrocinado</span>
+    <div class="semana-linha">
+      <span class="semana-nome">Anuncie</span>
+      <span class="semana-emoji">🎶</span>
+    </div>
+  </a>
 
-    <!-- SEMANA CARD 1 -->
-    <a href="https://www.instagram.com" target="_blank" class="semana-card">
-      <span class="semana-badge">Patrocinado</span>
-      <div class="semana-linha">
-        <span class="semana-nome">Anuncie</span>
-        <span class="semana-emoji">🍻</span>
-      </div>
-    </a>
+  <!-- PARCEIRO SEMANA 3 -->
+  <a href="https://www.instagram.com" 
+     target="_blank" 
+     class="semana-card"
+     onclick="gtag('event', 'clique_anuncio', {
+       'anunciante_id': 'parceirosemana3',
+       'anunciante_nome': this.querySelector('.semana-nome').innerText,
+       'local': 'card_semana_direita',
+       'periodo': 'semanal',
+       'data_clique': new Date().toISOString().split('T')[0]
+     });">
+    <span class="semana-badge">Patrocinado</span>
+    <div class="semana-linha">
+      <span class="semana-nome">Anuncie</span>
+      <span class="semana-emoji">🎭</span>
+    </div>
+  </a>
 
-    <!-- SEMANA CARD 2 -->
-    <a href="https://www.instagram.com" target="_blank" class="semana-card">
-      <span class="semana-badge">Patrocinado</span>
-      <div class="semana-linha">
-        <span class="semana-nome">Anuncie</span>
-        <span class="semana-emoji">🎶</span>
-      </div>
-    </a>
-
-    <!-- SEMANA CARD 3 -->
-    <a href="https://www.instagram.com" target="_blank" class="semana-card">
-      <span class="semana-badge">Patrocinado</span>
-      <div class="semana-linha">
-        <span class="semana-nome">Anuncie</span>
-        <span class="semana-emoji">🎭</span>
-      </div>
-    </a>
-
-  </div>
+</div>
 
   <div class="btn-group">
     <button type="button" onclick="buscar('hoje')" style="flex:1">Hoje</button>
