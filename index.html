@@ -321,111 +321,111 @@ transition: opacity 0.5s ease;
 <!--       PARCEIRO DO MÊS - R$ 199           -->
 <!-- ======================================== -->
 
-<!-- 1️⃣ LINK DO ANUNCIANTE -->
+<!--
+  ✏️ QUANDO TROCAR O PARCEIRO DO MÊS, ATUALIZE:
+     1. href          → link do Instagram do novo parceiro
+     2. anunciante_id → padrão: 'mensal_nomeparceiro'
+     3. Nome visível  → <span class="parceiro-nome">
+     4. Emoji         → linha do <span class="parceiro-label">
+     5. Horário       → <span class="parceiro-acesse">
+-->
 <a href="https://www.instagram.com/joseaugustobaron/" 
 target="_blank" 
 class="parceiro-card"
 onclick="gtag('event', 'clique_anuncio', {
-'anunciante_id': 'parceiromes',
+'anunciante_id': 'mensal_josebaron',
 'anunciante_nome': this.querySelector('.parceiro-nome').innerText,
 'local': 'card_principal',
 'periodo': 'mensal',
 'data_clique': new Date().toISOString().split('T')[0]
 });">
 
-<div class="parceiro-linha" style="margin-bottom:5px">
-<span class="parceiro-label">Parceiro do mês 
-<!-- 2️⃣ EMOJI e NOME PARCEIRO ACIMA (🍻 🎶 🎭 🌱 🎾 🛍️ 🎤 🎬 🎨 🎪 🎟️ 🏆 📚 🍔 🚴 🏛️) -->
-<span style="font-size:16px;line-height:1;vertical-align:middle;">🍔</span>
-</span>
-<span class="parceiro-badge">Patrocinado</span>
-</div>
+  <div class="parceiro-linha" style="margin-bottom:5px">
+    <span class="parceiro-label">Parceiro do mês
+      <span style="font-size:16px;line-height:1;vertical-align:middle;">🍔</span><!-- 4️⃣ EMOJI -->
+    </span>
+    <span class="parceiro-badge">Patrocinado</span>
+  </div>
 
-<div class="parceiro-linha">
-<!-- 3️⃣ NOME DO ANUNCIANTE -->
-<span class="parceiro-nome">José Augusto Baron</span>
-<span class="parceiro-acesse">
-Qua a Dom - 18:30 às 23:00
-</span>
-</div>
+  <div class="parceiro-linha">
+    <span class="parceiro-nome">José Augusto Baron</span><!-- 3️⃣ NOME -->
+    <span class="parceiro-acesse">Qua a Dom - 18:30 às 23:00</span><!-- 5️⃣ HORÁRIO -->
+  </div>
+
 </a>
+
 
 <!-- ======================================== -->
 <!--    PARCEIROS DA SEMANA - R$ 79 cada      -->
 <!-- ======================================== -->
 <div class="semana-group">
 
+
 <!-- ======================================== -->
 <!--  PARCEIRO SEMANA 1 - ESQUERDA            -->
+<!-- ✏️ Atualize: href | anunciante_id → 'semana1_nomeparceiro' | semana-nome | semana-emoji -->
 <!-- ======================================== -->
-
-<!-- 1️⃣ LINK DO ANUNCIANTE 1 -->
 <a href="https://www.instagram.com/mycigarapp/" 
 target="_blank" 
 class="semana-card"
 onclick="gtag('event', 'clique_anuncio', {
-'anunciante_id': 'parceirosemana1',
+'anunciante_id': 'semana1_mycigar',
 'anunciante_nome': this.querySelector('.semana-nome').innerText,
 'local': 'card_semana_esquerda',
 'periodo': 'semanal',
 'data_clique': new Date().toISOString().split('T')[0]
 });">
-<span class="semana-badge">Patrocinado</span>
-<div class="semana-linha">
-<!-- 3️⃣ NOME DO ANUNCIANTE 1 -->
-<span class="semana-nome">Mycigar</span>
-<!-- 2️⃣ EMOJI ANUNCIANTE 1 (🍻 🎶 🎭 🌱 🎾 🛍️ 🎤 🎬 🎨 🎪 🎟️ 🏆 📚 🍔 🚴 🏛️) -->
-<span class="semana-emoji">🍻</span>
-</div>
+  <span class="semana-badge">Patrocinado</span>
+  <div class="semana-linha">
+    <span class="semana-nome">Mycigar</span><!-- ✏️ NOME -->
+    <span class="semana-emoji">🍻</span><!-- ✏️ EMOJI -->
+  </div>
 </a>
+
 
 <!-- ======================================== -->
 <!--  PARCEIRO SEMANA 2 - MEIO                -->
+<!-- ✏️ Atualize: href | anunciante_id → 'semana2_nomeparceiro' | semana-nome | semana-emoji -->
 <!-- ======================================== -->
-
-<!-- 1️⃣ LINK DO ANUNCIANTE 2 -->
 <a href="https://www.instagram.com/minhascarnivoras/" 
 target="_blank" 
 class="semana-card"
 onclick="gtag('event', 'clique_anuncio', {
-'anunciante_id': 'parceirosemana2',
+'anunciante_id': 'semana2_carnivoras',
 'anunciante_nome': this.querySelector('.semana-nome').innerText,
 'local': 'card_semana_meio',
 'periodo': 'semanal',
 'data_clique': new Date().toISOString().split('T')[0]
 });">
-<span class="semana-badge">Patrocinado</span>
-<div class="semana-linha">
-<!-- 3️⃣ NOME DO ANUNCIANTE 2 -->
-<span class="semana-nome">Carnívoras</span>
-<!-- 2️⃣ EMOJI ANUNCIANTE 2 (🍻 🎶 🎭 🌱 🎾 🛍️ 🎤 🎬 🎨 🎪 🎟️ 🏆 📚 🍔 🚴 🏛️) -->
-<span class="semana-emoji">🎶</span>
-</div>
+  <span class="semana-badge">Patrocinado</span>
+  <div class="semana-linha">
+    <span class="semana-nome">Carnívoras</span><!-- ✏️ NOME -->
+    <span class="semana-emoji">🎶</span><!-- ✏️ EMOJI -->
+  </div>
 </a>
+
 
 <!-- ======================================== -->
 <!--  PARCEIRO SEMANA 3 - DIREITA             -->
+<!-- ✏️ Atualize: href | anunciante_id → 'semana3_nomeparceiro' | semana-nome | semana-emoji -->
 <!-- ======================================== -->
-
-<!-- 1️⃣ LINK DO ANUNCIANTE 3 -->
 <a href="https://www.instagram.com/feitonaminhacozinha/" 
 target="_blank" 
 class="semana-card"
 onclick="gtag('event', 'clique_anuncio', {
-'anunciante_id': 'parceirosemana3',
+'anunciante_id': 'semana3_cozinha',
 'anunciante_nome': this.querySelector('.semana-nome').innerText,
 'local': 'card_semana_direita',
 'periodo': 'semanal',
 'data_clique': new Date().toISOString().split('T')[0]
 });">
-<span class="semana-badge">Patrocinado</span>
-<div class="semana-linha">
-<!-- 3️⃣ NOME DO ANUNCIANTE 3 -->
-<span class="semana-nome">Minha Cozinha</span>
-<!-- 2️⃣ EMOJI ANUNCIANTE 3 (🍻 🎶 🎭 🌱 🎾 🛍️ 🎤 🎬 🎨 🎪 🎟️ 🏆 📚 🍔 🚴 🏛️) -->
-<span class="semana-emoji">🎭</span>
-</div>
+  <span class="semana-badge">Patrocinado</span>
+  <div class="semana-linha">
+    <span class="semana-nome">Minha Cozinha</span><!-- ✏️ NOME -->
+    <span class="semana-emoji">🎭</span><!-- ✏️ EMOJI -->
+  </div>
 </a>
+
 
 </div>
 
