@@ -4,16 +4,13 @@
 <meta name="theme-color" content="#000000">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-
 <link rel="manifest" href="./manifest.json">
 <link rel="icon" href="icone.png">
 <link rel="apple-touch-icon" href="icone.png">
 <link rel="preload" as="image" href="fundo.jpg">
-
 <title>Oquefazer</title>
 <meta name="description" content="Oquefazer - Eventos reais na sua cidade.">
 <link rel="canonical" href="https://joaubaron.github.io/oquefazer">
-
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FFT1XLDQD"></script>
 <script>
@@ -22,40 +19,37 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-1FFT1XLDQD');
 </script>
-
 <style>
-
 /* BLOQUEIA PULL TO REFRESH */
-html {
-  height: 100%;
-  overscroll-behavior-y: none;
+html, body {
+height: 100%;
+margin: 0;
+position: fixed;     /* 👈 trava o body no iOS */
+width: 100%;
+overflow: hidden;    /* 👈 impede bounce */
+overscroll-behavior-y: none;
 }
-
 body {
-  margin: 0;
-  height: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-  background: url('fundo.jpg') center/cover no-repeat;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  box-sizing: border-box;
-  overflow: hidden;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+background: url('fundo.jpg') center/cover no-repeat;
+display: flex;
+align-items: flex-end;
+justify-content: center;
+box-sizing: border-box;
 }
-
-/* SCROLL FICA NA CONTAINER */
+/* SCROLL FICA SÓ NA CONTAINER */
 .container {
-  background: rgba(255, 255, 255, 0.85);
-  padding: 10px 30px;
-  border-radius: 25px;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.25);
-  width: 90%;
-  max-width: 420px;
-  text-align: center;
-  padding-bottom: 6.5vh;
-  max-height: 90vh;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+background: rgba(255, 255, 255, 0.85);
+padding: 10px 30px;
+border-radius: 25px;
+box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+width: 90%;
+max-width: 420px;
+text-align: center;
+padding-bottom: 6.5vh;
+height: 90vh;          /* 👈 importante */
+overflow-y: auto;
+-webkit-overflow-scrolling: touch;
 }
 h3 {
 margin-bottom: 10px;
@@ -299,26 +293,26 @@ transition: opacity 0.5s ease;
 <div class="container">
 <h3>O que fazer perto de você?</h3>
 <div>
-  <div class="cidade-row">
-    <div class="input-wrapper">
-      <input type="text" id="cidade">
-      <button type="button" class="geo-btn" onclick="detectarCidade()" title="Detectar minha cidade">🔍</button>
-    </div>
-    <button type="button" class="evento-btn" onclick="toggleEvento()">🎫 Evento</button>
-  </div>
-  <div class="evento-wrapper" id="eventoWrapper">
-    <input type="text" id="evento" placeholder="Nome do evento ou artista">
-  </div>
-  <div class="cat-group">
-    <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Bares')">🍻 Bares</button>
-    <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Shows')">🎶 Shows</button>
-    <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Cultura')">🎭 Cultura</button>
-  </div>
-  <div class="cat-group">
-    <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Natureza')">🌱 Natureza</button>
-    <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Esporte')">🎾 Esporte</button>
-    <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Feiras')">🛍️ Feiras</button>
-  </div>
+<div class="cidade-row">
+<div class="input-wrapper">
+<input type="text" id="cidade">
+<button type="button" class="geo-btn" onclick="detectarCidade()" title="Detectar minha cidade">🔍</button>
+</div>
+<button type="button" class="evento-btn" onclick="toggleEvento()">🎫 Evento</button>
+</div>
+<div class="evento-wrapper" id="eventoWrapper">
+<input type="text" id="evento" placeholder="Nome do evento ou artista">
+</div>
+<div class="cat-group">
+<button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Bares')">🍻 Bares</button>
+<button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Shows')">🎶 Shows</button>
+<button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Cultura')">🎭 Cultura</button>
+</div>
+<div class="cat-group">
+<button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Natureza')">🌱 Natureza</button>
+<button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Esporte')">🎾 Esporte</button>
+<button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Feiras')">🛍️ Feiras</button>
+</div>
 
 <!-- ======================================== -->
 <!--       PARCEIRO DO MÊS - R$ 199           -->
@@ -326,30 +320,30 @@ transition: opacity 0.5s ease;
 
 <!-- 1️⃣ LINK DO ANUNCIANTE -->
 <a href="https://www.instagram.com/joseaugustobaron/" 
-   target="_blank" 
-   class="parceiro-card"
-   onclick="gtag('event', 'clique_anuncio', {
-     'anunciante_id': 'parceiromes',
-     'anunciante_nome': this.querySelector('.parceiro-nome').innerText,
-     'local': 'card_principal',
-     'periodo': 'mensal',
-     'data_clique': new Date().toISOString().split('T')[0]
-   });">
-  
-  <div class="parceiro-linha" style="margin-bottom:5px">
-    <span class="parceiro-label">Parceiro do mês 
-      <!-- 2️⃣ EMOJI e NOME PARCEIRO ACIMA (🍻 🎶 🎭 🌱 🎾 🛍️ 🎤 🎬 🎨 🎪 🎟️ 🏆 📚 🍔 🚴 🏛️) -->
-      <span style="font-size:16px;line-height:1;vertical-align:middle;">🛍️</span>
-    </span>
-    <span class="parceiro-badge">Patrocinado</span>
-  </div>
-  
-  <div class="parceiro-linha">
-    <!-- 3️⃣ NOME DO ANUNCIANTE -->
-    <span class="parceiro-nome">José Augusto Baron</span>
-    <span class="parceiro-acesse">
-      Qua a Dom - 18:30 às 23:00
-    </span>
+target="_blank" 
+class="parceiro-card"
+onclick="gtag('event', 'clique_anuncio', {
+'anunciante_id': 'parceiromes',
+'anunciante_nome': this.querySelector('.parceiro-nome').innerText,
+'local': 'card_principal',
+'periodo': 'mensal',
+'data_clique': new Date().toISOString().split('T')[0]
+});">
+
+<div class="parceiro-linha" style="margin-bottom:5px">
+<span class="parceiro-label">Parceiro do mês 
+<!-- 2️⃣ EMOJI e NOME PARCEIRO ACIMA (🍻 🎶 🎭 🌱 🎾 🛍️ 🎤 🎬 🎨 🎪 🎟️ 🏆 📚 🍔 🚴 🏛️) -->
+<span style="font-size:16px;line-height:1;vertical-align:middle;">🛍️</span>
+</span>
+<span class="parceiro-badge">Patrocinado</span>
+</div>
+
+<div class="parceiro-linha">
+<!-- 3️⃣ NOME DO ANUNCIANTE -->
+<span class="parceiro-nome">José Augusto Baron</span>
+<span class="parceiro-acesse">
+Qua a Dom - 18:30 às 23:00
+</span>
 </div>
 </a>
 
@@ -358,93 +352,93 @@ transition: opacity 0.5s ease;
 <!-- ======================================== -->
 <div class="semana-group">
 
-  <!-- ======================================== -->
-  <!--  PARCEIRO SEMANA 1 - ESQUERDA            -->
-  <!-- ======================================== -->
-  
-  <!-- 1️⃣ LINK DO ANUNCIANTE 1 -->
-  <a href="https://www.instagram.com/mycigarapp/" 
-     target="_blank" 
-     class="semana-card"
-     onclick="gtag('event', 'clique_anuncio', {
-       'anunciante_id': 'parceirosemana1',
-       'anunciante_nome': this.querySelector('.semana-nome').innerText,
-       'local': 'card_semana_esquerda',
-       'periodo': 'semanal',
-       'data_clique': new Date().toISOString().split('T')[0]
-     });">
-    <span class="semana-badge">Patrocinado</span>
-    <div class="semana-linha">
-      <!-- 3️⃣ NOME DO ANUNCIANTE 1 -->
-      <span class="semana-nome">Mycigar</span>
-      <!-- 2️⃣ EMOJI ANUNCIANTE 1 (🍻 🎶 🎭 🌱 🎾 🛍️ 🎤 🎬 🎨 🎪 🎟️ 🏆 📚 🍔 🚴 🏛️) -->
-      <span class="semana-emoji">🍻</span>
-    </div>
-  </a>
+<!-- ======================================== -->
+<!--  PARCEIRO SEMANA 1 - ESQUERDA            -->
+<!-- ======================================== -->
 
-  <!-- ======================================== -->
-  <!--  PARCEIRO SEMANA 2 - MEIO                -->
-  <!-- ======================================== -->
-  
-  <!-- 1️⃣ LINK DO ANUNCIANTE 2 -->
-  <a href="https://www.instagram.com/minhascarnivoras/" 
-     target="_blank" 
-     class="semana-card"
-     onclick="gtag('event', 'clique_anuncio', {
-       'anunciante_id': 'parceirosemana2',
-       'anunciante_nome': this.querySelector('.semana-nome').innerText,
-       'local': 'card_semana_meio',
-       'periodo': 'semanal',
-       'data_clique': new Date().toISOString().split('T')[0]
-     });">
-    <span class="semana-badge">Patrocinado</span>
-    <div class="semana-linha">
-      <!-- 3️⃣ NOME DO ANUNCIANTE 2 -->
-      <span class="semana-nome">Carnívoras</span>
-      <!-- 2️⃣ EMOJI ANUNCIANTE 2 (🍻 🎶 🎭 🌱 🎾 🛍️ 🎤 🎬 🎨 🎪 🎟️ 🏆 📚 🍔 🚴 🏛️) -->
-      <span class="semana-emoji">🎶</span>
-    </div>
-  </a>
+<!-- 1️⃣ LINK DO ANUNCIANTE 1 -->
+<a href="https://www.instagram.com/mycigarapp/" 
+target="_blank" 
+class="semana-card"
+onclick="gtag('event', 'clique_anuncio', {
+ 'anunciante_id': 'parceirosemana1',
+ 'anunciante_nome': this.querySelector('.semana-nome').innerText,
+ 'local': 'card_semana_esquerda',
+ 'periodo': 'semanal',
+ 'data_clique': new Date().toISOString().split('T')[0]
+});">
+<span class="semana-badge">Patrocinado</span>
+<div class="semana-linha">
+<!-- 3️⃣ NOME DO ANUNCIANTE 1 -->
+<span class="semana-nome">Mycigar</span>
+<!-- 2️⃣ EMOJI ANUNCIANTE 1 (🍻 🎶 🎭 🌱 🎾 🛍️ 🎤 🎬 🎨 🎪 🎟️ 🏆 📚 🍔 🚴 🏛️) -->
+<span class="semana-emoji">🍻</span>
+</div>
+</a>
 
-  <!-- ======================================== -->
-  <!--  PARCEIRO SEMANA 3 - DIREITA             -->
-  <!-- ======================================== -->
-  
-  <!-- 1️⃣ LINK DO ANUNCIANTE 3 -->
-  <a href="https://www.instagram.com/feitonaminhacozinha/" 
-     target="_blank" 
-     class="semana-card"
-     onclick="gtag('event', 'clique_anuncio', {
-       'anunciante_id': 'parceirosemana3',
-       'anunciante_nome': this.querySelector('.semana-nome').innerText,
-       'local': 'card_semana_direita',
-       'periodo': 'semanal',
-       'data_clique': new Date().toISOString().split('T')[0]
-     });">
-    <span class="semana-badge">Patrocinado</span>
-    <div class="semana-linha">
-      <!-- 3️⃣ NOME DO ANUNCIANTE 3 -->
-      <span class="semana-nome">Minha Cozinha</span>
-      <!-- 2️⃣ EMOJI ANUNCIANTE 3 (🍻 🎶 🎭 🌱 🎾 🛍️ 🎤 🎬 🎨 🎪 🎟️ 🏆 📚 🍔 🚴 🏛️) -->
-      <span class="semana-emoji">🎭</span>
-    </div>
-  </a>
+<!-- ======================================== -->
+<!--  PARCEIRO SEMANA 2 - MEIO                -->
+<!-- ======================================== -->
+
+<!-- 1️⃣ LINK DO ANUNCIANTE 2 -->
+<a href="https://www.instagram.com/minhascarnivoras/" 
+target="_blank" 
+class="semana-card"
+onclick="gtag('event', 'clique_anuncio', {
+ 'anunciante_id': 'parceirosemana2',
+ 'anunciante_nome': this.querySelector('.semana-nome').innerText,
+ 'local': 'card_semana_meio',
+ 'periodo': 'semanal',
+ 'data_clique': new Date().toISOString().split('T')[0]
+});">
+<span class="semana-badge">Patrocinado</span>
+<div class="semana-linha">
+<!-- 3️⃣ NOME DO ANUNCIANTE 2 -->
+<span class="semana-nome">Carnívoras</span>
+<!-- 2️⃣ EMOJI ANUNCIANTE 2 (🍻 🎶 🎭 🌱 🎾 🛍️ 🎤 🎬 🎨 🎪 🎟️ 🏆 📚 🍔 🚴 🏛️) -->
+<span class="semana-emoji">🎶</span>
+</div>
+</a>
+
+<!-- ======================================== -->
+<!--  PARCEIRO SEMANA 3 - DIREITA             -->
+<!-- ======================================== -->
+
+<!-- 1️⃣ LINK DO ANUNCIANTE 3 -->
+<a href="https://www.instagram.com/feitonaminhacozinha/" 
+target="_blank" 
+class="semana-card"
+onclick="gtag('event', 'clique_anuncio', {
+ 'anunciante_id': 'parceirosemana3',
+ 'anunciante_nome': this.querySelector('.semana-nome').innerText,
+ 'local': 'card_semana_direita',
+ 'periodo': 'semanal',
+ 'data_clique': new Date().toISOString().split('T')[0]
+});">
+<span class="semana-badge">Patrocinado</span>
+<div class="semana-linha">
+<!-- 3️⃣ NOME DO ANUNCIANTE 3 -->
+<span class="semana-nome">Minha Cozinha</span>
+<!-- 2️⃣ EMOJI ANUNCIANTE 3 (🍻 🎶 🎭 🌱 🎾 🛍️ 🎤 🎬 🎨 🎪 🎟️ 🏆 📚 🍔 🚴 🏛️) -->
+<span class="semana-emoji">🎭</span>
+</div>
+</a>
 
 </div>
 
-  <div class="btn-group">
-    <button type="button" onclick="buscar('hoje')" style="flex:1">Hoje</button>
-    <button type="button" onclick="buscar('fimdesemana')" style="flex:2">Fim de semana</button>
-    <button type="button" onclick="buscar('7dias')" style="flex:1">7 dias</button>
-  </div>
-  <p style="margin-top: 10px; font-size: 14px; color: #555;">
-    Resultados podem variar a cada busca com IA
-  </p>
-  <p style="margin-top: 25px; font-size: 14px; color: #555;">
-    <a href="https://www.instagram.com/joseaugustobaron/" target="_blank" style="color: #6eb233; text-decoration: none;">@joseaugustobaron</a>
-    &nbsp;&nbsp;&nbsp;
-    <a onclick="compartilhar(); return false;" href="#" style="color: #6eb233; text-decoration: none;">🔗 Indique o app</a>
-  </p>
+<div class="btn-group">
+<button type="button" onclick="buscar('hoje')" style="flex:1">Hoje</button>
+<button type="button" onclick="buscar('fimdesemana')" style="flex:2">Fim de semana</button>
+<button type="button" onclick="buscar('7dias')" style="flex:1">7 dias</button>
+</div>
+<p style="margin-top: 10px; font-size: 14px; color: #555;">
+Resultados podem variar a cada busca com IA
+</p>
+<p style="margin-top: 25px; font-size: 14px; color: #555;">
+<a href="https://www.instagram.com/joseaugustobaron/" target="_blank" style="color: #6eb233; text-decoration: none;">@joseaugustobaron</a>
+&nbsp;&nbsp;&nbsp;
+<a onclick="compartilhar(); return false;" href="#" style="color: #6eb233; text-decoration: none;">🔗 Indique o app</a>
+</p>
 </div>
 </div>
 
@@ -486,131 +480,131 @@ width: auto;
 let categoriaSelecionada = '';
 
 function toggleEvento() {
-  const cats = document.querySelectorAll('.cat-btn');
-  const wrapper = document.getElementById('eventoWrapper');
-  const btn = document.querySelector('.evento-btn');
-  if (wrapper.style.display === 'none' || wrapper.style.display === '') {
-    wrapper.style.display = 'block';
-    document.getElementById('evento').focus();
-    btn.classList.add('ativo');
-    cats.forEach(b => {
-      b.classList.remove('ativo');
-      b.disabled = true;
-      b.style.opacity = '0.4';
-      b.style.cursor = 'not-allowed';
-    });
-    categoriaSelecionada = '';
-  } else {
-    wrapper.style.display = 'none';
-    document.getElementById('evento').value = '';
-    btn.classList.remove('ativo');
-    cats.forEach(b => {
-      b.disabled = false;
-      b.style.opacity = '1';
-      b.style.cursor = 'pointer';
-    });
-  }
+const cats = document.querySelectorAll('.cat-btn');
+const wrapper = document.getElementById('eventoWrapper');
+const btn = document.querySelector('.evento-btn');
+if (wrapper.style.display === 'none' || wrapper.style.display === '') {
+wrapper.style.display = 'block';
+document.getElementById('evento').focus();
+btn.classList.add('ativo');
+cats.forEach(b => {
+b.classList.remove('ativo');
+b.disabled = true;
+b.style.opacity = '0.4';
+b.style.cursor = 'not-allowed';
+});
+categoriaSelecionada = '';
+} else {
+wrapper.style.display = 'none';
+document.getElementById('evento').value = '';
+btn.classList.remove('ativo');
+cats.forEach(b => {
+b.disabled = false;
+b.style.opacity = '1';
+b.style.cursor = 'pointer';
+});
+}
 }
 
 function toggleCategoria(btn, categoria) {
-  const todos = document.querySelectorAll('.cat-btn');
-  if (categoriaSelecionada === categoria) {
-    btn.classList.remove('ativo');
-    categoriaSelecionada = '';
-  } else {
-    todos.forEach(b => b.classList.remove('ativo'));
-    btn.classList.add('ativo');
-    categoriaSelecionada = categoria;
-  }
+const todos = document.querySelectorAll('.cat-btn');
+if (categoriaSelecionada === categoria) {
+btn.classList.remove('ativo');
+categoriaSelecionada = '';
+} else {
+todos.forEach(b => b.classList.remove('ativo'));
+btn.classList.add('ativo');
+categoriaSelecionada = categoria;
+}
 }
 
 function buscar(periodo) {
-  const cidade = document.getElementById("cidade").value.trim();
-  if (!cidade) {
-    document.getElementById('modal').style.display = 'flex';
-    return;
-  }
-  localStorage.setItem('cidade', cidade);
-  let tempo;
-  if (periodo === 'hoje') {
-    tempo = 'hoje';
-  } else if (periodo === 'fimdesemana') {
-    tempo = 'neste fim de semana (sexta, sábado e domingo)';
-  } else {
-    tempo = 'nos próximos 7 dias a partir de hoje';
-  }
-  const eventoEspecifico = document.getElementById('evento').value.trim();
-  let query;
-  if (eventoEspecifico) {
-    query = `Buscar APENAS informações sobre: ${eventoEspecifico} em ${cidade} ${tempo}. Mostrar somente este evento. Não mostrar outros eventos. Informar: data, horário, local, descrição e links. Se não encontrar, informar claramente que não há informações confirmadas sobre este evento.`;
-  } else {
-    const filtroCategoria = categoriaSelecionada ? ` Mostrar apenas eventos da categoria: ${categoriaSelecionada}.` : '';
-    query = `Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir eventos de todos os bairros da cidade, não apenas do centro. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Bares, 🎶 Shows, 🎭 Cultura, 🌱 Natureza, 🎾 Esporte, 🛍️ Feiras. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente que não há eventos oficiais encontrados.${filtroCategoria}`;
-  }
-  const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
-  location.href = url;
+const cidade = document.getElementById("cidade").value.trim();
+if (!cidade) {
+document.getElementById('modal').style.display = 'flex';
+return;
+}
+localStorage.setItem('cidade', cidade);
+let tempo;
+if (periodo === 'hoje') {
+tempo = 'hoje';
+} else if (periodo === 'fimdesemana') {
+tempo = 'neste fim de semana (sexta, sábado e domingo)';
+} else {
+tempo = 'nos próximos 7 dias a partir de hoje';
+}
+const eventoEspecifico = document.getElementById('evento').value.trim();
+let query;
+if (eventoEspecifico) {
+query = `Buscar APENAS informações sobre: ${eventoEspecifico} em ${cidade} ${tempo}. Mostrar somente este evento. Não mostrar outros eventos. Informar: data, horário, local, descrição e links. Se não encontrar, informar claramente que não há informações confirmadas sobre este evento.`;
+} else {
+const filtroCategoria = categoriaSelecionada ? ` Mostrar apenas eventos da categoria: ${categoriaSelecionada}.` : '';
+query = `Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir eventos de todos os bairros da cidade, não apenas do centro. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Bares, 🎶 Shows, 🎭 Cultura, 🌱 Natureza, 🎾 Esporte, 🛍️ Feiras. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente que não há eventos oficiais encontrados.${filtroCategoria}`;
+}
+const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
+location.href = url;
 }
 
 function detectarCidade() {
-  if (!navigator.geolocation) {
-    alert('Geolocalização não suportada neste dispositivo.');
-    return;
-  }
-  const btn = document.querySelector('.geo-btn');
-  btn.textContent = '⏳';
-  navigator.geolocation.getCurrentPosition(async (pos) => {
-    const { latitude, longitude } = pos.coords;
-    try {
-      const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`);
-      const data = await res.json();
-      const cidade = data.address.city || data.address.town || data.address.village || data.address.county;
-      if (cidade) {
-        document.getElementById('cidade').value = cidade;
-        localStorage.setItem('cidade', cidade);
-      }
-    } catch(e) {
-      alert('Não foi possível detectar a cidade.');
-    } finally {
-      btn.textContent = '🔍';
-    }
-  }, () => {
-    alert('Permissão de localização negada.');
-    btn.textContent = '🔍';
-  });
+if (!navigator.geolocation) {
+alert('Geolocalização não suportada neste dispositivo.');
+return;
+}
+const btn = document.querySelector('.geo-btn');
+btn.textContent = '⏳';
+navigator.geolocation.getCurrentPosition(async (pos) => {
+const { latitude, longitude } = pos.coords;
+try {
+const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`);
+const data = await res.json();
+const cidade = data.address.city || data.address.town || data.address.village || data.address.county;
+if (cidade) {
+  document.getElementById('cidade').value = cidade;
+  localStorage.setItem('cidade', cidade);
+}
+} catch(e) {
+alert('Não foi possível detectar a cidade.');
+} finally {
+btn.textContent = '🔍';
+}
+}, () => {
+alert('Permissão de localização negada.');
+btn.textContent = '🔍';
+});
 }
 
 function compartilhar() {
-  const texto = 'O que fazer perto de você? 👉 https://joaubaron.github.io/oquefazer/';
-  if (navigator.share) {
-    navigator.share({ text: texto });
-  } else {
-    navigator.clipboard.writeText(texto).then(() => alert('Link copiado!'));
-  }
+const texto = 'O que fazer perto de você? 👉 https://joaubaron.github.io/oquefazer/';
+if (navigator.share) {
+navigator.share({ text: texto });
+} else {
+navigator.clipboard.writeText(texto).then(() => alert('Link copiado!'));
+}
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  const ultima = localStorage.getItem('cidade');
-  document.getElementById('cidade').value = ultima || '';
-  document.getElementById('cidade').placeholder = ultima ? '' : 'Digite sua cidade';
+const ultima = localStorage.getItem('cidade');
+document.getElementById('cidade').value = ultima || '';
+document.getElementById('cidade').placeholder = ultima ? '' : 'Digite sua cidade';
 });
 
 window.addEventListener('load', () => {
-  const splash = document.getElementById('splash');
-  if (sessionStorage.getItem('splashVisto')) {
-    splash.remove();
-  } else {
-    sessionStorage.setItem('splashVisto', '1');
-    setTimeout(() => {
-      splash.style.opacity = '0';
-      splash.style.pointerEvents = 'none';
-      setTimeout(() => splash.remove(), 500);
-    }, 2500);
-  }
+const splash = document.getElementById('splash');
+if (sessionStorage.getItem('splashVisto')) {
+splash.remove();
+} else {
+sessionStorage.setItem('splashVisto', '1');
+setTimeout(() => {
+splash.style.opacity = '0';
+splash.style.pointerEvents = 'none';
+setTimeout(() => splash.remove(), 500);
+}, 2500);
+}
 });
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js');
-  }
+navigator.serviceWorker.register('./sw.js');
+}
 </script>
 </body>
 </html>
