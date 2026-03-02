@@ -23,27 +23,38 @@ gtag('config', 'G-1FFT1XLDQD');
 <link rel="icon" href="icone.png">
 <link rel="apple-touch-icon" href="icone.png">
 <link rel="manifest" href="manifest.json">
-<style>
-body {
-margin: 0;
-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-background: url('fundo.jpg') center/cover no-repeat;
-display: flex;
-align-items: flex-end;
-padding-bottom: 6.5vh;
-justify-content: center;
-height: 100vh;
-box-sizing: border-box;
-overflow-y: auto;
+/* BLOQUEIA PULL TO REFRESH */
+html {
+  height: 100%;
+  overscroll-behavior-y: none;
 }
+
+body {
+  margin: 0;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  background: url('fundo.jpg') center/cover no-repeat;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  box-sizing: border-box;
+  overflow: hidden; /* body não rola mais */
+}
+
+/* SCROLL FICA AQUI */
 .container {
-background: rgba(255, 255, 255, 0.85);
-padding: 10px 30px;
-border-radius: 25px;
-box-shadow: 0 25px 60px rgba(0,0,0,0.25);
-width: 90%;
-max-width: 420px;
-text-align: center;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 10px 30px;
+  border-radius: 25px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+  width: 90%;
+  max-width: 420px;
+  text-align: center;
+
+  padding-bottom: 6.5vh;
+  max-height: 90vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 h3 {
 margin-bottom: 10px;
