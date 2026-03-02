@@ -4,10 +4,16 @@
 <meta name="theme-color" content="#000000">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
+
 <link rel="manifest" href="./manifest.json">
 <link rel="icon" href="icone.png">
 <link rel="apple-touch-icon" href="icone.png">
 <link rel="preload" as="image" href="fundo.jpg">
+
+<title>Oquefazer</title>
+<meta name="description" content="Oquefazer - Eventos reais na sua cidade.">
+<link rel="canonical" href="https://joaubaron.github.io/oquefazer">
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FFT1XLDQD"></script>
 <script>
@@ -16,13 +22,9 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-1FFT1XLDQD');
 </script>
-<title>Oquefazer</title>
-<meta name="description" content="Oquefazer - Eventos reais na sua cidade.">
-<link rel="canonical" href="https://joaubaron.github.io/oquefazer">
-<link rel="preload" as="image" href="fundo.jpg">
-<link rel="icon" href="icone.png">
-<link rel="apple-touch-icon" href="icone.png">
-<link rel="manifest" href="manifest.json">
+
+<style>
+
 /* BLOQUEIA PULL TO REFRESH */
 html {
   height: 100%;
@@ -38,10 +40,10 @@ body {
   align-items: flex-end;
   justify-content: center;
   box-sizing: border-box;
-  overflow: hidden; /* body não rola mais */
+  overflow: hidden;
 }
 
-/* SCROLL FICA AQUI */
+/* SCROLL FICA NA CONTAINER */
 .container {
   background: rgba(255, 255, 255, 0.85);
   padding: 10px 30px;
@@ -50,7 +52,6 @@ body {
   width: 90%;
   max-width: 420px;
   text-align: center;
-
   padding-bottom: 6.5vh;
   max-height: 90vh;
   overflow-y: auto;
