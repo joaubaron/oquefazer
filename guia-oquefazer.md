@@ -111,12 +111,6 @@ Qualquer dúvida, tô por aqui! 👊
 7. Clica em **Criar fluxo**
 8. Copia o ID no formato **G-XXXXXXXXXX**
 
-### Adicionar ao index.html
-Cola essas 2 linhas dentro do `<head>` do código, substituindo pelo seu ID:
-
-```html
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
 ```
 
 ### O que você vai ver
