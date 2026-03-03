@@ -331,6 +331,7 @@ transition: opacity 0.5s ease;
 ║  3. parceiro-nome   → nome exibido no card
 ║  4. parceiro-label  → rótulo + emoji
 ║  5. parceiro-acesse → horário de funcionamento
+║  6. anunciante_id   → nome anunciante
 ║
 ║  📦 PARCEIROS DA SEMANA  (R$ 79 — semanal)
 ║  ─────────────────────────────────────────────────────────────
@@ -338,8 +339,9 @@ transition: opacity 0.5s ease;
 ║  1. href            → link do Instagram do parceiro
 ║  2. anunciante_id   → padrão: 'semanaX_nomeparceiro'
 ║  3. semana-nome     → nome exibido no card
-║  4. semana-emoji    → emoji temático
-║  . emojis    → 🍻 🎶 🎭 🌱 🎾 🛍️ 🎤 🎬 🎨 🎪 🎟️ 🏆 📚 🍔 🚴 🏛️ 🥟
+║  4. semana-emoji    → emoji temático]
+║  5. anunciante_id   → nome anunciante
+║  6. emojis          → 🍻 🎶 🎭 🌱 🎾 🛍️ 🎤 🎬 🎨 🎪 🎟️ 🏆 📚 🍔 🚴 🏛️ 🥟
 -->
 
 <!-- ============================================================ -->
@@ -351,6 +353,7 @@ transition: opacity 0.5s ease;
 target="_blank"
 class="parceiro-card"
 onclick="gtag('event', 'clique_anuncio', {
+<!-- 6️⃣ ID -->
 'anunciante_id':   'mensal_innatura',
 'anunciante_nome': this.querySelector('.parceiro-nome').innerText,
 'local':           'card_principal',
@@ -375,7 +378,6 @@ onclick="gtag('event', 'clique_anuncio', {
 
 </a>
 
-
 <!-- ============================================================ -->
 <!--  PARCEIROS DA SEMANA                                         -->
 <!-- ============================================================ -->
@@ -384,11 +386,12 @@ onclick="gtag('event', 'clique_anuncio', {
 
 <!-- ── SEMANA 1 · ESQUERDA ─────────────────────────────────── -->
 <!-- 1️⃣ LINK -->
-<a href="https://www.instagram.com/mycigarapp/"
+<a href="https://www.instagram.com/"
 target="_blank"
 class="semana-card"
 onclick="gtag('event', 'clique_anuncio', {
-'anunciante_id':   'semana1_mycigar',
+<!-- 6️⃣ ID -->
+'anunciante_id':   'semana1_anunciante',
 'anunciante_nome': this.querySelector('.semana-nome').innerText,
 'local':           'card_semana_esquerda',
 'periodo':         'semanal',
@@ -397,7 +400,7 @@ onclick="gtag('event', 'clique_anuncio', {
 <span class="semana-badge">Patrocinado</span>
 <div class="semana-linha">
 <!-- 3️⃣ NOME -->
-<span class="semana-nome">Mycigar</span>
+<span class="semana-nome">Anuncie</span>
 <!-- 4️⃣ EMOJI -->
 <span class="semana-emoji">🍻</span>
 </div>
@@ -405,11 +408,12 @@ onclick="gtag('event', 'clique_anuncio', {
 
 <!-- ── SEMANA 2 · MEIO ────────────────────────────────────── -->
 <!-- 1️⃣ LINK -->
-<a href="https://www.instagram.com/minhascarnivoras/"
+<a href="https://www.instagram.com/"
 target="_blank"
 class="semana-card"
 onclick="gtag('event', 'clique_anuncio', {
-'anunciante_id':   'semana2_carnivoras',
+<!-- 6️⃣ ID -->
+'anunciante_id':   'semana2_anunciante',
 'anunciante_nome': this.querySelector('.semana-nome').innerText,
 'local':           'card_semana_meio',
 'periodo':         'semanal',
@@ -418,7 +422,7 @@ onclick="gtag('event', 'clique_anuncio', {
 <span class="semana-badge">Patrocinado</span>
 <div class="semana-linha">
 <!-- 3️⃣ NOME -->
-<span class="semana-nome">Carnívoras</span>
+<span class="semana-nome">Anuncie</span>
 <!-- 4️⃣ EMOJI -->
 <span class="semana-emoji">🎶</span>
 </div>
@@ -426,11 +430,12 @@ onclick="gtag('event', 'clique_anuncio', {
 
 <!-- ── SEMANA 3 · DIREITA ─────────────────────────────────── -->
 <!-- 1️⃣ LINK -->
-<a href="https://www.instagram.com/feitonaminhacozinha/"
+<a href="https://www.instagram.com/"
 target="_blank"
 class="semana-card"
 onclick="gtag('event', 'clique_anuncio', {
-'anunciante_id':   'semana3_cozinha',
+<!-- 6️⃣ ID -->
+'anunciante_id':   'semana3_anunciante',
 'anunciante_nome': this.querySelector('.semana-nome').innerText,
 'local':           'card_semana_direita',
 'periodo':         'semanal',
@@ -439,7 +444,7 @@ onclick="gtag('event', 'clique_anuncio', {
 <span class="semana-badge">Patrocinado</span>
 <div class="semana-linha">
 <!-- 3️⃣ NOME -->
-<span class="semana-nome">Cozinha</span>
+<span class="semana-nome">Anuncie</span>
 <!-- 4️⃣ EMOJI -->
 <span class="semana-emoji">🎭</span>
 </div>
