@@ -581,7 +581,7 @@ query = `${destaquesTexto}Todos os eventos reais em ${cidade} ${tempo}, em ordem
 
 gtag('event', 'busca', { cidade, periodo, categoria: categoriaSelecionada || 'todas' });
 const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
-location.href = url;
+setTimeout(() => { location.href = url; }, 300);
 }
 
 function mostrarAviso(msg) {
