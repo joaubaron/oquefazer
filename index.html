@@ -319,115 +319,134 @@ transition: opacity 0.5s ease;
 <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Feiras')">🛍️ Feiras</button>
 </div>
 
-<!-- ======================================== -->
-<!--       PARCEIRO DO MÊS - R$ 199           -->
-<!-- ======================================== -->
-
 <!--
-  ✏️ QUANDO TROCAR O PARCEIRO DO MÊS, ATUALIZE:
-     1. href          → link do Instagram do novo parceiro
-     2. anunciante_id → padrão: 'mensal_nomeparceiro'
-     3. Nome visível  → <span class="parceiro-nome">
-     4. Label/Emoji   → <span class="parceiro-label">
-     5. Horário       → <span class="parceiro-acesse">
+║      GUIA DE MANUTENÇÃO
+╠══════════════════════════════════════════════════════════════════
+║
+║  📦 PARCEIRO DO MÊS  (R$ — mensal)
+║  ─────────────────────────────────────────────────────────────
+║  1. href            → link do Instagram do parceiro
+║  2. anunciante_id   → padrão: 'mensal_nomeparceiro'
+║  3. parceiro-nome   → nome exibido no card
+║  4. parceiro-label  → rótulo + emoji
+║  5. parceiro-acesse → horário de funcionamento
+║
+║  📦 PARCEIROS DA SEMANA  (R$ 79 — semanal)
+║  ─────────────────────────────────────────────────────────────
+║  Cada card (esquerda / meio / direita):
+║  1. href            → link do Instagram do parceiro
+║  2. anunciante_id   → padrão: 'semanaX_nomeparceiro'
+║  3. semana-nome     → nome exibido no card
+║  4. semana-emoji    → emoji temático
+║  . emojis    → 🍻 🎶 🎭 🌱 🎾 🛍️ 🎤 🎬 🎨 🎪 🎟️ 🏆 📚 🍔 🚴 🏛️
 -->
+
+<!-- ============================================================ -->
+<!--  PARCEIRO DO MÊS                                             -->
+<!-- ============================================================ -->
+
+<!-- 1️⃣ LINK -->
 <a href="https://www.instagram.com/innaturacomidadeverdade?igsh=bzJlemN1cXBjOGY4"
 target="_blank"
 class="parceiro-card"
 onclick="gtag('event', 'clique_anuncio', {
-'anunciante_id': 'mensal_innatura',
+<!-- 2️⃣ ID -->
+'anunciante_id':   'mensal_innatura',
 'anunciante_nome': this.querySelector('.parceiro-nome').innerText,
-'local': 'card_principal',
-'periodo': 'mensal',
-'data_clique': new Date().toISOString().split('T')[0]
+'local':           'card_principal',
+'periodo':         'mensal',
+'data_clique':     new Date().toISOString().split('T')[0]
 });">
 
-  <div class="parceiro-linha" style="margin-bottom:5px">
-    <span class="parceiro-label">In Natura
-      <span style="font-size:16px; line-height:1; vertical-align:middle; position:relative; top:-2px;">🍔</span><!-- 4️⃣ EMOJI -->
-    </span>
-    <span class="parceiro-badge">Patrocinado</span>
-  </div>
+<div class="parceiro-linha" style="margin-bottom:5px">
+<!-- 4️⃣ LABEL E EMOJI -->
+<span class="parceiro-label">In Natura
+<span style="font-size:16px; line-height:1; vertical-align:middle; position:relative; top:-2px;">🍔</span>
+</span>
+<span class="parceiro-badge">Patrocinado</span>
+</div>
 
-  <div class="parceiro-linha">
-    <span class="parceiro-nome">Comida de verdade</span><!-- 3️⃣ NOME -->
-    <span class="parceiro-acesse">Qua a Dom - 18:30 às 23:00</span><!-- 5️⃣ HORÁRIO -->
-  </div>
+<div class="parceiro-linha">
+<!-- 3️⃣ NOME -->
+<span class="parceiro-nome">Comida de verdade</span>
+<!-- 5️⃣ HORÁRIO -->
+<span class="parceiro-acesse">Qua a Dom - 18:30 às 23:00</span>
+</div>
 
 </a>
 
 
-<!-- ======================================== -->
-<!--    PARCEIROS DA SEMANA - R$ 79 cada      -->
-<!-- ======================================== -->
+<!-- ============================================================ -->
+<!--  PARCEIROS DA SEMANA                                         -->
+<!-- ============================================================ -->
+
 <div class="semana-group">
 
-
-<!-- ======================================== -->
-<!--  PARCEIRO SEMANA 1 - ESQUERDA            -->
-<!-- ✏️ Atualize: href | anunciante_id → 'semana1_nomeparceiro' | semana-nome | semana-emoji -->
-<!-- ======================================== -->
+<!-- ── SEMANA 1 · ESQUERDA ─────────────────────────────────── -->
+<!-- 1️⃣ LINK -->
 <a href="https://www.instagram.com/mycigarapp/"
 target="_blank"
 class="semana-card"
 onclick="gtag('event', 'clique_anuncio', {
-'anunciante_id': 'semana1_mycigar',
+<!-- 2️⃣ ID -->
+'anunciante_id':   'semana1_mycigar',
 'anunciante_nome': this.querySelector('.semana-nome').innerText,
-'local': 'card_semana_esquerda',
-'periodo': 'semanal',
-'data_clique': new Date().toISOString().split('T')[0]
+'local':           'card_semana_esquerda',
+'periodo':         'semanal',
+'data_clique':     new Date().toISOString().split('T')[0]
 });">
-  <span class="semana-badge">Patrocinado</span>
-  <div class="semana-linha">
-    <span class="semana-nome">Mycigar</span><!-- ✏️ NOME -->
-    <span class="semana-emoji">🍻</span><!-- ✏️ EMOJI -->
-  </div>
+<span class="semana-badge">Patrocinado</span>
+<div class="semana-linha">
+<!-- 3️⃣ NOME -->
+<span class="semana-nome">Mycigar</span>
+<!-- 4️⃣ EMOJI -->
+<span class="semana-emoji">🍻</span>
+</div>
 </a>
 
-
-<!-- ======================================== -->
-<!--  PARCEIRO SEMANA 2 - MEIO                -->
-<!-- ✏️ Atualize: href | anunciante_id → 'semana2_nomeparceiro' | semana-nome | semana-emoji -->
-<!-- ======================================== -->
+<!-- ── SEMANA 2 · MEIO ────────────────────────────────────── -->
+<!-- 1️⃣ LINK -->
 <a href="https://www.instagram.com/minhascarnivoras/"
 target="_blank"
 class="semana-card"
 onclick="gtag('event', 'clique_anuncio', {
-'anunciante_id': 'semana2_carnivoras',
+<!-- 2️⃣ ID -->
+'anunciante_id':   'semana2_carnivoras',
 'anunciante_nome': this.querySelector('.semana-nome').innerText,
-'local': 'card_semana_meio',
-'periodo': 'semanal',
-'data_clique': new Date().toISOString().split('T')[0]
+'local':           'card_semana_meio',
+'periodo':         'semanal',
+'data_clique':     new Date().toISOString().split('T')[0]
 });">
-  <span class="semana-badge">Patrocinado</span>
-  <div class="semana-linha">
-    <span class="semana-nome">Carnívoras</span><!-- ✏️ NOME -->
-    <span class="semana-emoji">🎶</span><!-- ✏️ EMOJI -->
-  </div>
+<span class="semana-badge">Patrocinado</span>
+<div class="semana-linha">
+<!-- 3️⃣ NOME -->
+<span class="semana-nome">Carnívoras</span>
+<!-- 4️⃣ EMOJI -->
+<span class="semana-emoji">🎶</span>
+</div>
 </a>
 
-
-<!-- ======================================== -->
-<!--  PARCEIRO SEMANA 3 - DIREITA             -->
-<!-- ✏️ Atualize: href | anunciante_id → 'semana3_nomeparceiro' | semana-nome | semana-emoji -->
-<!-- ======================================== -->
+<!-- ── SEMANA 3 · DIREITA ─────────────────────────────────── -->
+<!-- 1️⃣ LINK -->
 <a href="https://www.instagram.com/feitonaminhacozinha/"
 target="_blank"
 class="semana-card"
 onclick="gtag('event', 'clique_anuncio', {
-'anunciante_id': 'semana3_cozinha',
+<!-- 2️⃣ ID -->
+'anunciante_id':   'semana3_cozinha',
 'anunciante_nome': this.querySelector('.semana-nome').innerText,
-'local': 'card_semana_direita',
-'periodo': 'semanal',
-'data_clique': new Date().toISOString().split('T')[0]
+'local':           'card_semana_direita',
+'periodo':         'semanal',
+'data_clique':     new Date().toISOString().split('T')[0]
 });">
-  <span class="semana-badge">Patrocinado</span>
-  <div class="semana-linha">
-    <span class="semana-nome">Cozinha</span><!-- ✏️ NOME -->
-    <span class="semana-emoji">🎭</span><!-- ✏️ EMOJI -->
-  </div>
+<span class="semana-badge">Patrocinado</span>
+<div class="semana-linha">
+<!-- 3️⃣ NOME -->
+<span class="semana-nome">Cozinha</span>
+<!-- 4️⃣ EMOJI -->
+<span class="semana-emoji">🎭</span>
+</div>
 </a>
-
 
 </div>
 
@@ -440,15 +459,15 @@ onclick="gtag('event', 'clique_anuncio', {
 Resultados podem variar a cada busca com IA
 </p>
 <p style="margin-top: 8px; margin-bottom: 25px; font-size: 14px; color: #555; display: flex; justify-content: center; gap: 50px; align-items: center;">
-  <a href="https://www.instagram.com/joseaugustobaron/" target="_blank" style="color: #6eb233; text-decoration: none; display: flex; align-items: center; gap: 5px;">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6eb233" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-      <circle cx="12" cy="12" r="4"/>
-      <circle cx="17.5" cy="6.5" r="1" fill="#6eb233" stroke="none"/>
-    </svg>
-    Baron
-  </a>
-  <a onclick="compartilhar(); return false;" href="#" style="color: #6eb233; text-decoration: none;">🔗 Indique o app</a>
+<a href="https://www.instagram.com/joseaugustobaron/" target="_blank" style="color: #6eb233; text-decoration: none; display: flex; align-items: center; gap: 5px;">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6eb233" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+<circle cx="12" cy="12" r="4"/>
+<circle cx="17.5" cy="6.5" r="1" fill="#6eb233" stroke="none"/>
+</svg>
+Baron
+</a>
+<a onclick="compartilhar(); return false;" href="#" style="color: #6eb233; text-decoration: none;">🔗 Indique o app</a>
 </p>
 </div>
 </div>
