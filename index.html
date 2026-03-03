@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -326,14 +328,14 @@ transition: opacity 0.5s ease;
      1. href          → link do Instagram do novo parceiro
      2. anunciante_id → padrão: 'mensal_nomeparceiro'
      3. Nome visível  → <span class="parceiro-nome">
-     4. Emoji         → linha do <span class="parceiro-label">
+     4. Label/Emoji   → <span class="parceiro-label">
      5. Horário       → <span class="parceiro-acesse">
 -->
-<a href="https://www.instagram.com/innaturacomidadeverdade?igsh=bzJlemN1cXBjOGY4" 
-target="_blank" 
+<a href="https://www.instagram.com/innaturacomidadeverdade?igsh=bzJlemN1cXBjOGY4"
+target="_blank"
 class="parceiro-card"
 onclick="gtag('event', 'clique_anuncio', {
-'anunciante_id': 'mensal_josebaron',
+'anunciante_id': 'mensal_innatura',
 'anunciante_nome': this.querySelector('.parceiro-nome').innerText,
 'local': 'card_principal',
 'periodo': 'mensal',
@@ -342,7 +344,7 @@ onclick="gtag('event', 'clique_anuncio', {
 
   <div class="parceiro-linha" style="margin-bottom:5px">
     <span class="parceiro-label">In Natura
-    <span style="font-size:16px; line-height:1; vertical-align:middle; position:relative; top:-2px;">🍔</span><!-- 4️⃣ EMOJI -->
+      <span style="font-size:16px; line-height:1; vertical-align:middle; position:relative; top:-2px;">🍔</span><!-- 4️⃣ EMOJI -->
     </span>
     <span class="parceiro-badge">Patrocinado</span>
   </div>
@@ -365,8 +367,8 @@ onclick="gtag('event', 'clique_anuncio', {
 <!--  PARCEIRO SEMANA 1 - ESQUERDA            -->
 <!-- ✏️ Atualize: href | anunciante_id → 'semana1_nomeparceiro' | semana-nome | semana-emoji -->
 <!-- ======================================== -->
-<a href="https://www.instagram.com/mycigarapp/" 
-target="_blank" 
+<a href="https://www.instagram.com/mycigarapp/"
+target="_blank"
 class="semana-card"
 onclick="gtag('event', 'clique_anuncio', {
 'anunciante_id': 'semana1_mycigar',
@@ -387,8 +389,8 @@ onclick="gtag('event', 'clique_anuncio', {
 <!--  PARCEIRO SEMANA 2 - MEIO                -->
 <!-- ✏️ Atualize: href | anunciante_id → 'semana2_nomeparceiro' | semana-nome | semana-emoji -->
 <!-- ======================================== -->
-<a href="https://www.instagram.com/minhascarnivoras/" 
-target="_blank" 
+<a href="https://www.instagram.com/minhascarnivoras/"
+target="_blank"
 class="semana-card"
 onclick="gtag('event', 'clique_anuncio', {
 'anunciante_id': 'semana2_carnivoras',
@@ -409,8 +411,8 @@ onclick="gtag('event', 'clique_anuncio', {
 <!--  PARCEIRO SEMANA 3 - DIREITA             -->
 <!-- ✏️ Atualize: href | anunciante_id → 'semana3_nomeparceiro' | semana-nome | semana-emoji -->
 <!-- ======================================== -->
-<a href="https://www.instagram.com/feitonaminhacozinha/" 
-target="_blank" 
+<a href="https://www.instagram.com/feitonaminhacozinha/"
+target="_blank"
 class="semana-card"
 onclick="gtag('event', 'clique_anuncio', {
 'anunciante_id': 'semana3_cozinha',
@@ -542,14 +544,31 @@ tempo = 'neste fim de semana (sexta, sábado e domingo)';
 } else {
 tempo = 'nos próximos 7 dias a partir de hoje';
 }
+
 const eventoEspecifico = document.getElementById('evento').value.trim();
 let query;
+
 if (eventoEspecifico) {
 query = `Buscar APENAS informações sobre: ${eventoEspecifico} em ${cidade} ${tempo}. Mostrar somente este evento. Não mostrar outros eventos. Informar: data, horário, local, descrição e links. Se não encontrar, informar claramente que não há informações confirmadas sobre este evento.`;
 } else {
 const filtroCategoria = categoriaSelecionada ? ` Mostrar apenas eventos da categoria: ${categoriaSelecionada}.` : '';
-query = `Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir eventos de todos os bairros da cidade, não apenas do centro. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Bares, 🎶 Shows, 🎭 Cultura, 🌱 Natureza, 🎾 Esporte, 🛍️ Feiras. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente que não há eventos oficiais encontrados.${filtroCategoria}`;
+
+// ── Lê os anunciantes dinamicamente do HTML ──
+const parceiroMesNome = document.querySelector('.parceiro-nome')?.innerText || '';
+const parceiroMesLabel = document.querySelector('.parceiro-label')?.firstChild?.textContent?.trim() || '';
+const parceiroMesLink = document.querySelector('.parceiro-card')?.href || '';
+
+const semanaCards = document.querySelectorAll('.semana-card');
+const parceirosSemana = Array.from(semanaCards).map(card => ({
+  nome: card.querySelector('.semana-nome')?.innerText || '',
+  link: card.href || ''
+}));
+
+const destaquesTexto = `DESTAQUE ESPECIAL - Parceiro do mês: ${parceiroMesLabel} (${parceiroMesNome}) - Instagram: ${parceiroMesLink}. Mencione este estabelecimento no início dos resultados com destaque. Parceiros da semana que também merecem destaque nos resultados: ${parceirosSemana.map(p => `${p.nome} (${p.link})`).join(', ')}. `;
+
+query = `${destaquesTexto}Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir eventos de todos os bairros da cidade, não apenas do centro. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Bares, 🎶 Shows, 🎭 Cultura, 🌱 Natureza, 🎾 Esporte, 🛍️ Feiras. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente que não há eventos oficiais encontrados.${filtroCategoria}`;
 }
+
 const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
 location.href = url;
 }
