@@ -191,6 +191,7 @@ animation: shine 3.5s ease-in-out infinite;
 @keyframes shine {
 0% { left: -60%; }
 65%, 100% { left: 120%; }
+
 }
 .parceiro-linha {
 display: flex;
@@ -300,7 +301,7 @@ transition: opacity 0.5s ease;
 <div>
 <div class="cidade-row">
 <div class="input-wrapper">
-<input type="text" id="cidade">
+<input type="text" id="cidade" onkeydown="if(event.key==='Enter') buscar('hoje')">
 <button type="button" class="geo-btn" onclick="detectarCidade()" title="Detectar minha cidade">🔍</button>
 </div>
 <button type="button" class="evento-btn" onclick="toggleEvento()">🎫 Evento</button>
@@ -350,7 +351,6 @@ transition: opacity 0.5s ease;
 target="_blank"
 class="parceiro-card"
 onclick="gtag('event', 'clique_anuncio', {
-<!-- 2️⃣ ID -->
 'anunciante_id':   'mensal_innatura',
 'anunciante_nome': this.querySelector('.parceiro-nome').innerText,
 'local':           'card_principal',
@@ -388,7 +388,6 @@ onclick="gtag('event', 'clique_anuncio', {
 target="_blank"
 class="semana-card"
 onclick="gtag('event', 'clique_anuncio', {
-<!-- 2️⃣ ID -->
 'anunciante_id':   'semana1_mycigar',
 'anunciante_nome': this.querySelector('.semana-nome').innerText,
 'local':           'card_semana_esquerda',
@@ -410,7 +409,6 @@ onclick="gtag('event', 'clique_anuncio', {
 target="_blank"
 class="semana-card"
 onclick="gtag('event', 'clique_anuncio', {
-<!-- 2️⃣ ID -->
 'anunciante_id':   'semana2_carnivoras',
 'anunciante_nome': this.querySelector('.semana-nome').innerText,
 'local':           'card_semana_meio',
@@ -432,7 +430,6 @@ onclick="gtag('event', 'clique_anuncio', {
 target="_blank"
 class="semana-card"
 onclick="gtag('event', 'clique_anuncio', {
-<!-- 2️⃣ ID -->
 'anunciante_id':   'semana3_cozinha',
 'anunciante_nome': this.querySelector('.semana-nome').innerText,
 'local':           'card_semana_direita',
@@ -586,9 +583,15 @@ const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURICompon
 location.href = url;
 }
 
+function mostrarAviso(msg) {
+const m = document.getElementById('modal');
+m.querySelector('p').textContent = msg;
+m.style.display = 'flex';
+}
+
 function detectarCidade() {
 if (!navigator.geolocation) {
-alert('Geolocalização não suportada neste dispositivo.');
+mostrarAviso('Geolocalização não suportada neste dispositivo.');
 return;
 }
 const btn = document.querySelector('.geo-btn');
@@ -604,12 +607,12 @@ document.getElementById('cidade').value = cidade;
 localStorage.setItem('cidade', cidade);
 }
 } catch(e) {
-alert('Não foi possível detectar a cidade.');
+mostrarAviso('Não foi possível detectar a cidade.');
 } finally {
 btn.textContent = '🔍';
 }
 }, () => {
-alert('Permissão de localização negada.');
+mostrarAviso('Permissão de localização negada.');
 btn.textContent = '🔍';
 });
 }
