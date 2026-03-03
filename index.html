@@ -553,18 +553,12 @@ query = `Buscar APENAS informações sobre: ${eventoEspecifico} em ${cidade} ${t
 } else {
 const filtroCategoria = categoriaSelecionada ? ` Mostrar apenas eventos da categoria: ${categoriaSelecionada}.` : '';
 
-// ── Lê os anunciantes dinamicamente do HTML ──
+// ── Lê o parceiro do mês dinamicamente do HTML ──
 const parceiroMesNome = document.querySelector('.parceiro-nome')?.innerText || '';
 const parceiroMesLabel = document.querySelector('.parceiro-label')?.firstChild?.textContent?.trim() || '';
 const parceiroMesLink = document.querySelector('.parceiro-card')?.href || '';
 
-const semanaCards = document.querySelectorAll('.semana-card');
-const parceirosSemana = Array.from(semanaCards).map(card => ({
-  nome: card.querySelector('.semana-nome')?.innerText || '',
-  link: card.href || ''
-}));
-
-const destaquesTexto = `DESTAQUE ESPECIAL - Parceiro do mês: ${parceiroMesLabel} (${parceiroMesNome}) - Instagram: ${parceiroMesLink}. Mencione este estabelecimento no início dos resultados com destaque. Parceiros da semana que também merecem destaque nos resultados: ${parceirosSemana.map(p => `${p.nome} (${p.link})`).join(', ')}. `;
+const destaquesTexto = `DESTAQUE ESPECIAL - Parceiro do mês: ${parceiroMesLabel} (${parceiroMesNome}) - Instagram: ${parceiroMesLink}. Mencione este estabelecimento no início dos resultados com destaque especial, descrevendo o que é o lugar e por que vale visitar. `;
 
 query = `${destaquesTexto}Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir eventos de todos os bairros da cidade, não apenas do centro. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Bares, 🎶 Shows, 🎭 Cultura, 🌱 Natureza, 🎾 Esporte, 🛍️ Feiras. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente que não há eventos oficiais encontrados.${filtroCategoria}`;
 }
