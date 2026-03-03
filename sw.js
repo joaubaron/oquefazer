@@ -1,4 +1,4 @@
-const CACHE_NAME = 'oquefazer-2026-0303-1142';
+const CACHE_NAME = 'oquefazer-2026-0303-1214';
 
 const STATIC_ASSETS = [
   './',
