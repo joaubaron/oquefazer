@@ -620,12 +620,16 @@ btn.textContent = '🔍';
 }
 
 function compartilhar() {
-const texto = '👉 https://bit.ly/oquefazerpertodevoce';
-if (navigator.share) {
-navigator.share({ text: texto });
-} else {
-navigator.clipboard.writeText(texto).then(() => mostrarAviso('Link copiado! 🔗'));
-}
+  const texto = `Cansado de ficar em casa sem saber o que fazer? Isso acabou!
+Fiz um app que mostra shows, bares, feiras e eventos na sua cidade — usa seu GPS ou digita a cidade.
+👉 https://t.ly/oquefazer
+
+Testa aí e passa pra frente!`;
+  if (navigator.share) {
+    navigator.share({ text: texto });
+  } else {
+    navigator.clipboard.writeText(texto).then(() => mostrarAviso('Link copiado! 🔗'));
+  }
 }
 
 window.addEventListener('DOMContentLoaded', () => {
