@@ -30,28 +30,28 @@
 > 👉 https://t.ly/oquefazer
 
 **Para cliente que quer anunciar**
-Boa! Vamos colocar seu negócio no app. 📱
-Preciso só de algumas informações rápidas:
-▸ Nome do estabelecimento
-▸ Link do Instagram
-▸ Escolher: Parceiro do Mês (R$ 199) ou Parceiro da Semana (R$ 79)
-▸ Um emoji da lista: 🍻 🎶 🎭 🌱 🎾 🛍️ 🎤 🎬 🎨 🎪 🎟️ 🏆 📚 🍔 🚴 🏛️ 🥟
+> Boa! Vamos colocar seu negócio no app. 📱
+> Preciso só de algumas informações rápidas:
+> ▸ Nome do estabelecimento
+> ▸ Link do Instagram
+> ▸ Escolher: Parceiro do Mês (R$ 199) ou Parceiro da Semana (R$ 79)
+> ▸ Um emoji da lista: 🍻 🎶 🎭 🌱 🎾 🛍️ 🎤 🎬 🎨 🎪 🎟️ 🏆 📚 🍔 🚴 🏛️ 🥟
 
-Se for Parceiro do Mês (card grande, fica o mês inteiro), manda também:
-▸ Descrição curta (ex: "Comida de verdade")
-▸ Horário de funcionamento
-Se for Parceiro da Semana (mini card), manda só o nome e o emoji.
+> Se for Parceiro do Mês (card grande, fica o mês inteiro), manda também:
+> ▸ Descrição curta (ex: "Comida de verdade")
+> ▸ Horário de funcionamento
+> Se for Parceiro da Semana (mini card), manda só o nome e o emoji.
 
-Me passa esses dados que já preparo seu card! ✅
+> Me passa esses dados que já preparo seu card! ✅
 
-Assim que o PIX for confirmado, já subo pro ar na hora! 🚀
-Nome: José Augusto Baron
-Chave Pix, CPF: 649.568.229-87
-Valores:
-▸ Parceiro do Mês: R$ 199
-▸ Parceiro da Semana: R$ 79
+> Assim que o PIX for confirmado, já subo pro ar na hora! 🚀
+> Nome: José Augusto Baron
+> Chave Pix, CPF: 649.568.229-87
+> Valores:
+> ▸ Parceiro do Mês: R$ 199
+> ▸ Parceiro da Semana: R$ 79
 
-Qualquer dúvida, tô por aqui! 👊
+> Qualquer dúvida, tô por aqui! 👊
 
 ## 3. Estratégia de crescimento
 
