@@ -17,41 +17,39 @@
 
 ## 2. Mensagens de divulgação
 
-**Para pessoas (grupos de WhatsApp):**
-> Fiz um app pra descobrir o que fazer na sua cidade. Testa e me fala o que achou.
-> 👉 https://joaubaron.github.io/oquefazer/
-> 👉 https://t.ly/oquefazer
->
-> Dica: abre o link e toca em "Adicionar à tela inicial" para instalar como app.
+1️⃣ Para pessoas (grupos de WhatsApp)
+Fiz um app pra descobrir o que fazer na sua cidade. Testa e me fala o que achou. 👉 https://joaubaron.github.io/oquefazer/ 👉 https://t.ly/oquefazer
 
-**Para anunciantes:**
-> Fiz um app de agenda cultural para descobrir eventos e o que fazer na cidade. Tenho espaço de parceiro disponível para negócios locais. Queria que você conhecesse.
-> 👉 https://joaubaron.github.io/oquefazer/
-> 👉 https://t.ly/oquefazer
+Dica: abre o link e toca em "Adicionar à tela inicial" para instalar como app.
 
-**Para cliente que quer anunciar**
-> Boa! Vamos colocar seu negócio no app. 📱
-> Preciso só de algumas informações rápidas:
-> ▸ Nome do estabelecimento
-> ▸ Link do Instagram
-> ▸ Escolher: Parceiro do Mês (R$ 199) ou Parceiro da Semana (R$ 79)
-> ▸ Um emoji da lista: 🍻 🎶 🎭 🌱 🎾 🛍️ 🎤 🎬 🎨 🎪 🎟️ 🏆 📚 🍔 🚴 🏛️ 🥟
+2️⃣ Para anunciantes (prospecção)
+Fiz um app de agenda cultural para descobrir eventos e o que fazer na cidade. Tenho espaço de parceiro disponível para negócios locais. Queria que você conhecesse. 👉 https://joaubaron.github.io/oquefazer/ 👉 https://t.ly/oquefazer
 
-> Se for Parceiro do Mês (card grande, fica o mês inteiro), manda também:
-> ▸ Descrição curta (ex: "Comida de verdade")
-> ▸ Horário de funcionamento
-> Se for Parceiro da Semana (mini card), manda só o nome e o emoji.
+3️⃣ Para cliente que quer anunciar (pós-venda)
+Boa! Vamos colocar seu negócio no app. 📱
 
-> Me passa esses dados que já preparo seu card! ✅
+Preciso só de algumas informações rápidas:
+▸ Nome do estabelecimento
+▸ Link do Instagram
+▸ Escolher: Parceiro do Mês (R$ 199) ou Parceiro da Semana (R$ 79)
+▸ Um emoji da lista: 🍻 🎶 🎭 🌱 🎾 🛍️ 🎤 🎬 🎨 🎪 🎟️ 🏆 📚 🍔 🚴 🏛️ 🥟
 
-> Assim que o PIX for confirmado, já subo pro ar na hora! 🚀
-> Nome: José Augusto Baron
-> Chave Pix, CPF: 649.568.229-87
-> Valores:
-> ▸ Parceiro do Mês: R$ 199
-> ▸ Parceiro da Semana: R$ 79
+Se for Parceiro do Mês (card grande, fica o mês inteiro), manda também:
+▸ Descrição curta (ex: "Comida de verdade")
+▸ Horário de funcionamento
 
-> Qualquer dúvida, tô por aqui! 👊
+Se for Parceiro da Semana (mini card), manda só o nome e o emoji.
+
+Me passa esses dados que já preparo seu card! ✅
+
+Assim que o PIX for confirmado, já subo pro ar na hora! 🚀
+Nome: José Augusto Baron
+Chave Pix (CPF): 649.568.229-87
+Valores:
+▸ Parceiro do Mês: R$ 199
+▸ Parceiro da Semana: R$ 79
+
+Qualquer dúvida, tô por aqui! 👊
 
 ## 3. Estratégia de crescimento
 
