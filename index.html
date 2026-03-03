@@ -558,7 +558,7 @@ const parceiroMesNome = document.querySelector('.parceiro-nome')?.innerText || '
 const parceiroMesLabel = document.querySelector('.parceiro-label')?.firstChild?.textContent?.trim() || '';
 const parceiroMesLink = document.querySelector('.parceiro-card')?.href || '';
 
-const destaquesTexto = `Antes de tudo, destaque o Parceiro do Mês: ${parceiroMesLabel} (${parceiroMesNome}). Descreva o que é o lugar, o que serve, o diferencial e por que vale visitar. SEMPRE inclua o link: ${parceiroMesLink}. Use emojis e formatação destacada. Em seguida liste os eventos normalmente. `;
+const destaquesTexto = `Antes de tudo, destaque o Parceiro do Mês: ${parceiroMesLabel} (${parceiroMesNome}). Descreva o que é o lugar, o que serve, o diferencial e por que vale visitar. OBRIGATÓRIO: exiba o link clicável ${parceiroMesLink} logo abaixo do destaque. Use emojis e formatação destacada. Em seguida liste os eventos normalmente. `;
 
 query = `${destaquesTexto}Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir eventos de todos os bairros da cidade, não apenas do centro. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Bares, 🎶 Shows, 🎭 Cultura, 🌱 Natureza, 🎾 Esporte, 🛍️ Feiras. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente que não há eventos oficiais encontrados.${filtroCategoria}`;
 }
