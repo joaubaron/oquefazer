@@ -18,13 +18,13 @@
 ## 2. Mensagens de divulgação
 
 **Para pessoas (grupos de WhatsApp):**
-> Fiz um app pra descobrir o que fazer em Blumenau. Testa e me fala o que achou.
+> Fiz um app pra descobrir o que fazer na sua cidade. Testa e me fala o que achou.
 > 👉 https://joaubaron.github.io/oquefazer/
 >
 > Dica: abre o link e toca em "Adicionar à tela inicial" para instalar como app.
 
 **Para anunciantes:**
-> Fiz um app de agenda cultural de Blumenau. O espaço de parceiro está vazio agora — você seria o primeiro. Queria que você conhecesse antes de abrir para outros.
+> Fiz um app de agenda cultural para descobrir eventos e o que fazer na cidade. Tenho espaço de parceiro disponível para negócios locais. Queria que você conhecesse.
 > 👉 https://joaubaron.github.io/oquefazer/
 
 ---
