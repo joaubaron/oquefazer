@@ -579,6 +579,7 @@ const destaquesTexto = `Antes de tudo, destaque o Parceiro do Mês: ${parceiroMe
 query = `${destaquesTexto}Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir eventos de todos os bairros da cidade, não apenas do centro. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Bares, 🎶 Shows, 🎭 Cultura, 🌱 Natureza, 🎾 Esporte, 🛍️ Feiras. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente que não há eventos oficiais encontrados.${filtroCategoria}`;
 }
 
+gtag('event', 'busca', { cidade, periodo, categoria: categoriaSelecionada || 'todas' });
 const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
 location.href = url;
 }
@@ -622,7 +623,7 @@ const texto = '👉 https://bit.ly/oquefazerpertodevoce';
 if (navigator.share) {
 navigator.share({ text: texto });
 } else {
-navigator.clipboard.writeText(texto).then(() => alert('Link copiado!'));
+navigator.clipboard.writeText(texto).then(() => mostrarAviso('Link copiado! 🔗'));
 }
 }
 
