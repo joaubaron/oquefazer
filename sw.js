@@ -1,10 +1,11 @@
-const CACHE_NAME = 'oquefazer-2026-0303-1610';
+const CACHE_NAME = 'oquefazer-2026-0403-1045';
 
 const STATIC_ASSETS = [
 './',
 './index.html',
 './manifest.json',
 './icone.png',
+'./icone512.png',
 './fundo.jpg'
 ];
 
