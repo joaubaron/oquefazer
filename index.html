@@ -10,8 +10,8 @@
 <link rel="icon" href="icone.png">
 <link rel="apple-touch-icon" href="icone.png">
 <link rel="preload" as="image" href="fundo.jpg">
-<title>Oquefazer</title>
-<meta name="description" content="O que fazer perto de você?">
+<title>O que fazer perto de você!</title>
+<meta name="description" content="O que fazer perto de você!">
 <link rel="canonical" href="https://joaubaron.github.io/oquefazer">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FFT1XLDQD"></script>
@@ -620,16 +620,16 @@ btn.textContent = '🔍';
 }
 
 function compartilhar() {
-  const texto = `Cansado de ficar em casa sem saber o que fazer? Isso acabou!
-Esse app mostra shows, bares, feiras e eventos na sua cidade — usa seu GPS ou digita a cidade.
+const texto = `Cansado de ficar em casa sem saber o que fazer? Isso acabou!
+Tem um app que mostra shows, bares, feiras e eventos na sua cidade — usa seu GPS ou digita a cidade.
 👉 https://t.ly/oquefazer
 
 Testa aí e passa pra frente!`;
-  if (navigator.share) {
-    navigator.share({ text: texto });
-  } else {
-    navigator.clipboard.writeText(texto).then(() => mostrarAviso('Link copiado! 🔗'));
-  }
+if (navigator.share) {
+navigator.share({ text: texto });
+} else {
+navigator.clipboard.writeText(texto).then(() => mostrarAviso('Link copiado! 🔗'));
+}
 }
 
 window.addEventListener('DOMContentLoaded', () => {
