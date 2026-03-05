@@ -331,7 +331,8 @@ transition: opacity 0.5s ease;
 ║  3. parceiro-nome   → nome exibido no card
 ║  4. parceiro-label  → rótulo + emoji
 ║  5. parceiro-acesse → horário de funcionamento
-║  6. anunciante_id   → nome anunciante
+║  6. parceiro-cidade → cidade do anunciante (usada pela IA)
+║  7. logo_anunciante.png → logo do anunciante (substituir no GitHub)
 ║
 ║  📦 PARCEIROS DA SEMANA  (R$ 79 — semanal)
 ║  ─────────────────────────────────────────────────────────────
@@ -359,6 +360,10 @@ onclick="gtag('event', 'clique_anuncio', {
 'periodo': 'mensal',
 'data_clique': new Date().toISOString().split('T')[0]
 });">
+<div style="display:flex; align-items:center; gap:10px;">
+<!-- 7️⃣ LOGO -->
+<img src="./logo_anunciante.png" style="height:50px; width:50px; object-fit:contain; border-radius:50%; flex-shrink:0;">
+<div style="flex:1;">
 <div class="parceiro-linha" style="margin-bottom:5px">
 <!-- 4️⃣ LABEL E EMOJI -->
 <span class="parceiro-label">Comida de verdade
@@ -372,6 +377,10 @@ onclick="gtag('event', 'clique_anuncio', {
 <!-- 5️⃣ HORÁRIO -->
 <span class="parceiro-acesse">Qua a Dom - 18:30 às 23:00</span>
 </div>
+</div>
+</div>
+<!-- 6️⃣ CIDADE (oculta, usada pela IA) -->
+<span class="parceiro-cidade" style="display:none">Blumenau</span>
 </a>
 
 <!-- ============================================================ -->
@@ -571,8 +580,9 @@ const filtroCategoria = categoriaSelecionada ? ` Mostrar apenas eventos da categ
 const parceiroMesNome = document.querySelector('.parceiro-nome')?.innerText || '';
 const parceiroMesLabel = document.querySelector('.parceiro-label')?.firstChild?.textContent?.trim() || '';
 const parceiroMesLink = document.querySelector('.parceiro-card')?.href || '';
+const parceiroMesCidade = document.querySelector('.parceiro-cidade')?.innerText || '';
 
-const destaquesTexto = `Antes de tudo, destaque o Parceiro do Mês: ${parceiroMesLabel} (${parceiroMesNome}). Em 2 linhas máximo: descreva o que é o lugar e por que vale visitar. Use emojis. Inclua o link do Instagram deste estabelecimento. Em seguida liste os eventos normalmente. `;
+const destaquesTexto = `Antes de tudo, destaque o Parceiro do Mês: ${parceiroMesLabel} (${parceiroMesNome}), localizado em ${parceiroMesCidade}. Em 2 linhas máximo: descreva o que é o lugar e por que vale visitar. Use emojis. Inclua o link do Instagram deste estabelecimento. Em seguida liste os eventos normalmente. `;
 
 query = `${destaquesTexto}Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir eventos de todos os bairros da cidade, não apenas do centro. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Bares, 🎶 Shows, 🎭 Cultura, 🌱 Natureza, 🎾 Esporte, 🛍️ Feiras. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente que não há eventos oficiais encontrados.${filtroCategoria}`;
 }
