@@ -1,14 +1,14 @@
-const CACHE_NAME = 'oquefazer-2026-0503-1106';
-
+const CACHE_NAME = 'oquefazer-2026-0503-1111';
 const STATIC_ASSETS = [
 './',
 './index.html',
 './manifest.json',
 './icone.png',
 './icone512.png',
-'./fundo.jpg'
+'./fundo.jpg',
+'./splash.png',
+'./logo_anunciante.png'
 ];
-
 // ===============================
 // INSTALAÇÃO
 // ===============================
@@ -19,7 +19,6 @@ caches.open(CACHE_NAME)
 );
 self.skipWaiting();
 });
-
 // ===============================
 // ATIVAÇÃO
 // ===============================
@@ -37,16 +36,12 @@ return caches.delete(key);
 );
 self.clients.claim();
 });
-
 // ===============================
 // FETCH
 // ===============================
 self.addEventListener('fetch', event => {
-
 if (event.request.method !== 'GET') return;
-
 const acceptHeader = event.request.headers.get('accept') || '';
-
 // HTML → Network First (para atualizar anúncios automaticamente)
 if (acceptHeader.includes('text/html')) {
 event.respondWith(
@@ -62,7 +57,6 @@ return response;
 );
 return;
 }
-
 // Outros arquivos → Cache First
 event.respondWith(
 caches.match(event.request)
