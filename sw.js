@@ -1,6 +1,6 @@
-// ⚠️ Atualize CACHE_VERSION a cada deploy (ex: 1.0.0 → 1.1.0)
-const CACHE_VERSION = '1.0.1';
-const CACHE_NAME = `oquefazer-v${CACHE_VERSION}`;
+// ⚠️ Atualize a versão a cada deploy
+const CACHE_VERSION = '1.1.0';
+const CACHE_NAME = `oquefazer-${CACHE_VERSION}`;
 
 const STATIC_ASSETS = [
 './',
@@ -13,6 +13,7 @@ const STATIC_ASSETS = [
 './logo_anunciante.png',
 './offline.html'
 ];
+
 // ===============================
 // INSTALAÇÃO
 // ===============================
@@ -23,6 +24,7 @@ caches.open(CACHE_NAME)
 );
 self.skipWaiting();
 });
+
 // ===============================
 // ATIVAÇÃO
 // ===============================
@@ -40,33 +42,45 @@ return caches.delete(key);
 );
 self.clients.claim();
 });
+
 // ===============================
 // FETCH
 // ===============================
 self.addEventListener('fetch', event => {
+
 if (event.request.method !== 'GET') return;
+
 const acceptHeader = event.request.headers.get('accept') || '';
-// HTML → Network First (para atualizar anúncios automaticamente)
+
+// HTML → NETWORK FIRST
 if (acceptHeader.includes('text/html')) {
+
 event.respondWith(
 fetch(event.request)
 .then(response => {
+
 const clone = response.clone();
+
 caches.open(CACHE_NAME).then(cache => {
 cache.put(event.request, clone);
 });
+
 return response;
+
 })
 .catch(() =>
 caches.match(event.request)
 .then(cached => cached || caches.match('./offline.html'))
 )
 );
+
 return;
 }
-// Outros arquivos → Cache First
+
+// OUTROS → CACHE FIRST
 event.respondWith(
 caches.match(event.request)
 .then(response => response || fetch(event.request))
 );
+
 });
