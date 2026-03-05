@@ -1,9 +1,9 @@
 {
-"id": "./",
+"id": "/oquefazer/",
 "name": "Oquefazer",
 "short_name": "Oquefazer",
 "description": "O que fazer perto de você!",
-"start_url": "./index.html",
+"start_url": "./",
 "scope": "./",
 "display": "standalone",
 "background_color": "#000000",
