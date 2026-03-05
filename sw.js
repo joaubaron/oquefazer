@@ -1,4 +1,7 @@
-const CACHE_NAME = 'oquefazer-2026-0503-1111';
+// ⚠️ Atualize CACHE_VERSION a cada deploy (ex: 1.0.0 → 1.1.0)
+const CACHE_VERSION = '1.0.0';
+const CACHE_NAME = `oquefazer-v${CACHE_VERSION}`;
+
 const STATIC_ASSETS = [
 './',
 './index.html',
@@ -7,7 +10,8 @@ const STATIC_ASSETS = [
 './icone512.png',
 './fundo.jpg',
 './splash.png',
-'./logo_anunciante.png'
+'./logo_anunciante.png',
+'./offline.html'
 ];
 // ===============================
 // INSTALAÇÃO
@@ -53,7 +57,10 @@ cache.put(event.request, clone);
 });
 return response;
 })
-.catch(() => caches.match(event.request))
+.catch(() =>
+caches.match(event.request)
+.then(cached => cached || caches.match('./offline.html'))
+)
 );
 return;
 }
