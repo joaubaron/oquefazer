@@ -510,6 +510,27 @@ width: auto;
 </div>
 </div>
 
+<!-- ============================================================ -->
+<!--  INSTALAR APP                                                -->
+<!-- ============================================================ -->
+<div id="instalar-banner" style="
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #6eb233;
+  color: white;
+  padding: 12px 22px;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: bold;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  cursor: pointer;
+  z-index: 9999;
+  white-space: nowrap;
+">📲 Instalar app</div>
+
 <script>
 let categoriaSelecionada = '';
 
@@ -664,6 +685,25 @@ setTimeout(() => splash.remove(), 500);
 if ('serviceWorker' in navigator) {
 navigator.serviceWorker.register('./sw.js');
 }
+
+// ── Instalar app ──
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('instalar-banner').style.display = 'block';
+});
+document.getElementById('instalar-banner').addEventListener('click', async () => {
+  document.getElementById('instalar-banner').style.display = 'none';
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  gtag('event', 'pwa_install', { outcome });
+  deferredPrompt = null;
+});
+window.addEventListener('appinstalled', () => {
+  document.getElementById('instalar-banner').style.display = 'none';
+  gtag('event', 'pwa_installed');
+});
 </script>
 </body>
 </html>
