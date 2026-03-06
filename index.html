@@ -594,7 +594,10 @@ const filtroCategoria = categoriaSelecionada ? `Mostrar SOMENTE categoria: ${cat
 const hoje = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 if (periodo === 'hoje') tempo = `hoje (${hoje})`;
 
-const destaquesTexto = `BLOCO 1 — DESTAQUE OBRIGATÓRIO: Exiba primeiro o Parceiro do Mês: ${parceiroMesNome} — ${parceiroMesLabel}, em ${parceiroMesCidade}. Máximo 2 linhas, use emojis, link: ${parceiroMesLink}. Não busque outros links. BLOCO 2 — EVENTOS: `;
+// ── Destaque só aparece se a cidade buscada for a do parceiro ──
+const destaquesTexto = parceiroMesCidade.toLowerCase() === cidade.toLowerCase()
+? `BLOCO 1 — DESTAQUE OBRIGATÓRIO: Exiba primeiro o Parceiro do Mês: ${parceiroMesNome} — ${parceiroMesLabel}, em ${parceiroMesCidade}. Máximo 2 linhas, use emojis, link: ${parceiroMesLink}. Não busque outros links. BLOCO 2 — EVENTOS: `
+: '';
 
 query = `${filtroCategoria}${destaquesTexto}Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir eventos de todos os bairros da cidade, não apenas do centro. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Bares, 🎶 Shows, 🎭 Cultura, 🌱 Natureza, 🎾 Esporte, 🛍️ Feiras. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente. Use separadores visuais entre eventos. Negrito no nome. Máximo 10 eventos mais relevantes.`;
 }
