@@ -584,17 +584,19 @@ let query;
 if (eventoEspecifico) {
 query = `Buscar APENAS informações sobre: ${eventoEspecifico} em ${cidade} ${tempo}. Mostrar somente este evento. Não mostrar outros eventos. Informar: data, horário, local, descrição e links. Se não encontrar, informar claramente que não há informações confirmadas sobre este evento.`;
 } else {
-const filtroCategoria = categoriaSelecionada ? ` Mostrar apenas eventos da categoria: ${categoriaSelecionada}.` : '';
-
 // ── Lê o parceiro do mês dinamicamente do HTML ──
 const parceiroMesNome = document.querySelector('.parceiro-nome')?.innerText || '';
 const parceiroMesLabel = document.querySelector('.parceiro-label')?.firstChild?.textContent?.trim() || '';
 const parceiroMesLink = document.querySelector('.parceiro-card')?.href || '';
 const parceiroMesCidade = document.querySelector('.parceiro-cidade')?.innerText || '';
 
-const destaquesTexto = `Antes de tudo, destaque o Parceiro do Mês: ${parceiroMesLabel} (${parceiroMesNome}), localizado em ${parceiroMesCidade}. Em 2 linhas máximo: descreva o que é o lugar e por que vale visitar. Use emojis. O link oficial do Instagram é ${parceiroMesLink} — exiba a URL completa clicável, não use texto âncora, não busque outros links. Em seguida liste os eventos normalmente. `;
+const filtroCategoria = categoriaSelecionada ? `Mostrar SOMENTE categoria: ${categoriaSelecionada}. Ignorar outros tipos. ` : '';
+const hoje = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+if (periodo === 'hoje') tempo = `hoje (${hoje})`;
 
-query = `${destaquesTexto}Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir eventos de todos os bairros da cidade, não apenas do centro. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Bares, 🎶 Shows, 🎭 Cultura, 🌱 Natureza, 🎾 Esporte, 🛍️ Feiras. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente que não há eventos oficiais encontrados.${filtroCategoria}`;
+const destaquesTexto = `BLOCO 1 — DESTAQUE OBRIGATÓRIO: Exiba primeiro o Parceiro do Mês: ${parceiroMesNome} — ${parceiroMesLabel}, em ${parceiroMesCidade}. Máximo 2 linhas, use emojis, link: ${parceiroMesLink}. Não busque outros links. BLOCO 2 — EVENTOS: `;
+
+query = `${filtroCategoria}${destaquesTexto}Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir eventos de todos os bairros da cidade, não apenas do centro. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Bares, 🎶 Shows, 🎭 Cultura, 🌱 Natureza, 🎾 Esporte, 🛍️ Feiras. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente. Use separadores visuais entre eventos. Negrito no nome. Máximo 10 eventos mais relevantes.`;
 }
 
 gtag('event', 'busca', { cidade, periodo, categoria: categoriaSelecionada || 'todas' });
