@@ -20,7 +20,7 @@ Testa aí e, se curtir, compartilha!
 ## 2️⃣ Para anunciante — Parceiro do Mês (R$199/mês)
 
 ```
-Oi [nome]! Tenho um app que mostra eventos e o que fazer na cidade — quando alguém busca em Blumenau, seu negócio aparece em destaque antes de tudo, o mês inteiro.
+Oi [nome]! Tenho um app que mostra eventos e o que fazer na cidade — quando alguém busca o que fazer aí, seu negócio aparece em destaque antes de tudo, o mês inteiro.
 
 Só existe 1 parceiro do mês.
 
@@ -32,7 +32,7 @@ Investimento de R$199/mês. Posso te mostrar como funciona?
 ## 3️⃣ Para anunciante — Parceiro da Semana (R$79/semana)
 
 ```
-Oi [nome]! Tenho um app que mostra eventos e o que fazer na cidade — seu negócio aparece em destaque para quem busca o que fazer em Blumenau.
+Oi [nome]! Tenho um app que mostra eventos e o que fazer na cidade — seu negócio aparece em destaque para quem busca o que fazer aí.
 
 Modelo semanal, R$79 por semana, mínimo 2 semanas.
 
