@@ -37,15 +37,18 @@ Posso te mostrar como funciona?
 
 **"Quanto custa isso?"**
 ```
-R$199 o mês inteiro — menos que um impulsionamento no Instagram.
-E aqui você aparece para quem já está decidindo o que fazer agora, não para quem está rolando o feed.
+Menos que um impulsionamento no Instagram — e aqui você aparece para quem já está decidindo o que fazer agora, não para quem está rolando o feed.
+
+Tenho duas opções:
+⭐ Parceiro do Mês — destaque exclusivo o mês inteiro por R$199
+📅 Parceiro da Semana — destaque semanal por R$79/semana (mín. 2 semanas)
 ```
 
 ---
 
 **"Como funciona exatamente?"**
 ```
-Quando alguém abre o app e busca o que fazer aí, seu negócio aparece em destaque antes de todos os eventos da cidade. Com nome, descrição e link direto pro seu Instagram.
+Quando alguém busca o que fazer aí, o app envia um prompt para a IA do Google com seu negócio destacado — nome, descrição e Instagram — com instrução para apresentá-lo antes dos eventos. Os resultados dependem da IA, mas a instrução é clara e prioritária.
 ```
 
 ---
@@ -97,4 +100,17 @@ Manda aqui que coloco no ar ainda hoje!
 3. Um emoji que representa seu negócio 🍻🎶🎭🌱🎾🛍️🎤🍔🚴
 
 Manda aqui que coloco no ar ainda hoje!
+```
+
+---
+
+## 5️⃣ Após publicar o anúncio
+
+```
+Seu destaque já está no ar! 🎉
+
+Abre o app, digita [cidade] e veja como ficou:
+👉 https://t.ly/oquefazer
+
+Qualquer ajuste é só falar!
 ```
