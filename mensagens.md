@@ -1,124 +1,118 @@
-# 📊 Estratégia de preços por fase
-
-| fase            | parceiro do mês   | parceiros semana  | receita máxima mês    |
-| --------------- | ----------------- | ----------------- | --------------------- |
-| **Inicial**     | **R$199**         | **R$79**          | **R$1.147**           |
-| **Crescimento** | **R$297**         | **R$97**          | **R$1.461**           |
-| **Escala**      | **R$397 – R$497** | **R$127 – R$147** | **R$1.921 – R$2.253** |
-
-*(considerando 1 mensal + slots semanais por anunciante)*
+# 📱 Mensagens prontas
 
 ---
 
-# 🟢 Fase 1 — **Inicial**
+## 1️⃣ Para usuários conhecerem o app
 
-Objetivo: **provar que funciona**
+```
+Cansado de ficar em casa sem saber o que fazer? Isso acabou!
 
-Preço:
-* Parceiro do mês → **R$199**
-* Parceiro semanal → **R$79**
+Fiz um app que mostra shows, bares, feiras e eventos na sua cidade — usa seu GPS ou digita a cidade.
+👉 https://t.ly/oquefazer
 
-Estratégia:
-* vender **pessoalmente**
-* mostrar o app funcionando
-* oferecer **teste de primeira semana**
+Dica: abre o link e toca em "Adicionar à tela inicial" para instalar como app.
 
-Argumento:
-> "Seu Instagram aparece antes de todos os eventos quando a pessoa procura o que fazer na cidade."
-
-Meta:
-* **3 a 6 anunciantes recorrentes**
-* gatilho para próxima fase: **4 anunciantes pagando por 2 meses seguidos**
+Testa aí e, se curtir, compartilha!
+```
 
 ---
 
-# 🔍 Como buscar anunciantes
+## 2️⃣ Para anunciante
 
-## Pessoalmente — mais eficaz
-* Bares e restaurantes que você já frequenta
-* Negócios que você já conhece o dono
-* Mostrar o app funcionando na hora, na cidade deles
+```
+Oi [nome]! Tenho um app que recomenda o que fazer na cidade — seu negócio é apresentado para quem está decidindo onde ir agora.
 
-## WhatsApp/Instagram — escala mais rápido
-* Direct no Instagram de bares, shows, eventos locais
-* Grupos de empreendedores da cidade
-* Associações comerciais (CDL, ACIB)
+Dá uma olhada: 👉 https://t.ly/oquefazer
 
-## Argumento de entrada
-Não venda como anúncio — mostre o app funcionando com a cidade deles e deixa ele ver o resultado. **A demonstração vende sozinha.**
+Tenho duas opções:
+⭐ Parceiro do Mês — recomendação exclusiva o mês inteiro por R$199
+📅 Parceiro da Semana — recomendação semanal por R$79/semana
 
-## Ordem de prioridade de quem abordar
-1. Bares e restaurantes — pagam bem e entendem marketing local
-2. Eventos recorrentes — shows, feiras, mercados
-3. Academias, escolas de esporte
-4. Lojas com apelo de experiência — escape room, boliche, etc.
-
-> O primeiro anunciante é o mais difícil. Com ele no ar, você mostra para o próximo como ficou — e a venda fica muito mais fácil.
+Posso te mostrar como funciona?
+```
 
 ---
 
-# 🟡 Fase 2 — **Crescimento**
+## 3️⃣ Objeções mais comuns
 
-Objetivo: **começar a escalar**
+**"Quanto custa isso?"**
+```
+Menos que um impulsionamento no Instagram — e aqui você é recomendado para quem já está decidindo o que fazer agora, não para quem está rolando o feed.
 
-Preço:
-* Parceiro do mês → **R$297**
-* Parceiro semanal → **R$97**
+Tenho duas opções:
+⭐ Parceiro do Mês — recomendação exclusiva o mês inteiro por R$199
+📅 Parceiro da Semana — recomendação semanal por R$79/semana
 
-Estratégia:
-* mostrar **prints de métricas**
-* mostrar **quantidade de buscas**
-* mostrar **cliques em anúncios**
-
-Argumento:
-> "Seu negócio aparece para pessoas que já estão procurando o que fazer hoje."
-
-Meta:
-* **10+ anunciantes recorrentes**
-* agenda semanal quase cheia
-* gatilho para próxima fase: **agenda cheia por 2 meses seguidos**
+Dica: o mês inteiro sai por R$199 — se fosse semana a semana ficaria R$316.
+```
 
 ---
 
-# 🔵 Fase 3 — **Escala**
-
-Objetivo: **transformar em mídia local**
-
-Preço:
-* Parceiro do mês → **R$397 – R$497**
-* Parceiro semanal → **R$127 – R$147**
-
-Estratégia:
-* vender como **"posicionamento premium"**
-* limitar vagas
-* usar **lista de espera**
-
-Argumento:
-> "Só existe 1 parceiro do mês."
-
-Meta:
-* **venda recorrente**
-* fila de anunciantes
+**"Como funciona exatamente?"**
+```
+Quando alguém busca o que fazer aí, o app envia um prompt para a IA do Google com seu negócio destacado — nome, descrição e Instagram — com instrução para apresentá-lo antes dos eventos. Os resultados dependem da IA, mas a instrução é clara e prioritária.
+```
 
 ---
 
-# 💡 Projeção realista (cidade média)
-
-| cenário | receita           |
-| ------- | ----------------- |
-| baixo   | R$600 – R$900     |
-| normal  | R$1.200 – R$1.500 |
-| bom     | R$1.800 – R$2.200 |
-
-Para **um site simples**, isso já é um **excelente retorno**.
+**"Quantas pessoas usam?"**
+```
+Ainda estou crescendo a base, mas o diferencial não é volume — é intenção. Quem abre o app quer sair. Ele está escolhendo onde ir naquele momento.
+```
 
 ---
 
-# 🧠 Dica MUITO importante
+**"Vou pensar..."**
+```
+Claro! Só lembrando que o Parceiro do Mês é exclusivo — só existe 1 por vez. Quando preencher, fico te avisando se abrir vaga.
+```
 
-Nunca venda como **anúncio**.
+---
 
-Venda como:
-> **"Recomendação de quem abre o app para decidir onde ir."**
+**"Não tenho verba agora"**
+```
+Entendo! Tenho também o modelo semanal por R$79 — dá pra testar uma semana e ver o resultado antes de decidir algo maior.
+```
 
-Isso muda totalmente a percepção.
+---
+
+## 4️⃣ Após aceitar — Coleta de dados
+
+**Parceiro do Mês** — solicitar:
+
+```
+Ótimo! Para configurar sua recomendação no app preciso de:
+
+1. Link do seu Instagram
+2. Nome do negócio
+3. Frase curta descrevendo o que é (ex: "O melhor da comida típica paraense")
+4. Horário de funcionamento
+5. Logo em PNG (fundo transparente se possível)
+
+Manda aqui que coloco no ar ainda hoje!
+```
+
+**Parceiro da Semana** — solicitar:
+
+```
+Ótimo! Para configurar sua recomendação no app preciso de:
+
+1. Link do seu Instagram
+2. Nome do negócio
+3. Um emoji que representa seu negócio 🍻🎶🎭🌱🎾🛍️🎤🍔🚴
+
+Manda aqui que coloco no ar ainda hoje!
+```
+
+---
+
+## 5️⃣ Após publicar o anúncio
+
+```
+Sua recomendação já está no ar! 🎉
+
+Abre o app, digita [cidade] e veja como ficou:
+👉 https://t.ly/oquefazer
+
+Qualquer ajuste é só falar!
+```
