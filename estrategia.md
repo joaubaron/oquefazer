@@ -24,7 +24,7 @@ Estratégia:
 * oferecer **teste de primeira semana**
 
 Argumento:
-> "Seu Instagram aparece antes de todos os eventos quando a pessoa procura o que fazer na cidade."
+> "Seu negócio é recomendado para quem está decidindo o que fazer na cidade agora."
 
 Meta:
 * **3 a 6 anunciantes recorrentes**
@@ -68,10 +68,10 @@ Preço:
 Estratégia:
 * mostrar **prints de métricas**
 * mostrar **quantidade de buscas**
-* mostrar **cliques em anúncios**
+* mostrar **cliques em recomendações**
 
 Argumento:
-> "Seu negócio aparece para pessoas que já estão procurando o que fazer hoje."
+> "Seu negócio é recomendado para pessoas que já estão procurando o que fazer hoje."
 
 Meta:
 * **10+ anunciantes recorrentes**
