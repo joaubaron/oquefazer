@@ -1,118 +1,124 @@
-# 📱 Mensagens prontas
+# 📊 Estratégia de preços por fase
+
+| fase            | parceiro do mês   | parceiros semana  | receita máxima mês    |
+| --------------- | ----------------- | ----------------- | --------------------- |
+| **Inicial**     | **R$199**         | **R$79**          | **R$1.147**           |
+| **Crescimento** | **R$297**         | **R$97**          | **R$1.461**           |
+| **Escala**      | **R$397 – R$497** | **R$127 – R$147** | **R$1.921 – R$2.253** |
+
+*(considerando 1 mensal + slots semanais por anunciante)*
 
 ---
 
-## 1️⃣ Para usuários conhecerem o app
+# 🟢 Fase 1 — **Inicial**
 
-```
-Cansado de ficar em casa sem saber o que fazer? Isso acabou!
+Objetivo: **provar que funciona**
 
-Fiz um app que mostra shows, bares, feiras e eventos na sua cidade — usa seu GPS ou digita a cidade.
-👉 https://t.ly/oquefazer
+Preço:
+* Parceiro do mês → **R$199**
+* Parceiro semanal → **R$79**
 
-Dica: abre o link e toca em "Adicionar à tela inicial" para instalar como app.
+Estratégia:
+* vender **pessoalmente**
+* mostrar o app funcionando
+* oferecer **teste de primeira semana**
 
-Testa aí e, se curtir, compartilha!
-```
+Argumento:
+> "Seu Instagram aparece antes de todos os eventos quando a pessoa procura o que fazer na cidade."
 
----
-
-## 2️⃣ Para anunciante
-
-```
-Oi [nome]! Tenho um app que mostra eventos e o que fazer na cidade — seu negócio aparece em destaque para quem busca o que fazer aí.
-
-Dá uma olhada: 👉 https://t.ly/oquefazer
-
-Tenho duas opções:
-⭐ Parceiro do Mês — destaque exclusivo o mês inteiro por R$199
-📅 Parceiro da Semana — destaque semanal por R$79/semana
-
-Posso te mostrar como funciona?
-```
+Meta:
+* **3 a 6 anunciantes recorrentes**
+* gatilho para próxima fase: **4 anunciantes pagando por 2 meses seguidos**
 
 ---
 
-## 3️⃣ Objeções mais comuns
+# 🔍 Como buscar anunciantes
 
-**"Quanto custa isso?"**
-```
-Menos que um impulsionamento no Instagram — e aqui você aparece para quem já está decidindo o que fazer agora, não para quem está rolando o feed.
+## Pessoalmente — mais eficaz
+* Bares e restaurantes que você já frequenta
+* Negócios que você já conhece o dono
+* Mostrar o app funcionando na hora, na cidade deles
 
-Tenho duas opções:
-⭐ Parceiro do Mês — destaque exclusivo o mês inteiro por R$199
-📅 Parceiro da Semana — destaque semanal por R$79/semana
+## WhatsApp/Instagram — escala mais rápido
+* Direct no Instagram de bares, shows, eventos locais
+* Grupos de empreendedores da cidade
+* Associações comerciais (CDL, ACIB)
 
-Dica: o mês inteiro sai por R$199 — se fosse semana a semana ficaria R$316.
-```
+## Argumento de entrada
+Não venda como anúncio — mostre o app funcionando com a cidade deles e deixa ele ver o resultado. **A demonstração vende sozinha.**
 
----
+## Ordem de prioridade de quem abordar
+1. Bares e restaurantes — pagam bem e entendem marketing local
+2. Eventos recorrentes — shows, feiras, mercados
+3. Academias, escolas de esporte
+4. Lojas com apelo de experiência — escape room, boliche, etc.
 
-**"Como funciona exatamente?"**
-```
-Quando alguém busca o que fazer aí, o app envia um prompt para a IA do Google com seu negócio destacado — nome, descrição e Instagram — com instrução para apresentá-lo antes dos eventos. Os resultados dependem da IA, mas a instrução é clara e prioritária.
-```
-
----
-
-**"Quantas pessoas usam?"**
-```
-Ainda estou crescendo a base, mas o diferencial não é volume — é intenção. Quem abre o app quer sair. Ele está escolhendo onde ir naquele momento.
-```
+> O primeiro anunciante é o mais difícil. Com ele no ar, você mostra para o próximo como ficou — e a venda fica muito mais fácil.
 
 ---
 
-**"Vou pensar..."**
-```
-Claro! Só lembrando que o Parceiro do Mês é exclusivo — só existe 1 por vez. Quando preencher, fico te avisando se abrir vaga.
-```
+# 🟡 Fase 2 — **Crescimento**
+
+Objetivo: **começar a escalar**
+
+Preço:
+* Parceiro do mês → **R$297**
+* Parceiro semanal → **R$97**
+
+Estratégia:
+* mostrar **prints de métricas**
+* mostrar **quantidade de buscas**
+* mostrar **cliques em anúncios**
+
+Argumento:
+> "Seu negócio aparece para pessoas que já estão procurando o que fazer hoje."
+
+Meta:
+* **10+ anunciantes recorrentes**
+* agenda semanal quase cheia
+* gatilho para próxima fase: **agenda cheia por 2 meses seguidos**
 
 ---
 
-**"Não tenho verba agora"**
-```
-Entendo! Tenho também o modelo semanal por R$79 — dá pra testar uma semana e ver o resultado antes de decidir algo maior.
-```
+# 🔵 Fase 3 — **Escala**
+
+Objetivo: **transformar em mídia local**
+
+Preço:
+* Parceiro do mês → **R$397 – R$497**
+* Parceiro semanal → **R$127 – R$147**
+
+Estratégia:
+* vender como **"posicionamento premium"**
+* limitar vagas
+* usar **lista de espera**
+
+Argumento:
+> "Só existe 1 parceiro do mês."
+
+Meta:
+* **venda recorrente**
+* fila de anunciantes
 
 ---
 
-## 4️⃣ Após aceitar — Coleta de dados
+# 💡 Projeção realista (cidade média)
 
-**Parceiro do Mês** — solicitar:
+| cenário | receita           |
+| ------- | ----------------- |
+| baixo   | R$600 – R$900     |
+| normal  | R$1.200 – R$1.500 |
+| bom     | R$1.800 – R$2.200 |
 
-```
-Ótimo! Para configurar seu destaque no app preciso de:
-
-1. Link do seu Instagram
-2. Nome do negócio
-3. Frase curta descrevendo o que é (ex: "O melhor da comida típica paraense")
-4. Horário de funcionamento
-5. Logo em PNG (fundo transparente se possível)
-
-Manda aqui que coloco no ar ainda hoje!
-```
-
-**Parceiro da Semana** — solicitar:
-
-```
-Ótimo! Para configurar seu destaque no app preciso de:
-
-1. Link do seu Instagram
-2. Nome do negócio
-3. Um emoji que representa seu negócio 🍻🎶🎭🌱🎾🛍️🎤🍔🚴
-
-Manda aqui que coloco no ar ainda hoje!
-```
+Para **um site simples**, isso já é um **excelente retorno**.
 
 ---
 
-## 5️⃣ Após publicar o anúncio
+# 🧠 Dica MUITO importante
 
-```
-Seu destaque já está no ar! 🎉
+Nunca venda como **anúncio**.
 
-Abre o app, digita [cidade] e veja como ficou:
-👉 https://t.ly/oquefazer
+Venda como:
+> **"Recomendação de quem abre o app para decidir onde ir."**
 
-Qualquer ajuste é só falar!
-```
+Isso muda totalmente a percepção.
