@@ -10,8 +10,7 @@ Cansado de ficar em casa sem saber o que fazer? Isso acabou!
 Fiz um app que mostra shows, bares, feiras e eventos na sua cidade — usa seu GPS ou digita a cidade.
 👉 https://t.ly/oquefazer
 
-Dica: abre o link e toca em "Adicionar à tela inicial" para instalar como app.
-
+Dica: depois de abrir, você pode instalar como app na tela do celular 📱
 Testa aí e, se curtir, compartilha!
 ```
 
