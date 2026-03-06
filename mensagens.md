@@ -33,7 +33,45 @@ Posso te mostrar como funciona?
 
 ---
 
-## 3️⃣ Após aceitar — Coleta de dados
+## 3️⃣ Objeções mais comuns
+
+**"Quanto custa isso?"**
+```
+R$199 o mês inteiro — menos que um impulsionamento no Instagram.
+E aqui você aparece para quem já está decidindo o que fazer agora, não para quem está rolando o feed.
+```
+
+---
+
+**"Como funciona exatamente?"**
+```
+Quando alguém abre o app e busca o que fazer aí, seu negócio aparece em destaque antes de todos os eventos da cidade. Com nome, descrição e link direto pro seu Instagram.
+```
+
+---
+
+**"Quantas pessoas usam?"**
+```
+Ainda estou crescendo a base, mas o diferencial não é volume — é intenção. Quem abre o app quer sair. Ele está escolhendo onde ir naquele momento.
+```
+
+---
+
+**"Vou pensar..."**
+```
+Claro! Só lembrando que o Parceiro do Mês é exclusivo — só existe 1 por vez. Quando preencher, fico te avisando se abrir vaga.
+```
+
+---
+
+**"Não tenho verba agora"**
+```
+Entendo! Tenho também o modelo semanal por R$79 — dá pra testar 2 semanas e ver o resultado antes de decidir algo maior.
+```
+
+---
+
+## 4️⃣ Após aceitar — Coleta de dados
 
 **Parceiro do Mês** — solicitar:
 
