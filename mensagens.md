@@ -26,7 +26,7 @@ Dá uma olhada: 👉 https://t.ly/oquefazer
 
 Tenho duas opções:
 ⭐ Parceiro do Mês — destaque exclusivo o mês inteiro por R$199
-📅 Parceiro da Semana — destaque semanal por R$79/semana (mín. 2 semanas)
+📅 Parceiro da Semana — destaque semanal por R$79/semana
 
 Posso te mostrar como funciona?
 ```
@@ -41,7 +41,9 @@ Menos que um impulsionamento no Instagram — e aqui você aparece para quem já
 
 Tenho duas opções:
 ⭐ Parceiro do Mês — destaque exclusivo o mês inteiro por R$199
-📅 Parceiro da Semana — destaque semanal por R$79/semana (mín. 2 semanas)
+📅 Parceiro da Semana — destaque semanal por R$79/semana
+
+Dica: o mês inteiro sai por R$199 — se fosse semana a semana ficaria R$316.
 ```
 
 ---
@@ -69,7 +71,7 @@ Claro! Só lembrando que o Parceiro do Mês é exclusivo — só existe 1 por ve
 
 **"Não tenho verba agora"**
 ```
-Entendo! Tenho também o modelo semanal por R$79 — dá pra testar 2 semanas e ver o resultado antes de decidir algo maior.
+Entendo! Tenho também o modelo semanal por R$79 — dá pra testar uma semana e ver o resultado antes de decidir algo maior.
 ```
 
 ---
