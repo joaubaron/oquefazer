@@ -22,6 +22,8 @@ Testa aí e, se curtir, compartilha!
 ```
 Oi [nome]! Tenho um app que mostra eventos e o que fazer na cidade — seu negócio aparece em destaque para quem busca o que fazer aí.
 
+Dá uma olhada: 👉 https://t.ly/oquefazer
+
 Tenho duas opções:
 ⭐ Parceiro do Mês — destaque exclusivo o mês inteiro por R$199
 📅 Parceiro da Semana — destaque semanal por R$79/semana (mín. 2 semanas)
