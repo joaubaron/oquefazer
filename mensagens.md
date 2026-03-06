@@ -104,6 +104,12 @@ Manda aqui que coloco no ar ainda hoje!
 Manda aqui que coloco no ar ainda hoje!
 ```
 
+**Pix antes de publicar:**
+- Nome: José Augusto Baron
+- Chave Pix (CPF): 649.568.229-87
+- Parceiro do Mês: R$199
+- Parceiro da Semana: R$79/semana
+
 ---
 
 ## 5️⃣ Após publicar o anúncio
