@@ -453,15 +453,8 @@ onclick="gtag('event', 'clique_anuncio', {
 Resultados podem variar a cada busca com IA
 </p>
 <p style="margin-top: 8px; margin-bottom: 25px; font-size: 14px; color: #555; display: flex; justify-content: center; gap: 50px; align-items: center;">
-<a href="https://www.instagram.com/joseaugustobaron/" target="_blank" style="color: #6eb233; text-decoration: none; display: flex; align-items: center; gap: 5px; font-size: 14px;">
-<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6eb233" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-<circle cx="12" cy="12" r="4"/>
-<circle cx="17.5" cy="6.5" r="1" fill="#6eb233" stroke="none"/>
-</svg>
-Baron
-</a>
 <a onclick="compartilhar(); return false;" href="#" style="color: #6eb233; text-decoration: none; font-size: 14px;">🔗 Indique o app</a>
+<a href="https://www.instagram.com/joseaugustobaron/" target="_blank" style="color: #6eb233; text-decoration: none; font-size: 14px;">@baron</a>
 </p>
 </div>
 </div>
@@ -498,6 +491,40 @@ color: white;
 width: auto;
 ">Entendi</button>
 </div>
+</div>
+
+<!-- ============================================================ -->
+<!--  INSTALAR APP — Safari Mac                                   -->
+<!-- ============================================================ -->
+<div id="instalar-mac" style="
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1c1c1e;
+  color: white;
+  padding: 14px 18px;
+  border-radius: 18px;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+  z-index: 9999;
+  max-width: 300px;
+  width: 88%;
+  text-align: center;
+  line-height: 1.5;
+">
+  <div style="margin-bottom:6px; font-size:15px; font-weight:700;">💻 Instalar o app</div>
+  No menu <strong style="color:#6eb233;">File</strong> do Safari, clique em<br>
+  <strong style="color:#6eb233;">"Add to Dock"</strong>
+  <div style="margin-top:10px;">
+    <button onclick="document.getElementById('instalar-mac').style.display='none';" style="
+      background: #6eb233; color: white; border: none;
+      border-radius: 10px; padding: 6px 20px;
+      font-size: 13px; font-weight: bold; cursor: pointer; width: auto;
+    ">Entendi</button>
+  </div>
 </div>
 
 <!-- ============================================================ -->
@@ -698,6 +725,15 @@ document.getElementById('cidade').placeholder = ultima ? '' : 'Digite sua cidade
 
 if ('serviceWorker' in navigator) {
 navigator.serviceWorker.register('./sw.js', { scope: './' });
+}
+
+// ── Instalar app — Safari Mac ──
+const isSafariMac = /Macintosh/i.test(navigator.userAgent) && /Safari/i.test(navigator.userAgent) && !/Chrome|CriOS|FxiOS|Edg/i.test(navigator.userAgent);
+const isMacStandalone = window.matchMedia('(display-mode: standalone)').matches;
+if (isSafariMac && !isMacStandalone) {
+  setTimeout(() => {
+    document.getElementById('instalar-mac').style.display = 'block';
+  }, 3000);
 }
 
 // ── Instalar app — iOS ──
