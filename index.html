@@ -288,7 +288,7 @@ line-height: 1;
 <div class="cidade-row">
 <div class="input-wrapper">
 <input type="text" id="cidade" onkeydown="if(event.key==='Enter') buscar('hoje')">
-<button type="button" class="geo-btn" onclick="detectarCidade()" title="Detectar minha cidade">🔍</button>
+<button type="button" class="geo-btn" onclick="detectarCidade()" title="Detectar minha cidade">📍</button>
 </div>
 <button type="button" class="evento-btn" onclick="toggleEvento()">🎫 Evento</button>
 </div>
@@ -707,11 +707,11 @@ localStorage.setItem('cidade', cidade);
 } catch(e) {
 mostrarAviso('Não foi possível detectar a cidade.');
 } finally {
-btn.textContent = '🔍';
+btn.textContent = '📍';
 }
 }, () => {
 mostrarAviso('Permissão de localização negada.');
-btn.textContent = '🔍';
+btn.textContent = '📍';
 });
 }
 
