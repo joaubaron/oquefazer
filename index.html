@@ -693,7 +693,7 @@ mostrarAviso('Geolocalização não suportada neste dispositivo.');
 return;
 }
 const btn = document.querySelector('.geo-btn');
-btn.textContent = '⏳';
+btn.textContent = '📡';
 navigator.geolocation.getCurrentPosition(async (pos) => {
 const { latitude, longitude } = pos.coords;
 try {
