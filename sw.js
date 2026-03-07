@@ -1,5 +1,5 @@
 // ⚠️ Atualize a versão a cada deploy
-const CACHE_VERSION = '1.1.1008';
+const CACHE_VERSION = '1.1.1009';
 const CACHE_NAME = `oquefazer-${CACHE_VERSION}`;
 const STATIC_ASSETS = [
 './',
@@ -7,7 +7,7 @@ const STATIC_ASSETS = [
 './manifest.json',
 './icone.png',
 './icone512.png',
-'./fundo.jpg',
+'./fundo.webp',
 './logo_anunciante.png',
 './offline.html'
 ];
