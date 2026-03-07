@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#000000">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Oquefazer">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="./manifest.json">
 <link rel="icon" href="icone.png">
@@ -388,7 +389,7 @@ onclick="gtag('event', 'clique_anuncio', {
 'periodo': 'semanal',
 'data_clique': new Date().toISOString().split('T')[0]
 });">
-<span class="semana-badge">Parceiro</span>
+<span class="semana-badge">Anúncio</span>
 <div class="semana-linha">
 <!-- 3️⃣ NOME -->
 <span class="semana-nome">Carnívoras</span>
@@ -410,7 +411,7 @@ onclick="gtag('event', 'clique_anuncio', {
 'periodo': 'semanal',
 'data_clique': new Date().toISOString().split('T')[0]
 });">
-<span class="semana-badge">Parceiro</span>
+<span class="semana-badge">Anúncio</span>
 <div class="semana-linha">
 <!-- 3️⃣ NOME -->
 <span class="semana-nome">My Cigar</span>
@@ -432,7 +433,7 @@ onclick="gtag('event', 'clique_anuncio', {
 'periodo': 'semanal',
 'data_clique': new Date().toISOString().split('T')[0]
 });">
-<span class="semana-badge">Parceiro</span>
+<span class="semana-badge">Anúncio</span>
 <div class="semana-linha">
 <!-- 3️⃣ NOME -->
 <span class="semana-nome">Shotokan</span>
@@ -450,17 +451,18 @@ onclick="gtag('event', 'clique_anuncio', {
 </div>
 <p style="margin-top: 15px; font-size: 14px; color: #555;">
 Resultados podem variar a cada busca com IA
-</p> <!-- Este fechamento estava faltando -->
-
-<p style="margin-top: 15px; margin-bottom: 25px; font-size: 14px; color: #555; display: flex; justify-content: center; gap: 50px; align-items: center;">
-<a onclick="compartilhar(); return false;" href="#" style="color: #6eb233; text-decoration: none; font-size: 14px;">
-🔗 Indique o app
-</a>
-<a href="https://www.instagram.com/joseaugustobaron/" target="_blank" style="color: #6eb233; text-decoration: none; font-size: 14px;">
-@baron
-</a>
 </p>
-
+<p style="margin-top: 8px; margin-bottom: 25px; font-size: 14px; color: #555; display: flex; justify-content: center; gap: 50px; align-items: center;">
+<a href="https://www.instagram.com/joseaugustobaron/" target="_blank" style="color: #6eb233; text-decoration: none; display: flex; align-items: center; gap: 5px; font-size: 14px;">
+<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6eb233" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+<circle cx="12" cy="12" r="4"/>
+<circle cx="17.5" cy="6.5" r="1" fill="#6eb233" stroke="none"/>
+</svg>
+Baron
+</a>
+<a onclick="compartilhar(); return false;" href="#" style="color: #6eb233; text-decoration: none; font-size: 14px;">🔗 Indique o app</a>
+</p>
 </div>
 </div>
 
@@ -499,7 +501,40 @@ width: auto;
 </div>
 
 <!-- ============================================================ -->
-<!--  INSTALAR APP                                                -->
+<!--  INSTALAR APP — iOS (Safari)                                 -->
+<!-- ============================================================ -->
+<div id="instalar-ios" style="
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1c1c1e;
+  color: white;
+  padding: 14px 18px;
+  border-radius: 18px;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+  z-index: 9999;
+  max-width: 300px;
+  width: 88%;
+  text-align: center;
+  line-height: 1.5;
+">
+  <div style="margin-bottom:6px; font-size:15px; font-weight:700;">📲 Instalar o app</div>
+  Toque em <strong style="color:#6eb233;">Compartilhar</strong> <span style="font-size:16px;">⬆️</span> e depois em<br>
+  <strong style="color:#6eb233;">"Adicionar à Tela de Início"</strong>
+  <div style="margin-top:10px;">
+    <button onclick="document.getElementById('instalar-ios').style.display='none';" style="
+      background: #6eb233; color: white; border: none;
+      border-radius: 10px; padding: 6px 20px;
+      font-size: 13px; font-weight: bold; cursor: pointer; width: auto;
+    ">Entendi</button>
+  </div>
+</div>
+
+<!-- ============================================================ -->
 <!-- ============================================================ -->
 <div id="instalar-banner" style="
   display: none;
@@ -641,15 +676,13 @@ btn.textContent = '🔍';
 }
 
 function compartilhar() {
-const texto = `🔍 Cansado de ficar em casa sem saber o que fazer? Isso acabou!
-
-Tem um app que mostra shows, bares, feiras e eventos na sua cidade — usa GPS ou você pode digitar a cidade.
+const texto = `Cansado de ficar em casa sem saber o que fazer? Isso acabou!
+Tem um app que mostra shows, bares, feiras e eventos na sua cidade — usa seu GPS ou digita a cidade.
 👉 https://t.ly/oquefazer
 
-Dica: depois de abrir, você pode instalar como app na tela do celular 📱
+Dica: abre o link e toca em "Adicionar à tela inicial" para instalar como app.
 
-Testa aí! Se curtir, compartilha também.`;
-
+Testa aí e passa pra frente!`;
 if (navigator.share) {
 navigator.share({ text: texto });
 } else {
@@ -665,6 +698,15 @@ document.getElementById('cidade').placeholder = ultima ? '' : 'Digite sua cidade
 
 if ('serviceWorker' in navigator) {
 navigator.serviceWorker.register('./sw.js', { scope: './' });
+}
+
+// ── Instalar app — iOS ──
+const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+if (isIos && !isStandalone) {
+  setTimeout(() => {
+    document.getElementById('instalar-ios').style.display = 'block';
+  }, 3000);
 }
 
 // ── Instalar app ──
