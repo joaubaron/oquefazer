@@ -651,7 +651,16 @@ const parceiroMesLabel = document.querySelector('.parceiro-label')?.firstChild?.
 const parceiroMesLink = document.querySelector('.parceiro-card')?.href || '';
 const parceiroMesCidade = document.querySelector('.parceiro-cidade')?.innerText || '';
 
-const filtroCategoria = categoriaSelecionada ? `Mostrar SOMENTE categoria: ${categoriaSelecionada}. Ignorar outros tipos. ` : '';
+const filtroMap = {
+  'Bares':    'Mostrar APENAS bares, pubs e restaurantes com ambiente de bar abertos hoje. Ignorar shows, feiras, eventos culturais e esportivos. ',
+  'Shows':    'Mostrar APENAS shows, apresentações musicais e eventos com artistas ao vivo. Ignorar bares sem show, feiras e eventos culturais. ',
+  'Cultura':  'Mostrar APENAS eventos culturais: teatro, cinema, exposições, museus e dança. Ignorar bares, shows e feiras. ',
+  'Natureza': 'Mostrar APENAS atividades ao ar livre: trilhas, parques, ecoturismo e esportes na natureza. Ignorar bares, shows e feiras. ',
+  'Esporte':  'Mostrar APENAS eventos esportivos: jogos, campeonatos, corridas e competições. Ignorar bares, shows e feiras. ',
+  'Feiras':   'Mostrar APENAS feiras, mercados, exposições de produtos e artesanato. Ignorar bares, shows e eventos esportivos. '
+};
+const filtroCategoria = categoriaSelecionada ? filtroMap[categoriaSelecionada] || `Mostrar SOMENTE ${categoriaSelecionada}. Ignorar outros tipos. ` : '';
+  
 const hoje = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 if (periodo === 'hoje') tempo = `hoje (${hoje})`;
 
