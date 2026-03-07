@@ -659,8 +659,6 @@ const filtroMap = {
   'Esporte':  'Mostrar APENAS eventos esportivos: jogos, campeonatos, corridas e competições. Ignorar bares, shows e feiras. ',
   'Feiras':   'Mostrar APENAS feiras, mercados, exposições de produtos e artesanato. Ignorar bares, shows e eventos esportivos. '
 };
-const filtroCategoria = categoriaSelecionada ? filtroMap[categoriaSelecionada] || `Mostrar SOMENTE ${categoriaSelecionada}. Ignorar outros tipos. ` : '';
-  
 const hoje = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 if (periodo === 'hoje') tempo = `hoje (${hoje})`;
 
@@ -669,7 +667,13 @@ const destaquesTexto = parceiroMesCidade.toLowerCase() === cidade.toLowerCase()
 ? `BLOCO 1 — DESTAQUE OBRIGATÓRIO: Exiba primeiro o Parceiro do Mês: ${parceiroMesNome} — ${parceiroMesLabel}, em ${parceiroMesCidade}. Máximo 2 linhas, use emojis, link: ${parceiroMesLink}. Não busque outros links. BLOCO 2 — EVENTOS: `
 : '';
 
-query = `${filtroCategoria}${destaquesTexto}Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir eventos de todos os bairros da cidade, não apenas do centro. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Bares, 🎶 Shows, 🎭 Cultura, 🌱 Natureza, 🎾 Esporte, 🛍️ Feiras. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente. Use separadores visuais entre eventos. Negrito no nome. Listar o MÁXIMO de eventos possível, sem limite, agrupados por categoria e dia.`;
+if (categoriaSelecionada) {
+  // ── COM FILTRO — query limpa, sem contradição ──
+  query = `${destaquesTexto}${filtroMap[categoriaSelecionada]} em ${cidade} ${tempo}. Listar eventos REAIS confirmados. Não invente eventos. Para cada evento: data, horário, local e link. Nome em negrito. Separadores visuais entre eventos. Se não houver, informar claramente.`;
+} else {
+  // ── SEM FILTRO — intocado ──
+  query = `${destaquesTexto}Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir eventos de todos os bairros da cidade, não apenas do centro. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Bares, 🎶 Shows, 🎭 Cultura, 🌱 Natureza, 🎾 Esporte, 🛍️ Feiras. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente. Use separadores visuais entre eventos. Negrito no nome. Listar o MÁXIMO de eventos possível, sem limite, agrupados por categoria e dia.`;
+}
 }
 
 gtag('event', 'busca', { cidade, periodo, categoria: categoriaSelecionada || 'todas' });
