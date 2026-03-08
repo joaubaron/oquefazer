@@ -794,13 +794,15 @@ btn.textContent = '📍';
 }
 
 function compartilhar() {
-const texto = `Cansado de ficar em casa sem saber o que fazer? Isso acabou!
-Tem um app que mostra shows, bares, feiras e eventos na sua cidade — usa seu GPS ou digita a cidade.
+const texto = `Seu fim de semana acabou de melhorar 🔥
+
+App que mostra TUDO que tá rolando na sua cidade:
+🎵 Shows | 🍻 Bares | 🎪 Eventos | 🛍️ Feiras
+
 👉 https://joaubaron.github.io/oquefazer/
 
-Dica: abre o link e toca em "Adicionar à tela inicial" para instalar como app.
+Testa e manda pra galera que vive perguntando "e aí, vamo onde?"`;
 
-Testa aí e passa pra frente!`;
 if (navigator.share) {
 navigator.share({ text: texto });
 } else {
