@@ -389,7 +389,7 @@ onclick="gtag('event', 'clique_anuncio', {
 'periodo': 'semanal',
 'data_clique': new Date().toISOString().split('T')[0]
 });">
-<span class="semana-badge">Parceiro</span>
+<span class="semana-badge">Novidade</span>
 <div class="semana-linha">
 <!-- 3️⃣ NOME -->
 <span class="semana-nome">Minhas Carnívoras</span>
@@ -452,9 +452,25 @@ onclick="gtag('event', 'clique_anuncio', {
 <p style="margin-top: 15px; font-size: 14px; color: #555;">
 Resultados podem variar a cada busca com IA
 </p>
-<p style="margin-top: 8px; margin-bottom: 25px; font-size: 14px; color: #555; display: flex; justify-content: center; gap: 50px; align-items: center;">
+<p style="margin-top: 8px; margin-bottom: 25px; font-size: 14px; color: #555; display: flex; justify-content: center; gap: 40px; align-items: center;">
 <a onclick="compartilhar(); return false;" href="#" style="color: #6eb233; text-decoration: none; font-size: 14px;">🔗 Indique o app</a>
 <a href="https://www.instagram.com/joseaugustobaron/" target="_blank" style="color: #6eb233; text-decoration: none; font-size: 14px;">@baron</a>
+<button onclick="document.getElementById('modal-ajuda').style.display='flex';" style="
+  background: #6eb233;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+" title="Ajuda">?</button>
 </p>
 </div>
 </div>
@@ -481,6 +497,68 @@ Por favor, digite uma cidade
 </p>
 <button onclick="document.getElementById('modal').style.display='none'; document.getElementById('cidade').focus();" style="
 padding: 7px 14px;
+border: none;
+border-radius: 10px;
+font-size: 13px;
+font-weight: bold;
+cursor: pointer;
+background: #6eb233;
+color: white;
+width: auto;
+">Entendi</button>
+</div>
+</div>
+
+<!-- Modal Ajuda -->
+<div id="modal-ajuda" onclick="if(event.target===this)this.style.display='none';" style="
+position: fixed;
+top: 0; left: 0; width: 100%; height: 100%;
+background: rgba(0,0,0,0.6);
+display: none;
+align-items: center; justify-content: center;
+z-index: 10000;
+">
+<div style="
+background: white;
+padding: 25px 20px;
+border-radius: 20px;
+text-align: left;
+max-width: 400px;
+max-height: 85vh;
+overflow-y: auto;
+box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+">
+<div style="font-size: 14px; color: #333; line-height: 1.6;">
+<p style="margin-bottom: 15px;">O app <strong>Oquefazer</strong> descobre tudo que está rolando perto de você! Shows, bares, feiras, eventos culturais, esportes e muito mais. Basta digitar sua cidade (ou usar seu GPS) e escolher o período.</p>
+
+<p style="margin-bottom: 15px;"><strong>Como usar?</strong><br>
+<strong>1.</strong> Digite sua cidade ou toque no 📍 para detectar automaticamente<br>
+<strong>2.</strong> Escolha uma categoria (opcional): Bares, Shows, Cultura, Natureza, Esporte ou Feiras<br>
+<strong>3.</strong> Selecione o período: Hoje, Fim de semana ou 7 dias<br>
+<strong>4.</strong> Pronto! O app vai buscar eventos confirmados e lugares abertos na sua região</p>
+
+<p style="margin-bottom: 15px;"><strong>O que significam os rótulos?</strong><br>
+🌟 <strong style="color: #6eb233;">DESTAQUE</strong><br>
+São lugares e eventos que eu visitei, curti e recomendo genuinamente! Sem cobrança, só indicação de coração.<br><br>
+🤝 <strong style="color: #6eb233;">PATROCINADO</strong><br>
+Conteúdo pago por empresas que querem aparecer no app. Sempre identificado com total transparência.<br><br>
+👍 <strong style="color: #6eb233;">PARCEIRO</strong><br>
+Para colaborações sem pagamento (permutas, parcerias estratégicas).<br><br>
+🎉 <strong style="color: #6eb233;">NOVIDADE</strong><br>
+Para lugares recém-inaugurados que você quer destacar.</p>
+
+<p style="margin-bottom: 15px;"><strong>Dicas importantes</strong><br>
+• Os resultados usam IA e podem variar a cada busca<br>
+• Sempre confirme datas e horários nos sites oficiais dos eventos<br>
+• Instale o app na tela inicial para acesso rápido<br>
+• Compartilhe com amigos que estão sem ideia do que fazer!</p>
+
+<p style="margin-bottom: 20px;"><strong>Quer anunciar seu negócio?</strong><br>
+Entre em contato pelo <a href="https://www.instagram.com/joseaugustobaron/" target="_blank" style="color: #6eb233; text-decoration: none; font-weight: bold;">@baron</a></p>
+</div>
+
+<button onclick="document.getElementById('modal-ajuda').style.display='none';" style="
+padding: 8px 16px;
 border: none;
 border-radius: 10px;
 font-size: 13px;
