@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -9,13 +9,13 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   @page {
-    size: A5 portrait;
+    size: 100mm 150mm;
     margin: 0;
   }
 
   body {
-    width: 148mm;
-    height: 210mm;
+    width: 100mm;
+    height: 150mm;
     overflow: hidden;
     font-family: 'Nunito', sans-serif;
     background: #0d0f0e;
@@ -56,7 +56,7 @@
   .top-bar {
     position: absolute;
     top: 0; left: 0; right: 0;
-    height: 5px;
+    height: 3px;
     background: linear-gradient(90deg, #3db843, #7ed957, #ffcc00);
   }
 
@@ -66,7 +66,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 11mm 10mm 8mm;
+    padding: 8mm 8mm 6mm;
     gap: 0;
   }
 
@@ -96,11 +96,11 @@
   /* ── Headline ──────────────────────────── */
   .headline {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 27mm;
+    font-size: 18mm;
     line-height: 0.88;
     text-align: center;
     color: white;
-    margin-bottom: 4mm;
+    margin-bottom: 3mm;
   }
   .headline .hl {
     background: linear-gradient(90deg, #3db843, #ffcc00);
@@ -114,74 +114,60 @@
     font-weight: 700;
     color: rgba(255,255,255,0.75);
     text-align: center;
-    line-height: 1.5;
-    margin-bottom: 5mm;
+    line-height: 1.4;
+    margin-bottom: 3mm;
   }
 
-  /* ── Divider ──────────────────────────── */
-  .divider {
-    width: 40mm;
-    height: 1.5px;
-    background: linear-gradient(90deg, transparent, #3db843, transparent);
-    margin-bottom: 5mm;
-  }
-
-  /* ── QR block ──────────────────────────── */
+   /* ── QR block ──────────────────────────── */
   .qr-block {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3mm;
+    gap: 2mm;
     background: rgba(255,255,255,0.05);
     border: 1.5px solid rgba(61,184,67,0.3);
-    border-radius: 8px;
-    padding: 5mm 8mm 4mm;
-    margin-bottom: 4mm;
+    border-radius: 6px;
+    padding: 4mm 6mm 3mm;
+    margin-bottom: 3mm;
   }
 
   .qr-label {
-    font-size: 9px;
+    font-size: 8px;
     font-weight: 900;
     color: #7ed957;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
   }
 
   #qrcode {
     background: white;
-    padding: 6px;
-    border-radius: 6px;
+    padding: 4px;
+    border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   #qrcode canvas, #qrcode img {
     display: block;
-    width: 33mm !important;
-    height: 33mm !important;
-  }
+    width: 25mm !important;
 
-  .qr-url {
-    font-size: 10px;
-    font-weight: 700;
-    color: rgba(255,255,255,0.55);
-    letter-spacing: 0.3px;
+    height: 25mm !important;
   }
 
   /* ── Pills ──────────────────────────── */
   .pills {
     display: flex;
-    gap: 5px;
+    gap: 4px;
     flex-wrap: wrap;
     justify-content: center;
-    margin-bottom: 5mm;
+    margin-bottom: 3mm;
   }
   .pill {
     background: rgba(255,255,255,0.08);
     border: 1px solid rgba(255,255,255,0.18);
     border-radius: 999px;
-    padding: 4px 10px;
-    font-size: 9px;
+    padding: 3px 8px;
+    font-size: 8px;
     font-weight: 700;
     color: rgba(255,255,255,0.85);
   }
@@ -210,14 +196,14 @@
   /* ── Corner accents ──────────────────────────── */
   .corner {
     position: absolute;
-    width: 10mm; height: 10mm;
+    width: 8mm; height: 8mm;
     border-color: rgba(61,184,67,0.4);
     border-style: solid;
   }
-  .corner-tl { top: 8mm; left: 8mm; border-width: 2px 0 0 2px; }
-  .corner-tr { top: 8mm; right: 8mm; border-width: 2px 2px 0 0; }
-  .corner-bl { bottom: 8mm; left: 8mm; border-width: 0 0 2px 2px; }
-  .corner-br { bottom: 8mm; right: 8mm; border-width: 0 2px 2px 0; }
+  .corner-tl { top: 6mm; left: 6mm; border-width: 2px 0 0 2px; }
+  .corner-tr { top: 6mm; right: 6mm; border-width: 2px 2px 0 0; }
+  .corner-bl { bottom: 6mm; left: 6mm; border-width: 0 0 2px 2px; }
+  .corner-br { bottom: 6mm; right: 6mm; border-width: 0 2px 2px 0; }
 </style>
 </head>
 <body>
@@ -245,17 +231,14 @@
         perto de você — agora! </p>
     </div>
 
-    <div class="divider"></div>
-
     <div class="qr-block">
-      <div class="qr-label">📲 Escaneie e acesse grátis</div>
+      <div class="qr-label">📱 Escaneie e acesse grátis</div>
       <div id="qrcode"></div>
-      <div class="qr-url">https://joaubaron.github.io/oquefazer/</div>
     </div>
 
     <div class="pills">
       <div class="pill">📍 Usa GPS</div>
-      <div class="pill">🏙️ Qualquer cidade</div>
+      <div class="pill">🌍 Qualquer cidade</div>
       <div class="pill">⚡ Acesso grátis</div>
     </div>
 
@@ -266,8 +249,8 @@
   <script>
     new QRCode(document.getElementById("qrcode"), {
       text: "https://joaubaron.github.io/oquefazer/",
-      width: 125,
-      height: 125,
+      width: 95,
+      height: 95,
       colorDark: "#0d0f0e",
       colorLight: "#ffffff",
       correctLevel: QRCode.CorrectLevel.H
