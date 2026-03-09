@@ -25,10 +25,6 @@
 | Repositório | https://github.com/joaubaron/oquefazer |
 | App online | https://joaubaron.github.io/oquefazer/ |
 | Página pessoal | https://joaubaron.github.io |
-| Repo pessoal | https://github.com/joaubaron/joaubaron.github.io |
-| Download APK | https://github.com/joaubaron/oquefazer/raw/main/Oquefazer.apk |
-| PWABuilder | https://pwabuilder.com |
-| Play Console | https://play.google.com/console |
 
 ---
 
