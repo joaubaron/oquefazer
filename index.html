@@ -38,6 +38,125 @@ align-items: flex-end; /* ancora embaixo */
 justify-content: center;
 
 box-sizing: border-box;
+padding-top: 65px; /* espaço para banner premium fixo */
+}
+
+/* ============================================================ */
+/* BANNER PREMIUM EVENTO GRANDE */
+/* ============================================================ */
+.evento-premium {
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+z-index: 10000;
+background: linear-gradient(135deg, rgba(255, 107, 53, 0.70) 0%, rgba(247, 147, 30, 0.85) 50%, rgba(255, 215, 0, 0.85) 100%);
+padding: 12px 20px;
+box-shadow: 0 4px 20px rgba(255, 107, 53, 0.4);
+animation: slideDown 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+border-radius: 0 0 25px 25px;
+}
+
+@keyframes slideDown {
+from {
+transform: translateY(-100%);
+opacity: 0;
+}
+to {
+transform: translateY(0);
+opacity: 1;
+}
+}
+
+.evento-premium-link {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 12px;
+text-decoration: none;
+max-width: 1200px;
+margin: 0 auto;
+}
+
+.evento-premium-content {
+flex: 1;
+min-width: 0;
+}
+
+.evento-premium-badge {
+display: inline-block;
+background: rgba(255, 255, 255, 0.25);
+color: white;
+font-size: 9px;
+font-weight: 800;
+letter-spacing: 1px;
+text-transform: uppercase;
+padding: 3px 8px;
+border-radius: 4px;
+margin-bottom: 4px;
+backdrop-filter: blur(10px);
+}
+
+.evento-premium-titulo {
+font-size: 16px;
+font-weight: 800;
+color: white;
+line-height: 1.2;
+margin: 0 0 2px 0;
+text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.evento-premium-info {
+font-size: 12px;
+color: rgba(255, 255, 255, 0.95);
+font-weight: 600;
+margin: 0;
+}
+
+.evento-premium-cta {
+background: white;
+color: #ff6b35;
+font-size: 13px;
+font-weight: 800;
+padding: 10px 20px;
+border-radius: 25px;
+white-space: nowrap;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+transition: all 0.3s ease;
+display: flex;
+align-items: center;
+gap: 6px;
+}
+
+.evento-premium-link:hover .evento-premium-cta {
+transform: scale(1.05);
+box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Versão genérica (quando não há evento contratado) */
+.evento-premium.generico {
+background: linear-gradient(135deg, rgba(102, 126, 234, 0.70) 0%, rgba(118, 75, 162, 0.85) 100%);
+}
+
+.evento-premium.generico .evento-premium-cta {
+color: #667eea;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+.evento-premium {
+padding: 10px 15px;
+}
+.evento-premium-titulo {
+font-size: 14px;
+}
+.evento-premium-info {
+font-size: 11px;
+}
+.evento-premium-cta {
+font-size: 11px;
+padding: 8px 16px;
+}
 }
 
 /* SCROLL FICA SÓ NA CONTAINER */
@@ -281,6 +400,61 @@ line-height: 1;
 </style>
 </head>
 <body>
+
+<!-- VERSÃO EVENTO CONTRATADO -->
+<!--
+<div class="evento-premium">
+  <a href="https://oktoberfestblumenau.com.br" 
+     target="_blank" 
+     class="evento-premium-link"
+     onclick="gtag('event', 'clique_anuncio', {
+       'anunciante_id': 'premium_2026_10_oktoberfest',
+       'anunciante_nome': 'Oktoberfest Blumenau 2026',
+       'local': 'banner_premium_topo',
+       'periodo': 'premium',
+       'data_clique': new Date().toISOString().split('T')[0]
+     });">
+    
+    <div class="evento-premium-content">
+      <h2 class="evento-premium-titulo">Oktoberfest Blumenau 2026</h2>
+
+      <p class="evento-premium-info">
+        10 a 26 de Outubro · Vila Germânica 
+        <span style="display:inline-block; transform:scale(2.4) translateY(-2px); margin-left:12px;">🍻</span>
+      </p>
+    </div>
+
+    <div class="evento-premium-cta">
+      Saiba Mais
+    </div>
+  </a>
+</div>
+-->
+
+<!-- VERSÃO GENÉRICA -->
+
+<div class="evento-premium generico">
+  <a href="https://wa.me/5547991581967?text=Quero%20anunciar!" 
+     target="_blank" 
+     class="evento-premium-link"
+     onclick="gtag('event', 'clique_anuncio', {
+       'anunciante_id': 'generico_anuncie_aqui',
+       'anunciante_nome': 'Divulgue seu evento',
+       'local': 'banner_generico_topo',
+       'periodo': 'generico',
+       'data_clique': new Date().toISOString().split('T')[0]
+     });">
+    
+    <div class="evento-premium-content">
+      <h2 class="evento-premium-titulo">Divulgue seu evento 🎫</h2>
+      <p class="evento-premium-info">Shows, festivais e grandes atrações</p>
+    </div>
+    
+    <div class="evento-premium-cta">
+      Anunciar
+    </div>
+  </a>
+</div>
 
 <div class="container">
 <h3>O que fazer perto de você!</h3>
