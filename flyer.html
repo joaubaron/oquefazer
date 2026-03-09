@@ -5,257 +5,226 @@
 <title>Flyer – O que fazer hoje?</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  @page {
-    size: 100mm 150mm;
-    margin: 0;
-  }
+@page {
+  size: 100mm 150mm;
+  margin: 0;
+}
 
-  body {
-    width: 100mm;
-    height: 150mm;
-    overflow: hidden;
-    font-family: 'Nunito', sans-serif;
-    background: #0d0f0e;
-    position: relative;
-  }
+body {
+  width: 100mm;
+  height: 150mm;
+  overflow: hidden;
+  font-family: 'Nunito', sans-serif;
+  background: #0d0f0e;
+  position: relative;
+}
 
-  /* ── Background city photo ──────────────────────────── */
-  .bg {
-    position: absolute; inset: 0;
-    background-image: url('artes/fundo.jpg');
-    background-size: cover;
-    background-position: center top;
-    opacity: 0.32;
-  }
+/* botão não aparece no PDF */
+@media print {
+  #salvarPDF { display:none; }
+}
 
-  /* ── Dark vignette overlay ──────────────────────────── */
-  .overlay {
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse 120% 60% at 50% 100%, #3db84330 0%, transparent 70%),
-      linear-gradient(180deg,
-        rgba(0,0,0,0.55) 0%,
-        rgba(0,0,0,0.1)  30%,
-        rgba(0,0,0,0.1)  60%,
-        rgba(0,0,0,0.75) 100%
-      );
-  }
+.bg {
+  position: absolute; inset: 0;
+  background-image: url('artes/fundo.jpg');
+  background-size: cover;
+  background-position: center top;
+  opacity: 0.32;
+}
 
-  /* ── Noise grain texture ──────────────────────────── */
-  .grain {
-    position: absolute; inset: 0;
-    opacity: 0.045;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    background-size: 180px 180px;
-  }
+.overlay {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 120% 60% at 50% 100%, #3db84330 0%, transparent 70%),
+    linear-gradient(180deg,
+      rgba(0,0,0,0.55) 0%,
+      rgba(0,0,0,0.1)  30%,
+      rgba(0,0,0,0.1)  60%,
+      rgba(0,0,0,0.75) 100%
+    );
+}
 
-  /* ── Top accent bar ──────────────────────────── */
-  .top-bar {
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #3db843, #7ed957, #ffcc00);
-  }
+.grain {
+  position: absolute; inset: 0;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
 
-  /* ── Main content ──────────────────────────── */
-  .content {
-    position: absolute; inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 8mm 8mm 6mm;
-    gap: 0;
-  }
+.top-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #3db843, #7ed957, #ffcc00);
+}
 
-  /* ── App badge ──────────────────────────── */
-  .app-badge {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(61,184,67,0.18);
-    border: 1.5px solid rgba(61,184,67,0.5);
-    border-radius: 999px;
-    padding: 4px 14px 4px 8px;
-    margin-bottom: 6mm;
-  }
-  .app-badge img {
-    width: 28px; height: 28px;
-    border-radius: 7px;
-  }
-  .app-badge span {
-    font-size: 11px;
-    font-weight: 900;
-    color: #7ed957;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-  }
+.content {
+  position: absolute; inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8mm 8mm 6mm;
+}
 
-  /* ── Headline ──────────────────────────── */
-  .headline {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 18mm;
-    line-height: 0.88;
-    text-align: center;
-    color: white;
-    margin-bottom: 3mm;
-  }
-  .headline .hl {
-    background: linear-gradient(90deg, #3db843, #ffcc00);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+.headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18mm;
+  line-height: 0.88;
+  text-align: center;
+  color: white;
+  margin-bottom: 3mm;
+}
 
-  /* ── Subtitle ──────────────────────────── */
-  .subtitle {
-    font-size: 11px;
-    font-weight: 700;
-    color: rgba(255,255,255,0.75);
-    text-align: center;
-    line-height: 1.4;
-    margin-bottom: 3mm;
-  }
+.headline .hl {
+  background: linear-gradient(90deg, #3db843, #ffcc00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-   /* ── QR block ──────────────────────────── */
-  .qr-block {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2mm;
-    background: rgba(255,255,255,0.05);
-    border: 1.5px solid rgba(61,184,67,0.3);
-    border-radius: 6px;
-    padding: 4mm 6mm 3mm;
-    margin-bottom: 3mm;
-  }
+.subtitle {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.75);
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 3mm;
+}
 
-  .qr-label {
-    font-size: 8px;
-    font-weight: 900;
-    color: #7ed957;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-  }
+.qr-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2mm;
+  background: rgba(255,255,255,0.05);
+  border: 1.5px solid rgba(61,184,67,0.3);
+  border-radius: 6px;
+  padding: 4mm 6mm 3mm;
+  margin-bottom: 3mm;
+}
 
-  #qrcode {
-    background: white;
-    padding: 4px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  #qrcode canvas, #qrcode img {
-    display: block;
-    width: 25mm !important;
+.qr-label {
+  font-size: 8px;
+  font-weight: 900;
+  color: #7ed957;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
 
-    height: 25mm !important;
-  }
+#qrcode {
+  background: white;
+  padding: 4px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  /* ── Pills ──────────────────────────── */
-  .pills {
-    display: flex;
-    gap: 4px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 3mm;
-  }
-  .pill {
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.18);
-    border-radius: 999px;
-    padding: 3px 8px;
-    font-size: 8px;
-    font-weight: 700;
-    color: rgba(255,255,255,0.85);
-  }
+#qrcode canvas, #qrcode img {
+  display: block;
+  width: 25mm !important;
+  height: 25mm !important;
+}
 
-  /* ── Footer ──────────────────────────── */
-  .footer {
-    margin-top: auto;
-    text-align: center;
-  }
-  .footer-text {
-    font-size: 8px;
-    font-weight: 700;
-    color: rgba(255,255,255,0.3);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-  .footer-accent {
-    display: inline-block;
-    width: 20mm;
-    height: 2px;
-    background: linear-gradient(90deg, #3db843, #7ed957);
-    border-radius: 999px;
-    margin-bottom: 3px;
-  }
+.pills {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 3mm;
+}
 
-  /* ── Corner accents ──────────────────────────── */
-  .corner {
-    position: absolute;
-    width: 8mm; height: 8mm;
-    border-color: rgba(61,184,67,0.4);
-    border-style: solid;
-  }
-  .corner-tl { top: 6mm; left: 6mm; border-width: 2px 0 0 2px; }
-  .corner-tr { top: 6mm; right: 6mm; border-width: 2px 2px 0 0; }
-  .corner-bl { bottom: 6mm; left: 6mm; border-width: 0 0 2px 2px; }
-  .corner-br { bottom: 6mm; right: 6mm; border-width: 0 2px 2px 0; }
+.pill {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 999px;
+  padding: 3px 8px;
+  font-size: 8px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.85);
+}
+
+.corner {
+  position: absolute;
+  width: 8mm; height: 8mm;
+  border-color: rgba(61,184,67,0.4);
+  border-style: solid;
+}
+
+.corner-tl { top: 6mm; left: 6mm; border-width: 2px 0 0 2px; }
+.corner-tr { top: 6mm; right: 6mm; border-width: 2px 2px 0 0; }
+.corner-bl { bottom: 6mm; left: 6mm; border-width: 0 0 2px 2px; }
+.corner-br { bottom: 6mm; right: 6mm; border-width: 0 2px 2px 0; }
+
+#salvarPDF{
+position:fixed;
+top:10px;
+right:10px;
+z-index:9999;
+padding:8px 12px;
+cursor:pointer;
+}
 </style>
 </head>
-<body>
-  <div class="bg"></div>
-  <div class="overlay"></div>
-  <div class="grain"></div>
-  <div class="top-bar"></div>
 
-  <div class="corner corner-tl"></div>
-  <div class="corner corner-tr"></div>
-  <div class="corner corner-bl"></div>
-  <div class="corner corner-br"></div>
+<body>
+
+<button id="salvarPDF" onclick="salvarPDF()">💾 Salvar PDF</button>
+
+<div class="bg"></div>
+<div class="overlay"></div>
+<div class="grain"></div>
+<div class="top-bar"></div>
+
+<div class="corner corner-tl"></div>
+<div class="corner corner-tr"></div>
+<div class="corner corner-bl"></div>
+<div class="corner corner-br"></div>
 
 <div class="content">
 
-    <div class="headline">
-      <p>&nbsp;</p>
-      <p>SEM IDEIA<br>
-        DO QUE <span class="hl">FAZER?</span></p>
-  </div>
+<div class="headline">
+<p>&nbsp;</p>
+<p>SEM IDEIA<br>DO QUE <span class="hl">FAZER?</span></p>
+</div>
 
-    <div class="subtitle">
-      <p>&nbsp;</p>
-      <p> Shows, bares, feiras e eventos<br>
-        perto de você — agora! </p>
-    </div>
+<div class="subtitle">
+<p>&nbsp;</p>
+<p>Shows, bares, feiras e eventos<br>perto de você — agora!</p>
+</div>
 
-    <div class="qr-block">
-      <div class="qr-label">📱 Escaneie e acesse grátis</div>
-      <div id="qrcode"></div>
-    </div>
+<div class="qr-block">
+<div class="qr-label">📱 Escaneie e acesse grátis</div>
+<div id="qrcode"></div>
+</div>
 
-    <div class="pills">
-      <div class="pill">📍 Usa GPS</div>
-      <div class="pill">🌍 Qualquer cidade</div>
-      <div class="pill">⚡ Acesso grátis</div>
-    </div>
-
-
+<div class="pills">
+<div class="pill">📍 Usa GPS</div>
+<div class="pill">🌍 Qualquer cidade</div>
+<div class="pill">⚡ Acesso grátis</div>
+</div>
 
 </div>
 
-  <script>
-    new QRCode(document.getElementById("qrcode"), {
-      text: "https://joaubaron.github.io/oquefazer/",
-      width: 95,
-      height: 95,
-      colorDark: "#0d0f0e",
-      colorLight: "#ffffff",
-      correctLevel: QRCode.CorrectLevel.H
-    });
-  </script>
-</body>
+<script>
 
+function salvarPDF(){
+window.print();
+}
+
+new QRCode(document.getElementById("qrcode"), {
+text: "https://joaubaron.github.io/oquefazer/",
+width: 95,
+height: 95,
+colorDark: "#0d0f0e",
+colorLight: "#ffffff",
+correctLevel: QRCode.CorrectLevel.H
+});
+
+</script>
+
+</body>
 </html>
