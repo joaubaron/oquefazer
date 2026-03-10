@@ -23,7 +23,8 @@ Oi [nome]! Tenho um app que recomenda o que fazer na cidade — seu negócio é 
 
 Dá uma olhada: 👉 https://joaubaron.github.io/oquefazer/
 
-Tenho duas opções:
+Tenho três opções:
+🔥 Banner Topo — destaque máximo na entrada do app (shows, eventos e grandes atrações)
 ⭐ Parceiro do Mês — recomendação exclusiva o mês inteiro por R$199
 📅 Parceiro da Semana — recomendação semanal por R$79/semana
 
@@ -36,11 +37,13 @@ Posso te mostrar como funciona?
 
 **"Quanto custa isso?"**
 ```
-Menos que um impulsionamento no Instagram — e aqui você é recomendado para quem já está decidindo o que fazer agora, não para quem está rolando o feed.
+Depende do que você quer divulgar:
 
-Tenho duas opções:
+🔥 Banner Topo — destaque máximo pra eventos e grandes atrações (valor conforme o porte)
 ⭐ Parceiro do Mês — recomendação exclusiva o mês inteiro por R$199
 📅 Parceiro da Semana — recomendação semanal por R$79/semana
+
+Em todos os casos, menos que um impulsionamento no Instagram — e aqui você aparece pra quem já está decidindo o que fazer, não pra quem está rolando o feed.
 
 Dica: o mês inteiro sai por R$199 — se fosse semana a semana ficaria R$316.
 ```
@@ -77,7 +80,20 @@ Entendo! Tenho também o modelo semanal por R$79 — dá pra testar uma semana e
 
 ## 4️⃣ Após aceitar — Coleta de dados
 
-**Parceiro do Mês** — solicitar:
+**🔥 Banner Topo** — solicitar:
+
+```
+Ótimo! Para configurar o banner preciso de:
+
+1. Link do site ou página do evento
+2. Nome do evento
+3. Data e local (ex: "10 a 26 de Outubro · Vila Germânica")
+4. Emoji temático (ex: 🍻 🎶 🎭 🎪 🎤)
+
+Manda aqui que coloco no ar ainda hoje!
+```
+
+**⭐ Parceiro do Mês** — solicitar:
 
 ```
 Ótimo! Para configurar sua recomendação no app preciso de:
@@ -91,7 +107,7 @@ Entendo! Tenho também o modelo semanal por R$79 — dá pra testar uma semana e
 Manda aqui que coloco no ar ainda hoje!
 ```
 
-**Parceiro da Semana** — solicitar:
+**📅 Parceiro da Semana** — solicitar:
 
 ```
 Ótimo! Para configurar sua recomendação no app preciso de:
@@ -106,6 +122,7 @@ Manda aqui que coloco no ar ainda hoje!
 **Pix antes de publicar:**
 - Nome: José Augusto Baron
 - Chave Pix (CPF): 649.568.229-87
+- Banner Topo: conforme combinado
 - Parceiro do Mês: R$199
 - Parceiro da Semana: R$79/semana
 
@@ -121,3 +138,15 @@ Abre o app, digita [cidade] e veja como ficou:
 
 Qualquer ajuste é só falar!
 ```
+
+---
+
+## 🔒 Tabela de preços — Banner Topo (confidencial)
+
+> Quando o cliente perguntar o preço: primeiro pergunta **qual é o evento**, depois consulta a tabela.
+
+| Porte | Faixa de preço | Exemplos |
+|---|---|---|
+| 🟡 Pequeno | R$149–179 | Bar local, banda independente, workshop |
+| 🟠 Médio | R$199–249 | Show regional, feira de bairro, corrida local |
+| 🔴 Grande | R$399–499 | Oktoberfest, festival de música, evento da cidade |
