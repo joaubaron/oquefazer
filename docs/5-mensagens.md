@@ -8,7 +8,7 @@
 Cansado de ficar em casa sem saber o que fazer? Isso acabou!
 
 Fiz um app que mostra shows, bares, feiras e eventos na sua cidade — usa seu GPS ou digita a cidade.
-👉 https://t.ly/oquefazer
+👉 https://joaubaron.github.io/oquefazer/
 
 Dica: depois de abrir, você pode instalar como app na tela do celular 📱
 Testa aí e, se curtir, compartilha!
@@ -21,7 +21,7 @@ Testa aí e, se curtir, compartilha!
 ```
 Oi [nome]! Tenho um app que recomenda o que fazer na cidade — seu negócio é apresentado para quem está decidindo onde ir agora.
 
-Dá uma olhada: 👉 https://t.ly/oquefazer
+Dá uma olhada: 👉 https://joaubaron.github.io/oquefazer/
 
 Tenho duas opções:
 ⭐ Parceiro do Mês — recomendação exclusiva o mês inteiro por R$199
@@ -117,7 +117,7 @@ Manda aqui que coloco no ar ainda hoje!
 Sua recomendação já está no ar! 🎉
 
 Abre o app, digita [cidade] e veja como ficou:
-👉 https://t.ly/oquefazer
+👉 https://joaubaron.github.io/oquefazer/
 
 Qualquer ajuste é só falar!
 ```
