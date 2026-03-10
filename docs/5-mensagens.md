@@ -5,7 +5,7 @@
 ## 1️⃣ Para usuários conhecerem o app
 
 ```
-Cansado de ficar em casa sem saber o que fazer? Isso acabou!
+Seu fim de semana acabou de melhorar 🔥
 
 Fiz um app que mostra shows, bares, feiras e eventos na sua cidade — usa seu GPS ou digita a cidade.
 👉 https://joaubaron.github.io/oquefazer/
