@@ -10,169 +10,169 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 @page {
-  size: 100mm 150mm;
-  margin: 0;
+size: 105mm 148mm;
+margin: 0;
 }
 
 body {
-  width: 100mm;
-  height: 150mm;
-  overflow: hidden;
-  font-family: 'Nunito', sans-serif;
-  background: #0d0f0e;
-  position: relative;
+width: 105mm;
+height: 148mm;
+overflow: hidden;
+font-family: 'Nunito', sans-serif;
+background: #0d0f0e;
+position: relative;
 }
 
-/* botão não aparece no PDF */
 @media print {
-  #salvarPDF { display:none; }
+#btnA6, #btnA4 { display: none; }
 }
+
+#btnA6, #btnA4 {
+position: fixed;
+z-index: 9999;
+padding: 8px 12px;
+cursor: pointer;
+font-size: 13px;
+}
+#btnA6 { top: 10px; right: 10px; }
+#btnA4 { top: 10px; right: 160px; }
 
 .bg {
-  position: absolute; inset: 0;
-  background-image: url('artes/fundo.jpg');
-  background-size: cover;
-  background-position: center top;
-  opacity: 0.32;
+position: absolute; inset: 0;
+background-image: url('fundo.webp');
+background-size: cover;
+background-position: center top;
+opacity: 0.32;
 }
 
 .overlay {
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 120% 60% at 50% 100%, #3db84330 0%, transparent 70%),
-    linear-gradient(180deg,
-      rgba(0,0,0,0.55) 0%,
-      rgba(0,0,0,0.1)  30%,
-      rgba(0,0,0,0.1)  60%,
-      rgba(0,0,0,0.75) 100%
-    );
+position: absolute; inset: 0;
+background:
+radial-gradient(ellipse 120% 60% at 50% 100%, #3db84330 0%, transparent 70%),
+linear-gradient(180deg,
+rgba(0,0,0,0.55) 0%,
+rgba(0,0,0,0.1)  30%,
+rgba(0,0,0,0.1)  60%,
+rgba(0,0,0,0.75) 100%
+);
 }
 
 .grain {
-  position: absolute; inset: 0;
-  opacity: 0.045;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-size: 180px 180px;
+position: absolute; inset: 0;
+opacity: 0.045;
+background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+background-size: 180px 180px;
 }
 
 .top-bar {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #3db843, #7ed957, #ffcc00);
+position: absolute;
+top: 0; left: 0; right: 0;
+height: 3px;
+background: linear-gradient(90deg, #3db843, #7ed957, #ffcc00);
 }
 
 .content {
-  position: absolute; inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 8mm 8mm 6mm;
+position: absolute; inset: 0;
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 8mm 8mm 6mm;
 }
 
 .headline {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 18mm;
-  line-height: 0.88;
-  text-align: center;
-  color: white;
-  margin-bottom: 3mm;
+font-family: 'Bebas Neue', sans-serif;
+font-size: 18mm;
+line-height: 0.88;
+text-align: center;
+color: white;
+margin-bottom: 3mm;
 }
 
 .headline .hl {
-  background: linear-gradient(90deg, #3db843, #ffcc00);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+background: linear-gradient(90deg, #3db843, #ffcc00);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
 }
 
 .subtitle {
-  font-size: 11px;
-  font-weight: 700;
-  color: rgba(255,255,255,0.75);
-  text-align: center;
-  line-height: 1.4;
-  margin-bottom: 3mm;
+font-size: 14px;
+font-weight: 700;
+color: rgba(255,255,255,0.75);
+text-align: center;
+line-height: 1.4;
+margin-bottom: 3mm;
 }
 
 .qr-block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2mm;
-  background: rgba(255,255,255,0.05);
-  border: 1.5px solid rgba(61,184,67,0.3);
-  border-radius: 6px;
-  padding: 4mm 6mm 3mm;
-  margin-bottom: 3mm;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 2mm;
+background: rgba(255,255,255,0.05);
+border: 1.5px solid rgba(61,184,67,0.3);
+border-radius: 6px;
+padding: 4mm 6mm 3mm;
+margin-bottom: 3mm;
 }
 
 .qr-label {
-  font-size: 8px;
-  font-weight: 900;
-  color: #7ed957;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
+font-size: 8px;
+font-weight: 900;
+color: #7ed957;
+letter-spacing: 1.5px;
+text-transform: uppercase;
 }
 
 #qrcode {
-  background: white;
-  padding: 4px;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+background: white;
+padding: 4px;
+border-radius: 5px;
+display: flex;
+align-items: center;
+justify-content: center;
 }
 
 #qrcode canvas, #qrcode img {
-  display: block;
-  width: 25mm !important;
-  height: 25mm !important;
+display: block;
+width: 25mm !important;
+height: 25mm !important;
 }
 
 .pills {
-  display: flex;
-  gap: 4px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 3mm;
+display: flex;
+gap: 4px;
+flex-wrap: wrap;
+justify-content: center;
+margin-bottom: 3mm;
 }
 
 .pill {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 999px;
-  padding: 3px 8px;
-  font-size: 8px;
-  font-weight: 700;
-  color: rgba(255,255,255,0.85);
+background: rgba(255,255,255,0.08);
+border: 1px solid rgba(255,255,255,0.18);
+border-radius: 999px;
+padding: 3px 8px;
+font-size: 8px;
+font-weight: 700;
+color: rgba(255,255,255,0.85);
 }
 
 .corner {
-  position: absolute;
-  width: 8mm; height: 8mm;
-  border-color: rgba(61,184,67,0.4);
-  border-style: solid;
+position: absolute;
+width: 8mm; height: 8mm;
+border-color: rgba(61,184,67,0.4);
+border-style: solid;
 }
-
 .corner-tl { top: 6mm; left: 6mm; border-width: 2px 0 0 2px; }
 .corner-tr { top: 6mm; right: 6mm; border-width: 2px 2px 0 0; }
 .corner-bl { bottom: 6mm; left: 6mm; border-width: 0 0 2px 2px; }
 .corner-br { bottom: 6mm; right: 6mm; border-width: 0 2px 2px 0; }
-
-#salvarPDF{
-position:fixed;
-top:10px;
-right:10px;
-z-index:9999;
-padding:8px 12px;
-cursor:pointer;
-}
 </style>
 </head>
 
 <body>
 
-<button id="salvarPDF" onclick="salvarPDF()">💾 Salvar PDF</button>
+<button id="btnA6" onclick="window.print()">🖨️ Imprimir A6 (1x)</button>
+<button id="btnA4" onclick="imprimirA4()">🖨️ Imprimir A4 (4x)</button>
 
 <div class="bg"></div>
 <div class="overlay"></div>
@@ -185,7 +185,6 @@ cursor:pointer;
 <div class="corner corner-br"></div>
 
 <div class="content">
-
 <div class="headline">
 <p>&nbsp;</p>
 <p>SEM IDEIA<br>DO QUE <span class="hl">FAZER?</span></p>
@@ -193,7 +192,8 @@ cursor:pointer;
 
 <div class="subtitle">
 <p>&nbsp;</p>
-<p>Shows, bares, feiras e eventos<br>perto de você — agora!</p>
+<p>Shows, bares, feiras e eventos<br>na sua cidade!</p>
+<p>&nbsp;</p>
 </div>
 
 <div class="qr-block">
@@ -203,27 +203,170 @@ cursor:pointer;
 
 <div class="pills">
 <div class="pill">📍 Usa GPS</div>
-<div class="pill">🌍 Qualquer cidade</div>
-<div class="pill">⚡ Acesso grátis</div>
+<div class="pill">🔓 Sem cadastro</div>
+<div class="pill">✨ Descubra algo novo</div>
 </div>
-
 </div>
 
 <script>
-
-function salvarPDF(){
-window.print();
-}
-
 new QRCode(document.getElementById("qrcode"), {
 text: "https://joaubaron.github.io/oquefazer/",
-width: 95,
-height: 95,
-colorDark: "#0d0f0e",
-colorLight: "#ffffff",
+width: 95, height: 95,
+colorDark: "#0d0f0e", colorLight: "#ffffff",
 correctLevel: QRCode.CorrectLevel.H
 });
 
+function imprimirA4() {
+const win = window.open('', '_blank');
+
+const flyer = `
+<div class="flyer">
+<div class="bg"></div>
+<div class="overlay"></div>
+<div class="grain"></div>
+<div class="top-bar"></div>
+<div class="corner corner-tl"></div>
+<div class="corner corner-tr"></div>
+<div class="corner corner-bl"></div>
+<div class="corner corner-br"></div>
+<div class="content">
+<div class="headline">
+<p>&nbsp;</p>
+<p>SEM IDEIA<br>DO QUE <span class="hl">FAZER?</span></p>
+</div>
+<div class="subtitle">
+<p>&nbsp;</p>
+<p>Shows, bares, feiras e eventos<br>na sua cidade!</p>
+<p>&nbsp;</p>
+</div>
+<div class="qr-block">
+<div class="qr-label">&#128241; Escaneie e acesse gr&aacute;tis</div>
+<div class="qr"></div>
+</div>
+<div class="pills">
+<div class="pill">&#128205; Usa GPS</div>
+<div class="pill">&#128275; Sem cadastro</div>
+<div class="pill">&#10024; Descubra algo novo</div>
+</div>
+</div>
+</div>`;
+
+win.document.write(`<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>4x Flyer A4</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"><\/script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+@page { size: 210mm 297mm; margin: 0; }
+body {
+width: 210mm; height: 297mm; overflow: hidden; background: white;
+display: grid;
+grid-template-columns: 105mm 105mm;
+grid-template-rows: 148mm 148mm;
+}
+@media print { #btnPrint { display: none; } }
+#btnPrint {
+position: fixed; top: 10px; right: 10px;
+z-index: 9999; padding: 8px 14px; cursor: pointer; font-size: 14px;
+}
+.flyer {
+width: 105mm; height: 148mm; overflow: hidden;
+font-family: 'Nunito', sans-serif; background: #0d0f0e; position: relative;
+}
+.bg {
+position: absolute; inset: 0;
+background-image: url('fundo.webp');
+background-size: cover; background-position: center top; opacity: 0.32;
+}
+.overlay {
+position: absolute; inset: 0;
+background:
+radial-gradient(ellipse 120% 60% at 50% 100%, #3db84330 0%, transparent 70%),
+linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.1) 30%, rgba(0,0,0,0.1) 60%, rgba(0,0,0,0.75) 100%);
+}
+.grain {
+position: absolute; inset: 0; opacity: 0.045;
+background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+background-size: 180px 180px;
+}
+.top-bar {
+position: absolute; top: 0; left: 0; right: 0; height: 3px;
+background: linear-gradient(90deg, #3db843, #7ed957, #ffcc00);
+}
+.content {
+position: absolute; inset: 0; display: flex; flex-direction: column;
+align-items: center; padding: 8mm 8mm 6mm;
+}
+.headline {
+font-family: 'Bebas Neue', sans-serif; font-size: 18mm; line-height: 0.88;
+text-align: center; color: white; margin-bottom: 3mm;
+}
+.headline .hl {
+background: linear-gradient(90deg, #3db843, #ffcc00);
+-webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.subtitle {
+font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.75);
+text-align: center; line-height: 1.4; margin-bottom: 3mm;
+}
+.qr-block {
+display: flex; flex-direction: column; align-items: center; gap: 2mm;
+background: rgba(255,255,255,0.05); border: 1.5px solid rgba(61,184,67,0.3);
+border-radius: 6px; padding: 4mm 6mm 3mm; margin-bottom: 3mm;
+}
+.qr-label {
+font-size: 8px; font-weight: 900; color: #7ed957;
+letter-spacing: 1.5px; text-transform: uppercase;
+}
+.qr {
+background: white; padding: 4px; border-radius: 5px;
+display: flex; align-items: center; justify-content: center;
+}
+.qr canvas, .qr img { display: block; width: 25mm !important; height: 25mm !important; }
+.pills {
+display: flex; gap: 4px; flex-wrap: wrap;
+justify-content: center; margin-bottom: 3mm;
+}
+.pill {
+background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18);
+border-radius: 999px; padding: 3px 8px; font-size: 8px;
+font-weight: 700; color: rgba(255,255,255,0.85);
+}
+.corner {
+position: absolute; width: 8mm; height: 8mm;
+border-color: rgba(61,184,67,0.4); border-style: solid;
+}
+.corner-tl { top: 6mm; left: 6mm; border-width: 2px 0 0 2px; }
+.corner-tr { top: 6mm; right: 6mm; border-width: 2px 2px 0 0; }
+.corner-bl { bottom: 6mm; left: 6mm; border-width: 0 0 2px 2px; }
+.corner-br { bottom: 6mm; right: 6mm; border-width: 0 2px 2px 0; }
+</style>
+</head>
+<body>
+<button id="btnPrint" onclick="window.print()">🖨️ Imprimir</button>
+${flyer}
+${flyer}
+${flyer}
+${flyer}
+<script>
+window.addEventListener('load', function () {
+document.querySelectorAll('.qr').forEach(function (el) {
+new QRCode(el, {
+text: "https://joaubaron.github.io/oquefazer/",
+width: 95, height: 95,
+colorDark: "#0d0f0e", colorLight: "#ffffff",
+correctLevel: QRCode.CorrectLevel.H
+});
+});
+});
+<\/script>
+</body>
+</html>`);
+win.document.close();
+}
 </script>
 
 </body>
