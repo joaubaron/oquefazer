@@ -205,8 +205,6 @@ box-shadow: 0 0 0 3px rgba(110,179,51,0.2);
 padding-right: 8px;
 }
 #evento:focus {
-border-color: #6eb233;
-box-shadow: 0 0 0 3px rgba(110,179,51,0.3);
 background: linear-gradient(to right, rgba(110,179,51,0.03), rgba(255,255,255,1));
 }
 .geo-btn {
@@ -382,7 +380,7 @@ display: block;
 background: #f0f7ff;
 border: 1.5px solid #a8ccee;
 border-radius: 12px;
-padding: 8px 8px 8px 8px;
+padding: 8px;
 text-decoration: none;
 position: relative;
 text-align: left;
@@ -829,6 +827,7 @@ font-size: 13px; font-weight: bold; cursor: pointer; width: auto;
 </div>
 
 <!-- ============================================================ -->
+<!--  INSTALAR APP — Android / PWA                                -->
 <!-- ============================================================ -->
 <div id="instalar-banner" style="
 display: none;
@@ -1050,7 +1049,8 @@ navigator.serviceWorker.register('./sw.js', { scope: './' });
 
 // ── Instalar app — Safari Mac ──
 const isSafariMac = /Macintosh/i.test(navigator.userAgent) && /Safari/i.test(navigator.userAgent) && !/Chrome|CriOS|FxiOS|Edg/i.test(navigator.userAgent);
-const isMacStandalone = window.matchMedia('(display-mode: standalone)').matches;
+const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+const isMacStandalone = isStandalone;
 if (isSafariMac && !isMacStandalone) {
 setTimeout(() => {
 document.getElementById('instalar-mac').style.display = 'block';
@@ -1059,7 +1059,6 @@ document.getElementById('instalar-mac').style.display = 'block';
 
 // ── Instalar app — iOS ──
 const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
-const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
 if (isIos && !isStandalone) {
 setTimeout(() => {
 document.getElementById('instalar-ios').style.display = 'block';
