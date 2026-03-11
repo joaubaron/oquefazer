@@ -73,10 +73,15 @@ Claro! Só lembrando que o Parceiro do Mês é exclusivo — só existe 1 por ve
 
 **"Fazem desconto?"**
 
-*Se for Banner Premium:*
+*Se for Banner Premium — evento pequeno (R$149–179):*
 ```
-Pro primeiro evento posso fazer R$[piso da faixa]. Nos próximos você entra no pacote e economiza mais ainda.
+Pro primeiro evento posso fazer R$149. Nos próximos você entra no pacote e economiza mais ainda.
 ```
+*Se for Banner Premium — evento médio (R$199–249):*
+```
+Pro primeiro evento posso fazer R$199. Nos próximos você entra no pacote e economiza mais ainda.
+```
+*Se for Banner Premium — evento grande (R$399–499): não desconta — ofereça o pacote de 3x.*
 *Se for Parceiro do Mês:*
 ```
 Pro primeiro mês faço R$179. Se gostar e renovar, volta ao R$199 normal — e aí já temos histórico pra conversar pacote.
