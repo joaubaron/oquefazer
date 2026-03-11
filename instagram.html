@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -17,9 +17,13 @@
 
   .bg {
     position: absolute; inset: 0;
-    background-image: url('artes/fundo.webp');
-    background-size: cover;
-    background-position: center top;
+    overflow: hidden;
+  }
+  .bg img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
   }
 
   .overlay {
@@ -156,7 +160,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
-  <div class="bg"></div>
+  <div class="bg"><img src="fundo.webp" crossorigin="anonymous"></div>
   <div class="overlay"></div>
 
   <div class="edit-hint">✏️ Clique no link abaixo para editar antes de exportar</div>
