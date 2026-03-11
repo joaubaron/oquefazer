@@ -474,24 +474,24 @@ onclick="gtag('event', 'clique_anuncio', {
 <div>
 <div class="cidade-row">
 <div class="input-wrapper">
-<input type="text" id="cidade" onkeydown="if(event.key==='Enter') buscar('hoje')">
-<button type="button" class="geo-btn" onclick="detectarCidade()" title="Detectar minha cidade">📍</button>
+<input type="text" id="cidade" aria-label="Digite sua cidade" onkeydown="if(event.key==='Enter') buscar('hoje')">
+<button type="button" class="geo-btn" onclick="detectarCidade()" title="Detectar minha cidade" aria-label="Detectar minha cidade">📍</button>
 </div>
 <button type="button" class="evento-btn" onclick="toggleEvento()">🎫 Evento</button>
 </div>
 <div class="evento-wrapper" id="eventoWrapper">
-<input type="text" id="evento" placeholder="Evento + Enter (busca qualquer data)">
+<input type="text" id="evento" aria-label="Nome do evento específico" placeholder="Evento + Enter (busca qualquer data)">
 <div class="evento-dica">💡 Dica: Apague a cidade para buscar em qualquer lugar</div>
 </div>
 <div class="cat-group">
-<button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Bares')">🍻 Bares</button>
-<button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Shows')">🎶 Shows</button>
-<button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Cultura')">🎭 Cultura</button>
+<button type="button" class="cat-btn" aria-pressed="false" onclick="toggleCategoria(this, 'Bares')">🍻 Bares</button>
+<button type="button" class="cat-btn" aria-pressed="false" onclick="toggleCategoria(this, 'Shows')">🎶 Shows</button>
+<button type="button" class="cat-btn" aria-pressed="false" onclick="toggleCategoria(this, 'Cultura')">🎭 Cultura</button>
 </div>
 <div class="cat-group">
-<button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Natureza')">🌱 Natureza</button>
-<button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Esporte')">🎾 Esporte</button>
-<button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Feiras')">🛍️ Feiras</button>
+<button type="button" class="cat-btn" aria-pressed="false" onclick="toggleCategoria(this, 'Natureza')">🌱 Natureza</button>
+<button type="button" class="cat-btn" aria-pressed="false" onclick="toggleCategoria(this, 'Esporte')">🎾 Esporte</button>
+<button type="button" class="cat-btn" aria-pressed="false" onclick="toggleCategoria(this, 'Feiras')">🛍️ Feiras</button>
 </div>
 
 <!--
@@ -644,14 +644,14 @@ Resultados podem variar a cada busca com IA
 <p style="margin-top:8px;margin-bottom:10px;font-size:14px;color:#555;display:flex;justify-content:center;gap:20px;align-items:center;">
 <a onclick="compartilhar(); return false;" href="#" style="color:#6eb233;text-decoration:none;">🔗 Indique o app</a>
 <a href="https://www.instagram.com/joseaugustobaron/" target="_blank" style="color:#6eb233;text-decoration:none;">@baron</a>
-<button onclick="document.getElementById('modal-ajuda').style.display='flex';" style="background:#6eb233;color:white;border:none;border-radius:50%;width:18px;height:18px;font-size:12px;font-weight:bold;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;">?</button>
+<button onclick="document.getElementById('modal-ajuda').style.display='flex';" aria-label="Ajuda — como usar o app" style="background:#6eb233;color:white;border:none;border-radius:50%;width:18px;height:18px;font-size:12px;font-weight:bold;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;">?</button>
 <a href="https://wa.me/5547991581967?text=Quero%20anunciar!" target="_blank" style="color:#6eb233;text-decoration:none;">Anunciar</a>
 </p>
 </div>
 </div>
 
 <!-- Modal -->
-<div id="modal" onclick="if(event.target===this)this.style.display='none';" style="
+<div id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-msg" onclick="if(event.target===this)this.style.display='none';" style="
 position: fixed;
 top: 0; left: 0; width: 100%; height: 100%;
 background: rgba(0,0,0,0.6);
@@ -667,7 +667,7 @@ text-align: center;
 max-width: 300px;
 box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 ">
-<p style="margin-bottom: 20px; font-size: 16px; color: #333;">
+<p id="modal-msg" style="margin-bottom: 20px; font-size: 16px; color: #333;">
 Por favor, digite uma cidade
 </p>
 <button onclick="document.getElementById('modal').style.display='none'; document.getElementById('cidade').focus();" style="
@@ -685,7 +685,7 @@ width: auto;
 </div>
 
 <!-- Modal Ajuda -->
-<div id="modal-ajuda" onclick="if(event.target===this)this.style.display='none';" style="
+<div id="modal-ajuda" role="dialog" aria-modal="true" aria-labelledby="modal-ajuda-titulo" onclick="if(event.target===this)this.style.display='none';" style="
 position: fixed;
 top: 0; left: 0; width: 100%; height: 100%;
 background: rgba(0,0,0,0.6);
@@ -704,7 +704,7 @@ overflow-y: auto;
 box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 ">
 <div style="font-size: 14px; color: #333; line-height: 1.6;">
-<p style="margin-bottom: 15px;">O app <strong>Oquefazer</strong> descobre tudo que está rolando perto de você! Shows, bares, feiras, eventos culturais, esportes e muito mais. Basta digitar sua cidade (ou usar seu GPS) e escolher o período.</p>
+<p id="modal-ajuda-titulo" style="margin-bottom: 15px;">O app <strong>Oquefazer</strong> descobre tudo que está rolando perto de você! Shows, bares, feiras, eventos culturais, esportes e muito mais. Basta digitar sua cidade (ou usar seu GPS) e escolher o período.</p>
 
 <p style="margin-bottom: 15px;"><strong>Como usar?</strong><br>
 <strong>1.</strong> Digite sua cidade ou toque no 📍 para detectar automaticamente<br>
@@ -888,10 +888,12 @@ function toggleCategoria(btn, categoria) {
 const todos = document.querySelectorAll('.cat-btn');
 if (categoriaSelecionada === categoria) {
 btn.classList.remove('ativo');
+btn.setAttribute('aria-pressed', 'false');
 categoriaSelecionada = '';
 } else {
-todos.forEach(b => b.classList.remove('ativo'));
+todos.forEach(b => { b.classList.remove('ativo'); b.setAttribute('aria-pressed', 'false'); });
 btn.classList.add('ativo');
+btn.setAttribute('aria-pressed', 'true');
 categoriaSelecionada = categoria;
 }
 }
@@ -980,7 +982,7 @@ setTimeout(() => { location.href = url; }, 300);
 
 function mostrarAviso(msg) {
 const m = document.getElementById('modal');
-m.querySelector('p').textContent = msg;
+document.getElementById('modal-msg').textContent = msg;
 m.style.display = 'flex';
 }
 
@@ -1033,6 +1035,14 @@ window.addEventListener('DOMContentLoaded', () => {
 const ultima = localStorage.getItem('cidade');
 document.getElementById('cidade').value = ultima || '';
 document.getElementById('cidade').placeholder = ultima ? '' : 'Digite sua cidade';
+
+// Fecha modais com Escape
+document.addEventListener('keydown', (e) => {
+if (e.key === 'Escape') {
+document.getElementById('modal').style.display = 'none';
+document.getElementById('modal-ajuda').style.display = 'none';
+}
+});
 
 // Event listener para Enter no campo de eventos (busca ampla)
 document.getElementById('evento').addEventListener('keypress', (e) => {
