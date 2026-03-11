@@ -131,7 +131,7 @@ Manda aqui que coloco no ar ainda hoje!
 2. Nome do negócio
 3. Frase curta descrevendo o que é (ex: "O melhor da comida típica")
 4. Horário de funcionamento
-5. Logo em PNG (fundo transparente se possível)
+5. Logo em PNG (Posso usar do Instagram, se tive.)
 
 Manda aqui que coloco no ar ainda hoje!
 ```
