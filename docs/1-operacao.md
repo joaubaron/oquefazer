@@ -15,6 +15,58 @@
 
 ## Trocar anunciante no código
 
+### Banner Premium
+Busque o comentário `BANNER PREMIUM` no código e siga a situação abaixo.
+
+**Situação 1 — Vendeu um evento (ativar premium)**
+
+1. Comente o **banner genérico** (roxo):
+```html
+<!--
+<div class="evento-premium generico">
+  ...
+</div>
+-->
+```
+
+2. Descomente o **banner premium** (laranja) e edite:
+```html
+<div class="evento-premium">
+  <a href="LINK_DO_EVENTO" target="_blank" class="evento-premium-link">
+    <div class="evento-premium-content">
+      <div class="evento-premium-badge">🎪 EVENTO DESTAQUE</div>
+      <h2 class="evento-premium-titulo">Nome do Evento 2026</h2>
+      <p class="evento-premium-info">📆 Data · Local</p>
+    </div>
+    <div class="evento-premium-cta">Saiba Mais →</div>
+  </a>
+</div>
+```
+
+| Campo | O que colocar |
+|---|---|
+| `href` | link do evento/site |
+| badge | emoji + texto do destaque |
+| título | nome do evento |
+| info | data e local |
+| botão | `Saiba Mais →` · `Ingressos →` · `Inscreva-se →` |
+
+**Emojis por tipo:** 🍺 cerveja · 🎸 show · 🏃‍♂️ esporte · 🎨 arte · 🍴 gastronomia
+
+**Situação 2 — Evento acabou (voltar ao genérico)**
+
+1. Comente o banner premium
+2. Descomente o banner genérico
+3. Salve e faça upload
+
+**Checklist rápido**
+- [ ] Apenas 1 banner ativo por vez
+- [ ] Link correto e funcionando
+- [ ] Nome, data e local atualizados
+- [ ] Emoji e botão fazem sentido
+
+---
+
 ### Parceiro do Mês
 Busque o comentário `PARCEIRO DO MÊS` e edite:
 
@@ -30,7 +82,9 @@ Busque o comentário `PARCEIRO DO MÊS` e edite:
 
 > ⚠️ A cidade do parceiro precisa bater com a cidade que o usuário buscar.
 
-### Parceiros da Semana
+---
+
+### Parceiro da Semana
 Busque `SEMANA 1 · ESQUERDA / MEIO / DIREITA` e edite:
 
 | Campo | O que colocar |
@@ -44,63 +98,15 @@ Busque `SEMANA 1 · ESQUERDA / MEIO / DIREITA` e edite:
 
 ---
 
-## Trocar banner Premium
-
-### Situação 1 — Vendeu um evento (ativar premium)
-
-1. Encontre o **banner genérico** (roxo) e **comente**:
-```html
-<!--
-<div class="evento-premium generico">
-  ...
-</div>
--->
-```
-
-2. Encontre o **banner premium** (laranja) e **descomente** (remova `<!--` e `-->`):
-```html
-<div class="evento-premium">
-  <a href="LINK_DO_EVENTO" target="_blank" class="evento-premium-link">
-    <div class="evento-premium-content">
-      <div class="evento-premium-badge">🎪 EVENTO DESTAQUE</div>
-      <h2 class="evento-premium-titulo">Nome do Evento 2026</h2>
-      <p class="evento-premium-info">📆 Data · Local</p>
-    </div>
-    <div class="evento-premium-cta">Saiba Mais →</div>
-  </a>
-</div>
-```
-
-3. Edite: link, nome, data/local, emoji do badge e texto do botão.
-4. Salve e faça upload.
-
-**Emojis por tipo:** 🍺 cerveja · 🎸 show · 🏃‍♂️ esporte · 🎨 arte · 🍴 gastronomia
-
-**Textos de botão sugeridos:** `Saiba Mais →` · `Ingressos →` · `Inscreva-se →`
-
-### Situação 2 — Evento acabou (voltar ao genérico)
-
-1. Comente o banner premium
-2. Descomente o banner genérico
-3. Salve e faça upload
-
-### Checklist rápido
-- [ ] Apenas 1 banner ativo por vez
-- [ ] Link correto e funcionando
-- [ ] Nome, data e local atualizados
-- [ ] Emoji e botão fazem sentido
-- [ ] Arquivo salvo e upload feito
-
----
-
 ## Receber pagamento
 
 Pix antes de publicar — **Chave CPF: 649.568.229-87** (José Augusto Baron)
 
 | Plano | Valor |
 |---|---|
+| Banner Premium | conforme porte do evento |
 | Parceiro do Mês | R$199 |
-| Parceiro da Semana | R$79 |
+| Parceiro da Semana | R$79/semana |
 
 ---
 
