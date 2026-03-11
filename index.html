@@ -939,7 +939,7 @@ if (periodo === 'hoje') tempo = `hoje (${hoje})`;
 
 // ── Destaque só aparece se a cidade buscada for a do parceiro ──
 const destaquesTexto = parceiroMesCidade.toLowerCase() === cidade.toLowerCase()
-? `BLOCO 1 — DESTAQUE OBRIGATÓRIO: Exiba primeiro Em Destaque: ${parceiroMesNome} — ${parceiroMesLabel}, em ${parceiroMesCidade}. Máximo 2 linhas, use emojis, link: ${parceiroMesLink}. Não busque outros links. BLOCO 2 — EVENTOS: `
+? `BLOCO 1 — DESTAQUE OBRIGATÓRIO: Exiba primeiro Em Destaque: ${parceiroMesNome} — ${parceiroMesLabel}, em ${parceiroMesCidade}. Máximo 2 linhas, use emojis. Exiba o site oficial como fonte: ${parceiroMesLink} . Não busque outros links. BLOCO 2 — EVENTOS: `
 : '';
 
 if (categoriaSelecionada) {
