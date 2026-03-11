@@ -1008,10 +1008,11 @@ mostrarAviso('Não foi possível detectar a cidade.');
 } finally {
 btn.textContent = '📍';
 }
-}, () => {
-mostrarAviso('Permissão de localização negada.');
+}, (err) => {
+const msg = err.code === 3 ? 'Tempo esgotado. Digite sua cidade.' : 'Permissão de localização negada.';
+mostrarAviso(msg);
 btn.textContent = '📍';
-});
+}, { timeout: 10000 });
 }
 
 function compartilhar() {
