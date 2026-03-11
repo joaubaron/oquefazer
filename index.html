@@ -1048,8 +1048,8 @@ const isWebView = /FBAN|FBAV|Instagram|FB_IAB/i.test(ua);
 if (isWebView) {
 const isAndroid = /Android/i.test(ua);
 const msg = isAndroid
-? 'Para funcionar, toque nos 3 pontinhos (⋮) e escolha "Abrir no navegador".'
-: 'Para funcionar, toque em "..." e escolha "Abrir no Safari".';
+? 'Toque nos 3 pontinhos (⋮) e escolha:<br><strong>Abrir no navegador</strong>'
+: 'Toque em "..." e escolha:<br><strong>Abrir no Safari</strong>';
 mostrarAviso(msg);
 }
 
