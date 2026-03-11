@@ -15,8 +15,8 @@ O **OQueFazer** é um app web progressivo (PWA) que encontra eventos reais perto
 ### 🚀 Como usar
 
 1. Acesse o app em: [joaubaron.github.io/oquefazer](https://joaubaron.github.io/oquefazer/)
-2. Digite o nome da sua cidade **ou** clique em 🔍 para detectar automaticamente pela sua localização
-3. Clique em **"Ver o que rola essa semana"**
+2. Digite o nome da sua cidade **ou** clique em 📍 para detectar automaticamente pela sua localização
+3. Clique em **Hoje**, **Fim de semana** ou **7 dias**
 4. O app busca eventos reais com datas, horários, locais e links
 5. Compartilhe o app com amigos pelo botão **🔗 Indique o app**
 
@@ -70,8 +70,8 @@ Este projeto está protegido por direitos autorais. Consulte o arquivo [LICENSE]
 ### 🚀 How to use
 
 1. Open the app at: [joaubaron.github.io/oquefazer](https://joaubaron.github.io/oquefazer/)
-2. Type your city name **or** tap 🔍 to auto-detect your location
-3. Tap **"Ver o que rola essa semana"** (See what's happening this week)
+2. Type your city name **or** tap 📍 to auto-detect your location
+3. Tap **Hoje** (Today), **Fim de semana** (Weekend) or **7 dias** (7 days)
 4. The app searches for real events with dates, times, venues and links
 5. Share the app with friends using the **🔗 Share the app** button
 
