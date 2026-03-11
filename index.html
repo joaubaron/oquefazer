@@ -987,7 +987,7 @@ setTimeout(() => { location.href = url; }, 300);
 
 function mostrarAviso(msg) {
 const m = document.getElementById('modal');
-document.getElementById('modal-msg').textContent = msg;
+document.getElementById('modal-msg').innerHTML = msg;
 m.style.display = 'flex';
 }
 
@@ -1051,8 +1051,6 @@ const msg = isAndroid
 ? '<span style="font-size:13px">Toque 3 pontinhos (⋮)</span><br><strong style="font-size:13px">Abrir no navegador</strong>'
 : '<span style="font-size:13px">Toque em "..."</span><br><strong style="font-size:13px">Abrir no Safari</strong>';
 mostrarAviso(msg);
-document.querySelector('#modal > div').style.maxWidth = '380px';
-document.querySelector('#modal > div').style.padding = '15px 20px';
 }
 
 // Fecha modais com Escape
