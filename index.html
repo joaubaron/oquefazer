@@ -899,6 +899,13 @@ categoriaSelecionada = categoria;
 }
 
 function buscar(periodo) {
+// Se o modo evento estiver ativo, os botões de período disparam busca por evento específico
+const eventoWrapper = document.getElementById('eventoWrapper');
+if (eventoWrapper.style.display === 'block') {
+buscarEventoAmplo();
+return;
+}
+
 const cidade = document.getElementById("cidade").value.trim();
 if (!cidade) {
 document.getElementById('modal').style.display = 'flex';
