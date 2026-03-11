@@ -13,7 +13,7 @@
 <link rel="preload" as="image" href="fundo.webp">
 <title>Oquefazer</title>
 <meta name="description" content="O que fazer perto de você!">
-<link rel="canonical" href="https://joaubaron.github.io/oquefazer">
+<link rel="canonical" https://joaubaron.github.io/oquefazer/">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HB14E8QNFC"></script>
 <script>
@@ -514,7 +514,7 @@ onclick="gtag('event', 'clique_anuncio', {
 ║  1. href            → link do Instagram do parceiro
 ║  2. anunciante_id   → padrão: 'semanaX_nomeparceiro'
 ║  3. semana-nome     → nome exibido no card
-║  4. semana-emoji    → emoji temático]
+║  4. semana-emoji    → emoji temático
 ║  5. anunciante_id   → nome anunciante
 ║  . emojis           → 🍻 🎶 🎭 🌱 🎾 🛍️ 🎤 🎬 🎨 🎪 🎟️ 🏆 📚 🍔 🚴 🏛️ 🥟 🍛
 -->
@@ -541,9 +541,7 @@ onclick="gtag('event', 'clique_anuncio', {
 <div style="flex:1;">
 <div class="parceiro-linha" style="margin-bottom:5px">
 <!-- 4️⃣ LABEL E EMOJI -->
-<span class="parceiro-label">Um salão de beleza completo
-<span style="font-size:16px; line-height:1; vertical-align:middle; position:relative; top:-2px;"></span>
-</span>
+<span class="parceiro-label">Um salão de beleza completo ✂️</span>
 <span class="parceiro-badge">Destaque</span>
 </div>
 <div class="parceiro-linha">
@@ -657,7 +655,7 @@ top: 0; left: 0; width: 100%; height: 100%;
 background: rgba(0,0,0,0.6);
 display: none;
 align-items: center; justify-content: center;
-z-index: 10000;
+z-index: 10001;
 ">
 <div style="
 background: white;
@@ -691,7 +689,7 @@ top: 0; left: 0; width: 100%; height: 100%;
 background: rgba(0,0,0,0.6);
 display: none;
 align-items: center; justify-content: center;
-z-index: 10000;
+z-index: 10001;
 ">
 <div style="
 background: white;
@@ -1016,7 +1014,7 @@ mostrarAviso('Não foi possível detectar a cidade.');
 btn.textContent = '📍';
 }
 }, (err) => {
-const msg = err.code === 3 ? 'Tempo esgotado. Digite sua cidade.' : 'Permissão de localização negada.';
+const msg = err.code === 1 ? 'Permissão de localização negada.' : err.code === 2 ? 'Posição indisponível. Tente novamente.' : 'Tempo esgotado. Digite sua cidade.';
 mostrarAviso(msg);
 btn.textContent = '📍';
 }, { timeout: 10000 });
@@ -1068,8 +1066,7 @@ navigator.serviceWorker.register('./sw.js', { scope: './' });
 // ── Instalar app — Safari Mac ──
 const isSafariMac = /Macintosh/i.test(navigator.userAgent) && /Safari/i.test(navigator.userAgent) && !/Chrome|CriOS|FxiOS|Edg/i.test(navigator.userAgent);
 const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-const isMacStandalone = isStandalone;
-if (isSafariMac && !isMacStandalone) {
+if (isSafariMac && !isStandalone) {
 setTimeout(() => {
 document.getElementById('instalar-mac').style.display = 'block';
 }, 3000);
