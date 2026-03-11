@@ -46,6 +46,7 @@ Busque o comentário `BANNER PREMIUM` no código e siga a situação abaixo.
 | Campo | O que colocar |
 |---|---|
 | `href` | link do evento/site |
+| `anunciante_id` | `premium_ano_mes_nomeparceiro` (ex: `premium_2026_10_oktoberfest`) |
 | badge | emoji + texto do destaque |
 | título | nome do evento |
 | info | data e local |
@@ -93,6 +94,16 @@ Busque `SEMANA 1 · ESQUERDA / MEIO / DIREITA` e edite:
 | `anunciante_id` | `semanal_ano_mes_sX_pos_nome` |
 | `semana-nome` | nome do negócio |
 | `semana-emoji` | emoji temático |
+| `semana-badge` | rótulo do card — ver tabela abaixo |
+
+**Valores do badge:**
+
+| Badge | Quando usar |
+|---|---|
+| `Destaque` | anunciante pagante padrão |
+| `Novidade` | negócio recém-inaugurado |
+| `Parceiro` | permuta ou parceria sem pagamento |
+| `Patrocinado` | conteúdo pago com identificação explícita |
 
 **Emojis disponíveis:** 🍻 🎶 🎭 🌱 🎾 🛍️ 🎤 🎬 🎨 🎪 🎟️ 🏆 📚 🍔 🚴 🏛️ 🥟 🍛
 
@@ -101,6 +112,7 @@ Busque `SEMANA 1 · ESQUERDA / MEIO / DIREITA` e edite:
 ## Receber pagamento
 
 Pix antes de publicar — **Chave CPF: 649.568.229-87** (José Augusto Baron)
+WhatsApp para contato/anúncios: **+55 47 99158-1967**
 
 | Plano | Valor |
 |---|---|
