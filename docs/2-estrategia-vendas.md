@@ -96,7 +96,15 @@ Cliente pergunta o preço → você pergunta qual evento → consulta a tabela:
 
 **O banner genérico não mostra preço** — assim você define o valor após entender o porte do evento.
 
-**Flexibilidade:** desconto para primeiro cliente, cliente fiel ou pacote de múltiplos eventos.
+**Critérios de desconto por plano:**
+
+| Plano | Regra | Piso |
+|---|---|---|
+| Banner Premium — evento pequeno | primeiro evento → desce até o piso | R$149 |
+| Banner Premium — evento médio | primeiro evento → desce até o piso | R$199 |
+| Banner Premium — evento grande | não desconta — ofereça pacote de 3x | — |
+| Parceiro do Mês | primeiro mês → R$179; renovação volta ao R$199 | R$179 |
+| Parceiro da Semana | não desconta — já é o valor de entrada | — |
 
 ### Pacotes Banner Premium
 | Qtd eventos | Total | Por evento | Economia |
