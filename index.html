@@ -1048,8 +1048,8 @@ const isWebView = /FBAN|FBAV|Instagram|FB_IAB/i.test(ua);
 if (isWebView) {
 const isAndroid = /Android/i.test(ua);
 const msg = isAndroid
-? '<span style="font-size:13px">Toque 3 pontinhos (⋮)</span><br><strong>Abrir no navegador</strong>'
-: '<span style="font-size:13px">Toque em "..."</span><br><strong>Abrir no Safari</strong>';
+? '<span style="font-size:13px">Toque 3 pontinhos (⋮)</span><br><strong style="font-size:13px">Abrir no navegador</strong>'
+: '<span style="font-size:13px">Toque em "..."</span><br><strong style="font-size:13px">Abrir no Safari</strong>';
 mostrarAviso(msg);
 }
 
