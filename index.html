@@ -987,7 +987,7 @@ setTimeout(() => { location.href = url; }, 300);
 
 function mostrarAviso(msg) {
 const m = document.getElementById('modal');
-document.getElementById('modal-msg').textContent = msg;
+document.getElementById('modal-msg').innerHTML = msg;
 m.style.display = 'flex';
 }
 
@@ -1041,17 +1041,6 @@ window.addEventListener('DOMContentLoaded', () => {
 const ultima = localStorage.getItem('cidade');
 document.getElementById('cidade').value = ultima || '';
 document.getElementById('cidade').placeholder = ultima ? '' : 'Digite sua cidade';
-
-// Detecta WebView do Facebook/Instagram
-const ua = navigator.userAgent;
-const isWebView = /FBAN|FBAV|Instagram|FB_IAB/i.test(ua);
-if (isWebView) {
-const isAndroid = /Android/i.test(ua);
-const msg = isAndroid
-? 'Toque nos 3 pontinhos (⋮) e escolha:<br><strong>Abrir no navegador</strong>'
-: 'Toque em "..." e escolha:<br><strong>Abrir no Safari</strong>';
-mostrarAviso(msg);
-}
 
 // Fecha modais com Escape
 document.addEventListener('keydown', (e) => {
