@@ -129,7 +129,7 @@ Manda aqui que coloco no ar ainda hoje!
 
 1. Link do seu Instagram
 2. Nome do negócio
-3. Frase curta descrevendo o que é (ex: "O melhor da comida típica paraense")
+3. Frase curta descrevendo o que é (ex: "O melhor da comida típica")
 4. Horário de funcionamento
 5. Logo em PNG (fundo transparente se possível)
 
