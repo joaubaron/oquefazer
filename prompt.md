@@ -5,7 +5,7 @@ A diferença está no **prompt otimizado**.
 Sem o app, o usuário digitaria algo genérico como:
 > *"o que fazer em Blumenau esse fim de semana"*
 
-e receberia resultados mediocres.
+e receberia resultados medíocres.
 
 O app envia um prompt muito mais rico para a IA do Google, com instruções precisas que o usuário comum nunca escreveria:
 
@@ -13,6 +13,7 @@ O app envia um prompt muito mais rico para a IA do Google, com instruções prec
 
 ## O que o app faz automaticamente
 
+- 🎫 **Busca por evento específico** — nome do evento + cidade opcional, busca em qualquer data futura
 - 📅 **Data real injetada** — a IA sabe exatamente qual é o dia de hoje
 - 🗓️ **Formato de calendário cronológico** — eventos organizados por data e horário
 - 🗺️ **Todos os bairros** — instrução explícita para não listar só o centro da cidade
