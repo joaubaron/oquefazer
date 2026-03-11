@@ -201,6 +201,14 @@ input:focus {
 border-color: #6eb233;
 box-shadow: 0 0 0 3px rgba(110,179,51,0.2);
 }
+#evento {
+padding-right: 8px;
+}
+#evento:focus {
+border-color: #6eb233;
+box-shadow: 0 0 0 3px rgba(110,179,51,0.3);
+background: linear-gradient(to right, rgba(110,179,51,0.03), rgba(255,255,255,1));
+}
 .geo-btn {
 position: absolute;
 right: 10px;
@@ -288,6 +296,14 @@ display: none;
 }
 .evento-wrapper input {
 padding-right: 14px;
+}
+.evento-dica {
+font-size: 11px;
+color: #6eb233;
+margin-top: 4px;
+padding-left: 4px;
+opacity: 0.85;
+font-weight: 500;
 }
 
 /* PARCEIRO DO MÊS */
@@ -466,7 +482,8 @@ onclick="gtag('event', 'clique_anuncio', {
 <button type="button" class="evento-btn" onclick="toggleEvento()">🎫 Evento</button>
 </div>
 <div class="evento-wrapper" id="eventoWrapper">
-<input type="text" id="evento" placeholder="Nome do evento ou artista">
+<input type="text" id="evento" placeholder="Evento + Enter (busca qualquer data)">
+<div class="evento-dica">💡 Dica: Apague a cidade para buscar em qualquer lugar</div>
 </div>
 <div class="cat-group">
 <button type="button" class="cat-btn" onclick="toggleCategoria(this, 'Bares')">🍻 Bares</button>
@@ -938,6 +955,30 @@ const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURICompon
 setTimeout(() => { location.href = url; }, 300);
 }
 
+function buscarEventoAmplo() {
+const cidade = document.getElementById("cidade").value.trim();
+const eventoEspecifico = document.getElementById('evento').value.trim();
+
+if (!eventoEspecifico) {
+mostrarAviso('Digite o nome do evento para buscar em qualquer data.');
+return;
+}
+
+// Salva cidade se fornecida
+if (cidade) {
+localStorage.setItem('cidade', cidade);
+}
+
+// Busca ampla - sem restrição de período específico
+let localizacao = cidade ? `em ${cidade}` : '';
+const query = `Buscar informações sobre: ${eventoEspecifico} ${localizacao} em qualquer data (próximos meses ou ano). Incluir TODAS as datas e cidades disponíveis deste evento. Mostrar: data completa, horário, cidade, local, descrição e links (site oficial, Sympla, Eventbrite, Instagram). Se houver múltiplas datas ou cidades, listar todas. Se não encontrar, informar claramente que não há informações confirmadas sobre este evento.`.trim();
+
+gtag('event', 'busca_ampla', { cidade: cidade || 'qualquer', evento: eventoEspecifico });
+const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
+setTimeout(() => { location.href = url; }, 300);
+}
+
+
 function mostrarAviso(msg) {
 const m = document.getElementById('modal');
 m.querySelector('p').textContent = msg;
@@ -993,6 +1034,14 @@ window.addEventListener('DOMContentLoaded', () => {
 const ultima = localStorage.getItem('cidade');
 document.getElementById('cidade').value = ultima || '';
 document.getElementById('cidade').placeholder = ultima ? '' : 'Digite sua cidade';
+
+// Event listener para Enter no campo de eventos (busca ampla)
+document.getElementById('evento').addEventListener('keypress', (e) => {
+if (e.key === 'Enter') {
+e.preventDefault();
+buscarEventoAmplo();
+}
+});
 });
 
 if ('serviceWorker' in navigator) {
