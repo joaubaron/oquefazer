@@ -5,11 +5,13 @@
 
 ## Preços por fase
 
-| Fase | Parceiro do Mês | Parceiro Semana | Receita máx/mês |
+| Fase | Parceiro do Mês | Parceiro da Semana | Receita máx/mês |
 |---|---|---|---|
 | **Inicial** | R$199 | R$79 | R$1.147 |
 | **Crescimento** | R$297 | R$97 | R$1.461 |
 | **Escala** | R$397–R$497 | R$127–R$147 | R$1.921–R$2.253 |
+
+> O Banner Premium é precificado por evento — veja tabela abaixo.
 
 ---
 
@@ -66,6 +68,22 @@
 
 ---
 
+## Argumentos de venda
+
+**Nunca venda como anúncio. Venda como:**
+> "Recomendação de quem abre o app para decidir onde ir agora."
+
+**Para o Banner Premium:**
+- "Seu evento fica no topo da página, primeira coisa que todo mundo vê"
+- "Público que está ativamente procurando o que fazer na região"
+- "R$199 é menos que um anúncio de jornal e fica visível 24/7"
+
+**Para pacotes:**
+- "Se você já tem 3 shows, fecha o pacote por R$499 e economiza R$100"
+- "Não precisa usar tudo de uma vez — vale para eventos futuros"
+
+---
+
 ## Precificação do Banner Premium (confidencial)
 
 Cliente pergunta o preço → você pergunta qual evento → consulta a tabela:
@@ -80,38 +98,9 @@ Cliente pergunta o preço → você pergunta qual evento → consulta a tabela:
 
 **Flexibilidade:** desconto para primeiro cliente, cliente fiel ou pacote de múltiplos eventos.
 
-### Pacotes
+### Pacotes Banner Premium
 | Qtd eventos | Total | Por evento | Economia |
 |---|---|---|---|
 | 1 | R$199 | R$199 | — |
 | 3 | R$499 | R$166 | R$100 |
 | 5 | R$749 | R$149 | R$250 |
-
----
-
-## Argumentos de venda
-
-**Nunca venda como anúncio. Venda como:**
-> "Recomendação de quem abre o app para decidir onde ir agora."
-
-**Para o banner premium:**
-- "Seu evento fica no topo da página, primeira coisa que todo mundo vê"
-- "Público que está ativamente procurando o que fazer na região"
-- "R$199 é menos que um anúncio de jornal e fica visível 24/7"
-
-**Para pacotes:**
-- "Se você já tem 3 shows, fecha o pacote por R$499 e economiza R$100"
-- "Não precisa usar tudo de uma vez — vale para eventos futuros"
-
----
-
-## Objeções comuns
-
-**"Achei caro"**
-→ "Um anúncio de rádio custa R$150–300 por spot e passa uma vez. Aqui fica visível 24/7."
-
-**"Quero pensar"**
-→ "Esse espaço é único — se outro evento reservar antes, você perde a data."
-
-**"Fazem desconto?"**
-→ "Para o primeiro evento, posso fazer R$[X] promocional. Nos próximos você entra no pacote com desconto automático."
