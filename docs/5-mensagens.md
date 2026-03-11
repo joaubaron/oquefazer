@@ -155,7 +155,7 @@ Manda aqui que coloco no ar ainda hoje!
 ```
 Sua recomendação já está no ar! 🎉
 
-Abre o app, digita [cidade] e veja como ficou:
+Abre o link/app e veja como ficou:
 👉 https://joaubaron.github.io/oquefazer/
 
 Qualquer ajuste é só falar!
