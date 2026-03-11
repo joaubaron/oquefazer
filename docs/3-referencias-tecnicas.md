@@ -50,14 +50,4 @@
 ## Autoria e proteção
 
 - LICENSE registrado em **28/02/2026 ~13:54** · commit `20a8c1d`
-- Lei de Direitos Autorais BR: https://www.planalto.gov.br/ccivil_03/leis/l9610.htm
-
-**Em caso de cópia:**
-
-| Ação | Link |
-|---|---|
-| DMCA GitHub | https://support.github.com/contact/dmca-takedown |
-| Report abuso GitHub | https://github.com/contact/report-abuse |
-| Report app Play Store | https://support.google.com/googleplay/android-developer/answer/9849910 |
-| Google DMCA | https://support.google.com/legal/troubleshooter/1114905 |
-| OAB | https://www.oab.org.br |
+- Para ações em caso de cópia, consulte o documento **4-como-agir-copia.md**
