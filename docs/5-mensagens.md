@@ -72,8 +72,18 @@ Claro! Só lembrando que o Parceiro do Mês é exclusivo — só existe 1 por ve
 ---
 
 **"Fazem desconto?"**
+
+*Se for Banner Premium:*
 ```
-Para o primeiro evento, posso fazer R$[X] promocional. Nos próximos você entra no pacote com desconto automático.
+Pro primeiro evento posso fazer R$[piso da faixa]. Nos próximos você entra no pacote e economiza mais ainda.
+```
+*Se for Parceiro do Mês:*
+```
+Pro primeiro mês faço R$179. Se gostar e renovar, volta ao R$199 normal — e aí já temos histórico pra conversar pacote.
+```
+*Se for Parceiro da Semana:*
+```
+O semanal já é o valor de entrada — R$79 pra testar sem compromisso. Se quiser mais exposição, o mensal sai por R$199 o mês inteiro.
 ```
 
 ---
