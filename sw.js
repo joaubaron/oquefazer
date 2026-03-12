@@ -1,5 +1,5 @@
 // ⚠️ Atualize a versão a cada deploy
-const CACHE_VERSION = '1.1.1039';
+const CACHE_VERSION = '1.1.1040';
 const CACHE_NAME = `oquefazer-${CACHE_VERSION}`;
 const STATIC_ASSETS = [
 './',
