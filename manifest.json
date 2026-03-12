@@ -2,7 +2,7 @@
   "id": "/oquefazer/",
   "name": "Oquefazer",
   "short_name": "Oquefazer",
-  "description": "O que fazer perto de você!",
+  "description": "Descubra o que fazer perto de você",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
