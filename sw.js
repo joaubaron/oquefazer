@@ -1,8 +1,7 @@
 // ⚠️ Atualize a versão a cada deploy
-const CACHE_VERSION = '1.1.1049';
+const CACHE_VERSION = '1.1.1050';
 const CACHE_NAME = `oquefazer-${CACHE_VERSION}`;
 const STATIC_ASSETS = [
-'./',
 './index.html',
 './manifest.json',
 './icone.png',
@@ -19,7 +18,7 @@ self.addEventListener('install', event => {
 event.waitUntil(
   caches.open(CACHE_NAME)
     .then(cache => cache.addAll(STATIC_ASSETS))
-    .then(() => self.skipWaiting())  // ✅ só ativa após cache completo
+    .then(() => self.skipWaiting())
 );
 });
 // ===============================
@@ -60,6 +59,22 @@ if (acceptHeader.includes('text/html')) {
         caches.match(event.request)
           .then(cached => cached || caches.match('./offline.html'))
       )
+  );
+  return;
+}
+// IMAGENS → STALE WHILE REVALIDATE
+if (event.request.destination === 'image') {
+  event.respondWith(
+    caches.open(CACHE_NAME).then(cache => {
+      return cache.match(event.request).then(cached => {
+        const fetchPromise = fetch(event.request).then(network => {
+          cache.put(event.request, network.clone());
+          return network;
+        }).catch(() => cached);
+
+        return cached || fetchPromise;
+      });
+    })
   );
   return;
 }
