@@ -122,6 +122,23 @@ WhatsApp para contato/anúncios: **+55 47 99158-1967**
 
 ---
 
+## Enviar notificação patrocinada
+
+1. Acesse **onesignal.com** → Oquefazer App → **Messages → New Push**
+2. Preencha:
+   - **Title:** nome do anunciante ou evento (ex: `Point da Beleza ✂️`)
+   - **Message:** texto da promoção (ex: `50% off hoje! Agende agora 💇`)
+   - **Launch URL:** link do Instagram ou site do anunciante
+3. Em **Chrome Action Buttons:**
+   - Button Label 1: `Ver agora`
+   - Launch URL 1: link do anunciante
+4. Em **Delivery Schedule:** selecione **Immediately**
+5. Clique em **Review and Send**
+
+✅ Notificação chega em todos os inscritos em 1–5 minutos.
+
+---
+
 ## Ver métricas
 
 Acesse **analytics.google.com** → propriedade **Oquefazer**
