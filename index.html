@@ -928,6 +928,7 @@ document.getElementById('modal').style.display = 'flex';
 return;
 }
 localStorage.setItem('cidade', cidade);
+carregarClima();
 let tempo;
 if (periodo === 'hoje') {
 tempo = 'hoje';
