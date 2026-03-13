@@ -878,6 +878,15 @@ b.disabled = false;
 b.style.opacity = '1';
 b.style.cursor = 'pointer';
 });
+const cidadeInput = document.getElementById('cidade');
+if (!cidadeInput.value.trim()) {
+const ultima = localStorage.getItem('cidade');
+if (ultima) {
+cidadeInput.value = ultima;
+} else {
+cidadeInput.placeholder = 'Digite sua cidade';
+}
+}
 }
 }
 
