@@ -1072,7 +1072,7 @@ const emojiMap = {
 95:'⛈️', 96:'⛈️', 99:'⛈️'
 };
 const emoji = emojiMap[code] || '🌡️';
-widget.textContent = `${emoji} ${min}°~${max}°`;
+widget.textContent = `${min}°~${max}° ${emoji}`;
 widget.style.opacity = '1';
 } catch(e) { /* silencioso */ }
 }
