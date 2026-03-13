@@ -23,14 +23,119 @@ gtag('js', new Date());
 gtag('config', 'G-HB14E8QNFC');
 </script>
 <!-- OneSignal -->
+<!-- OneSignal com suporte a PWA -->
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>
 window.OneSignalDeferred = window.OneSignalDeferred || [];
+
+// Detectar se está rodando como PWA instalado
+const isPWA = window.matchMedia('(display-mode: standalone)').matches || 
+              window.navigator.standalone === true;
+
+console.log('📱 Modo:', isPWA ? 'PWA Instalado' : 'Navegador');
+
 OneSignalDeferred.push(async function(OneSignal) {
-await OneSignal.init({
-appId: "63ba3fe9-c20a-4980-a519-163fef4bdf45",
+  await OneSignal.init({
+    appId: "63ba3fe9-c20a-4980-a519-163fef4bdf45",
+    autoRegister: true,
+    notifyButton: {
+      enable: true,
+      size: 'small',
+      position: 'bottom-right',
+      prenotify: true,
+      showCredit: false,
+      text: {
+        'tip.state.unsubscribed': 'Receba notificações de eventos',
+        'tip.state.subscribed': 'Notificações ativadas',
+        'tip.state.blocked': 'Notificações bloqueadas',
+        'message.prenotify': 'Clique para ativar notificações',
+        'message.action.subscribed': 'Obrigado! Você receberá eventos',
+        'message.action.resubscribed': 'Bem-vindo de volta!',
+        'message.action.unsubscribed': 'Notificações desativadas'
+      }
+    },
+    persistNotification: true,
+    welcomeNotification: {
+      title: "Oquefazer",
+      message: "Obrigado por ativar as notificações! 🎉",
+      url: "https://joaubaron.github.io/oquefazer/"
+    }
+  });
+
+  // Configurações especiais para PWA
+  if (isPWA) {
+    console.log('📱 Configurando para PWA...');
+    
+    const permission = await OneSignal.Notifications.permissionNative;
+    console.log('📱 Permissão PWA:', permission);
+    
+    if (permission === 'granted') {
+      const userId = await OneSignal.User.pushSubscription.getId();
+      console.log('📱 User ID PWA:', userId);
+    } else {
+      setTimeout(() => {
+        mostrarPromptNotificacaoPWA();
+      }, 2000);
+    }
+  }
 });
-});
+
+// Função para mostrar prompt personalizado no PWA
+function mostrarPromptNotificacaoPWA() {
+  OneSignal.Notifications.permissionNative.then(perm => {
+    if (perm === 'granted') return;
+    
+    const promptDiv = document.createElement('div');
+    promptDiv.id = 'pwa-notification-prompt';
+    promptDiv.style.cssText = `
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #6eb233;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      z-index: 10002;
+      max-width: 300px;
+      text-align: center;
+      animation: slideUp 0.3s ease;
+    `;
+    
+    promptDiv.innerHTML = `
+      <div style="font-size: 20px; margin-bottom: 8px;">🔔</div>
+      <div style="font-weight: bold; margin-bottom: 8px;">Ativar notificações</div>
+      <div style="font-size: 13px; margin-bottom: 15px;">Receba eventos perto de você!</div>
+      <div style="display: flex; gap: 10px; justify-content: center;">
+        <button onclick="ativarNotificacoesPWA()" style="background: white; color: #6eb233; border: none; padding: 8px 20px; border-radius: 20px; font-weight: bold; cursor: pointer;">ATIVAR</button>
+        <button onclick="fecharPromptPWA()" style="background: transparent; color: white; border: 1px solid white; padding: 8px 20px; border-radius: 20px; cursor: pointer;">AGORA NÃO</button>
+      </div>
+    `;
+    
+    document.body.appendChild(promptDiv);
+  });
+}
+
+function ativarNotificacoesPWA() {
+  OneSignal.Notifications.requestPermission();
+  document.getElementById('pwa-notification-prompt')?.remove();
+}
+
+function fecharPromptPWA() {
+  document.getElementById('pwa-notification-prompt')?.remove();
+  localStorage.setItem('pwa-prompt-dispensado', Date.now());
+}
+
+// Adicionar CSS para animação
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes slideUp {
+    from { transform: translate(-50%, 100%); opacity: 0; }
+    to { transform: translate(-50%, 0); opacity: 1; }
+  }
+`;
+document.head.appendChild(style);
 </script>
 <style>
 /* GARANTE QUE O FLEX TENHA ALTURA REAL */
