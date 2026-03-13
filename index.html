@@ -28,11 +28,28 @@ gtag('config', 'G-HB14E8QNFC');
 <script>
 window.OneSignalDeferred = window.OneSignalDeferred || [];
 OneSignalDeferred.push(async function(OneSignal) {
-await OneSignal.init({
-appId: "63ba3fe9-c20a-4980-a519-163fef4bdf45",
-});
+  await OneSignal.init({
+    appId: "63ba3fe9-c20a-4980-a519-163fef4bdf45",
+
+    promptOptions: {
+      slidedown: {
+        enabled: true,
+        prompts: [{
+          type: "push",
+          autoPrompt: true,
+          text: {
+            actionMessage: "Assine as notificações para receber as últimas notícias. Desative a qualquer momento.",
+            acceptButton: "Assinar",
+            cancelButton: "Depois"
+          }
+        }]
+      }
+    }
+
+  });
 });
 </script>
+
 <style>
 /* GARANTE QUE O FLEX TENHA ALTURA REAL */
 html, body {
