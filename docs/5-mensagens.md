@@ -27,6 +27,7 @@ Tenho três opções:
 🔥 Banner Premium — destaque máximo na entrada do app (shows, eventos e grandes atrações)
 ⭐ Parceiro do Mês — recomendação exclusiva o mês inteiro por R$199
 📅 Parceiro da Semana — recomendação semanal por R$79/semana
+🔔 Notificação Patrocinada — sua mensagem direto no celular de todos os inscritos (a partir de R$49)
 
 Posso te mostrar como funciona?
 ```
@@ -108,6 +109,20 @@ Um anúncio de rádio custa R$150–300 por spot e passa uma vez. Aqui fica vis�
 ---
 
 ## 4️⃣ Após aceitar — Coleta de dados
+
+**🔔 Notificação Patrocinada** — solicitar:
+
+```
+Ótimo! Para enviar a notificação preciso de:
+
+1. Título (ex: "Point da Beleza ✂️")
+2. Texto curto (ex: "50% off hoje! Agende agora 💇")
+3. Link para onde vai ao clicar (Instagram, site ou WhatsApp)
+
+Manda aqui que disparo ainda hoje!
+```
+
+
 
 **🔥 Banner Premium** — solicitar:
 
