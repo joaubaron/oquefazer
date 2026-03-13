@@ -112,3 +112,27 @@ Cliente pergunta o preço → você pergunta qual evento → consulta a tabela:
 | 1 | R$199 | R$199 | — |
 | 3 | R$499 | R$166 | R$100 |
 | 5 | R$749 | R$149 | R$250 |
+
+---
+
+## Notificação Patrocinada
+
+Disparo único para todos os inscritos no app via OneSignal. Alta visibilidade — chega direto no celular, sem depender de algoritmo.
+
+**Quando oferecer:**
+- Anunciante tem promoção relâmpago
+- Show ou evento confirmado de última hora
+- Feira ou programação especial no dia
+
+**Precificação:**
+
+| Porte | Preço |
+|---|---|
+| Negócio local (bar, salão, loja) | R$49 |
+| Evento médio (show regional, feira) | R$79 |
+| Evento grande (festival, atração especial) | R$99 |
+
+**Argumento de venda:**
+> "Post no Instagram o algoritmo pode suprimir. Aqui a mensagem chega direto no celular de quem já usa o app — sem filtro, na hora."
+
+**Não desconta** — já é o menor formato disponível.
