@@ -848,8 +848,8 @@ user-select: none;
 touch-action: none;
 cursor: grab;
 ">
-  <span style="font-size:11px; opacity:0.7; letter-spacing:0.5px;">⠿</span>
-  <span id="instalar-banner-texto">📱 Instalar app</span>
+<span style="font-size:11px; opacity:0.7; letter-spacing:0.5px;">⠿</span>
+<span id="instalar-banner-texto">📱 Instalar app</span>
 </div>
 
 <script>
@@ -1016,6 +1016,7 @@ const cidade = data.address.city || data.address.town || data.address.village ||
 if (cidade) {
 document.getElementById('cidade').value = cidade;
 localStorage.setItem('cidade', cidade);
+carregarClima();
 }
 } catch(e) {
 mostrarAviso('Não foi possível detectar a cidade.');
@@ -1135,92 +1136,92 @@ document.getElementById('instalar-ios').style.display = 'block';
 // ── Instalar app ──
 let deferredPrompt;
 window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  if (!localStorage.getItem('pwa_dispensado')) {
-    const banner = document.getElementById('instalar-banner');
-    banner.style.display = 'flex';
-  }
+e.preventDefault();
+deferredPrompt = e;
+if (!localStorage.getItem('pwa_dispensado')) {
+const banner = document.getElementById('instalar-banner');
+banner.style.display = 'flex';
+}
 });
 
 window.addEventListener('appinstalled', () => {
-  document.getElementById('instalar-banner').style.display = 'none';
-  gtag('event', 'pwa_installed');
+document.getElementById('instalar-banner').style.display = 'none';
+gtag('event', 'pwa_installed');
 });
 
 // ── Drag para mover o banner ──
 (function() {
-  const banner = document.getElementById('instalar-banner');
-  let dragging = false;
-  let startX, startY, origLeft, origTop;
-  let moved = false;
+const banner = document.getElementById('instalar-banner');
+let dragging = false;
+let startX, startY, origLeft, origTop;
+let moved = false;
 
-  function getPos() {
-    const rect = banner.getBoundingClientRect();
-    return { left: rect.left, top: rect.top };
-  }
+function getPos() {
+const rect = banner.getBoundingClientRect();
+return { left: rect.left, top: rect.top };
+}
 
-  function startDrag(cx, cy) {
-    dragging = true;
-    moved = false;
-    banner.style.transform = 'none';
-    const pos = getPos();
-    banner.style.left = pos.left + 'px';
-    banner.style.top = pos.top + 'px';
-    banner.style.bottom = 'auto';
-    startX = cx;
-    startY = cy;
-    origLeft = pos.left;
-    origTop = pos.top;
-    banner.style.cursor = 'grabbing';
-    banner.style.transition = 'none';
-  }
+function startDrag(cx, cy) {
+dragging = true;
+moved = false;
+banner.style.transform = 'none';
+const pos = getPos();
+banner.style.left = pos.left + 'px';
+banner.style.top = pos.top + 'px';
+banner.style.bottom = 'auto';
+startX = cx;
+startY = cy;
+origLeft = pos.left;
+origTop = pos.top;
+banner.style.cursor = 'grabbing';
+banner.style.transition = 'none';
+}
 
-  function moveDrag(cx, cy) {
-    if (!dragging) return;
-    const dx = cx - startX;
-    const dy = cy - startY;
-    if (Math.abs(dx) > 4 || Math.abs(dy) > 4) moved = true;
-    const maxX = window.innerWidth - banner.offsetWidth;
-    const maxY = window.innerHeight - banner.offsetHeight;
-    banner.style.left = Math.max(0, Math.min(maxX, origLeft + dx)) + 'px';
-    banner.style.top  = Math.max(0, Math.min(maxY, origTop  + dy)) + 'px';
-  }
+function moveDrag(cx, cy) {
+if (!dragging) return;
+const dx = cx - startX;
+const dy = cy - startY;
+if (Math.abs(dx) > 4 || Math.abs(dy) > 4) moved = true;
+const maxX = window.innerWidth - banner.offsetWidth;
+const maxY = window.innerHeight - banner.offsetHeight;
+banner.style.left = Math.max(0, Math.min(maxX, origLeft + dx)) + 'px';
+banner.style.top  = Math.max(0, Math.min(maxY, origTop  + dy)) + 'px';
+}
 
-  function endDrag() {
-    if (!dragging) return;
-    dragging = false;
-    banner.style.cursor = 'grab';
-  }
+function endDrag() {
+if (!dragging) return;
+dragging = false;
+banner.style.cursor = 'grab';
+}
 
-  // Mouse
-  banner.addEventListener('mousedown', (e) => { startDrag(e.clientX, e.clientY); e.preventDefault(); });
-  window.addEventListener('mousemove', (e) => { moveDrag(e.clientX, e.clientY); });
-  window.addEventListener('mouseup', () => { endDrag(); });
+// Mouse
+banner.addEventListener('mousedown', (e) => { startDrag(e.clientX, e.clientY); e.preventDefault(); });
+window.addEventListener('mousemove', (e) => { moveDrag(e.clientX, e.clientY); });
+window.addEventListener('mouseup', () => { endDrag(); });
 
-  // Touch
-  banner.addEventListener('touchstart', (e) => {
-    const t = e.touches[0];
-    startDrag(t.clientX, t.clientY);
-  }, { passive: true });
-  window.addEventListener('touchmove', (e) => {
-    if (!dragging) return;
-    const t = e.touches[0];
-    moveDrag(t.clientX, t.clientY);
-    if (moved) e.preventDefault();
-  }, { passive: false });
-  window.addEventListener('touchend', () => { endDrag(); });
+// Touch
+banner.addEventListener('touchstart', (e) => {
+const t = e.touches[0];
+startDrag(t.clientX, t.clientY);
+}, { passive: true });
+window.addEventListener('touchmove', (e) => {
+if (!dragging) return;
+const t = e.touches[0];
+moveDrag(t.clientX, t.clientY);
+if (moved) e.preventDefault();
+}, { passive: false });
+window.addEventListener('touchend', () => { endDrag(); });
 
-  // Clique só instala se não arrastou
-  banner.addEventListener('click', async () => {
-    if (moved) return;
-    if (!deferredPrompt) return;
-    banner.style.display = 'none';
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    gtag('event', 'pwa_install', { outcome });
-    deferredPrompt = null;
-  });
+// Clique só instala se não arrastou
+banner.addEventListener('click', async () => {
+if (moved) return;
+if (!deferredPrompt) return;
+banner.style.display = 'none';
+deferredPrompt.prompt();
+const { outcome } = await deferredPrompt.userChoice;
+gtag('event', 'pwa_install', { outcome });
+deferredPrompt = null;
+});
 })();
 </script>
 </body>
