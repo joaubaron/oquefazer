@@ -637,6 +637,7 @@ Resultados podem variar a cada busca com IA
 </p>
 
 <p style="margin-top:8px;margin-bottom:10px;font-size:14px;color:#555;display:flex;justify-content:center;gap:45px;align-items:center;">
+<span id="tempo-widget" style="color:#555;font-size:13px;line-height:1;cursor:default;opacity:0;transition:opacity 0.4s ease;" title="Previsão do tempo"></span>
 <a onclick="compartilhar(); return false;" href="#" style="color:#6eb233;text-decoration:none;">🔗 Indique o app</a>
 <button onclick="document.getElementById('modal-ajuda').style.display='flex';" aria-label="Ajuda — como usar o app" style="background:#6eb233;color:white;border:none;border-radius:50%;width:18px;height:18px;font-size:12px;font-weight:bold;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;">?</button>
 <a href="https://wa.me/5547991581967?text=Ol%C3%A1!%20Como%20fa%C3%A7o%20pra%20anunciar%3F" target="_blank" style="color:#6eb233;text-decoration:none;">Anunciar</a>
@@ -1045,10 +1046,41 @@ navigator.clipboard.writeText(texto).then(() => mostrarAviso('Link copiado! 🔗
 }
 }
 
+async function carregarClima() {
+const widget = document.getElementById('tempo-widget');
+if (!widget) return;
+const cidade = localStorage.getItem('cidade');
+if (!cidade) return;
+try {
+const geo = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(cidade)}&format=json&limit=1`);
+const geoData = await geo.json();
+if (!geoData.length) return;
+const { lat, lon } = geoData[0];
+const weather = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weathercode&temperature_unit=celsius&timezone=auto`);
+const wData = await weather.json();
+const temp = Math.round(wData.current.temperature_2m);
+const code = wData.current.weathercode;
+const emojiMap = {
+0:'☀️', 1:'🌤️', 2:'⛅', 3:'☁️',
+45:'🌫️', 48:'🌫️',
+51:'🌦️', 53:'🌦️', 55:'🌧️',
+61:'🌧️', 63:'🌧️', 65:'🌧️',
+71:'❄️', 73:'❄️', 75:'❄️', 77:'❄️',
+80:'🌦️', 81:'🌦️', 82:'🌧️',
+85:'❄️', 86:'❄️',
+95:'⛈️', 96:'⛈️', 99:'⛈️'
+};
+const emoji = emojiMap[code] || '🌡️';
+widget.textContent = `${emoji} ${temp}°`;
+widget.style.opacity = '1';
+} catch(e) { /* silencioso */ }
+}
+
 window.addEventListener('DOMContentLoaded', () => {
 const ultima = localStorage.getItem('cidade');
 document.getElementById('cidade').value = ultima || '';
 document.getElementById('cidade').placeholder = ultima ? '' : 'Digite sua cidade';
+carregarClima();
 
 // Detecta WebView do Facebook/Instagram
 const ua = navigator.userAgent;
