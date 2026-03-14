@@ -16,6 +16,7 @@
 <link rel="canonical" href="https://joaubaron.github.io/oquefazer/">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HB14E8QNFC"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
@@ -424,6 +425,10 @@ font-size: 14px;
 flex-shrink: 0;
 line-height: 1;
 }
+.icone-qrcode {
+width: 19px !important;
+height: 19px !important;
+}
 </style>
 </head>
 <body>
@@ -645,13 +650,62 @@ onclick="gtag('event', 'clique_anuncio', {
 Resultados podem variar a cada busca com IA
 </p>
 
-<p style="margin-top:8px;margin-bottom:10px;font-size:14px;color:#555;display:flex;justify-content:center;gap:17px;align-items:center;">
-<span id="tempo-widget" style="color:#555;font-size:13px;line-height:1;cursor:default;opacity:0;transition:opacity 0.4s ease;" title="Previsão do tempo"></span>
-<a onclick="compartilhar(); return false;" href="#" style="color:#6eb233;text-decoration:none;">Indique o app</a>
-<button onclick="document.getElementById('modal-ajuda').style.display='flex';" aria-label="Ajuda — como usar o app" style="background:#6eb233;color:white;border:none;border-radius:50%;width:18px;height:18px;font-size:12px;font-weight:bold;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;">?</button>
-<a href="https://wa.me/5547991581967?text=Ol%C3%A1!%20Como%20fa%C3%A7o%20pra%20anunciar%3F" target="_blank" style="color:#6eb233;text-decoration:none;">Anunciar</a>
+<p style="margin-top: 15px; font-size: 14px; color: #555; display: flex; justify-content: center; gap: 16px; align-items: center; flex-wrap: wrap;">
+    <span id="tempo-widget" style="color:#555;font-size:13px;line-height:1;cursor:default;opacity:0;transition:opacity 0.4s ease;" title="Previsão do tempo"></span>
+    <a onclick="compartilhar(); return false;" href="#" style="color:#6eb233;text-decoration:none;">Indique o app</a>
+    
+    <!-- NOVO: Ícone SVG do QR Code -->
+    <a href="#" onclick="abrirQRCode(); return false;" style="color:#6eb233;text-decoration:none; display: inline-flex; align-items: center;" title="QR Code do App">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24'%3E%3Crect x='3' y='3' width='7' height='7' fill='%236eb233'/%3E%3Crect x='14' y='3' width='7' height='7' fill='%236eb233'/%3E%3Crect x='3' y='14' width='7' height='7' fill='%236eb233'/%3E%3Crect x='14' y='14' width='3' height='3' fill='%236eb233'/%3E%3Crect x='18' y='14' width='3' height='3' fill='%236eb233'/%3E%3Crect x='14' y='18' width='3' height='3' fill='%236eb233'/%3E%3Crect x='18' y='18' width='3' height='3' fill='%236eb233'/%3E%3C/svg%3E" alt="QR Code" class="icone-qrcode">
+    </a>
+    
+    <button onclick="document.getElementById('modal-ajuda').style.display='flex';" aria-label="Ajuda — como usar o app" style="background:#6eb233;color:white;border:none;border-radius:50%;width:18px;height:18px;font-size:12px;font-weight:bold;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;">?</button>
+    <a href="https://wa.me/5547991581967?text=Ol%C3%A1!%20Como%20fa%C3%A7o%20pra%20anunciar%3F" target="_blank" style="color:#6eb233;text-decoration:none;">Anunciar</a>
 </p>
-</div>
+
+<!-- MODAL DO QR CODE -->
+<div id="modal-qrcode" role="dialog" aria-modal="true" aria-labelledby="modal-qrcode-titulo" onclick="if(event.target===this)this.style.display='none';" style="
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    align-items: center; justify-content: center;
+    z-index: 10002;
+    backdrop-filter: blur(3px);
+">
+    <div style="
+        background: white;
+        padding: 25px 20px;
+        border-radius: 24px;
+        text-align: center;
+        max-width: 320px;
+        width: 85%;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    ">
+        <!-- QR CODE GERADO COM QRCODE -->
+        <div style="background: #ffffff; padding: 15px; border-radius: 16px; margin: 10px 0; display: flex; justify-content: center;">
+            <div id="qrcode-modal" style="background: white; padding: 4px; border-radius: 5px;"></div>
+        </div>
+        
+        <p style="margin: 15px 0 10px; font-size: 14px; color: #333;">
+            Aponte a câmera para acessar o app<br>e descobrir o que fazer na sua cidade!
+        </p>
+        
+        <div style="display: flex; gap: 10px; justify-content: center;">
+            <button onclick="document.getElementById('modal-qrcode').style.display='none';" style="
+    padding: 8px 16px;
+    border: none;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #6eb233;
+    color: white;
+    width: auto;
+    min-width: 100px;
+">Fechar</button>
+        </div>
+    </div>
 </div>
 
 <!-- Modal -->
@@ -899,6 +953,55 @@ cidadeInput.placeholder = 'Digite sua cidade';
 }
 }
 }
+
+// Função para gerar QR Code igual ao do flyer
+function gerarQRCodeModal() {
+    const qrDiv = document.getElementById('qrcode-modal');
+    if (!qrDiv) return;
+    
+    // Limpa o conteúdo anterior
+    qrDiv.innerHTML = '';
+    
+    // Cria o QR Code com as mesmas configurações do flyer
+    new QRCode(qrDiv, {
+        text: "https://joaubaron.github.io/oquefazer/",
+        width: 190,  // Ajustado para 190px (dobro do flyer para melhor visualização no modal)
+        height: 190, // Mantém a proporção
+        colorDark: "#0d0f0e",  // Mesma cor escura do flyer
+        colorLight: "#ffffff", // Fundo branco
+        correctLevel: QRCode.CorrectLevel.H  // Alta correção de erros
+    });
+}
+
+// Chamar a função quando o modal for aberto
+function abrirQRCode() {
+    document.getElementById('modal-qrcode').style.display = 'flex';
+    
+    // Garantir que o QR Code seja gerado ao abrir
+    setTimeout(gerarQRCodeModal, 100);
+    
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'clique_qrcode', {
+            'local': 'rodape',
+            'acao': 'abrir_modal_qrcode'
+        });
+    }
+}
+
+// Chamar também quando a página carregar (para pré-carregar)
+document.addEventListener('DOMContentLoaded', function() {
+    // Pré-carrega o QR Code (opcional)
+    setTimeout(gerarQRCodeModal, 500);
+});
+
+// Adicione esta linha no event listener do ESC (dentro do keydown existente)
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        document.getElementById('modal').style.display = 'none';
+        document.getElementById('modal-ajuda').style.display = 'none';
+        document.getElementById('modal-qrcode').style.display = 'none'; // NOVA LINHA
+    }
+});
 
 function toggleCategoria(btn, categoria) {
 const todos = document.querySelectorAll('.cat-btn');
