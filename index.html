@@ -1138,7 +1138,7 @@ mostrarAviso('Não foi possível detectar a cidade.');
 btn.textContent = '📍';
 }
 }, (err) => {
-const msg = err.code === 1 ? 'Permissão de localização negada.' : err.code === 2 ? 'Posição indisponível. Tente novamente.' : '⏱️ Tempo esgotado. Digite sua cidade.';
+const msg = err.code === 1 ? 'Permissão de localização negada.' : err.code === 2 ? 'Posição indisponível. Tente novamente.' : '⏱️ Tempo esgotado. Digite uma cidade.';
 mostrarAviso(msg);
 btn.textContent = '📍';
 }, { timeout: 10000 });
