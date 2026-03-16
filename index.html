@@ -509,7 +509,10 @@ onclick="gtag('event', 'clique_anuncio', {
 <button type="button" class="evento-btn" onclick="toggleEvento()">🎫 Acontecendo</button>
 </div>
 <div class="evento-wrapper" id="eventoWrapper">
-<input type="text" id="evento" aria-label="Nome do local ou evento" placeholder="Local ou evento + Enter (qualquer data)">
+<div class="input-wrapper">
+<input type="text" id="evento" aria-label="Nome do local ou evento" placeholder="Local ou evento (qualquer data)">
+<button type="button" class="geo-btn" onclick="buscarEventoAmplo()" title="Buscar" aria-label="Buscar evento" style="font-size:18px;">➤</button>
+</div>
 <div class="evento-dica">💡 Dica: Apague a cidade para buscar em qualquer lugar</div>
 </div>
 <div class="cat-group">
