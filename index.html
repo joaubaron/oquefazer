@@ -429,6 +429,19 @@ line-height: 1;
 width: 19px !important;
 height: 19px !important;
 }
+.modal-overlay {
+position: fixed;
+top: 0; left: 0; width: 100%; height: 100%;
+background: rgba(0,0,0,0.6);
+display: none;
+align-items: center; justify-content: center;
+}
+.modal-box {
+background: white;
+padding: 25px 20px;
+border-radius: 20px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
 </style>
 </head>
 <body>
@@ -491,7 +504,7 @@ onclick="gtag('event', 'clique_anuncio', {
 <button type="button" class="evento-btn" onclick="toggleEvento()">🎫 Acontecendo</button>
 </div>
 <div class="evento-wrapper" id="eventoWrapper">
-<input type="text" id="evento" aria-label="Nome do evento específico" placeholder="Evento + Enter (busca qualquer data)">
+<input type="text" id="evento" aria-label="Nome do local ou evento" placeholder="Local ou evento + Enter (qualquer data)">
 <div class="evento-dica">💡 Dica: Apague a cidade para buscar em qualquer lugar</div>
 </div>
 <div class="cat-group">
@@ -650,9 +663,9 @@ onclick="gtag('event', 'clique_anuncio', {
 Resultados podem variar a cada busca com IA
 </p>
 
-<p style="margin-top: 15px; font-size: 14px; color: #555; display: flex; justify-content: center; gap: 18px; align-items: center; flex-wrap: wrap;">
+<p style="margin-top: 15px; font-size: 14px; color: #555; display: flex; justify-content: center; gap: 20px; align-items: center; flex-wrap: wrap;">
     <span id="tempo-widget" style="color:#555;font-size:13px;line-height:1;cursor:default;opacity:0;transition:opacity 0.4s ease;" title="Previsão do tempo"></span>
-    <a onclick="compartilhar(); return false;" href="#" style="color:#6eb233;text-decoration:none;">Indique o app</a>
+    <a onclick="compartilhar(); return false;" href="#" style="color:#6eb233;text-decoration:none;">🔗 Indique</a>
     
     <!-- NOVO: Ícone SVG do QR Code -->
     <a href="#" onclick="abrirQRCode(); return false;" style="color:#6eb233;text-decoration:none; display: inline-flex; align-items: center;" title="QR Code do App">
@@ -664,31 +677,15 @@ Resultados podem variar a cada busca com IA
 </p>
 
 <!-- MODAL DO QR CODE -->
-<div id="modal-qrcode" role="dialog" aria-modal="true" aria-labelledby="modal-qrcode-titulo" onclick="if(event.target===this)this.style.display='none';" style="
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.6);
-    display: none;
-    align-items: center; justify-content: center;
-    z-index: 10002;
-    backdrop-filter: blur(3px);
-">
-    <div style="
-        background: white;
-        padding: 25px 20px;
-        border-radius: 24px;
-        text-align: center;
-        max-width: 320px;
-        width: 85%;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-    ">
+<div id="modal-qrcode" role="dialog" aria-modal="true" aria-labelledby="modal-qrcode-titulo" onclick="if(event.target===this)this.style.display='none';" class="modal-overlay" style="z-index: 10002; backdrop-filter: blur(3px);">
+    <div class="modal-box" style="text-align: center; max-width: 320px; width: 85%;">
         <!-- QR CODE GERADO COM QRCODE -->
         <div style="background: #ffffff; padding: 15px; border-radius: 16px; margin: 10px 0; display: flex; justify-content: center;">
             <div id="qrcode-modal" style="background: white; padding: 4px; border-radius: 5px;"></div>
         </div>
         
         <p style="margin: 15px 0 10px; font-size: 14px; color: #333;">
-            Escaneie o QR Code e descubra<br>o que fazer na cidade!
+            Escaneie e descubra o que fazer por perto!
         </p>
         
         <div style="display: flex; gap: 10px; justify-content: center;">
@@ -709,22 +706,8 @@ Resultados podem variar a cada busca com IA
 </div>
 
 <!-- Modal -->
-<div id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-msg" onclick="if(event.target===this)this.style.display='none';" style="
-position: fixed;
-top: 0; left: 0; width: 100%; height: 100%;
-background: rgba(0,0,0,0.6);
-display: none;
-align-items: center; justify-content: center;
-z-index: 10001;
-">
-<div style="
-background: white;
-padding: 25px 20px;
-border-radius: 20px;
-text-align: center;
-max-width: 300px;
-box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-">
+<div id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-msg" onclick="if(event.target===this)this.style.display='none';" class="modal-overlay" style="z-index: 10001;">
+<div class="modal-box" style="text-align: center; max-width: 300px;">
 <p id="modal-msg" style="margin-bottom: 20px; font-size: 16px; color: #333;">
 Por favor, digite uma cidade
 </p>
@@ -743,24 +726,8 @@ width: auto;
 </div>
 
 <!-- Modal Ajuda -->
-<div id="modal-ajuda" role="dialog" aria-modal="true" aria-labelledby="modal-ajuda-titulo" onclick="if(event.target===this)this.style.display='none';" style="
-position: fixed;
-top: 0; left: 0; width: 100%; height: 100%;
-background: rgba(0,0,0,0.6);
-display: none;
-align-items: center; justify-content: center;
-z-index: 10001;
-">
-<div style="
-background: white;
-padding: 25px 20px;
-border-radius: 20px;
-text-align: left;
-max-width: 400px;
-max-height: 85vh;
-overflow-y: auto;
-box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-">
+<div id="modal-ajuda" role="dialog" aria-modal="true" aria-labelledby="modal-ajuda-titulo" onclick="if(event.target===this)this.style.display='none';" class="modal-overlay" style="z-index: 10001;">
+<div class="modal-box" style="text-align: left; max-width: 400px; max-height: 85vh; overflow-y: auto;">
 <div style="font-size: 14px; color: #333; line-height: 1.6;">
 <p id="modal-ajuda-titulo" style="margin-bottom: 15px;">O app <strong>Oquefazer</strong> descobre tudo que está rolando perto de você! Shows, bares, feiras, eventos culturais, esportes e muito mais. Basta digitar a cidade (ou usar seu GPS) e escolher o período.</p>
 
@@ -769,7 +736,7 @@ box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 <strong>2.</strong> Escolha uma categoria (opcional): Bares, Shows, Cultura, Natureza, Esporte ou Feiras<br>
 <strong>3.</strong> Selecione o período: Hoje, Fim de semana ou 7 dias<br>
 <strong>4.</strong> Pronto! O app vai buscar eventos confirmados e lugares abertos na sua região<br>
-<strong>5.</strong> Quer algo específico? Clique em <strong>🎫 Acontecendo</strong>, digite o nome (com ou sem cidade) e pressione Enter. IA busca todas as datas</p>
+<strong>5.</strong> Quer algo específico? Clique em <strong>🎫 Acontecendo</strong>, digite o local ou evento (com ou sem cidade) e pressione Enter. IA busca todas as datas</p>
 
 <p style="margin-bottom: 15px;"><strong>O que significam os rótulos?</strong><br>
 🌟 <strong style="color: #6eb233;">DESTAQUE</strong><br>
@@ -965,13 +932,13 @@ function gerarQRCodeModal() {
     
     // Cria o QR Code com as mesmas configurações do flyer
     new QRCode(qrDiv, {
-        text: "https://joaubaron.github.io/oquefazer/",
-        width: 190,  // Ajustado para 190px (dobro do flyer para melhor visualização no modal)
-        height: 190, // Mantém a proporção
-        colorDark: "#0d0f0e",  // Mesma cor escura do flyer
-        colorLight: "#ffffff", // Fundo branco
-        correctLevel: QRCode.CorrectLevel.H  // Alta correção de erros
-    });
+    text: "https://joaubaron.github.io/oquefazer/?utm_source=qrcode&utm_medium=flyer&utm_campaign=divulgacao",
+    width: 190,
+    height: 190,
+    colorDark: "#0d0f0e",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.H
+});
 }
 
 // Chamar a função quando o modal for aberto
@@ -988,12 +955,6 @@ function abrirQRCode() {
         });
     }
 }
-
-// Chamar também quando a página carregar (para pré-carregar)
-document.addEventListener('DOMContentLoaded', function() {
-    // Pré-carrega o QR Code (opcional)
-    setTimeout(gerarQRCodeModal, 500);
-});
 
 // Adicione esta linha no event listener do ESC (dentro do keydown existente)
 document.addEventListener('keydown', (e) => {
@@ -1089,7 +1050,7 @@ const cidade = document.getElementById("cidade").value.trim();
 const eventoEspecifico = document.getElementById('evento').value.trim();
 
 if (!eventoEspecifico) {
-mostrarAviso('Digite o nome do evento para buscar em qualquer data.');
+mostrarAviso('Digite o nome do local ou evento.');
 return;
 }
 
@@ -1099,15 +1060,43 @@ localStorage.setItem('cidade', cidade);
 carregarClima();
 }
 
-// Busca ampla - sem restrição de período específico
 let localizacao = cidade ? `em ${cidade}` : '';
-const query = `Buscar informações sobre: ${eventoEspecifico} ${localizacao} em qualquer data (próximos meses ou ano). Incluir TODAS as datas e cidades disponíveis deste evento. Mostrar: data completa, horário, cidade, local, descrição e links (site oficial, Sympla, Eventbrite, Instagram). Se houver múltiplas datas ou cidades, listar todas. Se não encontrar, informar claramente que não há informações confirmadas sobre este evento.`.trim();
+const query = `"${eventoEspecifico}" ${localizacao}
 
-gtag('event', 'busca_ampla', { cidade: cidade || 'qualquer', evento: eventoEspecifico });
+BUSQUE E MOSTRE TUDO QUE ENCONTRAR SOBRE ESTE TERMO:
+
+🔹 SE FOR UM ESTABELECIMENTO (bar, restaurante, casa de show, etc):
+- Nome completo do local
+- Endereço completo
+- Horário de funcionamento
+- Tipo de cozinha/especialidade
+- Descrição do ambiente
+- Instagram e site oficial
+
+🔹 SE HOUVER EVENTOS NESTE LOCAL:
+Liste todos os eventos programados:
+- Nome do evento
+- Data completa e horário
+- Descrição
+- Links (Sympla, Instagram, site oficial)
+
+🔹 SE HOUVER EVENTOS EM OUTROS LOCAIS COM O MESMO NOME:
+Liste também (ex: "Festa do Baron" acontecendo em outro lugar)
+
+🔹 SE FOR UM EVENTO ESPECÍFICO SEM LOCAL FIXO:
+- Data completa e horário
+- Local e cidade
+- Descrição
+- Links de venda
+
+⚠️ REGRA DE OURO: Se encontrar MÚLTIPLAS informações (o local E eventos nele, ou eventos em vários lugares), mostre TUDO de forma organizada. Não escolha apenas um tipo de informação.
+
+Formato: Use separadores visuais (---) entre as seções para organizar.`;
+
+gtag('event', 'busca_ampla', { cidade: cidade || 'qualquer', termo: eventoEspecifico });
 const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
 setTimeout(() => { location.href = url; }, 300);
 }
-
 
 function mostrarAviso(msg) {
 const m = document.getElementById('modal');
@@ -1161,69 +1150,146 @@ navigator.clipboard.writeText(texto).then(() => mostrarAviso('Link copiado! 🔗
 }
 }
 
-async function carregarClima() {
-const widget = document.getElementById('tempo-widget');
-if (!widget) return;
-const cidade = localStorage.getItem('cidade');
-if (!cidade) return;
-try {
-const geo = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(cidade)}&format=json&limit=1`);
-const geoData = await geo.json();
-if (!geoData.length) return;
-const { lat, lon } = geoData[0];
-const weather = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_min,temperature_2m_max,weathercode&temperature_unit=celsius&timezone=auto&forecast_days=1`);
-const wData = await weather.json();
-const min = Math.round(wData.daily.temperature_2m_min[0]);
-const max = Math.round(wData.daily.temperature_2m_max[0]);
-const code = wData.daily.weathercode[0];
-const emojiMap = {
-0:'🌞', 1:'🌤️', 2:'🌥️', 3:'☁️',
-45:'🌥️', 48:'🌥️',
-51:'🌦️', 53:'🌦️', 55:'🌧️',
-61:'🌧️', 63:'🌧️', 65:'🌧️',
-71:'🌨️', 73:'🌨️', 75:'🌨️', 77:'🌨️',
-80:'🌦️', 81:'🌦️', 82:'🌧️',
-85:'🌨️', 86:'🌨️',
-95:'🌩️', 96:'🌩️', 99:'🌩️'
-};
-const emoji = emojiMap[code] || '🌡️';
-widget.textContent = `${min}°~${max}° ${emoji}`;
-widget.style.opacity = '1';
-} catch(e) { /* silencioso */ }
-}
-
-window.addEventListener('DOMContentLoaded', () => {
-const ultima = localStorage.getItem('cidade');
-document.getElementById('cidade').value = ultima || '';
-document.getElementById('cidade').placeholder = ultima ? '' : 'Digite sua cidade';
-carregarClima();
-
 // Detecta WebView do Facebook/Instagram
 const ua = navigator.userAgent;
 const isWebView = /FBAN|FBAV|Instagram|FB_IAB/i.test(ua);
+
 if (isWebView) {
 const isAndroid = /Android/i.test(ua);
+
 const msg = isAndroid
 ? '<span style="font-size:13px">Toque 3 pontinhos (⋮)</span><br><strong style="font-size:13px">Abrir no navegador</strong>'
 : '<span style="font-size:13px">Toque em "..."</span><br><strong style="font-size:13px">Abrir no Safari</strong>';
+
 mostrarAviso(msg);
 }
 
-// Fecha modais com Escape
-document.addEventListener('keydown', (e) => {
-if (e.key === 'Escape') {
-document.getElementById('modal').style.display = 'none';
-document.getElementById('modal-ajuda').style.display = 'none';
-}
-});
+async function carregarClima() {
+    const widget = document.getElementById('tempo-widget');
+    if (!widget) return;
 
-// Event listener para Enter no campo de eventos (busca ampla)
-document.getElementById('evento').addEventListener('keypress', (e) => {
-if (e.key === 'Enter') {
-e.preventDefault();
-buscarEventoAmplo();
+    widget.textContent = '';
+    widget.innerHTML = '';
+
+    const cidade = localStorage.getItem('cidade');
+    if (!cidade) {
+        widget.style.opacity = '0';
+        return;
+    }
+
+    widget.textContent = '⏳';
+    widget.style.opacity = '0.5';
+
+    const fetchComTimeout = (url, ms, opts = {}) => Promise.race([
+        fetch(url, opts),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), ms))
+    ]);
+
+    try {
+        // ⚡ DETECTA SE É 4G E AJUSTA TIMEOUT
+        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        const is4G = connection?.effectiveType === '4g' || connection?.downlink > 1.5;
+        const timeoutMs = is4G ? 6000 : 12000; // 6s no 4G, 12s no WiFi
+
+        let geo;
+        try {
+            geo = await fetchComTimeout(
+                `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cidade)}&count=1&language=pt&format=json`,
+                timeoutMs
+            );
+        } catch(e) { throw new Error('geocoding: ' + e.message); }
+
+        if (!geo.ok) throw new Error('Erro na geolocalização');
+
+        const geoData = await geo.json();
+        if (!geoData.results?.length) throw new Error('Cidade não encontrada');
+
+        const { latitude: lat, longitude: lon } = geoData.results[0];
+
+        let weather;
+        try {
+            weather = await fetchComTimeout(
+                `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_min,temperature_2m_max,weathercode&temperature_unit=celsius&timezone=auto&forecast_days=1`,
+                timeoutMs,
+                { headers: { 'Accept': 'application/json' } }
+            );
+        } catch(e) { throw new Error('open-meteo: ' + e.message); }
+        
+        if (!weather.ok) throw new Error('Erro na previsão');
+        
+        const wData = await weather.json();
+        
+        if (!wData.daily?.temperature_2m_min?.[0] || !wData.daily?.temperature_2m_max?.[0]) {
+            throw new Error('Dados incompletos');
+        }
+        
+        const min = Math.round(wData.daily.temperature_2m_min[0]);
+        const max = Math.round(wData.daily.temperature_2m_max[0]);
+        const code = wData.daily.weathercode[0];
+        
+        const emojiMap = {
+            0:'🌞', 1:'🌤️', 2:'🌥️', 3:'☁️',
+            45:'🌥️', 48:'🌥️',
+            51:'🌦️', 53:'🌦️', 55:'🌧️',
+            61:'🌧️', 63:'🌧️', 65:'🌧️',
+            71:'🌨️', 73:'🌨️', 75:'🌨️', 77:'🌨️',
+            80:'🌦️', 81:'🌦️', 82:'🌧️',
+            85:'🌨️', 86:'🌨️',
+            95:'🌩️', 96:'🌩️', 99:'🌩️'
+        };
+        
+        const emoji = emojiMap[code] || '🌡️';
+        const climaTexto = `${min}°~${max}° ${emoji}`;
+        
+        widget.textContent = climaTexto;
+        widget.style.opacity = '1';
+        widget.title = 'Previsão do tempo';
+        
+        localStorage.setItem('ultimo_clima', climaTexto);
+        
+    } catch(e) {
+        console.log('Erro ao carregar clima:', e.message);
+        
+        widget.textContent = '';
+        
+        const ultimoClima = localStorage.getItem('ultimo_clima');
+        if (ultimoClima) {
+            widget.textContent = ultimoClima;
+            widget.style.opacity = '0.8';
+            widget.title = 'Dados offline';
+        } else {
+            const agora = new Date();
+            const hora = agora.getHours();
+            
+            if (hora >= 6 && hora < 12) {
+                widget.textContent = '🌞';
+            } else if (hora >= 12 && hora < 18) {
+                widget.textContent = '🌤️';
+            } else if (hora >= 18 && hora < 22) {
+                widget.textContent = '🌛';
+            } else {
+                widget.textContent = '🌙';
+            }
+            widget.style.opacity = '0.7';
+            widget.title = 'Clima indisponível';
+        }
+    }
 }
-});
+
+window.addEventListener('DOMContentLoaded', () => {
+    const ultima = localStorage.getItem('cidade');
+    document.getElementById('cidade').value = ultima || '';
+    document.getElementById('cidade').placeholder = ultima ? '' : 'Digite sua cidade';
+    carregarClima();
+    setTimeout(gerarQRCodeModal, 500);
+
+    // Event listener para Enter no campo de evento
+    document.getElementById('evento').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            buscarEventoAmplo();
+        }
+    });
 });
 
 if ('serviceWorker' in navigator) {
@@ -1241,7 +1307,7 @@ document.getElementById('instalar-mac').style.display = 'block';
 
 // ── Instalar app — iOS ──
 const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
-if (isIos && !isStandalone) {
+if (isIos && !isStandalone && !isWebView) {
 setTimeout(() => {
 document.getElementById('instalar-ios').style.display = 'block';
 }, 3000);
