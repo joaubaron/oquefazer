@@ -889,8 +889,6 @@ cursor: grab;
 </div>
 
 <script>
-// 🔧 Se o Google mudar o udm, atualize apenas esta linha
-const SEARCH_URL = "https://www.google.com/search?udm=50&hl=pt-BR&q=";
 let categoriaSelecionada = '';
 
 function toggleEvento() {
@@ -1048,7 +1046,7 @@ query = `${destaquesTexto}Todos os eventos reais em ${cidade} ${tempo}, em ordem
 }
 
 gtag('event', 'busca', { cidade, periodo, categoria: categoriaSelecionada || 'todas' });
-const url = SEARCH_URL + encodeURIComponent(query);
+const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
 setTimeout(() => { location.href = url; }, 300);
 }
 
@@ -1116,7 +1114,7 @@ Liste também (ex: "Festa do Baron" acontecendo em outro lugar)
 Formato: Use separadores visuais (---) entre as seções para organizar.`;
 
 gtag('event', 'busca_ampla', { cidade: cidade || 'qualquer', termo: eventoEspecifico });
-const url = SEARCH_URL + encodeURIComponent(query);
+const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
 setTimeout(() => { location.href = url; }, 300);
 }
 
@@ -1313,14 +1311,7 @@ window.addEventListener('DOMContentLoaded', () => {
             buscarEventoAmplo();
         }
     });
-    // Android: quando autocomplete preenche o campo, inputType é undefined ou ''
-    // Nesse caso busca automaticamente sem precisar de Enter
-    eventoInput.addEventListener('input', (e) => {
-        if (!e.inputType) {
-            const val = eventoInput.value.trim();
-            if (val) setTimeout(() => buscarEventoAmplo(), 150);
-        }
-    });
+
 });
 
 if ('serviceWorker' in navigator) {
