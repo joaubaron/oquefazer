@@ -1046,7 +1046,7 @@ query = `${destaquesTexto}Todos os eventos reais em ${cidade} ${tempo}, em ordem
 }
 
 gtag('event', 'busca', { cidade, periodo, categoria: categoriaSelecionada || 'todas' });
-const url = "https://www.perplexity.ai/search?q=" + encodeURIComponent(query);
+const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
 setTimeout(() => { location.href = url; }, 300);
 }
 
@@ -1114,7 +1114,7 @@ Liste também (ex: "Festa do Baron" acontecendo em outro lugar)
 Formato: Use separadores visuais (---) entre as seções para organizar.`;
 
 gtag('event', 'busca_ampla', { cidade: cidade || 'qualquer', termo: eventoEspecifico });
-const url = "https://www.perplexity.ai/search?q=" + encodeURIComponent(query);
+const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
 setTimeout(() => { location.href = url; }, 300);
 }
 
