@@ -1291,9 +1291,11 @@ window.addEventListener('DOMContentLoaded', () => {
             buscarEventoAmplo();
         }
     });
-    // Autocomplete do navegador rouba o foco ao selecionar sugestão — recoloca imediatamente
-    eventoInput.addEventListener('change', () => {
-        eventoInput.focus();
+    // Android: autocomplete perde foco ao selecionar sugestão — recoloca imediatamente
+    eventoInput.addEventListener('focusout', () => {
+        if (eventoInput.value.trim()) {
+            setTimeout(() => eventoInput.focus(), 50);
+        }
     });
 });
 
