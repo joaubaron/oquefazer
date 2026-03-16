@@ -1,5 +1,5 @@
 // ⚠️ Atualize a versão a cada deploy
-const CACHE_VERSION = '1.1.1.1000';
+const CACHE_VERSION = '1.1.1.1001';
 const CACHE_NAME = `oquefazer-${CACHE_VERSION}`;
 const STATIC_ASSETS = [
 './index.html',
@@ -14,96 +14,96 @@ const STATIC_ASSETS = [
 
 // URLs externas que nunca devem ser interceptadas
 const PASSTHROUGH_ORIGINS = [
-  'nominatim.openstreetmap.org',
-  'geocoding-api.open-meteo.com',
-  'api.open-meteo.com',
-  'cdn.onesignal.com',
-  'www.googletagmanager.com',
-  'cdnjs.cloudflare.com'
+'nominatim.openstreetmap.org',
+'geocoding-api.open-meteo.com',
+'api.open-meteo.com',
+'cdn.onesignal.com',
+'www.googletagmanager.com',
+'cdnjs.cloudflare.com'
 ];
 
 // ===============================
 // INSTALAÇÃO
 // ===============================
 self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(STATIC_ASSETS))
-      .then(() => self.skipWaiting())
-  );
+event.waitUntil(
+caches.open(CACHE_NAME)
+.then(cache => cache.addAll(STATIC_ASSETS))
+.then(() => self.skipWaiting())
+);
 });
 
 // ===============================
 // ATIVAÇÃO
 // ===============================
 self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(
-        keys.map(key => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
-          }
-        })
-      )
-    )
-  );
-  self.clients.claim();
+event.waitUntil(
+caches.keys().then(keys =>
+Promise.all(
+keys.map(key => {
+if (key !== CACHE_NAME) {
+return caches.delete(key);
+}
+})
+)
+)
+);
+self.clients.claim();
 });
 
 // ===============================
 // FETCH
 // ===============================
 self.addEventListener('fetch', event => {
-  if (event.request.method !== 'GET') return;
+if (event.request.method !== 'GET') return;
 
-  const url = new URL(event.request.url);
+const url = new URL(event.request.url);
 
-  // Deixa passar direto qualquer origem externa listada
-  if (PASSTHROUGH_ORIGINS.some(origin => url.hostname.includes(origin))) return;
+// Deixa passar direto qualquer origem externa listada
+if (PASSTHROUGH_ORIGINS.some(origin => url.hostname.includes(origin))) return;
 
-  const acceptHeader = event.request.headers.get('accept') || '';
+const acceptHeader = event.request.headers.get('accept') || '';
 
-  // HTML → NETWORK FIRST
-  if (acceptHeader.includes('text/html')) {
-    event.respondWith(
-      fetch(event.request)
-        .then(response => {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, clone);
-          });
-          return response;
-        })
-        .catch(() =>
-          caches.match(event.request)
-            .then(cached => cached || caches.match('./offline.html'))
-        )
-    );
-    return;
-  }
+// HTML → NETWORK FIRST
+if (acceptHeader.includes('text/html')) {
+event.respondWith(
+fetch(event.request)
+.then(response => {
+const clone = response.clone();
+caches.open(CACHE_NAME).then(cache => {
+cache.put(event.request, clone);
+});
+return response;
+})
+.catch(() =>
+caches.match(event.request)
+.then(cached => cached || caches.match('./offline.html'))
+)
+);
+return;
+}
 
-  // IMAGENS → STALE WHILE REVALIDATE
-  if (event.request.destination === 'image') {
-    event.respondWith(
-      caches.open(CACHE_NAME).then(cache => {
-        return cache.match(event.request).then(cached => {
-          const fetchPromise = fetch(event.request).then(network => {
-            cache.put(event.request, network.clone());
-            return network;
-          }).catch(() => cached);
-          return cached || fetchPromise;
-        });
-      })
-    );
-    return;
-  }
+// IMAGENS → STALE WHILE REVALIDATE
+if (event.request.destination === 'image') {
+event.respondWith(
+caches.open(CACHE_NAME).then(cache => {
+return cache.match(event.request).then(cached => {
+const fetchPromise = fetch(event.request).then(network => {
+cache.put(event.request, network.clone());
+return network;
+}).catch(() => cached);
+return cached || fetchPromise;
+});
+})
+);
+return;
+}
 
-  // OUTROS → CACHE FIRST (apenas recursos locais)
-  if (url.origin === self.location.origin) {
-    event.respondWith(
-      caches.match(event.request)
-        .then(response => response || fetch(event.request))
-    );
-  }
+// OUTROS → CACHE FIRST (apenas recursos locais)
+if (url.origin === self.location.origin) {
+event.respondWith(
+caches.match(event.request)
+.then(response => response || fetch(event.request))
+);
+}
 });
