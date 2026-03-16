@@ -1291,20 +1291,12 @@ window.addEventListener('DOMContentLoaded', () => {
             buscarEventoAmplo();
         }
     });
-    // Android: rastreia se valor mudou por autocomplete ou foco intencional
-    let valorAntesDoFocus = '';
-    eventoInput.addEventListener('focus', () => {
-        valorAntesDoFocus = eventoInput.value;
-    });
-    eventoInput.addEventListener('focusout', (e) => {
-        const destino = e.relatedTarget;
-        const ehOutroInput = destino && (destino.tagName === 'INPUT' || destino.tagName === 'BUTTON');
-        if (ehOutroInput) return; // tocou em cidade ou outro campo — não interfere
-        const preenchidoPorAutocomplete = eventoInput.value.trim() && eventoInput.value !== valorAntesDoFocus;
-        if (preenchidoPorAutocomplete) {
-            setTimeout(() => {
-                if (document.activeElement !== eventoInput) eventoInput.focus();
-            }, 50);
+    // Android: quando autocomplete preenche o campo, inputType é undefined ou ''
+    // Nesse caso busca automaticamente sem precisar de Enter
+    eventoInput.addEventListener('input', (e) => {
+        if (!e.inputType) {
+            const val = eventoInput.value.trim();
+            if (val) setTimeout(() => buscarEventoAmplo(), 150);
         }
     });
 });
