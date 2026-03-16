@@ -983,7 +983,7 @@ function buscar(periodo) {
 // Se o modo evento estiver ativo, os botões de período disparam busca por evento específico
 const eventoWrapper = document.getElementById('eventoWrapper');
 if (eventoWrapper.style.display === 'block') {
-buscarEventoAmplo();
+buscarEventoAmplo(periodo);
 return;
 }
 
@@ -1045,7 +1045,7 @@ const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURICompon
 setTimeout(() => { location.href = url; }, 300);
 }
 
-function buscarEventoAmplo() {
+function buscarEventoAmplo(periodo) {
 const cidade = document.getElementById("cidade").value.trim();
 const eventoEspecifico = document.getElementById('evento').value.trim();
 
@@ -1061,7 +1061,22 @@ carregarClima();
 }
 
 let localizacao = cidade ? `em ${cidade}` : '';
-const query = `"${eventoEspecifico}" ${localizacao}
+const hoje = new Date();
+const fmtDia = (d) => d.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+let filtroPeriodo = '';
+if (periodo === 'hoje') {
+filtroPeriodo = ` — foco em hoje (${fmtDia(hoje)})`;
+} else if (periodo === 'fimdesemana') {
+const diasAteFds = (5 - hoje.getDay() + 7) % 7 || 7;
+const sexta = new Date(hoje); sexta.setDate(hoje.getDate() + (diasAteFds === 7 ? 0 : diasAteFds));
+const sabado = new Date(sexta); sabado.setDate(sexta.getDate() + (sexta.getDay() === 6 ? 0 : 1));
+const domingo = new Date(sabado); domingo.setDate(sabado.getDate() + 1);
+filtroPeriodo = ` — foco neste fim de semana (${fmtDia(sexta)}, ${fmtDia(sabado)} e ${fmtDia(domingo)})`;
+} else if (periodo === '7dias') {
+const fim = new Date(hoje); fim.setDate(hoje.getDate() + 6);
+filtroPeriodo = ` — foco nos próximos 7 dias (${fmtDia(hoje)} até ${fmtDia(fim)})`;
+}
+const query = `"${eventoEspecifico}" ${localizacao}${filtroPeriodo}
 
 BUSQUE E MOSTRE TUDO QUE ENCONTRAR SOBRE ESTE TERMO:
 
