@@ -214,10 +214,14 @@ box-shadow: 0 0 0 3px rgba(110,179,51,0.2);
 }
 #evento {
 padding-right: 8px;
-background: white !important;
 }
 #evento:focus {
 background: white !important;
+}
+#evento:-webkit-autofill,
+#evento:-webkit-autofill:focus {
+-webkit-box-shadow: 0 0 0 1000px white inset !important;
+background-color: white !important;
 }
 .geo-btn {
 position: absolute;
