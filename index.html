@@ -1291,16 +1291,19 @@ window.addEventListener('DOMContentLoaded', () => {
             buscarEventoAmplo();
         }
     });
-    // Android: autocomplete perde foco ao selecionar sugestão — recoloca imediatamente
-    // Só recoloca o foco se o destino não for outro campo de input (ex: cidade)
+    // Android: rastreia se valor mudou por autocomplete ou foco intencional
+    let valorAntesDoFocus = '';
+    eventoInput.addEventListener('focus', () => {
+        valorAntesDoFocus = eventoInput.value;
+    });
     eventoInput.addEventListener('focusout', (e) => {
         const destino = e.relatedTarget;
         const ehOutroInput = destino && (destino.tagName === 'INPUT' || destino.tagName === 'BUTTON');
-        if (eventoInput.value.trim() && !ehOutroInput) {
+        if (ehOutroInput) return; // tocou em cidade ou outro campo — não interfere
+        const preenchidoPorAutocomplete = eventoInput.value.trim() && eventoInput.value !== valorAntesDoFocus;
+        if (preenchidoPorAutocomplete) {
             setTimeout(() => {
-                if (document.activeElement !== eventoInput) {
-                    eventoInput.focus();
-                }
+                if (document.activeElement !== eventoInput) eventoInput.focus();
             }, 50);
         }
     });
