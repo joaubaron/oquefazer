@@ -1284,11 +1284,16 @@ window.addEventListener('DOMContentLoaded', () => {
     setTimeout(gerarQRCodeModal, 500);
 
     // Event listener para Enter no campo de evento
-    document.getElementById('evento').addEventListener('keypress', (e) => {
+    const eventoInput = document.getElementById('evento');
+    eventoInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
             buscarEventoAmplo();
         }
+    });
+    // Autocomplete do navegador rouba o foco ao selecionar sugestão — recoloca imediatamente
+    eventoInput.addEventListener('change', () => {
+        eventoInput.focus();
     });
 });
 
