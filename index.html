@@ -1292,9 +1292,16 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
     // Android: autocomplete perde foco ao selecionar sugestão — recoloca imediatamente
-    eventoInput.addEventListener('focusout', () => {
-        if (eventoInput.value.trim()) {
-            setTimeout(() => eventoInput.focus(), 50);
+    // Só recoloca o foco se o destino não for outro campo de input (ex: cidade)
+    eventoInput.addEventListener('focusout', (e) => {
+        const destino = e.relatedTarget;
+        const ehOutroInput = destino && (destino.tagName === 'INPUT' || destino.tagName === 'BUTTON');
+        if (eventoInput.value.trim() && !ehOutroInput) {
+            setTimeout(() => {
+                if (document.activeElement !== eventoInput) {
+                    eventoInput.focus();
+                }
+            }, 50);
         }
     });
 });
