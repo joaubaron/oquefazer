@@ -130,12 +130,15 @@ border-radius: 5px;
 display: flex;
 align-items: center;
 justify-content: center;
+min-width: 25mm;
+min-height: 25mm;
 }
 
+/* CORREÇÃO: Remove o !important que forçava o tamanho e deixa o canvas dimensionar naturalmente */
 #qrcode canvas, #qrcode img {
 display: block;
-width: 25mm !important;
-height: 25mm !important;
+width: 25mm;
+height: 25mm;
 }
 
 .pills {
@@ -209,12 +212,31 @@ border-style: solid;
 </div>
 
 <script>
-new QRCode(document.getElementById("qrcode"), {
-text: "https://joaubaron.github.io/oquefazer/",
-width: 95, height: 95,
-colorDark: "#0d0f0e", colorLight: "#ffffff",
-correctLevel: QRCode.CorrectLevel.H
-});
+// CORREÇÃO: QR Code gerado em alta resolução (256px) para não distorcer
+function gerarQRCodeFlyer() {
+    const qrDiv = document.getElementById("qrcode");
+    if (!qrDiv) return;
+    
+    // Limpa o conteúdo anterior
+    qrDiv.innerHTML = '';
+    
+    // Usa 256px de resolução (alta definição) - igual ao que funciona no index
+    new QRCode(qrDiv, {
+        text: "https://joaubaron.github.io/oquefazer/?utm_source=qrcode&utm_medium=flyer&utm_campaign=divulgacao",
+        width: 256,
+        height: 256,
+        colorDark: "#0d0f0e",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+    });
+}
+
+// Executa quando a página carregar
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', gerarQRCodeFlyer);
+} else {
+    gerarQRCodeFlyer();
+}
 
 function imprimirA4() {
 const win = window.open('', '_blank');
@@ -324,8 +346,15 @@ letter-spacing: 1.5px; text-transform: uppercase;
 .qr {
 background: white; padding: 4px; border-radius: 5px;
 display: flex; align-items: center; justify-content: center;
+min-width: 25mm;
+min-height: 25mm;
 }
-.qr canvas, .qr img { display: block; width: 25mm !important; height: 25mm !important; }
+/* CORREÇÃO A4: Remove !important e usa 256px de resolução */
+.qr canvas, .qr img { 
+display: block; 
+width: 25mm; 
+height: 25mm; 
+}
 .pills {
 display: flex; gap: 4px; flex-wrap: wrap;
 justify-content: center; margin-bottom: 3mm;
@@ -354,10 +383,13 @@ ${flyer}
 <script>
 window.addEventListener('load', function () {
 document.querySelectorAll('.qr').forEach(function (el) {
+el.innerHTML = '';
 new QRCode(el, {
-text: "https://joaubaron.github.io/oquefazer/",
-width: 95, height: 95,
-colorDark: "#0d0f0e", colorLight: "#ffffff",
+text: "https://joaubaron.github.io/oquefazer/?utm_source=qrcode&utm_medium=flyer&utm_campaign=divulgacao",
+width: 256, 
+height: 256,
+colorDark: "#0d0f0e", 
+colorLight: "#ffffff",
 correctLevel: QRCode.CorrectLevel.H
 });
 });
