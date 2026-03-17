@@ -451,45 +451,6 @@ padding: 25px 20px;
 border-radius: 20px;
 box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 }
-
-/* ── FAVORITOS ── */
-.fav-item {
-display: flex;
-align-items: center;
-justify-content: space-between;
-gap: 8px;
-padding: 10px 0;
-border-bottom: 1px solid #eee;
-font-size: 13px;
-color: #333;
-text-align: left;
-}
-.fav-item:last-child { border-bottom: none; }
-.fav-item-info { flex: 1; line-height: 1.4; }
-.fav-item-acoes { display: flex; gap: 6px; flex-shrink: 0; }
-.fav-btn-buscar {
-background: #6eb233;
-color: white;
-border: none;
-border-radius: 10px;
-padding: 5px 10px;
-font-size: 12px;
-font-weight: bold;
-cursor: pointer;
-width: auto;
-}
-.fav-btn-remover {
-background: none;
-border: 1.5px solid #ddd;
-border-radius: 10px;
-padding: 5px 8px;
-font-size: 12px;
-cursor: pointer;
-color: #999;
-width: auto;
-}
-.fav-btn-remover:hover { border-color: #e05; color: #e05; }
-.fav-vazio { color: #999; font-size: 14px; text-align: center; padding: 20px 0; }
 </style>
 </head>
 <body>
@@ -718,10 +679,6 @@ onclick="gtag('event', 'clique_anuncio', {
 <button type="button" onclick="buscar('fimdesemana')" style="flex:2">Fim de semana</button>
 <button type="button" onclick="buscar('7dias')" style="flex:1">7 dias</button>
 </div>
-<div style="display:flex; gap:8px; margin-bottom:8px;">
-<button type="button" onclick="salvarBusca()" style="flex:1; background:white; color:#6eb233; border:1.5px solid #6eb233; border-radius:14px; padding:7px 6px; font-size:13px; font-weight:bold; cursor:pointer;">🤍 Salvar busca</button>
-<button type="button" onclick="compartilharBusca()" style="flex:1; background:white; color:#6eb233; border:1.5px solid #6eb233; border-radius:14px; padding:7px 6px; font-size:13px; font-weight:bold; cursor:pointer;">↗ Compartilhar</button>
-</div>
 <p style="margin-top: 15px; font-size: 14px; color: #555;">
 Resultados podem variar a cada busca com IA
 </p>
@@ -729,7 +686,6 @@ Resultados podem variar a cada busca com IA
 <p style="margin-top: 15px; font-size: 14px; color: #555; display: flex; justify-content: center; gap: 20px; align-items: center; flex-wrap: wrap;">
     <span id="tempo-widget" style="color:#555;font-size:13px;line-height:1;cursor:default;opacity:0;transition:opacity 0.4s ease;" title="Previsão do tempo"></span>
     <a onclick="compartilhar(); return false;" href="#" style="color:#6eb233;text-decoration:none;">🔗 Indique</a>
-    <a onclick="abrirFavoritos(); return false;" href="#" id="btn-favoritos" style="color:#6eb233;text-decoration:none;" title="Buscas salvas">🤍 Salvos</a>
     
     <!-- NOVO: Ícone SVG do QR Code -->
     <a href="#" onclick="abrirQRCode(); return false;" style="color:#6eb233;text-decoration:none; display: inline-flex; align-items: center;" title="QR Code do App">
@@ -852,19 +808,6 @@ width: auto;
 </div>
 
 <!-- ============================================================ -->
-<!--  MODAL FAVORITOS                                             -->
-<!-- ============================================================ -->
-<div id="modal-favoritos" role="dialog" aria-modal="true" aria-labelledby="modal-favoritos-titulo" onclick="if(event.target===this)this.style.display='none';" class="modal-overlay" style="z-index: 10001;">
-<div class="modal-box" style="text-align:left; max-width:360px; width:90%; max-height:80vh; overflow-y:auto;">
-<h3 id="modal-favoritos-titulo" style="margin:0 0 14px; font-size:17px; color:#6eb233;">🤍 Buscas salvas</h3>
-<div id="favoritos-lista"></div>
-<div style="margin-top:14px;">
-<button onclick="document.getElementById('modal-favoritos').style.display='none';" style="padding:8px 16px;border:none;border-radius:10px;font-size:13px;font-weight:bold;cursor:pointer;background:#6eb233;color:white;width:auto;">Fechar</button>
-</div>
-</div>
-</div>
-
-<!-- ============================================================ -->
 <!--  INSTALAR APP — Safari Mac                                   -->
 <!-- ============================================================ -->
 <div id="instalar-mac" style="
@@ -963,108 +906,6 @@ cursor: grab;
 <script>
 let categoriaSelecionada = '';
 
-// ── FAVORITOS ──────────────────────────────────────────────────
-function _buildUrl(fav) {
-const periodo = fav.periodo;
-const cidade = fav.cidade;
-const categoria = fav.categoria;
-const hoje = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-const filtroMap = {
-'Bares':    'Mostrar APENAS bares, pubs e restaurantes com ambiente de bar abertos hoje. Ignorar shows, feiras, eventos culturais e esportivos. ',
-'Shows':    'Mostrar APENAS shows, apresentações musicais e eventos com artistas ao vivo. Ignorar bares sem show, feiras e eventos culturais. ',
-'Cultura':  'Mostrar APENAS eventos culturais: teatro, cinema, exposições, museus e dança. Ignorar bares, shows e feiras. ',
-'Natureza': 'Mostrar APENAS atividades ao ar livre: trilhas, parques, ecoturismo e esportes na natureza. Ignorar bares, shows e feiras. ',
-'Esporte':  'Mostrar APENAS eventos esportivos: jogos, campeonatos, corridas e competições. Ignorar bares, shows e feiras. ',
-'Feiras':   'Mostrar APENAS feiras, mercados, exposições de produtos e artesanato. Ignorar bares, shows e eventos esportivos. '
-};
-let tempo;
-if (periodo === 'hoje') tempo = `hoje (${hoje})`;
-else if (periodo === 'fimdesemana') tempo = 'neste fim de semana (sexta, sábado e domingo)';
-else tempo = 'nos próximos 7 dias a partir de hoje';
-const query = categoria
-? `${filtroMap[categoria]} em ${cidade} ${tempo}. Listar eventos REAIS confirmados. Não invente eventos. Para cada evento: data, horário, local e link. Nome em negrito. Separadores visuais entre eventos. Se não houver, informar claramente.`
-: `Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir shows, cultura, gastronomia, bares, esportes, feiras, festivais. Para cada evento: data, horário, local e link. Se não houver, informar claramente.`;
-return "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
-}
-
-function salvarBusca() {
-const cidade = document.getElementById('cidade').value.trim();
-if (!cidade) { mostrarAviso('Digite uma cidade antes de salvar.'); return; }
-const favs = JSON.parse(localStorage.getItem('favoritos') || '[]');
-const periodos = ['hoje', 'fimdesemana', '7dias'];
-const labels = { hoje: 'Hoje', fimdesemana: 'Fim de semana', '7dias': '7 dias' };
-// Salva as 3 variações de período para a cidade/categoria atual
-periodos.forEach(p => {
-const key = `${cidade}|${p}|${categoriaSelecionada}`;
-if (!favs.find(f => f.key === key)) {
-favs.push({ key, cidade, periodo: p, categoria: categoriaSelecionada, label: labels[p], salvoEm: Date.now() });
-}
-});
-// Limita a 15 favoritos
-while (favs.length > 15) favs.shift();
-localStorage.setItem('favoritos', JSON.stringify(favs));
-const btnFavs = document.getElementById('btn-favoritos');
-if (btnFavs) btnFavs.textContent = '❤️ Salvos';
-mostrarAviso('Busca salva! ❤️<br><small style="color:#888">Acesse em "Salvos"</small>');
-}
-
-function abrirFavoritos() {
-const favs = JSON.parse(localStorage.getItem('favoritos') || '[]');
-const lista = document.getElementById('favoritos-lista');
-const catLabels = { '': 'Todos', Bares:'🍻 Bares', Shows:'🎶 Shows', Cultura:'🎭 Cultura', Natureza:'🌱 Natureza', Esporte:'🎾 Esporte', Feiras:'🛍️ Feiras' };
-if (!favs.length) {
-lista.innerHTML = '<p class="fav-vazio">Nenhuma busca salva ainda.<br>Use o botão 🤍 Salvar busca.</p>';
-} else {
-// Agrupa por cidade+categoria
-const grupos = {};
-favs.forEach(f => {
-const g = `${f.cidade}|${f.categoria}`;
-if (!grupos[g]) grupos[g] = { cidade: f.cidade, categoria: f.categoria, items: [] };
-grupos[g].items.push(f);
-});
-lista.innerHTML = Object.values(grupos).map(g => `
-<div style="margin-bottom:12px;">
-<div style="font-size:12px;color:#888;margin-bottom:4px;">${g.cidade}${g.categoria ? ' · ' + catLabels[g.categoria] : ''}</div>
-${g.items.map(f => `
-<div class="fav-item">
-<span class="fav-item-info">${f.label}</span>
-<span class="fav-item-acoes">
-<button class="fav-btn-buscar" onclick="document.getElementById('modal-favoritos').style.display='none'; setTimeout(()=>{location.href='${_buildUrl(f)}'}, 200);">Buscar</button>
-<button class="fav-btn-remover" onclick="removerFavorito('${f.key}')">✕</button>
-</span>
-</div>`).join('')}
-</div>`).join('');
-}
-document.getElementById('modal-favoritos').style.display = 'flex';
-}
-
-function removerFavorito(key) {
-let favs = JSON.parse(localStorage.getItem('favoritos') || '[]');
-favs = favs.filter(f => f.key !== key);
-localStorage.setItem('favoritos', JSON.stringify(favs));
-abrirFavoritos();
-if (!favs.length) {
-const btnFavs = document.getElementById('btn-favoritos');
-if (btnFavs) btnFavs.textContent = '🤍 Salvos';
-}
-}
-
-// ── COMPARTILHAR BUSCA ─────────────────────────────────────────
-function compartilharBusca() {
-const cidade = document.getElementById('cidade').value.trim();
-if (!cidade) { mostrarAviso('Digite uma cidade para compartilhar.'); return; }
-const periodoLabels = { hoje: 'hoje', fimdesemana: 'neste fim de semana', '7dias': 'nos próximos 7 dias' };
-const catLabels = { Bares:'bares', Shows:'shows', Cultura:'eventos culturais', Natureza:'natureza', Esporte:'esportes', Feiras:'feiras' };
-const catTexto = categoriaSelecionada ? ` (${catLabels[categoriaSelecionada]})` : '';
-const texto = `O que fazer em ${cidade}${catTexto}? Encontrei no app Oquefazer! 🎶🍻🎭\n\n👉 https://joaubaron.github.io/oquefazer/\n\nManda pra quem sempre pergunta: *vamos onde hoje?*`;
-if (navigator.share) {
-navigator.share({ text: texto });
-} else {
-navigator.clipboard.writeText(texto).then(() => mostrarAviso('Link copiado! 🔗'));
-}
-gtag('event', 'compartilhar_busca', { cidade, categoria: categoriaSelecionada || 'todas' });
-}
-
 function toggleEvento() {
 const cats = document.querySelectorAll('.cat-btn');
 const wrapper = document.getElementById('eventoWrapper');
@@ -1148,8 +989,7 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         document.getElementById('modal').style.display = 'none';
         document.getElementById('modal-ajuda').style.display = 'none';
-        document.getElementById('modal-qrcode').style.display = 'none';
-        document.getElementById('modal-favoritos').style.display = 'none';
+        document.getElementById('modal-qrcode').style.display = 'none'; // NOVA LINHA
     }
 });
 
@@ -1486,13 +1326,6 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('cidade').placeholder = ultima ? '' : 'Digite uma cidade';
     carregarClima();
     setTimeout(gerarQRCodeModal, 500);
-
-    // Atualiza ícone de favoritos se já houver salvos
-    const favs = JSON.parse(localStorage.getItem('favoritos') || '[]');
-    if (favs.length) {
-        const btnFavs = document.getElementById('btn-favoritos');
-        if (btnFavs) btnFavs.textContent = '❤️ Salvos';
-    }
 
     // Event listener para Enter no campo de evento
     const eventoInput = document.getElementById('evento');
