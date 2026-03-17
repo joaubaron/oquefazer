@@ -1230,9 +1230,10 @@ async function carregarClima() {
 
     try {
         // ⚡ DETECTA SE É 4G E AJUSTA TIMEOUT
-        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-        const is4G = connection?.effectiveType === '4g' || connection?.downlink > 1.5;
-        const timeoutMs = is4G ? 6000 : 12000; // 6s no 4G, 12s no WiFi
+const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+const tipo = connection?.effectiveType;
+const timeoutMap = { '4g': 5000, '3g': 10000, '2g': 15000, 'slow-2g': 20000 };
+const timeoutMs = timeoutMap[tipo] ?? 8000;
 
         let geo;
         try {
