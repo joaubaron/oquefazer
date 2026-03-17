@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#243447">
+<meta name="theme-color" content="#6eb233">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Oquefazer">
 <meta name="mobile-web-app-capable" content="yes">
@@ -16,7 +16,7 @@
 <link rel="canonical" href="https://joaubaron.github.io/oquefazer/">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HB14E8QNFC"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
 <script>
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
@@ -66,6 +66,20 @@ padding: 18px 20px;
 box-shadow: 0 4px 20px rgba(255, 107, 53, 0.4);
 animation: slideDown 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 border-radius: 0 0 25px 25px;
+overflow: hidden;
+}
+.evento-premium::before {
+content: '';
+position: absolute;
+top: 0; left: -60%;
+width: 35%;
+height: 100%;
+background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+animation: shine 4.5s ease-in-out infinite;
+}
+@keyframes shine {
+0% { left: -60%; }
+65%, 100% { left: 120%; }
 }
 
 @keyframes slideDown {
@@ -332,20 +346,7 @@ text-decoration: none;
 overflow: hidden;
 position: relative;
 }
-.parceiro-card::before {
-content: '';
-position: absolute;
-top: 0; left: -60%;
-width: 35%;
-height: 100%;
-background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
-animation: shine 3.5s ease-in-out infinite;
-}
-@keyframes shine {
-0% { left: -60%; }
-65%, 100% { left: 120%; }
 
-}
 .parceiro-linha {
 display: flex;
 justify-content: space-between;
@@ -468,15 +469,19 @@ onclick="gtag('event', 'clique_anuncio', {
 <div class="evento-premium-content">
 <h2 class="evento-premium-titulo">Oktoberfest Blumenau 2026</h2>
 <p class="evento-premium-info">
-10 a 26 de Outubro · Vila Germânica 
+<span style="background: rgba(255,255,255,0.2); padding: 3px 8px; border-radius: 20px; font-weight: 700; margin-right: 8px;">
+<span style="font-size: 1.4em;">🍻</span> 10 a 26 OUT
+</span>
+Vila Germânica
 </p>
 </div>
 <div class="evento-premium-cta">Saiba Mais</div>
 </a>
 </div>
 -->
-
+	
 <!-- VERSÃO GENÉRICA -->
+
 <div class="evento-premium generico">
 <a href="https://wa.me/5547991581967?text=Ol%C3%A1!%20Como%20fa%C3%A7o%20pra%20anunciar%3F"
 target="_blank" 
@@ -491,7 +496,12 @@ onclick="gtag('event', 'clique_anuncio', {
 <img src="./logo_premium.png" style="height:40px; width:40px; object-fit:contain; border-radius:50%; flex-shrink:0;">
 <div class="evento-premium-content">
 <h2 class="evento-premium-titulo">Divulgue seu evento 🎫</h2>
-<p class="evento-premium-info">Shows, festivais e grandes atrações</p>
+<p class="evento-premium-info">
+<span style="background: rgba(255,255,255,0.2); padding: 3px 8px; border-radius: 20px; font-weight: 700; margin-right: 8px;">
+<span style="font-size: 1.4em;">📅</span> <span id="data-atual"></span>
+</span>
+Shows, festivais e grandes atrações
+</p>
 </div>
 <div class="evento-premium-cta">Anunciar</div>
 </a>
@@ -668,7 +678,7 @@ onclick="gtag('event', 'clique_anuncio', {
 <button type="button" onclick="buscar('7dias')" style="flex:1">7 dias</button>
 </div>
 <p style="margin-top: 15px; font-size: 14px; color: #555;">
-Resultados podem variar a cada busca com IA</a>
+Resultados podem variar a cada busca com IA
 </p>
 
 <p style="margin-top: 15px; font-size: 14px; color: #555; display: flex; justify-content: center; gap: 20px; align-items: center; flex-wrap: wrap;">
@@ -929,6 +939,14 @@ cidadeInput.placeholder = 'Digite sua cidade';
 }
 }
 }
+
+function atualizarData() {
+    const hoje = new Date();
+    const dia = hoje.getDate().toString().padStart(2, '0');
+    const mes = hoje.toLocaleDateString('pt-BR', { month: 'long' }).toUpperCase();
+    document.getElementById('data-atual').textContent = `${dia} ${mes}`;
+}
+atualizarData();
 
 // Função para gerar QR Code igual ao do flyer
 function gerarQRCodeModal() {
