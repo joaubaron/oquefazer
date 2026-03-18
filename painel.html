@@ -24,432 +24,123 @@
     --radius-sm: 8px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--ink);
-    min-height: 100vh;
-    font-size: 15px;
-  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; font-size: 15px; }
 
   /* LOGIN */
-  #login-screen {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 2rem;
-    padding: 2rem;
-  }
-  .login-logo {
-    font-family: 'DM Serif Display', serif;
-    font-size: 2.4rem;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-  }
+  #login-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 2rem; padding: 2rem; }
+  .login-logo { font-family: 'DM Serif Display', serif; font-size: 2.4rem; letter-spacing: -0.02em; color: var(--ink); }
   .login-logo span { color: var(--accent); font-style: italic; }
-  .login-card {
-    background: var(--surface);
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    padding: 2.5rem 2rem;
-    width: 100%;
-    max-width: 380px;
-    text-align: center;
-  }
-  .login-card h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.5rem;
-    font-weight: 400;
-    margin-bottom: 0.5rem;
-  }
-  .login-card p {
-    font-size: 14px;
-    color: var(--ink2);
-    margin-bottom: 1.75rem;
-    line-height: 1.6;
-  }
-  .btn-google {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    padding: 12px 20px;
-    background: var(--ink);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: opacity 0.15s;
-  }
+  .login-card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 2.5rem 2rem; width: 100%; max-width: 380px; text-align: center; }
+  .login-card h2 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; font-weight: 400; margin-bottom: 0.5rem; }
+  .login-card p { font-size: 14px; color: var(--ink2); margin-bottom: 1.75rem; line-height: 1.6; }
+  .btn-google { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 12px 20px; background: var(--ink); color: #fff; border: none; border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; transition: opacity 0.15s; }
   .btn-google:hover { opacity: 0.85; }
-  .btn-google svg { flex-shrink: 0; }
-
-  /* PROPERTY INPUT */
-  .property-step {
-    margin-top: 1.25rem;
-    display: none;
-    text-align: left;
-  }
-  .property-step label {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--ink2);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    display: block;
-    margin-bottom: 6px;
-  }
-  .property-step input {
-    width: 100%;
-    padding: 10px 14px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    background: var(--bg);
-    color: var(--ink);
-    outline: none;
-    transition: border-color 0.15s;
-  }
+  .property-step { margin-top: 1.25rem; display: none; text-align: left; }
+  .property-step label { font-size: 12px; font-weight: 500; color: var(--ink2); text-transform: uppercase; letter-spacing: 0.06em; display: block; margin-bottom: 6px; }
+  .property-step input { width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 14px; background: var(--bg); color: var(--ink); outline: none; transition: border-color 0.15s; }
   .property-step input:focus { border-color: var(--accent); }
-  .property-step .hint {
-    font-size: 12px;
-    color: var(--ink3);
-    margin-top: 4px;
-  }
-  .btn-load {
-    margin-top: 12px;
-    width: 100%;
-    padding: 11px;
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: opacity 0.15s;
-  }
+  .property-step .hint { font-size: 12px; color: var(--ink3); margin-top: 4px; }
+  .btn-load { margin-top: 12px; width: 100%; padding: 11px; background: var(--accent); color: #fff; border: none; border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: opacity 0.15s; }
   .btn-load:hover { opacity: 0.88; }
 
   /* DASHBOARD */
   #dashboard { display: none; }
-
-  header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: rgba(247,245,240,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .header-logo {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.25rem;
-    letter-spacing: -0.01em;
-  }
+  header { position: sticky; top: 0; z-index: 50; background: rgba(247,245,240,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+  .header-logo { font-family: 'DM Serif Display', serif; font-size: 1.25rem; letter-spacing: -0.01em; }
   .header-logo span { color: var(--accent); font-style: italic; }
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .user-chip {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    color: var(--ink2);
-  }
-  .user-avatar {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  .user-avatar-placeholder {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: var(--accent-light);
-    color: var(--accent);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: 500;
-  }
-  .btn-refresh {
-    padding: 6px 14px;
-    background: transparent;
-    border: 1px solid var(--border);
-    border-radius: 100px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    color: var(--ink2);
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .btn-refresh:hover { background: var(--surface); color: var(--ink); }
-  .btn-logout {
-    padding: 6px 14px;
-    background: transparent;
-    border: 1px solid var(--border);
-    border-radius: 100px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    color: var(--ink2);
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .btn-logout:hover { background: var(--surface); color: var(--ink); }
+  .header-right { display: flex; align-items: center; gap: 12px; }
+  .user-chip { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink2); }
+  .user-avatar { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
+  .user-avatar-placeholder { width: 28px; height: 28px; border-radius: 50%; background: var(--accent-light); color: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; }
+  .btn-refresh, .btn-logout { padding: 6px 14px; background: transparent; border: 1px solid var(--border); border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--ink2); cursor: pointer; transition: all 0.15s; }
+  .btn-refresh:hover, .btn-logout:hover { background: var(--surface); color: var(--ink); }
 
-  main {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 2rem 1.5rem 4rem;
-  }
+  /* TABS */
+  .tabs-bar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; gap: 0; overflow-x: auto; }
+  .tab-btn { padding: 14px 20px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--ink3); background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap; transition: all 0.15s; }
+  .tab-btn:hover { color: var(--ink2); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
 
-  .period-bar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 2rem;
-  }
+  main { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  /* VIEWS */
+  .view { display: none; }
+  .view.active { display: block; }
+
+  .period-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 2rem; }
   .period-label { font-size: 13px; color: var(--ink2); }
-  .period-btn {
-    padding: 5px 14px;
-    border-radius: 100px;
-    border: 1px solid var(--border);
-    background: transparent;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    color: var(--ink2);
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .period-btn.active {
-    background: var(--ink);
-    color: #fff;
-    border-color: var(--ink);
-  }
+  .period-btn { padding: 5px 14px; border-radius: 100px; border: 1px solid var(--border); background: transparent; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--ink2); cursor: pointer; transition: all 0.15s; }
+  .period-btn.active { background: var(--ink); color: #fff; border-color: var(--ink); }
   .period-btn:hover:not(.active) { background: var(--surface); }
 
-  /* SECTION */
-  .section-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.15rem;
-    font-weight: 400;
-    margin-bottom: 1rem;
-    color: var(--ink);
-  }
+  .section-title { font-family: 'DM Serif Display', serif; font-size: 1.15rem; font-weight: 400; margin-bottom: 1rem; color: var(--ink); }
 
-  /* METRIC GRID */
-  .metric-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 12px;
-    margin-bottom: 2rem;
-  }
-  .metric-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.25rem 1.25rem 1rem;
-    position: relative;
-    overflow: hidden;
-  }
-  .metric-card.highlight {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #fff;
-  }
+  .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 2rem; }
+  .metric-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.25rem 1rem; }
+  .metric-card.highlight { background: var(--accent); border-color: var(--accent); color: #fff; }
   .metric-card.highlight .metric-label { color: rgba(255,255,255,0.7); }
   .metric-card.highlight .metric-value { color: #fff; }
   .metric-card.highlight .metric-sub { color: rgba(255,255,255,0.65); }
-  .metric-label {
-    font-size: 12px;
-    color: var(--ink2);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-weight: 500;
-    margin-bottom: 8px;
-  }
-  .metric-value {
-    font-family: 'DM Serif Display', serif;
-    font-size: 2.2rem;
-    line-height: 1;
-    color: var(--ink);
-    margin-bottom: 4px;
-  }
-  .metric-sub {
-    font-size: 12px;
-    color: var(--ink3);
-  }
-  .metric-badge {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 500;
-    padding: 2px 8px;
-    border-radius: 100px;
-    margin-top: 6px;
-  }
+  .metric-card.amber { background: var(--amber-light); border-color: rgba(196,125,26,0.2); }
+  .metric-card.amber .metric-label { color: var(--amber); }
+  .metric-card.amber .metric-value { color: #633806; }
+  .metric-label { font-size: 12px; color: var(--ink2); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 500; margin-bottom: 8px; }
+  .metric-value { font-family: 'DM Serif Display', serif; font-size: 2.2rem; line-height: 1; color: var(--ink); margin-bottom: 4px; }
+  .metric-sub { font-size: 12px; color: var(--ink3); }
+  .metric-badge { display: inline-block; font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 100px; margin-top: 6px; }
   .badge-green { background: var(--accent-light); color: var(--accent); }
   .badge-amber { background: var(--amber-light); color: var(--amber); }
   .badge-red { background: var(--accent2-light); color: var(--accent2); }
 
-  /* CITY TABLE */
-  .table-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    margin-bottom: 2rem;
-  }
-  .table-header {
-    padding: 1rem 1.25rem;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .table-header h3 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.05rem;
-    font-weight: 400;
-  }
-  .table-header span {
-    font-size: 12px;
-    color: var(--ink3);
-  }
+  .table-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 2rem; }
+  .table-header { padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .table-header h3 { font-family: 'DM Serif Display', serif; font-size: 1.05rem; font-weight: 400; }
+  .table-header span { font-size: 12px; color: var(--ink3); }
   table { width: 100%; border-collapse: collapse; }
-  thead th {
-    text-align: left;
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--ink3);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    padding: 8px 1.25rem;
-    background: var(--surface2);
-  }
+  thead th { text-align: left; font-size: 11px; font-weight: 500; color: var(--ink3); text-transform: uppercase; letter-spacing: 0.06em; padding: 8px 1.25rem; background: var(--surface2); }
   tbody tr { border-top: 1px solid var(--border); }
   tbody tr:hover { background: var(--bg); }
-  tbody td {
-    padding: 11px 1.25rem;
-    font-size: 14px;
-    color: var(--ink);
-  }
+  tbody td { padding: 11px 1.25rem; font-size: 14px; color: var(--ink); }
   .bar-cell { width: 120px; }
   .mini-bar-wrap { background: var(--surface2); border-radius: 4px; height: 6px; overflow: hidden; }
   .mini-bar { height: 6px; border-radius: 4px; background: var(--accent); transition: width 0.5s ease; }
+  .mini-bar.amber { background: var(--amber); }
   .rank-num { color: var(--ink3); font-size: 13px; }
-
-  /* AD TABLE */
-  .ad-pill {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 500;
-    padding: 3px 10px;
-    border-radius: 100px;
-  }
+  .ad-pill { display: inline-block; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 100px; }
   .ad-premium { background: var(--amber-light); color: var(--amber); }
   .ad-mensal { background: var(--accent-light); color: var(--accent); }
   .ad-semanal { background: #EEF0FB; color: #4A52B7; }
 
-  /* INSTALL FUNNEL */
-  .funnel-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.25rem;
-    margin-bottom: 2rem;
-  }
-  .funnel-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 10px;
-  }
+  /* FUNIL */
+  .funnel-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 2rem; }
+  .funnel-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
   .funnel-label { font-size: 13px; color: var(--ink2); min-width: 180px; }
-  .funnel-bar-wrap {
-    flex: 1;
-    height: 32px;
-    background: var(--surface2);
-    border-radius: var(--radius-sm);
-    overflow: hidden;
-    position: relative;
-  }
-  .funnel-bar {
-    height: 100%;
-    border-radius: var(--radius-sm);
-    display: flex;
-    align-items: center;
-    padding-left: 12px;
-    font-size: 13px;
-    font-weight: 500;
-    color: #fff;
-    transition: width 0.6s ease;
-  }
+  .funnel-bar-wrap { flex: 1; height: 32px; background: var(--surface2); border-radius: var(--radius-sm); overflow: hidden; position: relative; }
+  .funnel-bar { height: 100%; border-radius: var(--radius-sm); display: flex; align-items: center; padding-left: 12px; font-size: 13px; font-weight: 500; color: #fff; transition: width 0.6s ease; }
   .funnel-bar.f1 { background: var(--accent); }
   .funnel-bar.f2 { background: #4A8C60; }
   .funnel-bar.f3 { background: #7ABF8E; }
   .funnel-pct { font-size: 13px; color: var(--ink2); min-width: 44px; text-align: right; }
 
+  /* ANUNCIANTE VIEW */
+  .ad-hero { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1.25rem; }
+  .ad-hero-icon { width: 52px; height: 52px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+  .ad-hero-icon.premium { background: var(--amber-light); }
+  .ad-hero-icon.mensal { background: var(--accent-light); }
+  .ad-hero-icon.semanal { background: #EEF0FB; }
+  .ad-hero-name { font-family: 'DM Serif Display', serif; font-size: 1.4rem; font-weight: 400; margin-bottom: 4px; }
+  .ad-hero-pill { display: inline-block; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 100px; }
+  .insight-card { background: var(--accent); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-bottom: 2rem; color: #fff; }
+  .insight-card p { font-size: 14px; line-height: 1.7; opacity: 0.9; }
+  .insight-card strong { opacity: 1; font-weight: 500; }
+
   /* LOADING */
-  .loading-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(247,245,240,0.85);
-    z-index: 200;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .spinner {
-    width: 36px; height: 36px;
-    border: 3px solid var(--border);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-  }
+  .loading-overlay { display: none; position: fixed; inset: 0; background: rgba(247,245,240,0.85); z-index: 200; align-items: center; justify-content: center; flex-direction: column; gap: 1rem; }
+  .spinner { width: 36px; height: 36px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
   .loading-overlay p { font-size: 14px; color: var(--ink2); }
-
-  /* ERROR */
-  .error-banner {
-    display: none;
-    background: var(--accent2-light);
-    border: 1px solid #F0C0B0;
-    border-radius: var(--radius-sm);
-    padding: 12px 16px;
-    font-size: 13px;
-    color: var(--accent2);
-    margin-bottom: 1.5rem;
-  }
-
-  /* FOOTER NOTE */
-  .footer-note {
-    font-size: 12px;
-    color: var(--ink3);
-    text-align: center;
-    margin-top: 2rem;
-    line-height: 1.6;
-  }
+  .error-banner { display: none; background: var(--accent2-light); border: 1px solid #F0C0B0; border-radius: var(--radius-sm); padding: 12px 16px; font-size: 13px; color: var(--accent2); margin-bottom: 1.5rem; }
+  .footer-note { font-size: 12px; color: var(--ink3); text-align: center; margin-top: 2rem; line-height: 1.6; }
 
   @media (max-width: 600px) {
     header { padding: 0 1rem; }
@@ -457,7 +148,9 @@
     .metric-grid { grid-template-columns: repeat(2, 1fr); }
     .bar-cell { display: none; }
     .period-bar { flex-wrap: wrap; }
-    .funnel-label { min-width: 140px; font-size: 12px; }
+    .funnel-label { min-width: 130px; font-size: 12px; }
+    .tabs-bar { padding: 0 1rem; }
+    .tab-btn { padding: 12px 14px; font-size: 12px; }
   }
 </style>
 </head>
@@ -495,12 +188,18 @@
       <div class="user-chip">
         <img id="user-avatar" class="user-avatar" style="display:none" />
         <div id="user-avatar-ph" class="user-avatar-placeholder">?</div>
-        <span id="user-name" style="font-size:13px; color:var(--ink2)"></span>
+        <span id="user-name"></span>
       </div>
       <button class="btn-refresh" id="btn-refresh">↻ Atualizar</button>
       <button class="btn-logout" id="btn-logout">Sair</button>
     </div>
   </header>
+
+  <!-- ABAS -->
+  <div class="tabs-bar" id="tabs-bar">
+    <button class="tab-btn active" data-tab="geral">Visão geral</button>
+    <!-- abas de anunciantes injetadas via JS -->
+  </div>
 
   <main>
     <div class="error-banner" id="error-banner"></div>
@@ -512,145 +211,99 @@
       <button class="period-btn" data-days="90">90 dias</button>
     </div>
 
-    <!-- MÉTRICAS PRINCIPAIS -->
-    <p class="section-title">Visão geral</p>
-    <div class="metric-grid">
-      <div class="metric-card highlight">
-        <div class="metric-label">Pessoas que abriram o app</div>
-        <div class="metric-value" id="m-users">—</div>
-        <div class="metric-sub">usuários únicos</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Sessões totais</div>
-        <div class="metric-value" id="m-sessions">—</div>
-        <div class="metric-sub">acessos no período</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">App instalado</div>
-        <div class="metric-value" id="m-installs">—</div>
-        <div class="metric-sub">vezes</div>
-        <span class="metric-badge badge-green" id="m-install-rate"></span>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Cliques em anúncios</div>
-        <div class="metric-value" id="m-ad-clicks">—</div>
-        <div class="metric-sub">no período</div>
-      </div>
-    </div>
+    <!-- ═══════════════════════════ VISÃO GERAL ═══════════════════════════ -->
+    <div class="view active" id="view-geral">
 
-    <!-- FUNIL DE INSTALAÇÃO -->
-    <p class="section-title">Jornada de instalação</p>
-    <div class="funnel-card">
-      <div class="funnel-row">
-        <div class="funnel-label">Abriram o app</div>
-        <div class="funnel-bar-wrap">
-          <div class="funnel-bar f1" id="f-bar1" style="width:100%"><span id="f-val1">—</span></div>
+      <p class="section-title">Visão geral</p>
+      <div class="metric-grid">
+        <div class="metric-card highlight">
+          <div class="metric-label">Pessoas que abriram o app</div>
+          <div class="metric-value" id="m-users">—</div>
+          <div class="metric-sub">usuários únicos</div>
         </div>
-        <div class="funnel-pct">100%</div>
-      </div>
-      <div class="funnel-row">
-        <div class="funnel-label">Viram opção de instalar</div>
-        <div class="funnel-bar-wrap">
-          <div class="funnel-bar f2" id="f-bar2" style="width:0%"><span id="f-val2">—</span></div>
+        <div class="metric-card">
+          <div class="metric-label">Sessões totais</div>
+          <div class="metric-value" id="m-sessions">—</div>
+          <div class="metric-sub">acessos no período</div>
         </div>
-        <div class="funnel-pct" id="f-pct2">—</div>
-      </div>
-      <div class="funnel-row" style="margin-bottom:0">
-        <div class="funnel-label">Instalaram de fato</div>
-        <div class="funnel-bar-wrap">
-          <div class="funnel-bar f3" id="f-bar3" style="width:0%"><span id="f-val3">—</span></div>
+        <div class="metric-card">
+          <div class="metric-label">App instalado</div>
+          <div class="metric-value" id="m-installs">—</div>
+          <div class="metric-sub">vezes</div>
+          <span class="metric-badge badge-green" id="m-install-rate"></span>
         </div>
-        <div class="funnel-pct" id="f-pct3">—</div>
+        <div class="metric-card">
+          <div class="metric-label">Cliques em anúncios</div>
+          <div class="metric-value" id="m-ad-clicks">—</div>
+          <div class="metric-sub">no período</div>
+        </div>
       </div>
-    </div>
 
-    <!-- CIDADES -->
-    <div class="table-card">
-      <div class="table-header">
-        <h3>Buscas por cidade</h3>
-        <span id="city-count"></span>
+      <p class="section-title">Jornada de instalação</p>
+      <div class="funnel-card">
+        <div class="funnel-row">
+          <div class="funnel-label">Abriram o app</div>
+          <div class="funnel-bar-wrap"><div class="funnel-bar f1" id="f-bar1" style="width:100%"><span id="f-val1">—</span></div></div>
+          <div class="funnel-pct">100%</div>
+        </div>
+        <div class="funnel-row">
+          <div class="funnel-label">Viram opção de instalar</div>
+          <div class="funnel-bar-wrap"><div class="funnel-bar f2" id="f-bar2" style="width:0%"><span id="f-val2">—</span></div></div>
+          <div class="funnel-pct" id="f-pct2">—</div>
+        </div>
+        <div class="funnel-row" style="margin-bottom:0">
+          <div class="funnel-label">Instalaram de fato</div>
+          <div class="funnel-bar-wrap"><div class="funnel-bar f3" id="f-bar3" style="width:0%"><span id="f-val3">—</span></div></div>
+          <div class="funnel-pct" id="f-pct3">—</div>
+        </div>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th style="width:36px">#</th>
-            <th>Cidade</th>
-            <th>Buscas</th>
-            <th class="bar-cell"></th>
-          </tr>
-        </thead>
-        <tbody id="city-tbody">
-          <tr><td colspan="4" style="padding:2rem; text-align:center; color:var(--ink3); font-size:13px;">Carregando...</td></tr>
-        </tbody>
-      </table>
-    </div>
 
-    <!-- CLIQUES POR ANUNCIANTE -->
-    <div class="table-card">
-      <div class="table-header">
-        <h3>Cliques por anunciante</h3>
-        <span id="ad-count"></span>
+      <div class="table-card">
+        <div class="table-header"><h3>Buscas por cidade</h3><span id="city-count"></span></div>
+        <table><thead><tr><th style="width:36px">#</th><th>Cidade</th><th>Buscas</th><th class="bar-cell"></th></tr></thead>
+        <tbody id="city-tbody"><tr><td colspan="4" style="padding:2rem;text-align:center;color:var(--ink3);font-size:13px;">Carregando...</td></tr></tbody></table>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th style="width:36px">#</th>
-            <th>Anunciante</th>
-            <th>Tipo</th>
-            <th>Cliques</th>
-          </tr>
-        </thead>
-        <tbody id="ad-tbody">
-          <tr><td colspan="4" style="padding:2rem; text-align:center; color:var(--ink3); font-size:13px;">Carregando...</td></tr>
-        </tbody>
-      </table>
-    </div>
 
-    <!-- COMPORTAMENTO DO USUÁRIO -->
-    <p class="section-title">Como as pessoas usam o app</p>
-    <div class="metric-grid">
-      <div class="metric-card">
-        <div class="metric-label">Usaram GPS</div>
-        <div class="metric-value" id="m-gps">—</div>
-        <div class="metric-sub">vs digitar cidade</div>
+      <div class="table-card">
+        <div class="table-header"><h3>Cliques por anunciante</h3><span id="ad-count"></span></div>
+        <table><thead><tr><th style="width:36px">#</th><th>Anunciante</th><th>Tipo</th><th>Cliques</th></tr></thead>
+        <tbody id="ad-tbody"><tr><td colspan="4" style="padding:2rem;text-align:center;color:var(--ink3);font-size:13px;">Carregando...</td></tr></tbody></table>
       </div>
-      <div class="metric-card">
-        <div class="metric-label">Compartilharam</div>
-        <div class="metric-value" id="m-share">—</div>
-        <div class="metric-sub">indicações do app</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Pediram ajuda</div>
-        <div class="metric-value" id="m-help">—</div>
-        <div class="metric-sub">acessaram o tutorial</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Buscas sem cidade</div>
-        <div class="metric-value" id="m-nocity">—</div>
-        <div class="metric-sub">tentativas sem preencher</div>
-      </div>
-    </div>
 
-    <!-- PERÍODOS MAIS BUSCADOS -->
-    <div class="table-card" style="margin-bottom:2rem;">
-      <div class="table-header">
-        <h3>Períodos mais buscados</h3>
-        <span id="periodo-total"></span>
+      <p class="section-title">Como as pessoas usam o app</p>
+      <div class="metric-grid">
+        <div class="metric-card">
+          <div class="metric-label">Usaram GPS</div>
+          <div class="metric-value" id="m-gps">—</div>
+          <div class="metric-sub">vs digitar cidade</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Compartilharam</div>
+          <div class="metric-value" id="m-share">—</div>
+          <div class="metric-sub">indicações do app</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Pediram ajuda</div>
+          <div class="metric-value" id="m-help">—</div>
+          <div class="metric-sub">acessaram o tutorial</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Buscas sem cidade</div>
+          <div class="metric-value" id="m-nocity">—</div>
+          <div class="metric-sub">tentativas sem preencher</div>
+        </div>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th style="width:36px">#</th>
-            <th>Período</th>
-            <th>Buscas</th>
-            <th class="bar-cell"></th>
-          </tr>
-        </thead>
-        <tbody id="periodo-tbody">
-          <tr><td colspan="4" style="padding:2rem; text-align:center; color:var(--ink3); font-size:13px;">Carregando...</td></tr>
-        </tbody>
-      </table>
-    </div>
+
+      <div class="table-card" style="margin-bottom:2rem;">
+        <div class="table-header"><h3>Períodos mais buscados</h3><span id="periodo-total"></span></div>
+        <table><thead><tr><th style="width:36px">#</th><th>Período</th><th>Buscas</th><th class="bar-cell"></th></tr></thead>
+        <tbody id="periodo-tbody"><tr><td colspan="4" style="padding:2rem;text-align:center;color:var(--ink3);font-size:13px;">Carregando...</td></tr></tbody></table>
+      </div>
+
+    </div><!-- /view-geral -->
+
+    <!-- ═══════════════════════ VIEWS DE ANUNCIANTES (geradas via JS) ══════════════════════ -->
+    <div id="ad-views"></div>
 
     <div class="footer-note">
       Dados do Google Analytics 4 · atualizado agora<br>
@@ -659,106 +312,136 @@
   </main>
 </div>
 
-<!-- Google Identity Services -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
-
 <script>
-const CLIENT_ID = ''; // deixe vazio — usuário autoriza via popup OAuth abaixo
+// ─── CONFIG ───────────────────────────────────────────────────────────────────
+// Anunciantes cadastrados — edite conforme mudar os anunciantes no index.html
+const ANUNCIANTES = [
+  { id: 'premium_2026_10_oktoberfest',       nome: 'Oktoberfest',       tipo: 'premium', icone: '🍺' },
+  { id: 'mensal_2026_03_pointdabeleza',       nome: 'Point da Beleza',   tipo: 'mensal',  icone: '✂️' },
+  { id: 'semanal_2026_03_s1_esq_carnivoras',  nome: 'Carnivoras',        tipo: 'semanal', icone: '🌱' },
+  { id: 'semanal_2026_03_s1_meio_bonikoski',  nome: 'Bonikoski',         tipo: 'semanal', icone: '🍔' },
+  { id: 'semanal_2026_03_s1_dir_eguabest',    nome: 'Eguabest',          tipo: 'semanal', icone: '⭐' },
+];
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
 let accessToken = null;
 let propertyId = null;
 let currentDays = 7;
-let tokenClient = null;
+let currentTab = 'geral';
+
+// ─── UTILS ────────────────────────────────────────────────────────────────────
+function fmt(n) { return (parseInt(n) || 0).toLocaleString('pt-BR'); }
 
 function showLoading(msg) {
   document.getElementById('loading').style.display = 'flex';
   document.getElementById('loading-msg').textContent = msg || 'Carregando...';
 }
-function hideLoading() {
-  document.getElementById('loading').style.display = 'none';
-}
+function hideLoading() { document.getElementById('loading').style.display = 'none'; }
 function showError(msg) {
   const el = document.getElementById('error-banner');
-  el.textContent = msg;
-  el.style.display = 'block';
+  el.textContent = msg; el.style.display = 'block';
   setTimeout(() => el.style.display = 'none', 8000);
 }
 
-// OAuth via Google Identity Services (sem CLIENT_ID hardcoded — usa popup)
-function initGoogleAuth() {
-  // Detecta se GIS carregou
-  if (typeof google === 'undefined' || !google.accounts) {
-    setTimeout(initGoogleAuth, 300);
-    return;
-  }
-  // Usa o flow de token implícito — o usuário vai fornecer o CLIENT_ID da própria conta
-  document.getElementById('btn-login').addEventListener('click', () => {
-    startOAuth('492148966746-c83eg3a6ihnvca245dhtgtqvgem8dhkr.apps.googleusercontent.com');
+function detectTipo(id) {
+  if (id.startsWith('premium_')) return { label: 'Banner Premium', cls: 'ad-premium' };
+  if (id.startsWith('mensal_'))  return { label: 'Parceiro do Mês', cls: 'ad-mensal' };
+  if (id.startsWith('semanal_')) return { label: 'Parceiro da Semana', cls: 'ad-semanal' };
+  return { label: 'Anúncio', cls: 'ad-mensal' };
+}
+
+// ─── TABS ─────────────────────────────────────────────────────────────────────
+function buildTabs() {
+  const bar = document.getElementById('tabs-bar');
+  const container = document.getElementById('ad-views');
+
+  ANUNCIANTES.forEach(a => {
+    // tab button
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn';
+    btn.dataset.tab = a.id;
+    btn.textContent = a.icone + ' ' + a.nome;
+    bar.appendChild(btn);
+
+    // view container
+    const view = document.createElement('div');
+    view.className = 'view';
+    view.id = 'view-' + a.id;
+    view.innerHTML = buildAdView(a);
+    container.appendChild(view);
+  });
+
+  bar.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
   });
 }
 
-function startOAuth(clientId) {
-  tokenClient = google.accounts.oauth2.initTokenClient({
-    client_id: clientId,
-    scope: 'https://www.googleapis.com/auth/analytics.readonly',
-    callback: (resp) => {
-      if (resp.error) { showError('Erro ao autenticar: ' + resp.error); return; }
-      accessToken = resp.access_token;
-      fetchUserInfo(clientId);
-    }
-  });
-  tokenClient.requestAccessToken();
+function switchTab(tabId) {
+  currentTab = tabId;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tabId));
+  document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === 'view-' + tabId));
+  if (tabId !== 'geral') loadAdData(tabId);
 }
 
-function fetchUserInfo(clientId) {
-  showLoading('Autenticando...');
-  fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-    headers: { Authorization: 'Bearer ' + accessToken }
-  })
-  .then(r => r.json())
-  .then(u => {
-    const name = u.given_name || u.name || 'Usuário';
-    document.getElementById('user-name').textContent = name;
-    if (u.picture) {
-      const av = document.getElementById('user-avatar');
-      av.src = u.picture;
-      av.style.display = 'block';
-      document.getElementById('user-avatar-ph').style.display = 'none';
-    } else {
-      document.getElementById('user-avatar-ph').textContent = name[0].toUpperCase();
-    }
-    hideLoading();
-    showPropertyStep(clientId);
-  })
-  .catch(() => { hideLoading(); showPropertyStep(clientId); });
+// ─── BUILD AD VIEW HTML ───────────────────────────────────────────────────────
+function buildAdView(a) {
+  const tipoCls = { premium: 'ad-premium', mensal: 'ad-mensal', semanal: 'ad-semanal' }[a.tipo];
+  const tipoLabel = { premium: 'Banner Premium', mensal: 'Parceiro do Mês', semanal: 'Parceiro da Semana' }[a.tipo];
+  const slug = a.id;
+
+  return `
+    <div class="ad-hero">
+      <div class="ad-hero-icon ${a.tipo}">${a.icone}</div>
+      <div>
+        <div class="ad-hero-name">${a.nome}</div>
+        <span class="ad-pill ${tipoCls}">${tipoLabel}</span>
+      </div>
+    </div>
+
+    <div class="insight-card" id="insight-${slug}">
+      <p>Carregando resumo...</p>
+    </div>
+
+    <p class="section-title">Desempenho do anúncio</p>
+    <div class="metric-grid">
+      <div class="metric-card amber">
+        <div class="metric-label">Cliques no anúncio</div>
+        <div class="metric-value" id="ac-clicks-${slug}">—</div>
+        <div class="metric-sub">no período</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Usuários do app</div>
+        <div class="metric-value" id="ac-users-${slug}">—</div>
+        <div class="metric-sub">que viram o anúncio</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Taxa de clique</div>
+        <div class="metric-value" id="ac-ctr-${slug}">—</div>
+        <div class="metric-sub">cliques por usuário</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Ranking geral</div>
+        <div class="metric-value" id="ac-rank-${slug}">—</div>
+        <div class="metric-sub">entre os anunciantes</div>
+      </div>
+    </div>
+
+    <div class="table-card">
+      <div class="table-header"><h3>Cidades que mais clicaram</h3><span id="ac-city-count-${slug}"></span></div>
+      <table><thead><tr><th style="width:36px">#</th><th>Cidade</th><th>Cliques</th><th class="bar-cell"></th></tr></thead>
+      <tbody id="ac-cities-${slug}"><tr><td colspan="4" style="padding:2rem;text-align:center;color:var(--ink3);font-size:13px;">Carregando...</td></tr></tbody></table>
+    </div>
+
+    <div class="table-card">
+      <div class="table-header"><h3>Todos os cliques no período</h3><span id="ac-clicks-detail-${slug}"></span></div>
+      <table><thead><tr><th>Anunciante</th><th>Tipo</th><th>Cliques</th><th class="bar-cell">Participação</th></tr></thead>
+      <tbody id="ac-compare-${slug}"><tr><td colspan="4" style="padding:2rem;text-align:center;color:var(--ink3);font-size:13px;">Carregando...</td></tr></tbody></table>
+    </div>
+  `;
 }
 
-function showPropertyStep(clientId) {
-  const step = document.getElementById('property-step');
-  step.style.display = 'block';
-
-  // Salva clientId para possível reuso
-  localStorage.setItem('oqf_client_id', clientId);
-
-  document.getElementById('btn-load-data').addEventListener('click', () => {
-    const val = document.getElementById('property-input').value.trim();
-    if (!val || isNaN(val)) { alert('Digite o ID numérico da propriedade GA4.'); return; }
-    propertyId = val;
-    localStorage.setItem('oqf_property_id', val);
-    showDashboard();
-  });
-
-  // Pré-preenche se já salvo
-  const saved = localStorage.getItem('oqf_property_id');
-  if (saved) document.getElementById('property-input').value = saved;
-}
-
-function showDashboard() {
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('dashboard').style.display = 'block';
-  loadAllData();
-}
-
-// ——— GA4 DATA API ———
+// ─── GA4 API ──────────────────────────────────────────────────────────────────
 async function gaReport(dimensions, metrics, dimensionFilter) {
   const body = {
     dateRanges: [{ startDate: currentDays + 'daysAgo', endDate: 'today' }],
@@ -767,300 +450,300 @@ async function gaReport(dimensions, metrics, dimensionFilter) {
     limit: 50
   };
   if (dimensionFilter) body.dimensionFilter = dimensionFilter;
-
   const resp = await fetch(
     `https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runReport`,
-    {
-      method: 'POST',
-      headers: {
-        Authorization: 'Bearer ' + accessToken,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    }
+    { method: 'POST', headers: { Authorization: 'Bearer ' + accessToken, 'Content-Type': 'application/json' }, body: JSON.stringify(body) }
   );
-  if (!resp.ok) {
-    const err = await resp.json();
-    throw new Error(err.error?.message || 'Erro na API GA4');
-  }
+  if (!resp.ok) { const err = await resp.json(); throw new Error(err.error?.message || 'Erro na API GA4'); }
   return resp.json();
 }
 
+// ─── LOAD GERAL ───────────────────────────────────────────────────────────────
 async function loadAllData() {
   showLoading('Buscando dados no Google Analytics...');
   try {
-    await Promise.all([
-      loadOverview(),
-      loadInstallFunnel(),
-      loadCities(),
-      loadAdClicks(),
-      loadBehavior(),
-      loadPeriodos()
-    ]);
-    document.getElementById('last-updated').textContent =
-      'Última atualização: ' + new Date().toLocaleString('pt-BR');
-  } catch(e) {
-    showError('Erro ao carregar dados: ' + e.message);
-  }
+    await Promise.all([loadOverview(), loadInstallFunnel(), loadCities(), loadAdClicks(), loadBehavior(), loadPeriodos()]);
+    document.getElementById('last-updated').textContent = 'Última atualização: ' + new Date().toLocaleString('pt-BR');
+  } catch(e) { showError('Erro ao carregar dados: ' + e.message); }
   hideLoading();
 }
 
 async function loadOverview() {
-  const data = await gaReport([], ['activeUsers', 'sessions', 'eventCount']);
-  const row = data.rows?.[0]?.metricValues || [{ value: '0' }, { value: '0' }, { value: '0' }];
+  const data = await gaReport([], ['activeUsers', 'sessions']);
+  const row = data.rows?.[0]?.metricValues || [{ value: '0' }, { value: '0' }];
   document.getElementById('m-users').textContent = fmt(row[0].value);
   document.getElementById('m-sessions').textContent = fmt(row[1].value);
 }
 
 async function loadInstallFunnel() {
-  // pwa_install (viu o prompt) e pwa_installed (instalou)
-  const data = await gaReport(
-    ['eventName'],
-    ['eventCount', 'totalUsers'],
-    {
-      filter: {
-        fieldName: 'eventName',
-        inListFilter: { values: ['pwa_install', 'pwa_installed'] }
-      }
-    }
-  );
-
-  let installPrompt = 0, installed = 0, installUsers = 0, installedUsers = 0;
+  const data = await gaReport(['eventName'], ['eventCount', 'totalUsers'], {
+    filter: { fieldName: 'eventName', inListFilter: { values: ['pwa_install', 'pwa_installed'] } }
+  });
+  let installUsers = 0, installedUsers = 0, installed = 0;
   (data.rows || []).forEach(r => {
     const ev = r.dimensionValues[0].value;
-    const cnt = parseInt(r.metricValues[0].value);
-    const usr = parseInt(r.metricValues[1].value);
-    if (ev === 'pwa_install') { installPrompt = cnt; installUsers = usr; }
-    if (ev === 'pwa_installed') { installed = cnt; installedUsers = usr; }
+    if (ev === 'pwa_install')   { installUsers   = parseInt(r.metricValues[1].value); }
+    if (ev === 'pwa_installed') { installed = parseInt(r.metricValues[0].value); installedUsers = parseInt(r.metricValues[1].value); }
   });
-
-  // Overview cards
   document.getElementById('m-installs').textContent = fmt(installed);
   const rate = installUsers > 0 ? Math.round((installedUsers / installUsers) * 100) : 0;
   document.getElementById('m-install-rate').textContent = rate + '% dos que viram, instalaram';
-
-  // Funnel
   const totalUsers = parseInt(document.getElementById('m-users').textContent.replace(/\D/g,'')) || 1;
   document.getElementById('f-val1').textContent = fmt(totalUsers);
-
-  const pct2 = totalUsers > 0 ? Math.round((installUsers / totalUsers) * 100) : 0;
-  const pct3 = totalUsers > 0 ? Math.round((installedUsers / totalUsers) * 100) : 0;
-
+  const pct2 = Math.round((installUsers / totalUsers) * 100);
   document.getElementById('f-val2').textContent = fmt(installUsers);
   document.getElementById('f-bar2').style.width = pct2 + '%';
   document.getElementById('f-pct2').textContent = pct2 + '%';
-
   document.getElementById('f-val3').textContent = fmt(installed);
-  document.getElementById('f-bar3').style.width = pct3 + '%';
+  document.getElementById('f-bar3').style.width = Math.round((installedUsers / totalUsers) * 100) + '%';
   document.getElementById('f-pct3').textContent = rate + '%';
 }
 
 async function loadCities() {
-  const data = await gaReport(
-    ['city'],
-    ['eventCount'],
-    {
-      filter: {
-        fieldName: 'eventName',
-        stringFilter: { matchType: 'EXACT', value: 'search' }
-      }
-    }
-  );
-
-  // Fallback: se não tiver evento 'search', pega sessões por cidade
+  let data = await gaReport(['city'], ['eventCount'], { filter: { fieldName: 'eventName', stringFilter: { matchType: 'EXACT', value: 'search' } } });
   let rows = data.rows || [];
-  if (rows.length === 0) {
-    const data2 = await gaReport(['city'], ['sessions']);
-    rows = data2.rows || [];
-  }
-
+  if (rows.length === 0) { const d2 = await gaReport(['city'], ['sessions']); rows = d2.rows || []; }
   rows.sort((a,b) => parseInt(b.metricValues[0].value) - parseInt(a.metricValues[0].value));
   const top = rows.slice(0, 10);
   const max = top.length > 0 ? parseInt(top[0].metricValues[0].value) : 1;
-
   document.getElementById('city-count').textContent = rows.length + ' cidades';
-
-  const tbody = document.getElementById('city-tbody');
-  if (top.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="4" style="padding:2rem; text-align:center; color:var(--ink3); font-size:13px;">Nenhuma busca registrada no período</td></tr>';
-    return;
-  }
-
-  tbody.innerHTML = top.map((r, i) => {
-    const city = r.dimensionValues[0].value || '(não definida)';
-    const val = parseInt(r.metricValues[0].value);
-    const pct = Math.round((val / max) * 100);
-    return `<tr>
-      <td class="rank-num">${i+1}</td>
-      <td>${city}</td>
-      <td style="font-weight:500">${fmt(val)}</td>
-      <td class="bar-cell"><div class="mini-bar-wrap"><div class="mini-bar" style="width:${pct}%"></div></div></td>
-    </tr>`;
-  }).join('');
+  document.getElementById('city-tbody').innerHTML = top.length === 0
+    ? '<tr><td colspan="4" style="padding:2rem;text-align:center;color:var(--ink3);font-size:13px;">Nenhuma busca registrada</td></tr>'
+    : top.map((r,i) => {
+        const city = r.dimensionValues[0].value || '(não definida)';
+        const val = parseInt(r.metricValues[0].value);
+        return `<tr><td class="rank-num">${i+1}</td><td>${city}</td><td style="font-weight:500">${fmt(val)}</td><td class="bar-cell"><div class="mini-bar-wrap"><div class="mini-bar" style="width:${Math.round((val/max)*100)}%"></div></div></td></tr>`;
+      }).join('');
 }
 
 async function loadAdClicks() {
-  const data = await gaReport(
-    ['customEvent:anunciante_id'],
-    ['eventCount'],
-    {
-      filter: {
-        fieldName: 'eventName',
-        stringFilter: { matchType: 'EXACT', value: 'clique_anuncio' }
-      }
-    }
-  );
-
+  const data = await gaReport(['customEvent:anunciante_id'], ['eventCount'], { filter: { fieldName: 'eventName', stringFilter: { matchType: 'EXACT', value: 'clique_anuncio' } } });
   let rows = data.rows || [];
   rows.sort((a,b) => parseInt(b.metricValues[0].value) - parseInt(a.metricValues[0].value));
-
-  document.getElementById('m-ad-clicks').textContent = fmt(
-    rows.reduce((acc, r) => acc + parseInt(r.metricValues[0].value), 0)
-  );
+  const total = rows.reduce((acc,r) => acc + parseInt(r.metricValues[0].value), 0);
+  document.getElementById('m-ad-clicks').textContent = fmt(total);
   document.getElementById('ad-count').textContent = rows.length + ' anunciantes';
-
-  const tbody = document.getElementById('ad-tbody');
-  if (rows.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="4" style="padding:2rem; text-align:center; color:var(--ink3); font-size:13px;">Nenhum clique em anúncio no período</td></tr>';
-    return;
-  }
-
-  tbody.innerHTML = rows.slice(0, 15).map((r, i) => {
-    const id = r.dimensionValues[0].value || '(sem id)';
-    const val = parseInt(r.metricValues[0].value);
-    const tipo = detectTipo(id);
-    return `<tr>
-      <td class="rank-num">${i+1}</td>
-      <td style="font-weight:500">${formatAdId(id)}</td>
-      <td><span class="ad-pill ${tipo.cls}">${tipo.label}</span></td>
-      <td style="font-weight:500">${fmt(val)}</td>
-    </tr>`;
-  }).join('');
-}
-
-function detectTipo(id) {
-  if (id.startsWith('premium_')) return { label: 'Banner Premium', cls: 'ad-premium' };
-  if (id.startsWith('mensal_')) return { label: 'Parceiro do Mês', cls: 'ad-mensal' };
-  if (id.startsWith('semanal_')) return { label: 'Parceiro da Semana', cls: 'ad-semanal' };
-  return { label: 'Anúncio', cls: 'ad-mensal' };
-}
-
-function formatAdId(id) {
-  if (!id || id === '(not set)') return '—';
-
-  // generico_anuncie_aqui → "Anuncie aqui"
-  if (id.startsWith('generico_')) {
-    return id.replace('generico_', '').replace(/_/g, ' ')
-      .replace(/\b\w/g, l => l.toUpperCase());
-  }
-
-  const parts = id.split('_');
-
-  // premium_2026_10_oktoberfest → "Oktoberfest"
-  // mensal_2026_03_pointdabeleza → "Point da Beleza"
-  if ((id.startsWith('premium_') || id.startsWith('mensal_')) && parts.length >= 4) {
-    const nome = parts.slice(3).join(' ').replace(/-/g, ' ');
-    return nome.charAt(0).toUpperCase() + nome.slice(1);
-  }
-
-  // semanal_2026_03_s1_esq_carnivoras → "Carnivoras"
-  // semanal_2026_03_s1_meio_bonikoski → "Bonikoski"
-  // semanal_2026_03_s1_dir_eguabest   → "Eguabest"
-  if (id.startsWith('semanal_') && parts.length >= 6) {
-    const nome = parts.slice(5).join(' ').replace(/-/g, ' ');
-    return nome.charAt(0).toUpperCase() + nome.slice(1);
-  }
-
-  // fallback — limpa underscores
-  return id.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+  document.getElementById('ad-tbody').innerHTML = rows.length === 0
+    ? '<tr><td colspan="4" style="padding:2rem;text-align:center;color:var(--ink3);font-size:13px;">Nenhum clique registrado</td></tr>'
+    : rows.slice(0,15).map((r,i) => {
+        const id = r.dimensionValues[0].value || '(sem id)';
+        const val = parseInt(r.metricValues[0].value);
+        const tipo = detectTipo(id);
+        return `<tr><td class="rank-num">${i+1}</td><td style="font-weight:500">${formatAdId(id)}</td><td><span class="ad-pill ${tipo.cls}">${tipo.label}</span></td><td style="font-weight:500">${fmt(val)}</td></tr>`;
+      }).join('');
 }
 
 async function loadBehavior() {
-  const data = await gaReport(
-    ['eventName'],
-    ['eventCount'],
-    {
-      filter: {
-        fieldName: 'eventName',
-        inListFilter: { values: ['uso_gps', 'compartilhou', 'abriu_ajuda', 'cidade_nao_encontrada'] }
-      }
-    }
-  );
+  const data = await gaReport(['eventName'], ['eventCount'], { filter: { fieldName: 'eventName', inListFilter: { values: ['uso_gps','compartilhou','abriu_ajuda','cidade_nao_encontrada'] } } });
   const map = {};
-  (data.rows || []).forEach(r => {
-    map[r.dimensionValues[0].value] = parseInt(r.metricValues[0].value);
-  });
-  document.getElementById('m-gps').textContent = fmt(map['uso_gps'] || 0);
-  document.getElementById('m-share').textContent = fmt(map['compartilhou'] || 0);
-  document.getElementById('m-help').textContent = fmt(map['abriu_ajuda'] || 0);
+  (data.rows || []).forEach(r => { map[r.dimensionValues[0].value] = parseInt(r.metricValues[0].value); });
+  document.getElementById('m-gps').textContent    = fmt(map['uso_gps'] || 0);
+  document.getElementById('m-share').textContent  = fmt(map['compartilhou'] || 0);
+  document.getElementById('m-help').textContent   = fmt(map['abriu_ajuda'] || 0);
   document.getElementById('m-nocity').textContent = fmt(map['cidade_nao_encontrada'] || 0);
 }
 
 async function loadPeriodos() {
-  const data = await gaReport(
-    ['customEvent:periodo'],
-    ['eventCount'],
-    {
-      filter: {
-        fieldName: 'eventName',
-        stringFilter: { matchType: 'EXACT', value: 'periodo_selecionado' }
+  const data = await gaReport(['customEvent:periodo'], ['eventCount'], { filter: { fieldName: 'eventName', stringFilter: { matchType: 'EXACT', value: 'periodo_selecionado' } } });
+  const rows = (data.rows || []).sort((a,b) => parseInt(b.metricValues[0].value) - parseInt(a.metricValues[0].value));
+  const total = rows.reduce((acc,r) => acc + parseInt(r.metricValues[0].value), 0);
+  const max = rows.length > 0 ? parseInt(rows[0].metricValues[0].value) : 1;
+  const labelMap = { hoje: 'Hoje', fimdesemana: 'Fim de semana', '7dias': '7 dias' };
+  document.getElementById('periodo-total').textContent = fmt(total) + ' buscas';
+  document.getElementById('periodo-tbody').innerHTML = rows.length === 0
+    ? '<tr><td colspan="4" style="padding:2rem;text-align:center;color:var(--ink3);font-size:13px;">Nenhuma busca registrada</td></tr>'
+    : rows.map((r,i) => {
+        const p = r.dimensionValues[0].value || '—';
+        const val = parseInt(r.metricValues[0].value);
+        const pctTotal = total > 0 ? Math.round((val/total)*100) : 0;
+        return `<tr><td class="rank-num">${i+1}</td><td style="font-weight:500">${labelMap[p]||p}</td><td style="font-weight:500">${fmt(val)} <span style="font-size:12px;color:var(--ink3)">(${pctTotal}%)</span></td><td class="bar-cell"><div class="mini-bar-wrap"><div class="mini-bar" style="width:${Math.round((val/max)*100)}%"></div></div></td></tr>`;
+      }).join('');
+}
+
+// ─── LOAD ANUNCIANTE ──────────────────────────────────────────────────────────
+async function loadAdData(adId) {
+  const a = ANUNCIANTES.find(x => x.id === adId);
+  if (!a) return;
+  showLoading('Carregando dados de ' + a.nome + '...');
+  try {
+    // 1. Cliques totais por anunciante (para ranking e comparação)
+    const allClicks = await gaReport(
+      ['customEvent:anunciante_id'], ['eventCount'],
+      { filter: { fieldName: 'eventName', stringFilter: { matchType: 'EXACT', value: 'clique_anuncio' } } }
+    );
+    const allRows = (allClicks.rows || []).sort((a,b) => parseInt(b.metricValues[0].value) - parseInt(a.metricValues[0].value));
+    const totalAllClicks = allRows.reduce((acc,r) => acc + parseInt(r.metricValues[0].value), 0);
+    const myRow = allRows.find(r => r.dimensionValues[0].value === adId);
+    const myClicks = myRow ? parseInt(myRow.metricValues[0].value) : 0;
+    const rank = allRows.findIndex(r => r.dimensionValues[0].value === adId) + 1;
+
+    // 2. Usuários totais do app
+    const overviewData = await gaReport([], ['activeUsers']);
+    const totalUsers = parseInt(overviewData.rows?.[0]?.metricValues[0].value || '0');
+    const ctr = totalUsers > 0 ? (myClicks / totalUsers * 100).toFixed(1) : '0';
+
+    // 3. Cidades que clicaram neste anunciante
+    const cityData = await gaReport(
+      ['city'], ['eventCount'],
+      { filter: { andGroup: { expressions: [
+        { filter: { fieldName: 'eventName', stringFilter: { matchType: 'EXACT', value: 'clique_anuncio' } } },
+        { filter: { fieldName: 'customEvent:anunciante_id', stringFilter: { matchType: 'EXACT', value: adId } } }
+      ]}}}
+    );
+    const cityRows = (cityData.rows || []).sort((a,b) => parseInt(b.metricValues[0].value) - parseInt(a.metricValues[0].value));
+    const cityMax = cityRows.length > 0 ? parseInt(cityRows[0].metricValues[0].value) : 1;
+
+    // ── Preenche cards ──
+    document.getElementById(`ac-clicks-${adId}`).textContent = fmt(myClicks);
+    document.getElementById(`ac-users-${adId}`).textContent  = fmt(totalUsers);
+    document.getElementById(`ac-ctr-${adId}`).textContent    = ctr + '%';
+    document.getElementById(`ac-rank-${adId}`).textContent   = rank > 0 ? rank + 'º' : '—';
+
+    // ── Insight ──
+    const pctShare = totalAllClicks > 0 ? Math.round((myClicks / totalAllClicks) * 100) : 0;
+    let insightText = '';
+    if (myClicks === 0) {
+      insightText = `Nenhum clique registrado neste período ainda. Os dados aparecem em 24–48h após a publicação.`;
+    } else {
+      insightText = `<strong>${a.nome}</strong> recebeu <strong>${fmt(myClicks)} cliques</strong> no período — ${pctShare}% de todos os cliques em anúncios do app. `;
+      if (rank === 1) insightText += `É o anunciante mais clicado do período.`;
+      else insightText += `Está em <strong>${rank}º lugar</strong> entre os anunciantes ativos.`;
+      if (cityRows.length > 0) {
+        const topCity = cityRows[0].dimensionValues[0].value || 'uma cidade';
+        insightText += ` A maioria dos cliques veio de <strong>${topCity}</strong>.`;
       }
     }
-  );
-  const rows = (data.rows || []).sort((a,b) => parseInt(b.metricValues[0].value) - parseInt(a.metricValues[0].value));
-  const total = rows.reduce((acc, r) => acc + parseInt(r.metricValues[0].value), 0);
-  const max = rows.length > 0 ? parseInt(rows[0].metricValues[0].value) : 1;
+    document.getElementById(`insight-${adId}`).innerHTML = `<p>${insightText}</p>`;
 
-  document.getElementById('periodo-total').textContent = fmt(total) + ' buscas';
+    // ── Tabela cidades ──
+    document.getElementById(`ac-city-count-${adId}`).textContent = cityRows.length + ' cidades';
+    document.getElementById(`ac-cities-${adId}`).innerHTML = cityRows.length === 0
+      ? '<tr><td colspan="4" style="padding:2rem;text-align:center;color:var(--ink3);font-size:13px;">Nenhum clique registrado</td></tr>'
+      : cityRows.slice(0,10).map((r,i) => {
+          const city = r.dimensionValues[0].value || '(não definida)';
+          const val = parseInt(r.metricValues[0].value);
+          return `<tr><td class="rank-num">${i+1}</td><td>${city}</td><td style="font-weight:500">${fmt(val)}</td><td class="bar-cell"><div class="mini-bar-wrap"><div class="mini-bar amber" style="width:${Math.round((val/cityMax)*100)}%"></div></div></td></tr>`;
+        }).join('');
 
-  const labelMap = { 'hoje': 'Hoje', 'fimdesemana': 'Fim de semana', '7dias': '7 dias' };
-  const tbody = document.getElementById('periodo-tbody');
+    // ── Tabela comparação ──
+    const compMax = allRows.length > 0 ? parseInt(allRows[0].metricValues[0].value) : 1;
+    document.getElementById(`ac-clicks-detail-${adId}`).textContent = allRows.length + ' anunciantes';
+    document.getElementById(`ac-compare-${adId}`).innerHTML = allRows.length === 0
+      ? '<tr><td colspan="4" style="padding:2rem;text-align:center;color:var(--ink3);font-size:13px;">Nenhum dado disponível</td></tr>'
+      : allRows.map(r => {
+          const rid = r.dimensionValues[0].value || '(sem id)';
+          const val = parseInt(r.metricValues[0].value);
+          const pct = totalAllClicks > 0 ? Math.round((val/totalAllClicks)*100) : 0;
+          const isMe = rid === adId;
+          const tipo = detectTipo(rid);
+          return `<tr style="${isMe ? 'background:var(--amber-light);' : ''}">
+            <td style="font-weight:${isMe?'500':'400'}">${formatAdId(rid)}${isMe ? ' ◀' : ''}</td>
+            <td><span class="ad-pill ${tipo.cls}">${tipo.label}</span></td>
+            <td style="font-weight:500">${fmt(val)}</td>
+            <td class="bar-cell"><div class="mini-bar-wrap"><div class="mini-bar${isMe?' amber':''}" style="width:${Math.round((val/compMax)*100)}%"></div></div></td>
+          </tr>`;
+        }).join('');
 
-  if (rows.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="4" style="padding:2rem; text-align:center; color:var(--ink3); font-size:13px;">Nenhuma busca registrada no período</td></tr>';
-    return;
+  } catch(e) { showError('Erro ao carregar dados do anunciante: ' + e.message); }
+  hideLoading();
+}
+
+// ─── FORMAT ───────────────────────────────────────────────────────────────────
+function formatAdId(id) {
+  if (!id || id === '(not set)') return '—';
+  if (id.startsWith('generico_')) return id.replace('generico_','').replace(/_/g,' ').replace(/\b\w/g,l=>l.toUpperCase());
+  const parts = id.split('_');
+  if ((id.startsWith('premium_') || id.startsWith('mensal_')) && parts.length >= 4) {
+    const nome = parts.slice(3).join(' ').replace(/-/g,' ');
+    return nome.charAt(0).toUpperCase() + nome.slice(1);
   }
-  tbody.innerHTML = rows.map((r, i) => {
-    const periodo = r.dimensionValues[0].value || '—';
-    const label = labelMap[periodo] || periodo;
-    const val = parseInt(r.metricValues[0].value);
-    const pct = Math.round((val / max) * 100);
-    const pctTotal = total > 0 ? Math.round((val / total) * 100) : 0;
-    return `<tr>
-      <td class="rank-num">${i+1}</td>
-      <td style="font-weight:500">${label}</td>
-      <td style="font-weight:500">${fmt(val)} <span style="font-size:12px;color:var(--ink3)">(${pctTotal}%)</span></td>
-      <td class="bar-cell"><div class="mini-bar-wrap"><div class="mini-bar" style="width:${pct}%"></div></div></td>
-    </tr>`;
-  }).join('');
+  if (id.startsWith('semanal_') && parts.length >= 6) {
+    const nome = parts.slice(5).join(' ').replace(/-/g,' ');
+    return nome.charAt(0).toUpperCase() + nome.slice(1);
+  }
+  return id.replace(/_/g,' ').replace(/\b\w/g,l=>l.toUpperCase());
 }
 
-function fmt(n) {
-  const num = parseInt(n) || 0;
-  return num.toLocaleString('pt-BR');
+// ─── OAUTH ────────────────────────────────────────────────────────────────────
+function initGoogleAuth() {
+  if (typeof google === 'undefined' || !google.accounts) { setTimeout(initGoogleAuth, 300); return; }
+  document.getElementById('btn-login').addEventListener('click', () => {
+    startOAuth('492148966746-c83eg3a6ihnvca245dhtgtqvgem8dhkr.apps.googleusercontent.com');
+  });
 }
 
-// Period buttons
+function startOAuth(clientId) {
+  const tokenClient = google.accounts.oauth2.initTokenClient({
+    client_id: clientId,
+    scope: 'https://www.googleapis.com/auth/analytics.readonly',
+    callback: (resp) => {
+      if (resp.error) { showError('Erro ao autenticar: ' + resp.error); return; }
+      accessToken = resp.access_token;
+      fetchUserInfo();
+    }
+  });
+  tokenClient.requestAccessToken();
+}
+
+function fetchUserInfo() {
+  showLoading('Autenticando...');
+  fetch('https://www.googleapis.com/oauth2/v3/userinfo', { headers: { Authorization: 'Bearer ' + accessToken } })
+    .then(r => r.json())
+    .then(u => {
+      const name = u.given_name || u.name || 'Usuário';
+      document.getElementById('user-name').textContent = name;
+      if (u.picture) { const av = document.getElementById('user-avatar'); av.src = u.picture; av.style.display = 'block'; document.getElementById('user-avatar-ph').style.display = 'none'; }
+      else { document.getElementById('user-avatar-ph').textContent = name[0].toUpperCase(); }
+      hideLoading();
+      showPropertyStep();
+    }).catch(() => { hideLoading(); showPropertyStep(); });
+}
+
+function showPropertyStep() {
+  const step = document.getElementById('property-step');
+  step.style.display = 'block';
+  const saved = localStorage.getItem('oqf_property_id');
+  if (saved) document.getElementById('property-input').value = saved;
+  document.getElementById('btn-load-data').addEventListener('click', () => {
+    const val = document.getElementById('property-input').value.trim();
+    if (!val || isNaN(val)) { alert('Digite o ID numérico da propriedade GA4.'); return; }
+    propertyId = val;
+    localStorage.setItem('oqf_property_id', val);
+    showDashboard();
+  });
+}
+
+function showDashboard() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  buildTabs();
+  loadAllData();
+}
+
+// ─── CONTROLS ─────────────────────────────────────────────────────────────────
 document.querySelectorAll('.period-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     currentDays = parseInt(btn.dataset.days);
-    loadAllData();
+    if (currentTab === 'geral') loadAllData();
+    else loadAdData(currentTab);
   });
 });
 
-document.getElementById('btn-refresh').addEventListener('click', loadAllData);
+document.getElementById('btn-refresh').addEventListener('click', () => {
+  if (currentTab === 'geral') loadAllData();
+  else loadAdData(currentTab);
+});
+
 document.getElementById('btn-logout').addEventListener('click', () => {
-  accessToken = null;
-  propertyId = null;
+  accessToken = null; propertyId = null;
   document.getElementById('dashboard').style.display = 'none';
   document.getElementById('login-screen').style.display = 'flex';
   document.getElementById('property-step').style.display = 'none';
   document.getElementById('property-input').value = '';
 });
 
-// Init
 window.addEventListener('load', initGoogleAuth);
 </script>
 </body>
