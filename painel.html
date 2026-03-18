@@ -50,6 +50,14 @@
   .tab-btn{padding:9px 16px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink2);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;position:relative;bottom:-1px;transition:all .15s;border-radius:6px 6px 0 0;}
   .tab-btn:hover{color:var(--ink);background:var(--surface2);}
   .tab-btn.active{color:var(--accent);font-weight:500;border-bottom-color:var(--accent);background:transparent;}
+  /* anunciante shortcuts row */
+  .ad-shortcuts{display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px;margin-bottom:1.5rem;}
+  .ad-shortcuts::-webkit-scrollbar{display:none;}
+  .ad-shortcut-card{flex-shrink:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;min-width:86px;max-width:110px;transition:all .15s;text-align:center;}
+  .ad-shortcut-card:active,.ad-shortcut-card:hover{transform:scale(.97);background:var(--surface2);border-color:var(--accent);}
+  .ad-shortcut-thumb{width:48px;height:48px;border-radius:10px;object-fit:cover;background:var(--surface2);display:block;}
+  .ad-shortcut-label{font-size:11px;font-weight:500;color:var(--ink2);line-height:1.3;word-break:break-word;}
+  .ad-shortcut-pill{font-size:10px;font-weight:500;padding:2px 7px;border-radius:100px;}
   .tab-content{display:none;}
   .tab-content.active{display:block;}
   .section-title{font-family:'DM Serif Display',serif;font-size:1.15rem;font-weight:400;margin-bottom:1rem;}
@@ -107,12 +115,41 @@
   .error-banner{display:none;background:var(--accent2-light);border:1px solid #F0C0B0;border-radius:var(--radius-sm);padding:12px 16px;font-size:13px;color:var(--accent2);margin-bottom:1.5rem;}
   .empty-state{padding:2rem;text-align:center;color:var(--ink3);font-size:13px;}
   .footer-note{font-size:12px;color:var(--ink3);text-align:center;margin-top:2rem;line-height:1.6;}
+  /* ── Tabs bar scroll ── */
+  .tabs-bar-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-bottom:1px solid var(--border);margin-bottom:1.5rem;}
+  .tabs-bar-wrap::-webkit-scrollbar{display:none;}
+  .tabs-bar{display:flex;gap:2px;min-width:max-content;padding:0 0 0 0;}
+
+  /* ── Anunciante cards row ── */
+  .ad-shortcuts{display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px;margin-bottom:1.5rem;}
+  .ad-shortcuts::-webkit-scrollbar{display:none;}
+  .ad-shortcut-card{flex-shrink:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:10px 14px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;min-width:90px;max-width:110px;transition:all .15s;text-align:center;}
+  .ad-shortcut-card:active{transform:scale(.97);background:var(--surface2);}
+  .ad-shortcut-thumb{width:52px;height:52px;border-radius:10px;object-fit:cover;background:var(--surface2);}
+  .ad-shortcut-label{font-size:11px;font-weight:500;color:var(--ink2);line-height:1.3;word-break:break-word;}
+  .ad-shortcut-pill{font-size:10px;font-weight:500;padding:2px 7px;border-radius:100px;}
+
   @media(max-width:600px){
-    header{padding:0 1rem;}main{padding:1.25rem 1rem 3rem;}
-    .metric-grid{grid-template-columns:repeat(2,1fr);}
-    .bar-cell{display:none;}.funnel-label{min-width:120px;font-size:12px;}
+    header{padding:0 1rem;}
+    main{padding:1rem 0.85rem 3rem;}
+    .metric-grid{grid-template-columns:repeat(2,1fr);gap:8px;}
+    .metric-card{padding:1rem 1rem 0.85rem;}
+    .metric-value{font-size:1.9rem;}
+    .bar-cell{display:none;}
+    .funnel-label{min-width:110px;font-size:12px;}
     .ad-hero{flex-direction:column;align-items:flex-start;}
     .header-right .user-chip span{display:none;}
+    .period-bar{gap:6px;margin-bottom:1.25rem;}
+    .period-btn{padding:5px 12px;font-size:12px;}
+    .tab-btn{padding:8px 13px;font-size:12px;}
+    .table-card{border-radius:12px;}
+    thead th{padding:7px 1rem;}
+    tbody td{padding:10px 1rem;font-size:13px;}
+    .section-title{font-size:1.05rem;}
+  }
+  @media(max-width:380px){
+    .metric-grid{grid-template-columns:repeat(2,1fr);}
+    .metric-value{font-size:1.7rem;}
   }
 </style>
 </head>
@@ -250,6 +287,11 @@
           <div class="metric-sub">acessaram o tutorial</div>
         </div>
         <div class="metric-card">
+          <div class="metric-label">Leituras de QR Code</div>
+          <div class="metric-value" id="m-qrcode">—</div>
+          <div class="metric-sub">scans no período</div>
+        </div>
+        <div class="metric-card">
           <div class="metric-label">Buscas sem cidade</div>
           <div class="metric-value" id="m-nocity">—</div>
           <div class="metric-sub">tentativas sem preencher</div>
@@ -267,6 +309,8 @@
     <!-- TODOS ANUNCIANTES -->
     <div class="tab-content" id="tab-anunciantes">
       <p class="section-title">Todos os anunciantes</p>
+      <!-- Linha de cards com thumb dos anunciantes -->
+      <div class="ad-shortcuts" id="ad-shortcuts-row"></div>
       <div class="table-card">
         <div class="table-header"><h3>Cliques por anunciante</h3><span id="ad-count"></span></div>
         <table>
@@ -404,16 +448,19 @@ async function loadAdClicks(){
   const tb=document.getElementById('ad-tbody');
   if(!rows.length){tb.innerHTML='<tr><td colspan="4" class="empty-state">Nenhum clique registrado</td></tr>';}
   else tb.innerHTML=rows.map((r,i)=>{const id=r.dimensionValues[0].value,val=parseInt(r.metricValues[0].value),tipo=detectTipo(id);return '<tr><td class="rank-num">'+(i+1)+'</td><td style="font-weight:500">'+formatAdId(id)+'</td><td><span class="ad-pill '+tipo.cls+'">'+tipo.label+'</span></td><td style="font-weight:500">'+fmt(val)+'</td></tr>';}).join('');
+  buildAdShortcuts(rows);
   buildAdTabs(rows);
 }
 
 async function loadBehavior(){
-  const d=await gaReport(['eventName'],['eventCount'],{filter:{fieldName:'eventName',inListFilter:{values:['uso_gps','compartilhou','abriu_ajuda','cidade_nao_encontrada']}}});
+  const d=await gaReport(['eventName'],['eventCount'],{filter:{fieldName:'eventName',inListFilter:{values:['uso_gps','compartilhou','abriu_ajuda','cidade_nao_encontrada','leitura_qrcode','qr_scan','qrcode_lido']}}});
   const map={};(d.rows||[]).forEach(r=>{map[r.dimensionValues[0].value]=parseInt(r.metricValues[0].value);});
   document.getElementById('m-gps').textContent=fmt(map['uso_gps']||0);
   document.getElementById('m-share').textContent=fmt(map['compartilhou']||0);
   document.getElementById('m-help').textContent=fmt(map['abriu_ajuda']||0);
   document.getElementById('m-nocity').textContent=fmt(map['cidade_nao_encontrada']||0);
+  const qr=(map['leitura_qrcode']||0)+(map['qr_scan']||0)+(map['qrcode_lido']||0);
+  document.getElementById('m-qrcode').textContent=fmt(qr);
 }
 
 async function loadPeriodos(){
@@ -427,6 +474,52 @@ async function loadPeriodos(){
   tb.innerHTML=rows.map((r,i)=>{const p=r.dimensionValues[0].value,val=parseInt(r.metricValues[0].value),pct=Math.round((val/max)*100),pt=total?Math.round((val/total)*100):0;return '<tr><td class="rank-num">'+(i+1)+'</td><td style="font-weight:500">'+(lbl[p]||p)+'</td><td style="font-weight:500">'+fmt(val)+' <span style="font-size:12px;color:var(--ink3)">('+pt+'%)</span></td><td class="bar-cell"><div class="mini-bar-wrap"><div class="mini-bar" style="width:'+pct+'%"></div></div></td></tr>';}).join('');
 }
 
+// Mapa de thumb PNGs por prefixo de anunciante_id
+const AD_THUMBS={
+  'premium_': 'painel/banner_premium_topo',
+  'generico_': 'painel/banner_generico_topo',
+  'mensal_':   'painel/card_principal',
+  'semanal_esq':'painel/semana_esquerda',
+  'semanal_mei':'painel/semana_meio',
+  'semanal_dir':'painel/semana_direita',
+  'semanal_':  'painel/semana_esquerda',
+};
+function adThumb(id){
+  if(id.startsWith('premium_'))return AD_THUMBS['premium_']+'.png';
+  if(id.startsWith('generico_'))return AD_THUMBS['generico_']+'.png';
+  if(id.startsWith('mensal_'))return AD_THUMBS['mensal_']+'.png';
+  if(id.startsWith('semanal_')){
+    const parts=id.split('_');
+    const pos=parts[1]||'';
+    if(pos==='esquerda'||pos==='esq')return AD_THUMBS['semanal_esq']+'.png';
+    if(pos==='meio'||pos==='mid'||pos==='center')return AD_THUMBS['semanal_mei']+'.png';
+    if(pos==='direita'||pos==='dir')return AD_THUMBS['semanal_dir']+'.png';
+    return AD_THUMBS['semanal_']+'.png';
+  }
+  return null;
+}
+
+function buildAdShortcuts(rows){
+  const wrap=document.getElementById('ad-shortcuts-row');
+  if(!wrap)return;
+  wrap.innerHTML='';
+  rows.forEach(r=>{
+    const id=r.dimensionValues[0].value,nome=formatAdId(id),tipo=detectTipo(id),thumb=adThumb(id);
+    const card=document.createElement('div');card.className='ad-shortcut-card';card.title=nome;
+    card.dataset.tab='ad-'+id.replace(/[^a-z0-9]/gi,'_');
+    const pillCls=tipo.cls==='ad-premium'?'ad-premium':tipo.cls==='ad-semanal'?'ad-semanal':'ad-mensal';
+    card.innerHTML=(thumb?`<img class="ad-shortcut-thumb" src="${thumb}" alt="${nome}" onerror="this.style.display='none'">`:'')
+      +`<div class="ad-shortcut-label">${nome}</div>`
+      +`<span class="ad-shortcut-pill ${pillCls}">${tipo.label.split(' ')[0]}</span>`;
+    card.addEventListener('click',()=>{
+      // simula clique na tab do anunciante
+      const btn=document.querySelector('.tab-btn[data-tab="'+card.dataset.tab+'"]');
+      if(btn)btn.click();
+    });
+    wrap.appendChild(card);
+  });
+}
+
 function buildAdTabs(rows){
   const bar=document.getElementById('tabs-bar'),container=document.getElementById('ad-tabs-container');
   bar.querySelectorAll('.tab-btn[data-ad]').forEach(b=>b.remove());
@@ -437,8 +530,10 @@ function buildAdTabs(rows){
     const classMap={'ad-premium':'premium','ad-mensal':'mensal','ad-semanal':'semanal'};
     const emojiMap={'ad-premium':'★','ad-mensal':'◆','ad-semanal':'▲'};
     const hlMap={'ad-premium':'hl-amber','ad-mensal':'hl-green','ad-semanal':'hl-green'};
+    const thumb=adThumb(id);
+    const heroImgHtml=thumb?`<img src="${thumb}" alt="${nome}" style="width:52px;height:52px;border-radius:10px;object-fit:cover;flex-shrink:0;" onerror="this.style.display='none'">`:`<div class="ad-hero-badge ${classMap[tipo.cls]||'mensal'}">${emojiMap[tipo.cls]||'●'}</div>`;
     const div=document.createElement('div');div.className='tab-content';div.id='tab-'+tabId;
-    div.innerHTML=`<div class="ad-hero"><div class="ad-hero-badge ${classMap[tipo.cls]||'mensal'}">${emojiMap[tipo.cls]||'●'}</div><div class="ad-hero-info"><h2>${nome}</h2><p><span class="ad-pill ${tipo.cls}">${tipo.label}</span></p></div></div><div class="metric-grid"><div class="metric-card ${hlMap[tipo.cls]||'hl-green'}"><div class="metric-label">Cliques no período</div><div class="metric-value">${fmt(cliques)}</div><div class="metric-sub">pessoas foram ao seu link</div></div><div class="metric-card"><div class="metric-label">Usuários no app</div><div class="metric-value" id="${tabId}-total-users">—</div><div class="metric-sub">no mesmo período</div></div><div class="metric-card"><div class="metric-label">Taxa de clique</div><div class="metric-value" id="${tabId}-ctr">—</div><div class="metric-sub">dos usuários clicaram</div></div></div><div class="table-card"><div class="table-header"><h3>Cidades de onde vieram os cliques</h3><span id="${tabId}-city-count"></span></div><table><thead><tr><th style="width:36px">#</th><th>Cidade</th><th>Cliques</th><th class="bar-cell"></th></tr></thead><tbody id="${tabId}-city-tbody"><tr><td colspan="4" class="empty-state">Clique na aba para carregar</td></tr></tbody></table></div><div class="insight-box" id="${tabId}-insight" style="display:none"><p id="${tabId}-insight-text"></p></div>`;
+    div.innerHTML=`<div class="ad-hero">${heroImgHtml}<div class="ad-hero-info"><h2>${nome}</h2><p><span class="ad-pill ${tipo.cls}">${tipo.label}</span></p></div></div><div class="metric-grid"><div class="metric-card ${hlMap[tipo.cls]||'hl-green'}"><div class="metric-label">Cliques no período</div><div class="metric-value">${fmt(cliques)}</div><div class="metric-sub">pessoas foram ao seu link</div></div><div class="metric-card"><div class="metric-label">Usuários no app</div><div class="metric-value" id="${tabId}-total-users">—</div><div class="metric-sub">no mesmo período</div></div><div class="metric-card"><div class="metric-label">Taxa de clique</div><div class="metric-value" id="${tabId}-ctr">—</div><div class="metric-sub">dos usuários clicaram</div></div></div><div class="table-card"><div class="table-header"><h3>Cidades de onde vieram os cliques</h3><span id="${tabId}-city-count"></span></div><table><thead><tr><th style="width:36px">#</th><th>Cidade</th><th>Cliques</th><th class="bar-cell"></th></tr></thead><tbody id="${tabId}-city-tbody"><tr><td colspan="4" class="empty-state">Clique na aba para carregar</td></tr></tbody></table></div><div class="insight-box" id="${tabId}-insight" style="display:none"><p id="${tabId}-insight-text"></p></div>`;
     container.appendChild(div);
   });
 }
