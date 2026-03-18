@@ -566,7 +566,7 @@ async function loadAdDetail(anuncianteId){
     const tb=document.getElementById(tabId+'-city-tbody');
     if(tb){
       if(!rows.length)tb.innerHTML='<tr><td colspan="4" class="empty-state">Nenhum clique registrado no período</td></tr>';
-      else tb.innerHTML=rows.slice(0,10).map((r,i)=>{const city=r.dimensionValues[0].value,val=parseInt(r.metricValues[0].value),pct=Math.round((val/max)*100);return '<tr><td class="rank-num">'+(i+1)+'</td><td>'+city+'</td><td style="font-weight:500">'+fmt(val)+'</td><td class="bar-cell"><div class="mini-bar-wrap"><div class="mini-bar" style="width:'+pct+'%"></div></div></td></tr>';}).join('');
+      else tb.innerHTML=rows.slice(0,20).map((r,i)=>{const city=r.dimensionValues[0].value,val=parseInt(r.metricValues[0].value),pct=Math.round((val/max)*100);return '<tr><td class="rank-num">'+(i+1)+'</td><td>'+city+'</td><td style="font-weight:500">'+fmt(val)+'</td><td class="bar-cell"><div class="mini-bar-wrap"><div class="mini-bar" style="width:'+pct+'%"></div></div></td></tr>';}).join('');
     }
     const ibox=document.getElementById(tabId+'-insight'),itxt=document.getElementById(tabId+'-insight-text');
     if(ibox&&itxt){
