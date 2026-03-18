@@ -694,7 +694,7 @@ Resultados podem variar a cada busca com IA
         <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24'%3E%3Crect x='3' y='3' width='7' height='7' fill='%236eb233'/%3E%3Crect x='14' y='3' width='7' height='7' fill='%236eb233'/%3E%3Crect x='3' y='14' width='7' height='7' fill='%236eb233'/%3E%3Crect x='14' y='14' width='3' height='3' fill='%236eb233'/%3E%3Crect x='18' y='14' width='3' height='3' fill='%236eb233'/%3E%3Crect x='14' y='18' width='3' height='3' fill='%236eb233'/%3E%3Crect x='18' y='18' width='3' height='3' fill='%236eb233'/%3E%3C/svg%3E" alt="QR Code" class="icone-qrcode">
     </a>
     
-    <button onclick="document.getElementById('modal-ajuda').style.display='flex';" aria-label="Ajuda — como usar o app" style="background:#6eb233;color:white;border:none;border-radius:50%;width:18px;height:18px;font-size:12px;font-weight:bold;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;">?</button>
+    <button onclick="document.getElementById('modal-ajuda').style.display='flex'; gtag('event','abriu_ajuda');" aria-label="Ajuda — como usar o app" style="background:#6eb233;color:white;border:none;border-radius:50%;width:18px;height:18px;font-size:12px;font-weight:bold;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;">?</button>
     <a href="https://wa.me/5547991581967?text=Ol%C3%A1!%20Como%20fa%C3%A7o%20pra%20anunciar%3F" target="_blank" style="color:#6eb233;text-decoration:none;">Anunciar</a>
 </p>
 
@@ -1020,6 +1020,7 @@ return;
 const cidade = document.getElementById("cidade").value.trim();
 if (!cidade) {
 document.getElementById('modal').style.display = 'flex';
+gtag('event', 'cidade_nao_encontrada');
 return;
 }
 localStorage.setItem('cidade', cidade);
@@ -1164,6 +1165,7 @@ const data = await res.json();
 const cidade = data.address.city || data.address.town || data.address.village || data.address.county;
 if (cidade) {
 document.getElementById('cidade').value = cidade;
+gtag('event', 'uso_gps');
 localStorage.setItem('cidade', cidade);
 carregarClima();
 }
@@ -1190,8 +1192,9 @@ Manda pra galera que sempre pergunta: *vamos onde hoje?*`;
 
 if (navigator.share) {
 navigator.share({ text: texto });
+gtag('event', 'compartilhou');
 } else {
-navigator.clipboard.writeText(texto).then(() => mostrarAviso('Link copiado! 🔗'));
+navigator.clipboard.writeText(texto).then(() => { mostrarAviso('Link copiado! 🔗'); gtag('event', 'compartilhou'); });
 }
 }
 
