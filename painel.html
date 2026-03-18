@@ -215,7 +215,7 @@
       <p class="section-title">Visão geral do app</p>
       <div class="metric-grid">
         <div class="metric-card hl-green">
-          <div class="metric-label">Pessoas que abriram o app</div>
+          <div class="metric-label">Abriram o app</div>
           <div class="metric-value" id="m-users">—</div>
           <div class="metric-sub">usuários únicos</div>
         </div>
@@ -507,9 +507,10 @@ function buildAdShortcuts(rows){
     const card=document.createElement('div');card.className='ad-shortcut-card';card.title=nome;
     card.dataset.tab='ad-'+id.replace(/[^a-z0-9]/gi,'_');
     const pillCls=tipo.cls==='ad-premium'?'ad-premium':tipo.cls==='ad-semanal'?'ad-semanal':'ad-mensal';
+    const pillLabel=tipo.cls==='ad-premium'?'Banner':tipo.cls==='ad-mensal'?'Mês':tipo.cls==='ad-semanal'?'Semana':'Genérico';
     card.innerHTML=(thumb?`<img class="ad-shortcut-thumb" src="${thumb}" alt="${nome}" onerror="this.style.display='none'">`:'')
       +`<div class="ad-shortcut-label">${nome}</div>`
-      +`<span class="ad-shortcut-pill ${pillCls}">${tipo.label.split(' ')[0]}</span>`;
+      +`<span class="ad-shortcut-pill ${pillCls}">${pillLabel}</span>`;
     card.addEventListener('click',()=>{
       // esconde todos os tab-content de anunciante e mostra o selecionado
       document.querySelectorAll('#ad-tabs-container .tab-content').forEach(t=>t.classList.remove('active'));
