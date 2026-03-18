@@ -476,13 +476,13 @@ async function loadPeriodos(){
 
 // Mapa de thumb PNGs por prefixo de anunciante_id
 const AD_THUMBS={
-  'premium_': 'painel/banner_premium_topo',
-  'generico_': 'painel/banner_generico_topo',
-  'mensal_':   'painel/card_principal',
-  'semanal_esq':'painel/semana_esquerda',
-  'semanal_mei':'painel/semana_meio',
-  'semanal_dir':'painel/semana_direita',
-  'semanal_':  'painel/semana_esquerda',
+  'premium_': 'banner_premium_topo',
+  'generico_': 'banner_generico_topo',
+  'mensal_':   'card_principal',
+  'semanal_esq':'semana_esquerda',
+  'semanal_mei':'semana_meio',
+  'semanal_dir':'semana_direita',
+  'semanal_':  'semana_esquerda',
 };
 function adThumb(id){
   if(id.startsWith('premium_'))return AD_THUMBS['premium_']+'.png';
