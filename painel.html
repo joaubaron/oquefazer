@@ -215,7 +215,7 @@
       <p class="section-title">Visão geral do app</p>
       <div class="metric-grid">
         <div class="metric-card hl-green">
-          <div class="metric-label">Abriram o app</div>
+          <div class="metric-label">Pessoas que abriram o app</div>
           <div class="metric-value" id="m-users">—</div>
           <div class="metric-sub">usuários únicos</div>
         </div>
@@ -395,7 +395,9 @@ async function gaReport(dimensions,metrics,dimFilter,limit){
 
 async function loadAllData(){
   showLoading('Buscando dados no Google Analytics...');
-  try{await Promise.all([loadOverview(),loadInstallFunnel(),loadCities(),loadAdClicks(),loadBehavior(),loadPeriodos()]);
+  try{
+    await loadOverview();
+    await Promise.all([loadInstallFunnel(),loadCities(),loadAdClicks(),loadBehavior(),loadPeriodos()]);
   document.getElementById('last-updated').textContent='Última atualização: '+new Date().toLocaleString('pt-BR');}
   catch(e){showError('Erro: '+e.message);}
   hideLoading();
@@ -507,7 +509,7 @@ function buildAdShortcuts(rows){
     const card=document.createElement('div');card.className='ad-shortcut-card';card.title=nome;
     card.dataset.tab='ad-'+id.replace(/[^a-z0-9]/gi,'_');
     const pillCls=tipo.cls==='ad-premium'?'ad-premium':tipo.cls==='ad-semanal'?'ad-semanal':'ad-mensal';
-    const pillLabel=tipo.cls==='ad-premium'?'Premium':tipo.cls==='ad-mensal'?'Mês':tipo.cls==='ad-semanal'?'Semana':'Genérico';
+    const pillLabel=tipo.cls==='ad-premium'?'Banner':tipo.cls==='ad-mensal'?'Mês':tipo.cls==='ad-semanal'?'Semana':'Genérico';
     card.innerHTML=(thumb?`<img class="ad-shortcut-thumb" src="${thumb}" alt="${nome}" onerror="this.style.display='none'">`:'')
       +`<div class="ad-shortcut-label">${nome}</div>`
       +`<span class="ad-shortcut-pill ${pillCls}">${pillLabel}</span>`;
@@ -574,10 +576,10 @@ async function loadAdDetail(anuncianteId){
 }
 
 function detectTipo(id){
-if(id.startsWith('premium_'))return{label:'Premium',cls:'ad-premium'};
-if(id.startsWith('mensal_'))return{label:'Mês',cls:'ad-mensal'};
-if(id.startsWith('semanal_'))return{label:'Semana',cls:'ad-semanal'};
-return{label:'Anúncio',cls:'ad-mensal'};
+  if(id.startsWith('premium_'))return{label:'Banner Premium',cls:'ad-premium'};
+  if(id.startsWith('mensal_'))return{label:'Parceiro do Mês',cls:'ad-mensal'};
+  if(id.startsWith('semanal_'))return{label:'Parceiro da Semana',cls:'ad-semanal'};
+  return{label:'Anúncio',cls:'ad-mensal'};
 }
 
 function formatAdId(id){
