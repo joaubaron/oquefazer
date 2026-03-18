@@ -117,11 +117,10 @@
   .funnel-bar.f3{background:#7ABF8E;}
   .funnel-pct{font-size:14px;font-weight:600;color:var(--ink2);min-width:48px;text-align:right;}
   
+  /* Estilo para exibição de imagens dos anúncios */
   .ad-hero{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:16px;box-shadow:0 2px 8px rgba(0,0,0,0.02);}
-  .ad-hero-badge{font-size:2rem;width:64px;height:64px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:600;}
-  .ad-hero-badge.premium{background:var(--amber-light);color:var(--amber);}
-  .ad-hero-badge.mensal{background:var(--accent-light);color:var(--accent);}
-  .ad-hero-badge.semanal{background:#EEF0FB;color:#4A52B7;}
+  .ad-hero-badge{width:70px;height:70px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;border:2px solid var(--surface2);}
+  .ad-hero-badge img{width:100%;height:100%;object-fit:cover;display:block;}
   .ad-hero-info h2{font-family:'DM Serif Display',serif;font-size:1.6rem;font-weight:400;margin-bottom:6px;}
   .ad-hero-info p{margin-top:4px;}
   
@@ -142,6 +141,7 @@
     .funnel-label{min-width:100px;font-size:13px;}
     .header-right .user-chip span{display:none;}
     .tab-btn{padding:12px 12px;font-size:14px;}
+    .ad-hero-badge{width:60px;height:60px;}
   }
   
   /* Ajustes específicos para Android */
@@ -481,6 +481,40 @@ async function loadPeriodos(){
   tb.innerHTML=rows.map((r,i)=>{const p=r.dimensionValues[0].value,val=parseInt(r.metricValues[0].value),pct=Math.round((val/max)*100),pt=total?Math.round((val/total)*100):0;return '<tr><td class="rank-num">'+(i+1)+'</td><td style="font-weight:500">'+(lbl[p]||p)+'</td><td style="font-weight:500">'+fmt(val)+' <span style="font-size:12px;color:var(--ink3)">('+pt+'%)</span></td><td class="bar-cell"><div class="mini-bar-wrap"><div class="mini-bar" style="width:'+pct+'%"></div></div></td></tr>';}).join('');
 }
 
+function getAdImagePath(tipo, id) {
+  // Extrai nome do anunciante do ID
+  let nome = '';
+  const parts = id.split('_');
+  
+  if (id.startsWith('premium_') && parts.length >= 4) {
+    nome = parts.slice(3).join('_').replace(/-/g, '_');
+  } else if (id.startsWith('mensal_') && parts.length >= 4) {
+    nome = parts.slice(3).join('_').replace(/-/g, '_');
+  } else if (id.startsWith('semanal_') && parts.length >= 6) {
+    nome = parts.slice(5).join('_').replace(/-/g, '_');
+  } else {
+    nome = id.replace(/^premium_|^mensal_|^semanal_/g, '');
+  }
+  
+  // Mapeia para os nomes dos arquivos
+  const nomeLower = nome.toLowerCase().replace(/\s+/g, '_');
+  
+  // Verifica se é um anúncio semanal (que tem direção)
+  if (tipo.cls === 'ad-semanal') {
+    // Tenta encontrar imagens específicas para direção (esq, meio, dir)
+    return `painel/semanal_${nomeLower}.png`; // Fallback para imagem padrão
+  }
+  
+  // Para premium e mensal
+  if (tipo.cls === 'ad-premium') {
+    return `painel/premium.png`;
+  } else if (tipo.cls === 'ad-mensal') {
+    return `painel/mensal.png`;
+  }
+  
+  return ''; // Sem imagem
+}
+
 function buildAdTabs(rows){
   const bar=document.getElementById('tabs-bar'),container=document.getElementById('ad-tabs-container');
   bar.querySelectorAll('.tab-btn[data-ad]').forEach(b=>b.remove());
@@ -489,10 +523,22 @@ function buildAdTabs(rows){
     const id=r.dimensionValues[0].value,nome=formatAdId(id),tipo=detectTipo(id),tabId='ad-'+id.replace(/[^a-z0-9]/gi,'_'),cliques=parseInt(r.metricValues[0].value);
     const btn=document.createElement('button');btn.className='tab-btn tab-ad';btn.dataset.tab=tabId;btn.dataset.ad=id;btn.textContent=(tipo.cls==='ad-premium'?'🎪 ':tipo.cls==='ad-mensal'?'⭐ ':'📅 ')+nome;bar.appendChild(btn);
     const classMap={'ad-premium':'premium','ad-mensal':'mensal','ad-semanal':'semanal'};
-    const emojiMap={'ad-premium':'★','ad-mensal':'◆','ad-semanal':'▲'};
     const hlMap={'ad-premium':'hl-amber','ad-mensal':'hl-green','ad-semanal':'hl-green'};
+    
+    // Caminho da imagem
+    const imgPath = getAdImagePath(tipo, id);
+    
     const div=document.createElement('div');div.className='tab-content';div.id='tab-'+tabId;
-    div.innerHTML=`<div class="ad-hero"><div class="ad-hero-badge ${classMap[tipo.cls]||'mensal'}">${emojiMap[tipo.cls]||'●'}</div><div class="ad-hero-info"><h2>${nome}</h2><p><span class="ad-pill ${tipo.cls}">${tipo.label}</span></p></div></div><div class="metric-grid"><div class="metric-card ${hlMap[tipo.cls]||'hl-green'}"><div class="metric-label">Cliques no período</div><div class="metric-value">${fmt(cliques)}</div><div class="metric-sub">pessoas foram ao seu link</div></div><div class="metric-card"><div class="metric-label">Usuários no app</div><div class="metric-value" id="${tabId}-total-users">—</div><div class="metric-sub">no mesmo período</div></div><div class="metric-card"><div class="metric-label">Taxa de clique</div><div class="metric-value" id="${tabId}-ctr">—</div><div class="metric-sub">dos usuários clicaram</div></div></div><div class="table-card"><div class="table-header"><h3>Cidades de onde vieram os cliques</h3><span id="${tabId}-city-count"></span></div><table><thead><tr><th style="width:36px">#</th><th>Cidade</th><th>Cliques</th><th class="bar-cell"></th></tr></thead><tbody id="${tabId}-city-tbody"><tr><td colspan="4" class="empty-state">Clique na aba para carregar</td></tr></tbody></table></div><div class="insight-box" id="${tabId}-insight" style="display:none"><p id="${tabId}-insight-text"></p></div>`;
+    
+    // Conteúdo com imagem
+    let imgHtml = '';
+    if (imgPath) {
+      imgHtml = `<img src="${imgPath}" alt="${nome}" onerror="this.style.display='none';this.parentNode.innerHTML='${tipo.cls === 'ad-premium' ? '🎪' : tipo.cls === 'ad-mensal' ? '⭐' : '📅'}'">`;
+    } else {
+      imgHtml = tipo.cls === 'ad-premium' ? '🎪' : tipo.cls === 'ad-mensal' ? '⭐' : '📅';
+    }
+    
+    div.innerHTML=`<div class="ad-hero"><div class="ad-hero-badge ${classMap[tipo.cls]||'mensal'}">${imgHtml}</div><div class="ad-hero-info"><h2>${nome}</h2><p><span class="ad-pill ${tipo.cls}">${tipo.label}</span></p></div></div><div class="metric-grid"><div class="metric-card ${hlMap[tipo.cls]||'hl-green'}"><div class="metric-label">Cliques no período</div><div class="metric-value">${fmt(cliques)}</div><div class="metric-sub">pessoas foram ao seu link</div></div><div class="metric-card"><div class="metric-label">Usuários no app</div><div class="metric-value" id="${tabId}-total-users">—</div><div class="metric-sub">no mesmo período</div></div><div class="metric-card"><div class="metric-label">Taxa de clique</div><div class="metric-value" id="${tabId}-ctr">—</div><div class="metric-sub">dos usuários clicaram</div></div></div><div class="table-card"><div class="table-header"><h3>Cidades de onde vieram os cliques</h3><span id="${tabId}-city-count"></span></div><table><thead><tr><th style="width:36px">#</th><th>Cidade</th><th>Cliques</th><th class="bar-cell"></th></tr></thead><tbody id="${tabId}-city-tbody"><tr><td colspan="4" class="empty-state">Clique na aba para carregar</td></tr></tbody></table></div><div class="insight-box" id="${tabId}-insight" style="display:none"><p id="${tabId}-insight-text"></p></div>`;
     container.appendChild(div);
   });
 }
