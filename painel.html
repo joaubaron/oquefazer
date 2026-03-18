@@ -512,21 +512,24 @@ function buildAdShortcuts(rows){
       +`<div class="ad-shortcut-label">${nome}</div>`
       +`<span class="ad-shortcut-pill ${pillCls}">${tipo.label.split(' ')[0]}</span>`;
     card.addEventListener('click',()=>{
-      // simula clique na tab do anunciante
-      const btn=document.querySelector('.tab-btn[data-tab="'+card.dataset.tab+'"]');
-      if(btn)btn.click();
+      // esconde todos os tab-content de anunciante e mostra o selecionado
+      document.querySelectorAll('#ad-tabs-container .tab-content').forEach(t=>t.classList.remove('active'));
+      const target=document.getElementById('tab-'+card.dataset.tab);
+      if(target){
+        target.classList.add('active');
+        if(!card.dataset.loaded){card.dataset.loaded='1';loadAdDetail(id);}
+        target.scrollIntoView({behavior:'smooth',block:'start'});
+      }
     });
     wrap.appendChild(card);
   });
 }
 
 function buildAdTabs(rows){
-  const bar=document.getElementById('tabs-bar'),container=document.getElementById('ad-tabs-container');
-  bar.querySelectorAll('.tab-btn[data-ad]').forEach(b=>b.remove());
+  const container=document.getElementById('ad-tabs-container');
   container.innerHTML='';
   rows.forEach(r=>{
     const id=r.dimensionValues[0].value,nome=formatAdId(id),tipo=detectTipo(id),tabId='ad-'+id.replace(/[^a-z0-9]/gi,'_'),cliques=parseInt(r.metricValues[0].value);
-    const btn=document.createElement('button');btn.className='tab-btn tab-ad';btn.dataset.tab=tabId;btn.dataset.ad=id;btn.textContent=(tipo.cls==='ad-premium'?'🎪 ':tipo.cls==='ad-mensal'?'⭐ ':'📅 ')+nome;bar.appendChild(btn);
     const classMap={'ad-premium':'premium','ad-mensal':'mensal','ad-semanal':'semanal'};
     const emojiMap={'ad-premium':'★','ad-mensal':'◆','ad-semanal':'▲'};
     const hlMap={'ad-premium':'hl-amber','ad-mensal':'hl-green','ad-semanal':'hl-green'};
@@ -590,16 +593,15 @@ document.querySelectorAll('.period-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     document.querySelectorAll('.period-btn').forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');currentDays=parseInt(btn.dataset.days);
-    document.querySelectorAll('.tab-btn[data-ad]').forEach(b=>delete b.dataset.loaded);
     loadAllData();
   });
 });
-document.getElementById('btn-refresh').addEventListener('click',()=>{document.querySelectorAll('.tab-btn[data-ad]').forEach(b=>delete b.dataset.loaded);loadAllData();});
+document.getElementById('btn-refresh').addEventListener('click',()=>{loadAllData();});
 document.getElementById('btn-logout').addEventListener('click',()=>{
   accessToken=null;propertyId=null;
   document.getElementById('dashboard').style.display='none';document.getElementById('login-screen').style.display='flex';
   document.getElementById('property-step').style.display='none';document.getElementById('property-input').value='';
-  document.querySelectorAll('.tab-btn[data-ad]').forEach(b=>b.remove());document.getElementById('ad-tabs-container').innerHTML='';
+  document.getElementById('ad-tabs-container').innerHTML='';
 });
 window.addEventListener('load',initGoogleAuth);
 </script>
