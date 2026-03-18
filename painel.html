@@ -47,9 +47,137 @@
   .period-btn.active{background:var(--ink);color:#fff;border-color:var(--ink);}
   .period-btn:hover:not(.active){background:var(--surface);}
 
-  .tab-btn{padding:9px 16px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink2);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;position:relative;bottom:-1px;transition:all .15s;border-radius:6px 6px 0 0;}
-  .tab-btn:hover{color:var(--ink);background:var(--surface2);}
-  .tab-btn.active{color:var(--accent);font-weight:500;border-bottom-color:var(--accent);background:transparent;}
+  /* --- MELHORIAS VISUAIS PARA ANDROID --- */
+  /* Tabs principais em linha */
+  .tabs-bar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 20px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .tabs-bar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .tab-btn {
+    padding: 10px 14px;
+    border: none;
+    background: var(--surface);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink2);
+    cursor: pointer;
+    white-space: nowrap;
+    border-radius: 40px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    flex: 0 0 auto;
+    border: 1px solid var(--border);
+  }
+  .tab-btn:hover {
+    background: var(--surface2);
+    color: var(--ink);
+  }
+  .tab-btn.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+  .tab-btn.tab-ad {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: white;
+    border-left: 3px solid transparent;
+  }
+  .tab-btn.tab-ad.active {
+    background: var(--accent-light);
+    color: var(--accent);
+    border-left-color: var(--accent);
+  }
+  
+  /* Container dos cards de anunciantes */
+  .ad-cards-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 20px 0 25px 0;
+    justify-content: flex-start;
+  }
+  
+  .ad-mini-card {
+    flex: 1 1 calc(33.333% - 8px);
+    min-width: 100px;
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    padding: 12px 8px;
+    text-align: center;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+  }
+  .ad-mini-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+    border-color: var(--accent);
+  }
+  .ad-mini-card.active {
+    border-color: var(--accent);
+    background: var(--accent-light);
+  }
+  
+  .ad-mini-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 8px auto;
+    border-radius: 12px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 2px solid white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  }
+  /* Ícones específicos para cada tipo de anúncio */
+  .icon-premium { background-image: url('painel/banner_premium_topo.png'); }
+  .icon-generico { background-image: url('painel/banner_generico_topo.png'); }
+  .icon-principal { background-image: url('painel/card_principal.png'); }
+  .icon-esquerda { background-image: url('painel/semana_esquerda.png'); }
+  .icon-meio { background-image: url('painel/semana_meio.png'); }
+  .icon-direita { background-image: url('painel/semana_direita.png'); }
+  
+  .ad-mini-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ink2);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 2px;
+  }
+  .ad-mini-nome {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.3;
+    word-break: break-word;
+  }
+  .ad-mini-cliques {
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+    background: var(--accent-light);
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 30px;
+  }
+  
   .tab-content{display:none;}
   .tab-content.active{display:block;}
   .section-title{font-family:'DM Serif Display',serif;font-size:1.15rem;font-weight:400;margin-bottom:1rem;}
@@ -107,12 +235,22 @@
   .error-banner{display:none;background:var(--accent2-light);border:1px solid #F0C0B0;border-radius:var(--radius-sm);padding:12px 16px;font-size:13px;color:var(--accent2);margin-bottom:1.5rem;}
   .empty-state{padding:2rem;text-align:center;color:var(--ink3);font-size:13px;}
   .footer-note{font-size:12px;color:var(--ink3);text-align:center;margin-top:2rem;line-height:1.6;}
+  
+  /* Ajustes para mobile */
   @media(max-width:600px){
-    header{padding:0 1rem;}main{padding:1.25rem 1rem 3rem;}
+    header{padding:0 1rem;}
+    main{padding:1.25rem 1rem 3rem;}
     .metric-grid{grid-template-columns:repeat(2,1fr);}
-    .bar-cell{display:none;}.funnel-label{min-width:120px;font-size:12px;}
+    .bar-cell{display:none;}
+    .funnel-label{min-width:120px;font-size:12px;}
     .ad-hero{flex-direction:column;align-items:flex-start;}
     .header-right .user-chip span{display:none;}
+    .ad-mini-card { flex: 1 1 calc(50% - 6px); }
+    .tabs-bar { gap: 2px; }
+    .tab-btn { padding: 8px 10px; font-size: 12px; }
+  }
+  @media(max-width:380px){
+    .ad-mini-card { flex: 1 1 100%; }
   }
 </style>
 </head>
@@ -163,14 +301,17 @@
       <button class="period-btn" data-days="28">28 dias</button>
       <button class="period-btn" data-days="90">90 dias</button>
     </div>
-    <div class="tabs-bar-wrap">
-      <div class="tabs-bar" id="tabs-bar">
-        <button class="tab-btn active" data-tab="geral">📊 Visão geral</button>
-        <button class="tab-btn" data-tab="instalacao">📲 Instalação</button>
-        <button class="tab-btn" data-tab="comportamento">🧭 Comportamento</button>
-        <button class="tab-btn tab-ad" data-tab="anunciantes">🏪 Todos os anunciantes</button>
-      </div>
+    
+    <!-- TABS PRINCIPAIS EM LINHA -->
+    <div class="tabs-bar" id="tabs-bar">
+      <button class="tab-btn active" data-tab="geral">📊 Visão geral</button>
+      <button class="tab-btn" data-tab="instalacao">📲 Instalação</button>
+      <button class="tab-btn" data-tab="comportamento">🧭 Comportamento</button>
+      <button class="tab-btn tab-ad" data-tab="anunciantes">🏪 Todos os anunciantes</button>
     </div>
+
+    <!-- CARDS DOS ANUNCIANTES (serão populados via JS) -->
+    <div id="ad-cards-container" class="ad-cards-grid" style="display: none;"></div>
 
     <!-- VISÃO GERAL -->
     <div class="tab-content active" id="tab-geral">
@@ -300,6 +441,15 @@ document.getElementById('tabs-bar').addEventListener('click',e=>{
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
   const el=document.getElementById('tab-'+btn.dataset.tab);if(el)el.classList.add('active');
+  
+  // Mostra/esconde cards de anunciantes
+  const adCards = document.getElementById('ad-cards-container');
+  if (btn.dataset.tab === 'anunciantes') {
+    adCards.style.display = 'flex';
+  } else {
+    adCards.style.display = 'none';
+  }
+  
   if(btn.dataset.ad&&!btn.dataset.loaded){btn.dataset.loaded='1';loadAdDetail(btn.dataset.ad);}
 });
 
@@ -405,7 +555,113 @@ async function loadAdClicks(){
   if(!rows.length){tb.innerHTML='<tr><td colspan="4" class="empty-state">Nenhum clique registrado</td></tr>';}
   else tb.innerHTML=rows.map((r,i)=>{const id=r.dimensionValues[0].value,val=parseInt(r.metricValues[0].value),tipo=detectTipo(id);return '<tr><td class="rank-num">'+(i+1)+'</td><td style="font-weight:500">'+formatAdId(id)+'</td><td><span class="ad-pill '+tipo.cls+'">'+tipo.label+'</span></td><td style="font-weight:500">'+fmt(val)+'</td></tr>';}).join('');
   buildAdTabs(rows);
+  buildAdCards(rows); // NOVO: construir cards visuais
 }
+
+// NOVA FUNÇÃO: criar cards dos anunciantes com PNGs
+function buildAdCards(rows) {
+  const container = document.getElementById('ad-cards-container');
+  if (!container) return;
+  
+  if (!rows.length) {
+    container.innerHTML = '<div class="empty-state" style="width:100%;">Nenhum anunciante com cliques</div>';
+    container.style.display = 'flex';
+    return;
+  }
+  
+  // Mapeamento de IDs para ícones específicos
+  const iconMap = [
+    { id: 'premium_', icon: 'icon-premium', nome: 'Banner Premium' },
+    { id: 'generico_', icon: 'icon-generico', nome: 'Banner Genérico' },
+    { id: 'mensal_', icon: 'icon-principal', nome: 'Parceiro do Mês' },
+    { id: 'semanal_s1_esq', icon: 'icon-esquerda', nome: 'Semana (esquerda)' },
+    { id: 'semanal_s1_meio', icon: 'icon-meio', nome: 'Semana (meio)' },
+    { id: 'semanal_s1_dir', icon: 'icon-direita', nome: 'Semana (direita)' }
+  ];
+  
+  container.innerHTML = rows.map(r => {
+    const id = r.dimensionValues[0].value;
+    const val = parseInt(r.metricValues[0].value);
+    const nome = formatAdId(id);
+    const tipo = detectTipo(id);
+    
+    // Determina qual ícone usar
+    let iconClass = '';
+    for (let map of iconMap) {
+      if (id.includes(map.id)) {
+        iconClass = map.icon;
+        break;
+      }
+    }
+    if (!iconClass) iconClass = tipo.cls === 'ad-premium' ? 'icon-premium' : 'icon-principal';
+    
+    return `
+      <div class="ad-mini-card" data-ad-id="${id}" onclick="ativarCardAnunciante('${id}')">
+        <div class="ad-mini-icon ${iconClass}"></div>
+        <div class="ad-mini-label">${tipo.label}</div>
+        <div class="ad-mini-nome">${nome}</div>
+        <div class="ad-mini-cliques">${fmt(val)} cliques</div>
+      </div>
+    `;
+  }).join('');
+  
+  // Adiciona evento de clique nos cards
+  document.querySelectorAll('.ad-mini-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.ad-mini-card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      const adId = card.dataset.adId;
+      
+      // Ativa a aba correspondente se existir
+      const tabBtn = Array.from(document.querySelectorAll('.tab-btn[data-ad]')).find(btn => btn.dataset.ad === adId);
+      if (tabBtn) {
+        tabBtn.click();
+      } else {
+        // Cria uma nova aba para este anunciante se não existir
+        const bar = document.getElementById('tabs-bar');
+        const tabId = 'ad-' + adId.replace(/[^a-z0-9]/gi, '_');
+        const btn = document.createElement('button');
+        btn.className = 'tab-btn tab-ad';
+        btn.dataset.tab = tabId;
+        btn.dataset.ad = adId;
+        btn.dataset.loaded = '1';
+        btn.textContent = nome;
+        bar.appendChild(btn);
+        
+        // Cria o conteúdo da tab
+        const tipo = detectTipo(adId);
+        const classMap = {'ad-premium':'premium','ad-mensal':'mensal','ad-semanal':'semanal'};
+        const emojiMap = {'ad-premium':'★','ad-mensal':'◆','ad-semanal':'▲'};
+        const hlMap = {'ad-premium':'hl-amber','ad-mensal':'hl-green','ad-semanal':'hl-green'};
+        
+        const container = document.getElementById('ad-tabs-container');
+        const div = document.createElement('div');
+        div.className = 'tab-content';
+        div.id = 'tab-' + tabId;
+        div.innerHTML = `<div class="ad-hero"><div class="ad-hero-badge ${classMap[tipo.cls]||'mensal'}">${emojiMap[tipo.cls]||'●'}</div><div class="ad-hero-info"><h2>${nome}</h2><p><span class="ad-pill ${tipo.cls}">${tipo.label}</span></p></div></div><div class="metric-grid"><div class="metric-card ${hlMap[tipo.cls]||'hl-green'}"><div class="metric-label">Cliques no período</div><div class="metric-value">${fmt(val)}</div><div class="metric-sub">pessoas foram ao seu link</div></div><div class="metric-card"><div class="metric-label">Usuários no app</div><div class="metric-value" id="${tabId}-total-users">—</div><div class="metric-sub">no mesmo período</div></div><div class="metric-card"><div class="metric-label">Taxa de clique</div><div class="metric-value" id="${tabId}-ctr">—</div><div class="metric-sub">dos usuários clicaram</div></div></div><div class="table-card"><div class="table-header"><h3>Cidades de onde vieram os cliques</h3><span id="${tabId}-city-count"></span></div><table><thead><tr><th style="width:36px">#</th><th>Cidade</th><th>Cliques</th><th class="bar-cell"></th></tr></thead><tbody id="${tabId}-city-tbody"><tr><td colspan="4" class="empty-state">Carregando...</td></tr></tbody></table></div><div class="insight-box" id="${tabId}-insight" style="display:none"><p id="${tabId}-insight-text"></p></div>`;
+        container.appendChild(div);
+        
+        // Carrega os dados
+        loadAdDetail(adId);
+        
+        // Muda para a nova tab
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
+        div.classList.add('active');
+      }
+    });
+  });
+}
+
+// Função auxiliar para ativar card via clique
+window.ativarCardAnunciante = function(adId) {
+  // Encontra o card e simula clique
+  const card = document.querySelector(`.ad-mini-card[data-ad-id="${adId}"]`);
+  if (card) {
+    card.click();
+  }
+};
 
 async function loadBehavior(){
   const d=await gaReport(['eventName'],['eventCount'],{filter:{fieldName:'eventName',inListFilter:{values:['uso_gps','compartilhou','abriu_ajuda','cidade_nao_encontrada']}}});
