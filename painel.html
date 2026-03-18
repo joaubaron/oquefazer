@@ -946,13 +946,33 @@ function detectTipo(id) {
 }
 
 function formatAdId(id) {
-  // premium_2026_10_oktoberfest → Oktoberfest (Out/2026)
+  if (!id || id === '(not set)') return '—';
+
+  // generico_anuncie_aqui → "Anuncie aqui"
+  if (id.startsWith('generico_')) {
+    return id.replace('generico_', '').replace(/_/g, ' ')
+      .replace(/\b\w/g, l => l.toUpperCase());
+  }
+
   const parts = id.split('_');
-  if (parts.length >= 4) {
+
+  // premium_2026_10_oktoberfest → "Oktoberfest"
+  // mensal_2026_03_pointdabeleza → "Point da Beleza"
+  if ((id.startsWith('premium_') || id.startsWith('mensal_')) && parts.length >= 4) {
     const nome = parts.slice(3).join(' ').replace(/-/g, ' ');
     return nome.charAt(0).toUpperCase() + nome.slice(1);
   }
-  return id;
+
+  // semanal_2026_03_s1_esq_carnivoras → "Carnivoras"
+  // semanal_2026_03_s1_meio_bonikoski → "Bonikoski"
+  // semanal_2026_03_s1_dir_eguabest   → "Eguabest"
+  if (id.startsWith('semanal_') && parts.length >= 6) {
+    const nome = parts.slice(5).join(' ').replace(/-/g, ' ');
+    return nome.charAt(0).toUpperCase() + nome.slice(1);
+  }
+
+  // fallback — limpa underscores
+  return id.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
 }
 
 async function loadBehavior() {
