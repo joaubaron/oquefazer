@@ -453,13 +453,13 @@ async function loadAdClicks(){
 }
 
 async function loadBehavior(){
-  const d=await gaReport(['eventName'],['eventCount'],{filter:{fieldName:'eventName',inListFilter:{values:['uso_gps','compartilhou','abriu_ajuda','cidade_nao_encontrada','clique_qrcode']}}});
+  const d=await gaReport(['eventName'],['eventCount'],{filter:{fieldName:'eventName',inListFilter:{values:['uso_gps','compartilhou','abriu_ajuda','cidade_nao_encontrada','leitura_qrcode','qr_scan','qrcode_lido']}}});
   const map={};(d.rows||[]).forEach(r=>{map[r.dimensionValues[0].value]=parseInt(r.metricValues[0].value);});
   document.getElementById('m-gps').textContent=fmt(map['uso_gps']||0);
   document.getElementById('m-share').textContent=fmt(map['compartilhou']||0);
   document.getElementById('m-help').textContent=fmt(map['abriu_ajuda']||0);
   document.getElementById('m-nocity').textContent=fmt(map['cidade_nao_encontrada']||0);
-  const qr=map['clique_qrcode']||0;
+  const qr=(map['leitura_qrcode']||0)+(map['qr_scan']||0)+(map['qrcode_lido']||0);
   document.getElementById('m-qrcode').textContent=fmt(qr);
 }
 
@@ -489,11 +489,9 @@ function adThumb(id){
   if(id.startsWith('generico_'))return AD_THUMBS['generico_']+'.png';
   if(id.startsWith('mensal_'))return AD_THUMBS['mensal_']+'.png';
   if(id.startsWith('semanal_')){
-    const parts=id.split('_');
-    const pos=parts[1]||'';
-    if(pos==='esquerda'||pos==='esq')return AD_THUMBS['semanal_esq']+'.png';
-    if(pos==='meio'||pos==='mid'||pos==='center')return AD_THUMBS['semanal_mei']+'.png';
-    if(pos==='direita'||pos==='dir')return AD_THUMBS['semanal_dir']+'.png';
+    if(id.includes('_esq'))return AD_THUMBS['semanal_esq']+'.png';
+    if(id.includes('_meio'))return AD_THUMBS['semanal_mei']+'.png';
+    if(id.includes('_dir'))return AD_THUMBS['semanal_dir']+'.png';
     return AD_THUMBS['semanal_']+'.png';
   }
   return null;
