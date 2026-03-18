@@ -95,10 +95,11 @@
   .funnel-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
   .funnel-label{font-size:13px;color:var(--ink2);min-width:180px;}
   .funnel-bar-wrap{flex:1;height:32px;background:var(--surface2);border-radius:var(--radius-sm);overflow:hidden;}
-  .funnel-bar{height:100%;border-radius:var(--radius-sm);display:flex;align-items:center;padding-left:12px;font-size:13px;font-weight:500;color:#fff;transition:width .6s ease;}
+  .funnel-bar{height:100%;border-radius:var(--radius-sm);display:flex;align-items:center;transition:width .6s ease;}
   .funnel-bar.f1{background:var(--accent);}
   .funnel-bar.f2{background:#4A8C60;}
   .funnel-bar.f3{background:#7ABF8E;}
+  .funnel-val{font-size:13px;font-weight:600;color:var(--ink);min-width:32px;text-align:left;}
   .funnel-pct{font-size:13px;color:var(--ink2);min-width:44px;text-align:right;}
   .ad-hero{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:2rem;display:flex;align-items:center;gap:16px;}
   .ad-hero-badge{font-size:1.6rem;width:52px;height:52px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
@@ -251,17 +252,20 @@
       <div class="funnel-card">
         <div class="funnel-row">
           <div class="funnel-label">Abriram o app</div>
-          <div class="funnel-bar-wrap"><div class="funnel-bar f1" id="f-bar1" style="width:100%"><span id="f-val1">—</span></div></div>
+          <div class="funnel-bar-wrap"><div class="funnel-bar f1" id="f-bar1" style="width:100%"></div></div>
+          <div class="funnel-val" id="f-val1">—</div>
           <div class="funnel-pct">100%</div>
         </div>
         <div class="funnel-row">
           <div class="funnel-label">Viram opção de instalar</div>
-          <div class="funnel-bar-wrap"><div class="funnel-bar f2" id="f-bar2" style="width:0%"><span id="f-val2">—</span></div></div>
+          <div class="funnel-bar-wrap"><div class="funnel-bar f2" id="f-bar2" style="width:0%"></div></div>
+          <div class="funnel-val" id="f-val2">—</div>
           <div class="funnel-pct" id="f-pct2">—</div>
         </div>
         <div class="funnel-row" style="margin-bottom:0">
           <div class="funnel-label">Instalaram de fato</div>
-          <div class="funnel-bar-wrap"><div class="funnel-bar f3" id="f-bar3" style="width:0%"><span id="f-val3">—</span></div></div>
+          <div class="funnel-bar-wrap"><div class="funnel-bar f3" id="f-bar3" style="width:0%"></div></div>
+          <div class="funnel-val" id="f-val3">—</div>
           <div class="funnel-pct" id="f-pct3">—</div>
         </div>
       </div>
