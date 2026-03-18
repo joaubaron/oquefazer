@@ -606,6 +606,52 @@
       </table>
     </div>
 
+    <!-- COMPORTAMENTO DO USUÁRIO -->
+    <p class="section-title">Como as pessoas usam o app</p>
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="metric-label">Usaram GPS</div>
+        <div class="metric-value" id="m-gps">—</div>
+        <div class="metric-sub">vs digitar cidade</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Compartilharam</div>
+        <div class="metric-value" id="m-share">—</div>
+        <div class="metric-sub">indicações do app</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Pediram ajuda</div>
+        <div class="metric-value" id="m-help">—</div>
+        <div class="metric-sub">acessaram o tutorial</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Buscas sem cidade</div>
+        <div class="metric-value" id="m-nocity">—</div>
+        <div class="metric-sub">tentativas sem preencher</div>
+      </div>
+    </div>
+
+    <!-- PERÍODOS MAIS BUSCADOS -->
+    <div class="table-card" style="margin-bottom:2rem;">
+      <div class="table-header">
+        <h3>Períodos mais buscados</h3>
+        <span id="periodo-total"></span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:36px">#</th>
+            <th>Período</th>
+            <th>Buscas</th>
+            <th class="bar-cell"></th>
+          </tr>
+        </thead>
+        <tbody id="periodo-tbody">
+          <tr><td colspan="4" style="padding:2rem; text-align:center; color:var(--ink3); font-size:13px;">Carregando...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
     <div class="footer-note">
       Dados do Google Analytics 4 · atualizado agora<br>
       <span id="last-updated"></span>
@@ -747,7 +793,9 @@ async function loadAllData() {
       loadOverview(),
       loadInstallFunnel(),
       loadCities(),
-      loadAdClicks()
+      loadAdClicks(),
+      loadBehavior(),
+      loadPeriodos()
     ]);
     document.getElementById('last-updated').textContent =
       'Última atualização: ' + new Date().toLocaleString('pt-BR');
@@ -905,6 +953,66 @@ function formatAdId(id) {
     return nome.charAt(0).toUpperCase() + nome.slice(1);
   }
   return id;
+}
+
+async function loadBehavior() {
+  const data = await gaReport(
+    ['eventName'],
+    ['eventCount'],
+    {
+      filter: {
+        fieldName: 'eventName',
+        inListFilter: { values: ['uso_gps', 'compartilhou', 'abriu_ajuda', 'cidade_nao_encontrada'] }
+      }
+    }
+  );
+  const map = {};
+  (data.rows || []).forEach(r => {
+    map[r.dimensionValues[0].value] = parseInt(r.metricValues[0].value);
+  });
+  document.getElementById('m-gps').textContent = fmt(map['uso_gps'] || 0);
+  document.getElementById('m-share').textContent = fmt(map['compartilhou'] || 0);
+  document.getElementById('m-help').textContent = fmt(map['abriu_ajuda'] || 0);
+  document.getElementById('m-nocity').textContent = fmt(map['cidade_nao_encontrada'] || 0);
+}
+
+async function loadPeriodos() {
+  const data = await gaReport(
+    ['customEvent:periodo'],
+    ['eventCount'],
+    {
+      filter: {
+        fieldName: 'eventName',
+        stringFilter: { matchType: 'EXACT', value: 'periodo_selecionado' }
+      }
+    }
+  );
+  const rows = (data.rows || []).sort((a,b) => parseInt(b.metricValues[0].value) - parseInt(a.metricValues[0].value));
+  const total = rows.reduce((acc, r) => acc + parseInt(r.metricValues[0].value), 0);
+  const max = rows.length > 0 ? parseInt(rows[0].metricValues[0].value) : 1;
+
+  document.getElementById('periodo-total').textContent = fmt(total) + ' buscas';
+
+  const labelMap = { 'hoje': 'Hoje', 'fimdesemana': 'Fim de semana', '7dias': '7 dias' };
+  const tbody = document.getElementById('periodo-tbody');
+
+  if (rows.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="4" style="padding:2rem; text-align:center; color:var(--ink3); font-size:13px;">Nenhuma busca registrada no período</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map((r, i) => {
+    const periodo = r.dimensionValues[0].value || '—';
+    const label = labelMap[periodo] || periodo;
+    const val = parseInt(r.metricValues[0].value);
+    const pct = Math.round((val / max) * 100);
+    const pctTotal = total > 0 ? Math.round((val / total) * 100) : 0;
+    return `<tr>
+      <td class="rank-num">${i+1}</td>
+      <td style="font-weight:500">${label}</td>
+      <td style="font-weight:500">${fmt(val)} <span style="font-size:12px;color:var(--ink3)">(${pctTotal}%)</span></td>
+      <td class="bar-cell"><div class="mini-bar-wrap"><div class="mini-bar" style="width:${pct}%"></div></div></td>
+    </tr>`;
+  }).join('');
 }
 
 function fmt(n) {
