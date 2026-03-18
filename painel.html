@@ -574,10 +574,10 @@ async function loadAdDetail(anuncianteId){
 }
 
 function detectTipo(id){
-  if(id.startsWith('premium_'))return{label:'Banner Premium',cls:'ad-premium'};
-  if(id.startsWith('mensal_'))return{label:'Parceiro do Mês',cls:'ad-mensal'};
-  if(id.startsWith('semanal_'))return{label:'Parceiro da Semana',cls:'ad-semanal'};
-  return{label:'Anúncio',cls:'ad-mensal'};
+if(id.startsWith('premium_'))return{label:'Premium',cls:'ad-premium'};
+if(id.startsWith('mensal_'))return{label:'Mês',cls:'ad-mensal'};
+if(id.startsWith('semanal_'))return{label:'Semana',cls:'ad-semanal'};
+return{label:'Anúncio',cls:'ad-mensal'};
 }
 
 function formatAdId(id){
