@@ -1223,7 +1223,7 @@ async function carregarClima() {
     }
 
     widget.textContent = '⏳';
-    widget.style.opacity = '0.5';
+    widget.style.opacity = '1';
 
     const fetchComTimeout = (url, ms, opts = {}) => Promise.race([
         fetch(url, opts),
