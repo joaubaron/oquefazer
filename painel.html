@@ -46,7 +46,7 @@
   .period-btn{padding:5px 14px;border-radius:100px;border:1px solid var(--border);background:transparent;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink2);cursor:pointer;transition:all .15s;}
   .period-btn.active{background:var(--ink);color:#fff;border-color:var(--ink);}
   .period-btn:hover:not(.active){background:var(--surface);}
-  .tabs-bar{display:flex;gap:2px;overflow-x:auto;border-bottom:1px solid var(--border);margin-bottom:2rem;}
+
   .tab-btn{padding:9px 16px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink2);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;position:relative;bottom:-1px;transition:all .15s;border-radius:6px 6px 0 0;}
   .tab-btn:hover{color:var(--ink);background:var(--surface2);}
   .tab-btn.active{color:var(--accent);font-weight:500;border-bottom-color:var(--accent);background:transparent;}
@@ -163,11 +163,13 @@
       <button class="period-btn" data-days="28">28 dias</button>
       <button class="period-btn" data-days="90">90 dias</button>
     </div>
-    <div class="tabs-bar" id="tabs-bar">
-      <button class="tab-btn active" data-tab="geral">Visão geral</button>
-      <button class="tab-btn" data-tab="instalacao">Instalação</button>
-      <button class="tab-btn" data-tab="comportamento">Comportamento</button>
-      <button class="tab-btn" data-tab="anunciantes">Todos os anunciantes</button>
+    <div class="tabs-bar-wrap">
+      <div class="tabs-bar" id="tabs-bar">
+        <button class="tab-btn active" data-tab="geral">📊 Visão geral</button>
+        <button class="tab-btn" data-tab="instalacao">📲 Instalação</button>
+        <button class="tab-btn" data-tab="comportamento">🧭 Comportamento</button>
+        <button class="tab-btn tab-ad" data-tab="anunciantes">🏪 Todos os anunciantes</button>
+      </div>
     </div>
 
     <!-- VISÃO GERAL -->
@@ -431,7 +433,7 @@ function buildAdTabs(rows){
   container.innerHTML='';
   rows.forEach(r=>{
     const id=r.dimensionValues[0].value,nome=formatAdId(id),tipo=detectTipo(id),tabId='ad-'+id.replace(/[^a-z0-9]/gi,'_'),cliques=parseInt(r.metricValues[0].value);
-    const btn=document.createElement('button');btn.className='tab-btn';btn.dataset.tab=tabId;btn.dataset.ad=id;btn.textContent=nome;bar.appendChild(btn);
+    const btn=document.createElement('button');btn.className='tab-btn tab-ad';btn.dataset.tab=tabId;btn.dataset.ad=id;btn.textContent=(tipo.cls==='ad-premium'?'🎪 ':tipo.cls==='ad-mensal'?'⭐ ':'📅 ')+nome;bar.appendChild(btn);
     const classMap={'ad-premium':'premium','ad-mensal':'mensal','ad-semanal':'semanal'};
     const emojiMap={'ad-premium':'★','ad-mensal':'◆','ad-semanal':'▲'};
     const hlMap={'ad-premium':'hl-amber','ad-mensal':'hl-green','ad-semanal':'hl-green'};
