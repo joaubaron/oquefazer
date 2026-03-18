@@ -438,7 +438,7 @@ async function loadCities(){
   if(!rows.length){const d2=await gaReport(['city'],['sessions']);rows=d2.rows||[];}
   rows=rows.filter(r=>{const c=r.dimensionValues[0].value;return c&&c!=='(not set)'&&c!=='(não definida)';});
   rows.sort((a,b)=>parseInt(b.metricValues[0].value)-parseInt(a.metricValues[0].value));
-  const top=rows.slice(0,10),max=top.length?parseInt(top[0].metricValues[0].value):1;
+  const top=rows.slice(0,20),max=top.length?parseInt(top[0].metricValues[0].value):1;
   document.getElementById('city-count').textContent=rows.length+' cidades';
   const tb=document.getElementById('city-tbody');
   if(!top.length){tb.innerHTML='<tr><td colspan="4" class="empty-state">Nenhuma busca registrada</td></tr>';return;}
