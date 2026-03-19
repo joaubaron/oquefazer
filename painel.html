@@ -451,11 +451,11 @@ async function loadInstallFunnel(){
   document.getElementById('f-val1').textContent=fmt(total);
   const p2=Math.round((installUsers/total)*100),p3=Math.round((installedUsers/total)*100);
   document.getElementById('f-val2').textContent=fmt(installUsers);document.getElementById('f-bar2').style.width=p2+'%';document.getElementById('f-pct2').textContent=p2+'%';
-  document.getElementById('f-val3').textContent=fmt(installed);document.getElementById('f-bar3').style.width=p3+'%';document.getElementById('f-pct3').textContent=rate+'%';
+  document.getElementById('f-val3').textContent=fmt(installedUsers);document.getElementById('f-bar3').style.width=p3+'%';document.getElementById('f-pct3').textContent=rate+'%'; // ← installedUsers, não installed
   const ins=document.getElementById('install-insight');
   if(rate>=80)ins.innerHTML='<strong>'+rate+'% de taxa de instalação</strong> — resultado excelente. A média de apps web fica abaixo de 20%. Quem instala volta com muito mais frequência, vendo os anúncios toda vez que decidir o que fazer.';
   else if(rate>=50)ins.innerHTML='<strong>'+rate+'% de taxa de instalação</strong> — acima da média. Usuários instalados acessam o app direto da tela inicial.';
-  else ins.innerHTML='<strong>'+fmt(installed)+' instalações</strong> no período. Cada usuário instalado é um canal direto de retorno ao app.';
+  else ins.innerHTML='<strong>'+fmt(installedUsers)+'</strong> usuários instalaram no período. Cada usuário instalado é um canal direto de retorno ao app.'; // ← installedUsers, não installed
 }
 
 async function loadCities(){
