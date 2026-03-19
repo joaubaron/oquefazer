@@ -158,6 +158,21 @@ Para configurar sua recomendação no app preciso de:
 Manda aqui que coloco no ar ainda hoje!
 ```
 
+### 3c. Referência de IDs para o OneSignal
+
+> 🔖 Use esses IDs no campo `anunciante_id` do Additional Data ao disparar notificações.
+
+| Plano | ID padrão | Exemplo atual |
+|---|---|---|
+| 🔥 Banner Premium | `premium_ANO_MES_nome` | `premium_2026_10_oktoberfest` |
+| ⭐ Parceiro do Mês | `mensal_ANO_MES_nome` | `mensal_2026_03_pointdabeleza` |
+| 📅 Semana esquerda | `semanal_ANO_MES_sX_esq_nome` | `semanal_2026_03_s1_esq_innatura` |
+| 📅 Semana meio | `semanal_ANO_MES_sX_meio_nome` | `semanal_2026_03_s1_meio_bonikoski` |
+| 📅 Semana direita | `semanal_ANO_MES_sX_dir_nome` | `semanal_2026_03_s1_dir_eguabest` |
+| 🔔 Só notificação | `notif_ANO_MES_nome` | `notif_2026_03_feiradofulano` |
+
+> ⚠️ O ID da notificação deve ser **idêntico** ao `anunciante_id` usado no `index.html` para que o painel cruze os dados corretamente. Para anunciantes apenas de notificação (sem card no app), use o prefixo `notif_`.
+
 ---
 
 ## ETAPA 4 — Anúncio Publicado
@@ -180,6 +195,11 @@ Qualquer ajuste é só falar!
 > - [ ] Dados corretos (nome, link, data, local)
 > - [ ] Apenas 1 banner ativo por vez
 > - [ ] Link funcionando
+
+> 🔔 **Se incluir notificação no plano:**
+> - [ ] No OneSignal → New Push → Additional Data → Add Field
+> - [ ] Key: `anunciante_id` · Value: ID correspondente (ver tabela Etapa 3c)
+> - [ ] Confirmar que o link de destino da notificação está correto
 
 ---
 
