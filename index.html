@@ -15,6 +15,15 @@
 <link rel="preload" as="image" href="fundo.webp">
 <title>Oquefazer</title>
 <meta name="description" content="Descubra o que fazer perto de você">
+<meta property="og:title" content="Oquefazer — Descubra o que fazer perto de você">
+<meta property="og:description" content="Shows, bares, feiras, eventos culturais e muito mais na sua cidade. Busque pelo período e categoria.">
+<meta property="og:url" content="https://joaubaron.github.io/oquefazer/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://joaubaron.github.io/oquefazer/icone.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Oquefazer — Descubra o que fazer perto de você">
+<meta name="twitter:description" content="Shows, bares, feiras, eventos culturais e muito mais na sua cidade.">
+<meta name="twitter:image" content="https://joaubaron.github.io/oquefazer/icone.png">
 <link rel="canonical" href="https://joaubaron.github.io/oquefazer/">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HB14E8QNFC"></script>
@@ -207,7 +216,7 @@ overflow-y: auto;
 
 margin-bottom: 20px;
 }
-h3 {
+h1 {
 margin-top: 5px;
 margin-bottom: 8px;
 font-size: 18.5px;
@@ -514,12 +523,12 @@ Shows, festivais...
 </div>
 
 <div class="container">
-<h3>Descubra o que fazer perto de você</h3>
+<h1>Descubra o que fazer perto de você</h1>
 <div>
 <div class="cidade-row">
 <div class="input-wrapper">
 <input type="text" id="cidade" placeholder="Digite uma cidade" aria-label="Digite uma cidade" onkeydown="if(event.key==='Enter') buscar('hoje')">
-<button type="button" class="geo-btn" onclick="detectarCidade()" title="Detectar minha cidade" aria-label="Detectar minha cidade">📍</button>
+<button type="button" id="geo-btn" class="geo-btn" onclick="detectarCidade()" title="Detectar minha cidade" aria-label="Detectar minha cidade">📍</button>
 </div>
 <button type="button" class="evento-btn" onclick="toggleEvento()">🎫 Acontecendo</button>
 </div>
@@ -1100,7 +1109,7 @@ if (periodo === 'hoje') {
 filtroPeriodo = ` — foco em hoje (${fmtDia(hoje)})`;
 } else if (periodo === 'fimdesemana') {
 const diasAteFds = (5 - hoje.getDay() + 7) % 7 || 7;
-const sexta = new Date(hoje); sexta.setDate(hoje.getDate() + (diasAteFds === 7 ? 0 : diasAteFds));
+const sexta = new Date(hoje); sexta.setDate(hoje.getDate() + diasAteFds);
 const sabado = new Date(sexta); sabado.setDate(sexta.getDate() + (sexta.getDay() === 6 ? 0 : 1));
 const domingo = new Date(sabado); domingo.setDate(sabado.getDate() + 1);
 filtroPeriodo = ` — foco neste fim de semana (${fmtDia(sexta)}, ${fmtDia(sabado)} e ${fmtDia(domingo)})`;
@@ -1147,6 +1156,7 @@ setTimeout(() => { location.href = url; }, 300);
 
 function mostrarAviso(msg) {
 const m = document.getElementById('modal');
+// msg é sempre string literal do próprio código — nunca input do usuário
 document.getElementById('modal-msg').innerHTML = msg;
 m.style.display = 'flex';
 }
@@ -1156,7 +1166,7 @@ if (!navigator.geolocation) {
 mostrarAviso('Geolocalização não suportada neste dispositivo.');
 return;
 }
-const btn = document.querySelector('.geo-btn');
+const btn = document.getElementById('geo-btn');
 btn.textContent = '🔎';
 navigator.geolocation.getCurrentPosition(async (pos) => {
 const { latitude, longitude } = pos.coords;
