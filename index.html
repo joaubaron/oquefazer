@@ -1114,7 +1114,7 @@ let filtroPeriodo = '';
 if (periodo === 'hoje') {
 filtroPeriodo = ` — foco em hoje (${fmtDia(hoje)})`;
 } else if (periodo === 'fimdesemana') {
-const diasAteFds = (5 - hoje.getDay() + 7) % 7 || 7;
+const diasAteFds = (5 - hoje.getDay() + 7) % 7;
 const sexta = new Date(hoje); sexta.setDate(hoje.getDate() + diasAteFds);
 const sabado = new Date(sexta); sabado.setDate(sexta.getDate() + (sexta.getDay() === 6 ? 0 : 1));
 const domingo = new Date(sabado); domingo.setDate(sabado.getDate() + 1);
@@ -1467,6 +1467,7 @@ if (!deferredPrompt) return;
 banner.style.display = 'none';
 deferredPrompt.prompt();
 const { outcome } = await deferredPrompt.userChoice;
+if (outcome === 'dismissed') banner.style.display = 'flex';
 gtag('event', 'pwa_install', { outcome });
 deferredPrompt = null;
 });
