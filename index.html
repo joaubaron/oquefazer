@@ -42,6 +42,10 @@ OneSignalDeferred.push(async function(OneSignal) {
 await OneSignal.init({
 appId: "63ba3fe9-c20a-4980-a519-163fef4bdf45",
 });
+OneSignal.Notifications.addEventListener("click", (event) => {
+const anunciante = event.notification.additionalData?.anunciante_id || 'desconhecido';
+gtag('event', 'notificacao_clicada', { anunciante_id: anunciante });
+});
 });
 </script>
 <style>
