@@ -540,7 +540,7 @@ Shows, festivais...
 <div class="input-wrapper">
 <input type="text" id="evento" aria-label="Nome do local ou evento" placeholder="Digite local ou evento ou escolha período"> <button type="button" class="geo-btn" onclick="buscarEventoAmplo()" title="Buscar" aria-label="Buscar evento" style="display:flex;align-items:center;justify-content:center;"> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6eb233" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"> <polyline points="9 10 4 15 9 20"/> <path d="M20 4v7a4 4 0 0 1-4 4H4"/> </svg> </button>
 </div>
-<div class="evento-dica">💡 Dica: Sem cidade? Busca no seu país. Ou digite uma cidade para filtrar</div>
+<div class="evento-dica">💡 Sem cidade? Busca no Brasil. Com cidade? Resultado mais preciso</div>
 </div>
 <div class="cat-group">
 <button type="button" class="cat-btn" aria-pressed="false" onclick="toggleCategoria(this, 'Bares')">🍻 Bares</button>
@@ -1109,7 +1109,9 @@ _executarBuscaAmpla(cidade, eventoEspecifico, periodo);
 }
 
 function _executarBuscaAmpla(cidade, eventoEspecifico, periodo) {
-let localizacao = cidade ? `em ${cidade}` : '';
+const lang = navigator.language || navigator.userLanguage || 'pt-BR';
+const paisFallback = lang.includes('pt-BR') ? 'no Brasil' : lang.includes('pt') ? 'em Portugal' : lang.includes('es') ? 'na América Latina' : '';
+let localizacao = cidade ? `em ${cidade}` : paisFallback;
 const hoje = new Date();
 const fmtDia = (d) => d.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 let filtroPeriodo = '';
