@@ -1101,7 +1101,12 @@ localStorage.setItem('cidade', cidade);
 carregarClima();
 }
 
-let localizacao = cidade ? `em ${cidade}` : '';
+const cidadeContexto = cidade || localStorage.getItem('cidade') || '';
+let localizacao = cidade
+  ? `em ${cidade}`
+  : cidadeContexto
+    ? `— sem filtro de cidade, mas incluir obrigatoriamente eventos em ${cidadeContexto} e cidades próximas (num raio de 50km)`
+    : '';
 const hoje = new Date();
 const fmtDia = (d) => d.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 let filtroPeriodo = '';
