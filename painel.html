@@ -441,73 +441,21 @@ async function loadOverview(){
 }
 
 async function loadInstallFunnel(){
-  const d = await gaReport(
-    ['eventName'],
-    ['eventCount','totalUsers'],
-    {
-      filter:{
-        fieldName:'eventName',
-        inListFilter:{values:['pwa_install','pwa_installed']}
-      }
-    }
-  );
-
-  let installUsers = 0,
-      installedUsers = 0,
-      installed = 0;
-
-  (d.rows || []).forEach(r=>{
-    const ev  = r.dimensionValues[0].value;
-    const cnt = parseInt(r.metricValues[0].value);
-    const usr = parseInt(r.metricValues[1].value);
-
-    if(ev === 'pwa_install') installUsers = usr;
-
-    if(ev === 'pwa_installed'){
-      installed = cnt;         // mantido (caso queira usar depois)
-      installedUsers = usr;    // 👈 base correta
-    }
-  });
-
-  // ✅ agora usa usuários (não eventos)
-  document.getElementById('m-installs').textContent = fmt(installedUsers);
-
-  const rate = installUsers > 0
-    ? Math.round((installedUsers / installUsers) * 100)
-    : 0;
-
-  document.getElementById('m-install-rate').textContent = rate + '% instalaram de fato';
-
-  const total = parseInt(
-    document.getElementById('m-users').textContent.replace(/\D/g,'')
-  ) || 1;
-
-  document.getElementById('f-val1').textContent = fmt(total);
-
-  const p2 = Math.round((installUsers / total) * 100);
-  const p3 = Math.round((installedUsers / total) * 100);
-
-  document.getElementById('f-val2').textContent = fmt(installUsers);
-  document.getElementById('f-bar2').style.width = p2 + '%';
-  document.getElementById('f-pct2').textContent = p2 + '%';
-
-  // ✅ corrigido aqui também
-  document.getElementById('f-val3').textContent = fmt(installedUsers);
-  document.getElementById('f-bar3').style.width = p3 + '%';
-  document.getElementById('f-pct3').textContent = rate + '%';
-
-  const ins = document.getElementById('install-insight');
-
-  if(rate >= 80){
-    ins.innerHTML = '<strong>'+rate+'% de taxa de instalação</strong> — resultado excelente. A média de apps web fica abaixo de 20%. Quem instala volta com muito mais frequência, vendo os anúncios toda vez que decidir o que fazer.';
-  }
-  else if(rate >= 50){
-    ins.innerHTML = '<strong>'+rate+'% de taxa de instalação</strong> — acima da média. Usuários instalados acessam o app direto da tela inicial.';
-  }
-  else{
-    // ✅ corrigido aqui também
-    ins.innerHTML = '<strong>'+fmt(installedUsers)+' instalações</strong> no período. Cada usuário instalado é um canal direto de retorno ao app.';
-  }
+  const d=await gaReport(['eventName'],['eventCount','totalUsers'],{filter:{fieldName:'eventName',inListFilter:{values:['pwa_install','pwa_installed']}}});
+  let installUsers=0,installedUsers=0,installed=0;
+  (d.rows||[]).forEach(r=>{const ev=r.dimensionValues[0].value,cnt=parseInt(r.metricValues[0].value),usr=parseInt(r.metricValues[1].value);if(ev==='pwa_install')installUsers=usr;if(ev==='pwa_installed'){installed=cnt;installedUsers=usr;}});
+  document.getElementById('m-installs').textContent=fmt(installed);
+  const rate=installUsers>0?Math.round((installedUsers/installUsers)*100):0;
+  document.getElementById('m-install-rate').textContent=rate+'% instalaram de fato';
+  const total=parseInt(document.getElementById('m-users').textContent.replace(/\D/g,''))||1;
+  document.getElementById('f-val1').textContent=fmt(total);
+  const p2=Math.round((installUsers/total)*100),p3=Math.round((installedUsers/total)*100);
+  document.getElementById('f-val2').textContent=fmt(installUsers);document.getElementById('f-bar2').style.width=p2+'%';document.getElementById('f-pct2').textContent=p2+'%';
+  document.getElementById('f-val3').textContent=fmt(installed);document.getElementById('f-bar3').style.width=p3+'%';document.getElementById('f-pct3').textContent=rate+'%';
+  const ins=document.getElementById('install-insight');
+  if(rate>=80)ins.innerHTML='<strong>'+rate+'% de taxa de instalação</strong> — resultado excelente. A média de apps web fica abaixo de 20%. Quem instala volta com muito mais frequência, vendo os anúncios toda vez que decidir o que fazer.';
+  else if(rate>=50)ins.innerHTML='<strong>'+rate+'% de taxa de instalação</strong> — acima da média. Usuários instalados acessam o app direto da tela inicial.';
+  else ins.innerHTML='<strong>'+fmt(installed)+' instalações</strong> no período. Cada usuário instalado é um canal direto de retorno ao app.';
 }
 
 async function loadCities(){
