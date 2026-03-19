@@ -299,7 +299,7 @@
         <div class="metric-card">
           <div class="metric-label">Buscas sem cidade</div>
           <div class="metric-value" id="m-nocity">—</div>
-          <div class="metric-sub">tentativas sem preencher</div>
+          <div class="metric-sub">sem preencher</div>
         </div>
         <div class="metric-card">
           <div class="metric-label">Notificações clicadas</div>
@@ -446,7 +446,7 @@ async function loadInstallFunnel(){
   (d.rows||[]).forEach(r=>{const ev=r.dimensionValues[0].value,cnt=parseInt(r.metricValues[0].value),usr=parseInt(r.metricValues[1].value);if(ev==='pwa_install')installUsers=usr;if(ev==='pwa_installed'){installed=cnt;installedUsers=usr;}});
   document.getElementById('m-installs').textContent=fmt(installed);
   const rate=installUsers>0?Math.round((installedUsers/installUsers)*100):0;
-  document.getElementById('m-install-rate').textContent=rate+'% dos que viram, instalaram';
+  document.getElementById('m-install-rate').textContent=rate+'% instalaram de fato';
   const total=parseInt(document.getElementById('m-users').textContent.replace(/\D/g,''))||1;
   document.getElementById('f-val1').textContent=fmt(total);
   const p2=Math.round((installUsers/total)*100),p3=Math.round((installedUsers/total)*100);
