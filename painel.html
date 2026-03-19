@@ -301,12 +301,24 @@
           <div class="metric-value" id="m-nocity">—</div>
           <div class="metric-sub">tentativas sem preencher</div>
         </div>
+        <div class="metric-card">
+          <div class="metric-label">Notificações clicadas</div>
+          <div class="metric-value" id="m-notif">—</div>
+          <div class="metric-sub">cliques em push</div>
+        </div>
       </div>
       <div class="table-card">
         <div class="table-header"><h3>Períodos mais buscados</h3><span id="periodo-total"></span></div>
         <table>
           <thead><tr><th style="width:36px">#</th><th>Período</th><th>Buscas</th><th class="bar-cell"></th></tr></thead>
           <tbody id="periodo-tbody"><tr><td colspan="4" class="empty-state">Carregando...</td></tr></tbody>
+        </table>
+      </div>
+      <div class="table-card">
+        <div class="table-header"><h3>Notificações clicadas por anunciante</h3><span id="notif-total"></span></div>
+        <table>
+          <thead><tr><th style="width:36px">#</th><th>Anunciante</th><th>Cliques</th><th class="bar-cell"></th></tr></thead>
+          <tbody id="notif-tbody"><tr><td colspan="4" class="empty-state">Carregando...</td></tr></tbody>
         </table>
       </div>
       <div class="table-card">
@@ -415,7 +427,7 @@ async function loadAllData(){
   showLoading('Buscando dados no Google Analytics...');
   try{
     await loadOverview();
-    await Promise.all([loadInstallFunnel(),loadCities(),loadAdClicks(),loadBehavior(),loadPeriodos(),loadCategorias(),loadBuscaAmpla()]);
+    await Promise.all([loadInstallFunnel(),loadCities(),loadAdClicks(),loadBehavior(),loadPeriodos(),loadCategorias(),loadBuscaAmpla(),loadNotificacoes()]);
   document.getElementById('last-updated').textContent='Última atualização: '+new Date().toLocaleString('pt-BR');}
   catch(e){showError('Erro: '+e.message);}
   hideLoading();
@@ -474,12 +486,13 @@ async function loadAdClicks(){
 }
 
 async function loadBehavior(){
-  const d=await gaReport(['eventName'],['eventCount'],{filter:{fieldName:'eventName',inListFilter:{values:['uso_gps','compartilhou','abriu_ajuda','cidade_nao_encontrada','clique_qrcode']}}});
+  const d=await gaReport(['eventName'],['eventCount'],{filter:{fieldName:'eventName',inListFilter:{values:['uso_gps','compartilhou','abriu_ajuda','cidade_nao_encontrada','clique_qrcode','notificacao_clicada']}}});
   const map={};(d.rows||[]).forEach(r=>{map[r.dimensionValues[0].value]=parseInt(r.metricValues[0].value);});
   document.getElementById('m-gps').textContent=fmt(map['uso_gps']||0);
   document.getElementById('m-share').textContent=fmt(map['compartilhou']||0);
   document.getElementById('m-help').textContent=fmt(map['abriu_ajuda']||0);
   document.getElementById('m-nocity').textContent=fmt(map['cidade_nao_encontrada']||0);
+  document.getElementById('m-notif').textContent=fmt(map['notificacao_clicada']||0);
   const qr=map['clique_qrcode']||0;
   document.getElementById('m-qrcode').textContent=fmt(qr);
 }
@@ -505,6 +518,17 @@ async function loadBuscaAmpla(){
   const tb=document.getElementById("ampla-tbody");
   if(!rows.length){tb.innerHTML="<tr><td colspan=4 class=empty-state>Nenhuma busca registrada</td></tr>";return;}
   tb.innerHTML=rows.map((r,i)=>{const t=r.dimensionValues[0].value,val=parseInt(r.metricValues[0].value),pct=Math.round((val/max)*100);return "<tr><td class=rank-num>"+(i+1)+"</td><td style=font-weight:500>"+t+"</td><td style=font-weight:500>"+fmt(val)+"</td><td class=bar-cell><div class=mini-bar-wrap><div class=mini-bar style=width:"+pct+"%></div></div></td></tr>";}).join("");
+}
+
+async function loadNotificacoes(){
+  const d=await gaReport(['customEvent:anunciante_id'],['eventCount'],{filter:{fieldName:'eventName',stringFilter:{matchType:'EXACT',value:'notificacao_clicada'}}});
+  let rows=(d.rows||[]).filter(r=>{const id=r.dimensionValues[0].value;return id&&id!=='(not set)';});
+  rows.sort((a,b)=>parseInt(b.metricValues[0].value)-parseInt(a.metricValues[0].value));
+  const total=rows.reduce((acc,r)=>acc+parseInt(r.metricValues[0].value),0),max=rows.length?parseInt(rows[0].metricValues[0].value):1;
+  document.getElementById('notif-total').textContent=fmt(total)+' cliques';
+  const tb=document.getElementById('notif-tbody');
+  if(!rows.length){tb.innerHTML='<tr><td colspan="4" class="empty-state">Nenhum clique registrado</td></tr>';return;}
+  tb.innerHTML=rows.map((r,i)=>{const id=r.dimensionValues[0].value,val=parseInt(r.metricValues[0].value),pct=Math.round((val/max)*100);return '<tr><td class="rank-num">'+(i+1)+'</td><td style="font-weight:500">'+formatAdId(id)+'</td><td style="font-weight:500">'+fmt(val)+'</td><td class="bar-cell"><div class="mini-bar-wrap"><div class="mini-bar" style="width:'+pct+'%"></div></div></td></tr>';}).join('');
 }
 
 async function loadPeriodos(){
