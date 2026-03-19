@@ -513,7 +513,7 @@ function buildAdShortcuts(rows){
     const card=document.createElement('div');card.className='ad-shortcut-card';card.title=nome;
     card.dataset.tab='ad-'+id.replace(/[^a-z0-9]/gi,'_');
     const pillCls=tipo.cls==='ad-premium'?'ad-premium':tipo.cls==='ad-semanal'?'ad-semanal':'ad-mensal';
-    const pillLabel=tipo.cls==='ad-premium'?'Premium':tipo.cls==='ad-mensal'?'Mês':tipo.cls==='ad-semanal'?'Semana':'Genérico';
+    const pillLabel=tipo.cls==='ad-premium'?'Premium':tipo.cls==='ad-mensal'?'Mensal':tipo.cls==='ad-semanal'?'Semana':'Genérico';
     card.innerHTML=(thumb?`<img class="ad-shortcut-thumb" src="${thumb}" alt="${nome}" onerror="this.style.display='none'">`:'')
       +`<div class="ad-shortcut-label">${nome}</div>`
       +`<span class="ad-shortcut-pill ${pillCls}">${pillLabel}</span>`;
@@ -582,7 +582,7 @@ async function loadAdDetail(anuncianteId){
 function detectTipo(id){
   if(id.startsWith('premium_'))return{label:'Premium',cls:'ad-premium'};
   if(id.startsWith('mensal_'))return{label:'Mensal',cls:'ad-mensal'};
-  if(id.startsWith('semanal_'))return{label:'Semana',cls:'ad-semanal'};
+  if(id.startsWith('semanal_'))return{label:'Semanal',cls:'ad-semanal'};
   return{label:'Anúncio',cls:'ad-mensal'};
 }
 
