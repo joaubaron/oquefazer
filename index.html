@@ -1310,7 +1310,7 @@ const timeoutMs = timeoutMap[tipo] ?? 8000;
         const emoji = emojiMap[code] || '🌡️';
         const climaTexto = `${min}°~${max}° ${emoji}`;
         
-        widget.textContent = climaTexto;
+        widget.innerHTML = `${min}°~${max}° <span style="font-size:20px">${emoji}</span>`;
         widget.style.opacity = '1';
         widget.title = 'Previsão do tempo';
         
