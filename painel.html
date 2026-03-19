@@ -309,6 +309,20 @@
           <tbody id="periodo-tbody"><tr><td colspan="4" class="empty-state">Carregando...</td></tr></tbody>
         </table>
       </div>
+      <div class="table-card">
+        <div class="table-header"><h3>Categorias mais usadas</h3><span id="categoria-total"></span></div>
+        <table>
+          <thead><tr><th style="width:36px">#</th><th>Categoria</th><th>Buscas</th><th class="bar-cell"></th></tr></thead>
+          <tbody id="categoria-tbody"><tr><td colspan="4" class="empty-state">Carregando...</td></tr></tbody>
+        </table>
+      </div>
+      <div class="table-card">
+        <div class="table-header"><h3>Termos buscados no Acontecendo</h3><span id="ampla-total"></span></div>
+        <table>
+          <thead><tr><th style="width:36px">#</th><th>Termo</th><th>Buscas</th><th class="bar-cell"></th></tr></thead>
+          <tbody id="ampla-tbody"><tr><td colspan="4" class="empty-state">Carregando...</td></tr></tbody>
+        </table>
+      </div>
     </div>
 
     <!-- TODOS ANUNCIANTES -->
@@ -401,7 +415,7 @@ async function loadAllData(){
   showLoading('Buscando dados no Google Analytics...');
   try{
     await loadOverview();
-    await Promise.all([loadInstallFunnel(),loadCities(),loadAdClicks(),loadBehavior(),loadPeriodos()]);
+    await Promise.all([loadInstallFunnel(),loadCities(),loadAdClicks(),loadBehavior(),loadPeriodos(),loadCategorias(),loadBuscaAmpla()]);
   document.getElementById('last-updated').textContent='Última atualização: '+new Date().toLocaleString('pt-BR');}
   catch(e){showError('Erro: '+e.message);}
   hideLoading();
@@ -468,6 +482,29 @@ async function loadBehavior(){
   document.getElementById('m-nocity').textContent=fmt(map['cidade_nao_encontrada']||0);
   const qr=map['clique_qrcode']||0;
   document.getElementById('m-qrcode').textContent=fmt(qr);
+}
+
+async function loadCategorias(){
+  const d=await gaReport(["customEvent:categoria"],["eventCount"],{filter:{fieldName:"eventName",stringFilter:{matchType:"EXACT",value:"busca"}}});
+  const lbl={"todas":"Todas (sem filtro)","Bares":"🍻 Bares","Shows":"🎶 Shows","Cultura":"🎭 Cultura","Natureza":"🌱 Natureza","Esporte":"🎾 Esporte","Feiras":"🛍️ Feiras"};
+  let rows=(d.rows||[]).filter(r=>{const c=r.dimensionValues[0].value;return c&&c!=="(not set)";});
+  rows.sort((a,b)=>parseInt(b.metricValues[0].value)-parseInt(a.metricValues[0].value));
+  const total=rows.reduce((acc,r)=>acc+parseInt(r.metricValues[0].value),0),max=rows.length?parseInt(rows[0].metricValues[0].value):1;
+  document.getElementById("categoria-total").textContent=fmt(total)+" buscas";
+  const tb=document.getElementById("categoria-tbody");
+  if(!rows.length){tb.innerHTML="<tr><td colspan=4 class=empty-state>Nenhuma busca registrada</td></tr>";return;}
+  tb.innerHTML=rows.map((r,i)=>{const c=r.dimensionValues[0].value,val=parseInt(r.metricValues[0].value),pct=Math.round((val/max)*100),pt=total?Math.round((val/total)*100):0;return "<tr><td class=rank-num>"+(i+1)+"</td><td style=font-weight:500>"+(lbl[c]||c)+"</td><td style=font-weight:500>"+fmt(val)+" <span style=font-size:12px;color:var(--ink3)>("+pt+"%)</span></td><td class=bar-cell><div class=mini-bar-wrap><div class=mini-bar style=width:"+pct+"%></div></div></td></tr>";}).join("");
+}
+
+async function loadBuscaAmpla(){
+  const d=await gaReport(["customEvent:termo"],["eventCount"],{filter:{fieldName:"eventName",stringFilter:{matchType:"EXACT",value:"busca_ampla"}}},30);
+  let rows=(d.rows||[]).filter(r=>{const t=r.dimensionValues[0].value;return t&&t!=="(not set)";});
+  rows.sort((a,b)=>parseInt(b.metricValues[0].value)-parseInt(a.metricValues[0].value));
+  const total=rows.reduce((acc,r)=>acc+parseInt(r.metricValues[0].value),0),max=rows.length?parseInt(rows[0].metricValues[0].value):1;
+  document.getElementById("ampla-total").textContent=fmt(total)+" buscas";
+  const tb=document.getElementById("ampla-tbody");
+  if(!rows.length){tb.innerHTML="<tr><td colspan=4 class=empty-state>Nenhuma busca registrada</td></tr>";return;}
+  tb.innerHTML=rows.map((r,i)=>{const t=r.dimensionValues[0].value,val=parseInt(r.metricValues[0].value),pct=Math.round((val/max)*100);return "<tr><td class=rank-num>"+(i+1)+"</td><td style=font-weight:500>"+t+"</td><td style=font-weight:500>"+fmt(val)+"</td><td class=bar-cell><div class=mini-bar-wrap><div class=mini-bar style=width:"+pct+"%></div></div></td></tr>";}).join("");
 }
 
 async function loadPeriodos(){
