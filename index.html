@@ -1613,6 +1613,7 @@ function renderizarModalClima(dados, offline) {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+    localStorage.removeItem('ultimo_clima');
     const ultima = localStorage.getItem('cidade');
     document.getElementById('cidade').value = ultima || '';
     document.getElementById('cidade').placeholder = ultima ? '' : 'Digite uma cidade';
