@@ -1488,13 +1488,9 @@ async function abrirModalClima() {
         return;
     }
     
-    // Analytics
     gtag('event', 'clima_modal_aberto', {'cidade': cidade});
     
-    // Abre o modal
     modal.style.display = 'flex';
-    
-    // Mostra loading, esconde conteúdo e erro
     document.getElementById('clima-loading').style.display = 'block';
     document.getElementById('clima-erro').style.display = 'none';
     document.getElementById('clima-header').style.display = 'none';
@@ -1505,20 +1501,8 @@ async function abrirModalClima() {
     const timeoutMap = { '4g': 8000, '3g': 12000, '2g': 18000, 'slow-2g': 25000 };
     const timeoutMs = timeoutMap[tipo] ?? 10000;
     
-    // Tenta usar previsão já salva pelo widget (mesma cidade)
-    const previsaoSalva = localStorage.getItem('previsao_completa');
-    if (previsaoSalva) {
-        try {
-            const dados = JSON.parse(previsaoSalva);
-            if (dados.cidade === cidade) {
-                renderizarModalClima(dados, !navigator.onLine);
-                return;
-            }
-        } catch(e) {}
-    }
-    
     try {
-        // Cache miss — precisa buscar
+        // Geocoding — usa cache de lat/lon se disponível
         let lat, lon;
         const cachedLatLon = localStorage.getItem('cidade_latlon');
         if (cachedLatLon) {
@@ -1527,7 +1511,6 @@ async function abrirModalClima() {
                 if (parsed.cidade === cidade) { lat = parsed.lat; lon = parsed.lon; }
             } catch(e) {}
         }
-        
         if (lat == null || lon == null) {
             let geo;
             try {
@@ -1536,7 +1519,6 @@ async function abrirModalClima() {
                     timeoutMs
                 );
             } catch(e) { throw new Error('geocoding: ' + e.message); }
-            
             if (!geo.ok) throw new Error('Erro na geolocalização');
             const geoData = await geo.json();
             if (!geoData.results?.length) throw new Error('Cidade não encontrada');
@@ -1544,7 +1526,7 @@ async function abrirModalClima() {
             lon = geoData.results[0].longitude;
             localStorage.setItem('cidade_latlon', JSON.stringify({ lat, lon, cidade }));
         }
-        
+
         let weather;
         try {
             weather = await fetchComTimeout(
@@ -1553,16 +1535,16 @@ async function abrirModalClima() {
                 { headers: { 'Accept': 'application/json' } }
             );
         } catch(e) { throw new Error('open-meteo: ' + e.message); }
-        
+
         if (!weather.ok) throw new Error('Erro na previsão');
         const wData = await weather.json();
         if (!wData.current || !wData.daily) throw new Error('Dados incompletos');
-        
+
         const tempAtual = Math.round(wData.current.temperature_2m);
         const codeAtual = wData.current.weathercode;
         const minHoje = Math.round(wData.daily.temperature_2m_min[0]);
         const maxHoje = Math.round(wData.daily.temperature_2m_max[0]);
-        
+
         const dados = {
             cidade,
             atual: { temp: tempAtual, emoji: CLIMA_EMOJI_MAP[codeAtual] || '🌡️', desc: CLIMA_DESC_MAP[codeAtual] || 'Clima atual' },
@@ -1578,19 +1560,19 @@ async function abrirModalClima() {
         };
         localStorage.setItem('previsao_completa', JSON.stringify(dados));
         renderizarModalClima(dados, false);
-        
+
     } catch(e) {
         console.log('Erro ao carregar previsão completa:', e.message);
-        
-        // Tenta previsão offline de outra cidade como último recurso
-        const fallback = localStorage.getItem('previsao_completa');
-        if (fallback) {
+
+        // Fetch falhou — carrega cache com indicação Offline
+        const previsaoSalva = localStorage.getItem('previsao_completa');
+        if (previsaoSalva) {
             try {
-                renderizarModalClima(JSON.parse(fallback), true);
+                renderizarModalClima(JSON.parse(previsaoSalva), true);
                 return;
             } catch(parseError) {}
         }
-        
+
         document.getElementById('clima-loading').style.display = 'none';
         document.getElementById('clima-erro').style.display = 'block';
     }
