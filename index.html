@@ -1582,7 +1582,7 @@ function renderizarModalClima(dados, offline) {
     document.getElementById('clima-loading').style.display = 'none';
     document.getElementById('clima-erro').style.display = 'none';
     
-    const cidadeLabel = offline
+    const cidadeLabel = !navigator.onLine
         ? `${dados.cidade} <span style="font-size:11px;color:#ff9800;font-weight:normal;">Offline</span>`
         : dados.cidade;
     document.getElementById('clima-cidade').innerHTML = cidadeLabel;
