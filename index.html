@@ -1369,11 +1369,11 @@ async function carregarClima() {
     widget.style.opacity = '1';
 
     try {
-        // ⚡ DETECTA SE É 4G E AJUSTA TIMEOUT
+        // ⚡ DETECTA SE É 4G E AJUSTA TIMEOUT (aumentado para dar mais tempo)
 const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
 const tipo = connection?.effectiveType;
-const timeoutMap = { '4g': 5000, '3g': 10000, '2g': 15000, 'slow-2g': 20000 };
-const timeoutMs = timeoutMap[tipo] ?? 8000;
+const timeoutMap = { '4g': 12000, '3g': 15000, '2g': 18000, 'slow-2g': 22000 };
+const timeoutMs = timeoutMap[tipo] ?? 12000;
 
         let geo;
         try {
@@ -1446,12 +1446,32 @@ const timeoutMs = timeoutMap[tipo] ?? 8000;
         
         widget.textContent = '';
         
+        // Tenta usar previsão completa do cache primeiro
+        const previsaoSalva = localStorage.getItem('previsao_completa');
+        if (previsaoSalva) {
+            try {
+                const dados = JSON.parse(previsaoSalva);
+                // Verifica se é da cidade certa
+                if (dados.cidade === cidade && dados.hoje) {
+                    const emoji = CLIMA_EMOJI_MAP[dados.dias[0].code] || '🌡️';
+                    widget.innerHTML = `<a href="#" onclick="abrirModalClima(); return false;" style="text-decoration:none;color:inherit;display:inline-flex;align-items:center;gap:4px;"><span style="color:#6eb233">${dados.hoje.max}° / ${dados.hoje.min}°</span> <span style="font-size:18px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.3))">${emoji}</span></a>`;
+                    widget.style.opacity = '0.85'; // Opacidade reduzida indica cache
+                    widget.title = 'Dados offline - clique para atualizar';
+                    return;
+                }
+            } catch(parseError) {
+                console.log('Erro ao parsear cache:', parseError);
+            }
+        }
+        
+        // Fallback secundário: ultimo_clima
         const ultimoClima = localStorage.getItem('ultimo_clima');
         if (ultimoClima) {
             widget.innerHTML = `<a href="#" onclick="abrirModalClima(); return false;" style="text-decoration:none;color:inherit;display:inline-flex;align-items:center;gap:2px;">${ultimoClima}</a>`;
-            widget.style.opacity = '1';
-            widget.title = 'Dados offline - clique para ver previsão';
+            widget.style.opacity = '0.85';
+            widget.title = 'Dados offline - clique para atualizar';
         } else {
+            // Fallback final: emoji baseado na hora
             const agora = new Date();
             const hora = agora.getHours();
             
@@ -1498,8 +1518,8 @@ async function abrirModalClima() {
     
     const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
     const tipo = connection?.effectiveType;
-    const timeoutMap = { '4g': 8000, '3g': 12000, '2g': 18000, 'slow-2g': 25000 };
-    const timeoutMs = timeoutMap[tipo] ?? 10000;
+    const timeoutMap = { '4g': 12000, '3g': 15000, '2g': 18000, 'slow-2g': 25000 };
+    const timeoutMs = timeoutMap[tipo] ?? 12000;
     
     try {
         // Geocoding — usa cache de lat/lon se disponível
@@ -1582,9 +1602,20 @@ function renderizarModalClima(dados, offline) {
     document.getElementById('clima-loading').style.display = 'none';
     document.getElementById('clima-erro').style.display = 'none';
     
-    const cidadeLabel = !navigator.onLine
-        ? `${dados.cidade} <span style="font-size:11px;color:#ff9800;font-weight:normal;">Offline</span>`
-        : dados.cidade;
+    // Mostra indicação se está offline OU se está usando cache
+    const usandoCache = offline || !navigator.onLine;
+    const tempoCache = dados.timestamp ? Math.floor((Date.now() - dados.timestamp) / 60000) : null;
+    
+    let cidadeLabel = dados.cidade;
+    if (usandoCache && tempoCache !== null) {
+        const tempoTexto = tempoCache < 60 
+            ? `${tempoCache} min atrás` 
+            : `${Math.floor(tempoCache / 60)}h atrás`;
+        cidadeLabel = `${dados.cidade} <span style="font-size:11px;color:#ff9800;font-weight:normal;">(${tempoTexto})</span>`;
+    } else if (usandoCache) {
+        cidadeLabel = `${dados.cidade} <span style="font-size:11px;color:#ff9800;font-weight:normal;">(Cache)</span>`;
+    }
+    
     document.getElementById('clima-cidade').innerHTML = cidadeLabel;
     document.getElementById('clima-atual').innerHTML = `${dados.atual.temp}° ${dados.atual.emoji}`;
     document.getElementById('clima-descricao').textContent = dados.atual.desc;
