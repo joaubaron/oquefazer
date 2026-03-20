@@ -467,6 +467,65 @@ border-radius: 20px;
 box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 }
 
+/* Widget de Clima - Efeito Hover */
+#tempo-widget a {
+transition: all 0.2s ease;
+}
+#tempo-widget a:hover {
+opacity: 0.75;
+transform: scale(1.05);
+}
+#tempo-widget a:active {
+transform: scale(0.98);
+}
+
+/* Modal Clima - Previsão 7 dias */
+#clima-conteudo {
+-webkit-overflow-scrolling: touch;
+scrollbar-width: none; /* Firefox */
+}
+#clima-conteudo::-webkit-scrollbar {
+display: none; /* Chrome, Safari, Edge */
+}
+
+.clima-dia-item {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 8px 0;
+border-bottom: 1px solid #f0f0f0;
+}
+.clima-dia-item:last-child {
+border-bottom: none;
+}
+.clima-dia-esquerda {
+display: flex;
+align-items: center;
+gap: 10px;
+flex: 1;
+}
+.clima-dia-nome {
+font-size: 14px;
+font-weight: 600;
+color: #333;
+min-width: 60px;
+}
+.clima-dia-emoji {
+font-size: 24px;
+line-height: 1;
+}
+.clima-dia-temp {
+font-size: 16px;
+font-weight: 600;
+color: #333;
+text-align: right;
+}
+.clima-dia-temp-min {
+font-size: 13px;
+color: #999;
+margin-left: 8px;
+}
+
 </style>
 </head>
 <body>
@@ -699,7 +758,7 @@ Resultados podem variar a cada busca com IA
 </p>
 
 <p style="margin-top: 15px; font-size: 14px; color: #555; display: flex; justify-content: center; gap: 22px; align-items: center; flex-wrap: wrap;">
-    <span id="tempo-widget" style="font-size:13px;line-height:1;cursor:default;opacity:1;transition:opacity 0.4s ease;" title="Previsão do tempo"></span>
+    <span id="tempo-widget" style="font-size:13px;line-height:1;opacity:1;transition:opacity 0.4s ease;" title="Previsão do tempo"></span>
     <a onclick="compartilhar(); return false;" href="#" style="color:#6eb233;text-decoration:none;">Indique</a>
     
     <!-- NOVO: Ícone SVG do QR Code -->
@@ -818,6 +877,42 @@ color: white;
 width: auto;
 ">Entendi</button>
 <a href="https://www.instagram.com/joseaugustobaron/" target="_blank" style="font-size:15px;color:#555;text-decoration:none;white-space:nowrap;">2026 <span style="color:#6eb233;">@baron</span></a>
+</div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!--  MODAL CLIMA - PREVISÃO COMPLETA                             -->
+<!-- ============================================================ -->
+<div id="modal-clima" role="dialog" aria-modal="true" onclick="if(event.target===this)fecharModalClima();" class="modal-overlay" style="z-index: 10003; backdrop-filter: blur(4px); display: none;">
+<div class="modal-box" style="max-width: 380px; width: 90%; padding: 0; overflow: hidden; max-height: 85vh; display: flex; flex-direction: column;">
+<!-- Header -->
+<div id="clima-header" style="background: white; padding: 16px 20px; color: #333; position: relative; border-bottom: 1px solid #f0f0f0; flex-shrink: 0;">
+<button onclick="fecharModalClima();" style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.05); border: none; color: #666; width: 30px; height: 30px; border-radius: 50%; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: bold;">×</button>
+<div id="clima-cidade" style="font-size: 17px; font-weight: bold; margin-bottom: 6px; color: #6eb233;"></div>
+<div id="clima-atual" style="font-size: 42px; font-weight: 300; margin: 6px 0; color: #333;"></div>
+<div style="font-size: 13px; color: #666;">
+<span id="clima-descricao"></span> &nbsp;
+<span id="clima-minmax"></span>
+</div>
+</div>
+
+<!-- Previsão 7 dias -->
+<div id="clima-conteudo" style="padding: 16px 20px; overflow-y: auto; flex: 1;">
+<div style="font-size: 14px; font-weight: bold; color: #6eb233; margin-bottom: 10px; letter-spacing: 0.5px; display: flex; align-items: center; gap: 5px; justify-content: center; flex-wrap: wrap;">Ver o clima antes de resolver<img src="oqfazer.png" style="height: 15px; vertical-align: middle; display: inline-block; margin-top: 3px;"></div>
+<div id="clima-previsao-7dias"></div>
+</div>
+
+<!-- Loading -->
+<div id="clima-loading" style="padding: 60px 20px; text-align: center; display: none;">
+<div style="font-size: 32px; margin-bottom: 10px;">🌞</div>
+<div style="font-size: 14px; color: #999;">Carregando previsão...</div>
+</div>
+
+<!-- Erro -->
+<div id="clima-erro" style="padding: 60px 20px; text-align: center; display: none;">
+<div style="font-size: 25px; margin-bottom: 10px;">⚠️</div>
+<div style="font-size: 14px; color: #999;">Não é possível carregar a previsão</div>
 </div>
 </div>
 </div>
@@ -965,8 +1060,6 @@ function atualizarData() {
 }
 atualizarData();
 
-
-
 // Função para gerar QR Code igual ao do flyer
 function gerarQRCodeModal() {
     const qrDiv = document.getElementById('qrcode-modal');
@@ -1006,7 +1099,8 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         document.getElementById('modal').style.display = 'none';
         document.getElementById('modal-ajuda').style.display = 'none';
-        document.getElementById('modal-qrcode').style.display = 'none'; // NOVA LINHA
+        document.getElementById('modal-qrcode').style.display = 'none';
+        document.getElementById('modal-clima').style.display = 'none';
     }
 });
 
@@ -1229,6 +1323,35 @@ const msg = isAndroid
 mostrarAviso(msg);
 }
 
+// ===============================================
+// CLIMA - CONSTANTES GLOBAIS
+// ===============================================
+const CLIMA_EMOJI_MAP = {
+    0:'🌞', 1:'🌤️', 2:'🌥️', 3:'☁️',
+    45:'🌥️', 48:'🌥️',
+    51:'🌦️', 53:'🌦️', 55:'🌧️',
+    61:'🌧️', 63:'🌧️', 65:'🌧️',
+    71:'🌨️', 73:'🌨️', 75:'🌨️', 77:'🌨️',
+    80:'🌦️', 81:'🌦️', 82:'🌧️',
+    85:'🌨️', 86:'🌨️',
+    95:'🌩️', 96:'🌩️', 99:'🌩️'
+};
+const CLIMA_DESC_MAP = {
+    0:'Céu limpo', 1:'Parcialmente nublado', 2:'Parcialmente nublado', 3:'Nublado',
+    45:'Neblina', 48:'Neblina',
+    51:'Chuva fraca', 53:'Chuva moderada', 55:'Chuva forte',
+    61:'Chuva fraca', 63:'Chuva moderada', 65:'Chuva forte',
+    71:'Neve fraca', 73:'Neve moderada', 75:'Neve forte', 77:'Neve',
+    80:'Pancadas de chuva', 81:'Pancadas fortes', 82:'Chuva intensa',
+    85:'Neve', 86:'Neve forte',
+    95:'Tempestade', 96:'Tempestade', 99:'Tempestade forte'
+};
+const CLIMA_DIAS_SEMANA = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+const fetchComTimeout = (url, ms, opts = {}) => Promise.race([
+    fetch(url, opts),
+    new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), ms))
+]);
+
 async function carregarClima() {
     const widget = document.getElementById('tempo-widget');
     if (!widget) return;
@@ -1244,11 +1367,6 @@ async function carregarClima() {
 
     widget.textContent = '⏳';
     widget.style.opacity = '1';
-
-    const fetchComTimeout = (url, ms, opts = {}) => Promise.race([
-        fetch(url, opts),
-        new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), ms))
-    ]);
 
     try {
         // ⚡ DETECTA SE É 4G E AJUSTA TIMEOUT
@@ -1272,10 +1390,13 @@ const timeoutMs = timeoutMap[tipo] ?? 8000;
 
         const { latitude: lat, longitude: lon } = geoData.results[0];
 
+        // Fix 1: cacheia lat/lon para o modal não precisar refazer geocoding
+        localStorage.setItem('cidade_latlon', JSON.stringify({ lat, lon, cidade }));
+
         let weather;
         try {
             weather = await fetchComTimeout(
-                `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_min,temperature_2m_max,weathercode&temperature_unit=celsius&timezone=auto&forecast_days=1`,
+                `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weathercode&daily=temperature_2m_min,temperature_2m_max,weathercode,precipitation_probability_max&temperature_unit=celsius&timezone=auto&forecast_days=7`,
                 timeoutMs,
                 { headers: { 'Accept': 'application/json' } }
             );
@@ -1285,33 +1406,40 @@ const timeoutMs = timeoutMap[tipo] ?? 8000;
         
         const wData = await weather.json();
         
-        if (!wData.daily?.temperature_2m_min?.[0] || !wData.daily?.temperature_2m_max?.[0]) {
+        if (!wData.current || !wData.daily?.temperature_2m_min?.[0]) {
             throw new Error('Dados incompletos');
         }
         
         const min = Math.round(wData.daily.temperature_2m_min[0]);
         const max = Math.round(wData.daily.temperature_2m_max[0]);
         const code = wData.daily.weathercode[0];
+        const tempAtual = Math.round(wData.current.temperature_2m);
+        const codeAtual = wData.current.weathercode;
         
-        const emojiMap = {
-            0:'🌞', 1:'🌤️', 2:'🌥️', 3:'☁️',
-            45:'🌥️', 48:'🌥️',
-            51:'🌦️', 53:'🌦️', 55:'🌧️',
-            61:'🌧️', 63:'🌧️', 65:'🌧️',
-            71:'🌨️', 73:'🌨️', 75:'🌨️', 77:'🌨️',
-            80:'🌦️', 81:'🌦️', 82:'🌧️',
-            85:'🌨️', 86:'🌨️',
-            95:'🌩️', 96:'🌩️', 99:'🌩️'
-        };
-        
-        const emoji = emojiMap[code] || '🌡️';
+        const emoji = CLIMA_EMOJI_MAP[code] || '🌡️';
         const climaTexto = `${min}° / ${max}° ${emoji}`;
         
-        widget.innerHTML = `<span style="color:#6eb233">${min}° / ${max}°</span> <span style="font-size:18px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.3))">${emoji}</span>`;
+        widget.innerHTML = `<a href="#" onclick="abrirModalClima(); return false;" style="text-decoration:none;color:inherit;display:inline-flex;align-items:center;gap:4px;"><span style="color:#6eb233">${min}° / ${max}°</span> <span style="font-size:18px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.3))">${emoji}</span></a>`;
         widget.style.opacity = '1';
-        widget.title = 'Previsão do tempo';
+        widget.title = 'Clique para ver previsão completa';
         
         localStorage.setItem('ultimo_clima', climaTexto);
+        
+        // Salva previsão completa — modal reutiliza, sem nova requisição
+        const previsaoCompleta = {
+            cidade,
+            atual: { temp: tempAtual, emoji: CLIMA_EMOJI_MAP[codeAtual] || '🌡️', desc: CLIMA_DESC_MAP[codeAtual] || 'Clima atual' },
+            hoje: { min, max },
+            dias: wData.daily.time.slice(0, 7).map((time, i) => ({
+                data: time,
+                min: Math.round(wData.daily.temperature_2m_min[i]),
+                max: Math.round(wData.daily.temperature_2m_max[i]),
+                code: wData.daily.weathercode[i],
+                chuva: wData.daily.precipitation_probability_max?.[i]
+            })),
+            timestamp: Date.now()
+        };
+        localStorage.setItem('previsao_completa', JSON.stringify(previsaoCompleta));
         
     } catch(e) {
         console.log('Erro ao carregar clima:', e.message);
@@ -1320,26 +1448,186 @@ const timeoutMs = timeoutMap[tipo] ?? 8000;
         
         const ultimoClima = localStorage.getItem('ultimo_clima');
         if (ultimoClima) {
-            widget.textContent = ultimoClima;
+            widget.innerHTML = `<a href="#" onclick="abrirModalClima(); return false;" style="text-decoration:none;color:inherit;display:inline-flex;align-items:center;gap:2px;">${ultimoClima}</a>`;
             widget.style.opacity = '1';
-            widget.title = 'Dados offline';
+            widget.title = 'Dados offline - clique para ver previsão';
         } else {
             const agora = new Date();
             const hora = agora.getHours();
             
+            let emoji = '🌙';
             if (hora >= 6 && hora < 12) {
-                widget.textContent = '🌞';
+                emoji = '🌞';
             } else if (hora >= 12 && hora < 18) {
-                widget.textContent = '🌤️';
+                emoji = '🌤️';
             } else if (hora >= 18 && hora < 22) {
-                widget.textContent = '🌛';
-            } else {
-                widget.textContent = '🌙';
+                emoji = '🌛';
             }
+            
+            widget.innerHTML = `<a href="#" onclick="abrirModalClima(); return false;" style="text-decoration:none;color:inherit;">${emoji}</a>`;
             widget.style.opacity = '1';
-            widget.title = 'Clima indisponível';
+            widget.title = 'Clique para ver previsão do tempo';
         }
     }
+}
+
+// ===============================================
+// MODAL DE CLIMA - FUNÇÕES
+// ===============================================
+
+function fecharModalClima() {
+    document.getElementById('modal-clima').style.display = 'none';
+}
+
+async function abrirModalClima() {
+    const modal = document.getElementById('modal-clima');
+    const cidade = localStorage.getItem('cidade');
+    
+    if (!cidade) {
+        mostrarAviso('Digite uma cidade primeiro');
+        return;
+    }
+    
+    // Analytics
+    gtag('event', 'clima_modal_aberto', {'cidade': cidade});
+    
+    // Abre o modal
+    modal.style.display = 'flex';
+    
+    // Mostra loading, esconde conteúdo e erro
+    document.getElementById('clima-loading').style.display = 'block';
+    document.getElementById('clima-erro').style.display = 'none';
+    document.getElementById('clima-header').style.display = 'none';
+    document.getElementById('clima-conteudo').style.display = 'none';
+    
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const tipo = connection?.effectiveType;
+    const timeoutMap = { '4g': 8000, '3g': 12000, '2g': 18000, 'slow-2g': 25000 };
+    const timeoutMs = timeoutMap[tipo] ?? 10000;
+    
+    // Tenta usar previsão já salva pelo widget (mesma cidade)
+    const previsaoSalva = localStorage.getItem('previsao_completa');
+    if (previsaoSalva) {
+        try {
+            const dados = JSON.parse(previsaoSalva);
+            if (dados.cidade === cidade) {
+                renderizarModalClima(dados, false);
+                return;
+            }
+        } catch(e) {}
+    }
+    
+    try {
+        // Cache miss — precisa buscar
+        let lat, lon;
+        const cachedLatLon = localStorage.getItem('cidade_latlon');
+        if (cachedLatLon) {
+            try {
+                const parsed = JSON.parse(cachedLatLon);
+                if (parsed.cidade === cidade) { lat = parsed.lat; lon = parsed.lon; }
+            } catch(e) {}
+        }
+        
+        if (lat == null || lon == null) {
+            let geo;
+            try {
+                geo = await fetchComTimeout(
+                    `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cidade)}&count=1&language=pt&format=json`,
+                    timeoutMs
+                );
+            } catch(e) { throw new Error('geocoding: ' + e.message); }
+            
+            if (!geo.ok) throw new Error('Erro na geolocalização');
+            const geoData = await geo.json();
+            if (!geoData.results?.length) throw new Error('Cidade não encontrada');
+            lat = geoData.results[0].latitude;
+            lon = geoData.results[0].longitude;
+            localStorage.setItem('cidade_latlon', JSON.stringify({ lat, lon, cidade }));
+        }
+        
+        let weather;
+        try {
+            weather = await fetchComTimeout(
+                `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weathercode&daily=temperature_2m_min,temperature_2m_max,weathercode,precipitation_probability_max&temperature_unit=celsius&timezone=auto&forecast_days=7`,
+                timeoutMs,
+                { headers: { 'Accept': 'application/json' } }
+            );
+        } catch(e) { throw new Error('open-meteo: ' + e.message); }
+        
+        if (!weather.ok) throw new Error('Erro na previsão');
+        const wData = await weather.json();
+        if (!wData.current || !wData.daily) throw new Error('Dados incompletos');
+        
+        const tempAtual = Math.round(wData.current.temperature_2m);
+        const codeAtual = wData.current.weathercode;
+        const minHoje = Math.round(wData.daily.temperature_2m_min[0]);
+        const maxHoje = Math.round(wData.daily.temperature_2m_max[0]);
+        
+        const dados = {
+            cidade,
+            atual: { temp: tempAtual, emoji: CLIMA_EMOJI_MAP[codeAtual] || '🌡️', desc: CLIMA_DESC_MAP[codeAtual] || 'Clima atual' },
+            hoje: { min: minHoje, max: maxHoje },
+            dias: wData.daily.time.slice(0, 7).map((time, i) => ({
+                data: time,
+                min: Math.round(wData.daily.temperature_2m_min[i]),
+                max: Math.round(wData.daily.temperature_2m_max[i]),
+                code: wData.daily.weathercode[i],
+                chuva: wData.daily.precipitation_probability_max?.[i]
+            })),
+            timestamp: Date.now()
+        };
+        localStorage.setItem('previsao_completa', JSON.stringify(dados));
+        renderizarModalClima(dados, false);
+        
+    } catch(e) {
+        console.log('Erro ao carregar previsão completa:', e.message);
+        
+        // Tenta previsão offline de outra cidade como último recurso
+        const fallback = localStorage.getItem('previsao_completa');
+        if (fallback) {
+            try {
+                renderizarModalClima(JSON.parse(fallback), true);
+                return;
+            } catch(parseError) {}
+        }
+        
+        document.getElementById('clima-loading').style.display = 'none';
+        document.getElementById('clima-erro').style.display = 'block';
+    }
+}
+
+function renderizarModalClima(dados, offline) {
+    document.getElementById('clima-loading').style.display = 'none';
+    document.getElementById('clima-erro').style.display = 'none';
+    
+    const cidadeLabel = offline
+        ? `${dados.cidade} <span style="font-size:11px;color:#ff9800;font-weight:normal;">Offline</span>`
+        : dados.cidade;
+    document.getElementById('clima-cidade').innerHTML = cidadeLabel;
+    document.getElementById('clima-atual').innerHTML = `${dados.atual.temp}° ${dados.atual.emoji}`;
+    document.getElementById('clima-descricao').textContent = dados.atual.desc;
+    document.getElementById('clima-minmax').innerHTML = `Mín: ${dados.hoje.min}° / Máx: ${dados.hoje.max}°`;
+    
+    let htmlPrevisao = '';
+    dados.dias.forEach((dia, i) => {
+        const data = new Date(dia.data);
+        const diaSemana = i === 0 ? 'Hoje' : (i === 1 ? 'Amanhã' : CLIMA_DIAS_SEMANA[data.getDay()]);
+        const emoji = CLIMA_EMOJI_MAP[dia.code] || '🌡️';
+        htmlPrevisao += `
+            <div class="clima-dia-item">
+                <div class="clima-dia-esquerda">
+                    <div class="clima-dia-nome">${diaSemana}</div>
+                    <div class="clima-dia-emoji">${emoji}</div>
+                </div>
+                <div class="clima-dia-temp">
+                    ${dia.max}°<span class="clima-dia-temp-min">${dia.min}°</span>
+                </div>
+            </div>
+        `;
+    });
+    document.getElementById('clima-previsao-7dias').innerHTML = htmlPrevisao;
+    document.getElementById('clima-header').style.display = '';
+    document.getElementById('clima-conteudo').style.display = '';
 }
 
 window.addEventListener('DOMContentLoaded', () => {
