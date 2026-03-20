@@ -1511,7 +1511,7 @@ async function abrirModalClima() {
         try {
             const dados = JSON.parse(previsaoSalva);
             if (dados.cidade === cidade) {
-                renderizarModalClima(dados, false);
+                renderizarModalClima(dados, !navigator.onLine);
                 return;
             }
         } catch(e) {}
