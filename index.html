@@ -1356,150 +1356,142 @@ async function carregarClima() {
     const widget = document.getElementById('tempo-widget');
     if (!widget) return;
 
-    widget.textContent = '';
-    widget.innerHTML = '';
-
     const cidade = localStorage.getItem('cidade');
     if (!cidade) {
         widget.style.opacity = '0';
         return;
     }
 
-    widget.textContent = '⏳';
-    widget.style.opacity = '1';
+    // ===== CACHE INTELIGENTE: MOSTRA IMEDIATAMENTE =====
+    const previsaoSalva = localStorage.getItem('previsao_completa');
+    let cacheExibido = false;
+    
+    if (previsaoSalva) {
+        try {
+            const dados = JSON.parse(previsaoSalva);
+            if (dados.cidade === cidade && dados.hoje) {
+                // Mostra cache INSTANTANEAMENTE
+                const emoji = CLIMA_EMOJI_MAP[dados.dias[0].code] || '🌡️';
+                widget.innerHTML = `<a href="#" onclick="abrirModalClima(); return false;" style="text-decoration:none;color:inherit;display:inline-flex;align-items:center;gap:4px;"><span style="color:#6eb233">${dados.hoje.max}° / ${dados.hoje.min}°</span> <span style="font-size:18px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.3))">${emoji}</span></a>`;
+                widget.style.opacity = '0.85';
+                widget.title = 'Clique para ver previsão';
+                cacheExibido = true;
+            }
+        } catch(e) {}
+    }
+    
+    // Se não tem cache, mostra loading
+    if (!cacheExibido) {
+        widget.textContent = '⏳';
+        widget.style.opacity = '1';
+    }
 
-    // LOG: Início da carga
+    // ===== VERIFICA CONEXÃO: SÓ ATUALIZA NO WiFi =====
     const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
     const tipo = connection?.effectiveType;
-    console.log('[CLIMA] Iniciando carregamento:', { cidade, tipo, online: navigator.onLine });
+    
+    // Se for 4G ou pior E já tem cache: NÃO tenta atualizar
+    if (cacheExibido && (tipo === '4g' || tipo === '3g' || tipo === '2g' || tipo === 'slow-2g')) {
+        return; // Para aqui - mantém o cache
+    }
 
-    // Retry automático - tenta até 2 vezes
-    for (let tentativa = 1; tentativa <= 2; tentativa++) {
-        try {
-            // ⚡ TIMEOUT AUMENTADO PARA 20s NO 4G
-            const timeoutMap = { '4g': 20000, '3g': 15000, '2g': 18000, 'slow-2g': 22000 };
-            const timeoutMs = timeoutMap[tipo] ?? 20000;
-            
-            console.log(`[CLIMA] Tentativa ${tentativa}/2 - Timeout: ${timeoutMs}ms`);
-
-            let geo;
+    // ===== TENTA ATUALIZAR (só WiFi ou sem cache) =====
+    try {
+        const timeoutMs = 15000; // 15s para WiFi
+        
+        // Cache de coordenadas
+        let lat, lon;
+        const cachedLatLon = localStorage.getItem('cidade_latlon');
+        if (cachedLatLon) {
             try {
-                geo = await fetchComTimeout(
-                    `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cidade)}&count=1&language=pt&format=json`,
-                    timeoutMs
-                );
-            } catch(e) { throw new Error('geocoding: ' + e.message); }
+                const parsed = JSON.parse(cachedLatLon);
+                if (parsed.cidade === cidade) {
+                    lat = parsed.lat;
+                    lon = parsed.lon;
+                }
+            } catch(e) {}
+        }
 
-            if (!geo.ok) throw new Error('Erro na geolocalização');
-
+        // Busca geocoding se necessário
+        if (lat == null || lon == null) {
+            const geo = await fetchComTimeout(
+                `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cidade)}&count=1&language=pt&format=json`,
+                timeoutMs
+            );
+            if (!geo.ok) throw new Error('Erro geolocalização');
             const geoData = await geo.json();
             if (!geoData.results?.length) throw new Error('Cidade não encontrada');
-
-            const { latitude: lat, longitude: lon } = geoData.results[0];
-
+            lat = geoData.results[0].latitude;
+            lon = geoData.results[0].longitude;
             localStorage.setItem('cidade_latlon', JSON.stringify({ lat, lon, cidade }));
+        }
 
-            let weather;
-            try {
-                weather = await fetchComTimeout(
-                    `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weathercode&daily=temperature_2m_min,temperature_2m_max,weathercode,precipitation_probability_max&temperature_unit=celsius&timezone=auto&forecast_days=7`,
-                    timeoutMs,
-                    { headers: { 'Accept': 'application/json' } }
-                );
-            } catch(e) { throw new Error('open-meteo: ' + e.message); }
+        // Busca clima
+        const weather = await fetchComTimeout(
+            `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weathercode&daily=temperature_2m_min,temperature_2m_max,weathercode,precipitation_probability_max&temperature_unit=celsius&timezone=auto&forecast_days=7`,
+            timeoutMs,
+            { headers: { 'Accept': 'application/json' } }
+        );
+        
+        if (!weather.ok) throw new Error('Erro previsão');
+        const wData = await weather.json();
+        if (!wData.current || !wData.daily?.temperature_2m_min?.[0]) throw new Error('Dados incompletos');
+        
+        const min = Math.round(wData.daily.temperature_2m_min[0]);
+        const max = Math.round(wData.daily.temperature_2m_max[0]);
+        const code = wData.daily.weathercode[0];
+        const tempAtual = Math.round(wData.current.temperature_2m);
+        const codeAtual = wData.current.weathercode;
+        
+        const emoji = CLIMA_EMOJI_MAP[code] || '🌡️';
+        const climaTexto = `${max}° / ${min}° ${emoji}`;
+        
+        // Atualiza widget
+        widget.innerHTML = `<a href="#" onclick="abrirModalClima(); return false;" style="text-decoration:none;color:inherit;display:inline-flex;align-items:center;gap:4px;"><span style="color:#6eb233">${max}° / ${min}°</span> <span style="font-size:18px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.3))">${emoji}</span></a>`;
+        widget.style.opacity = '1';
+        widget.title = 'Clique para ver previsão completa';
+        
+        localStorage.setItem('ultimo_clima', climaTexto);
+        
+        // Salva previsão completa
+        const previsaoCompleta = {
+            cidade,
+            atual: { temp: tempAtual, emoji: CLIMA_EMOJI_MAP[codeAtual] || '🌡️', desc: CLIMA_DESC_MAP[codeAtual] || 'Clima atual' },
+            hoje: { min, max },
+            dias: wData.daily.time.slice(0, 7).map((time, i) => ({
+                data: time,
+                min: Math.round(wData.daily.temperature_2m_min[i]),
+                max: Math.round(wData.daily.temperature_2m_max[i]),
+                code: wData.daily.weathercode[i],
+                chuva: wData.daily.precipitation_probability_max?.[i]
+            })),
+            timestamp: Date.now()
+        };
+        localStorage.setItem('previsao_completa', JSON.stringify(previsaoCompleta));
+        
+    } catch(e) {
+        // Se falhou mas já tem cache exibido: mantém
+        if (cacheExibido) return;
+        
+        // Se falhou e não tem cache: tenta fallbacks
+        widget.textContent = '';
+        
+        const ultimoClima = localStorage.getItem('ultimo_clima');
+        if (ultimoClima) {
+            widget.innerHTML = `<a href="#" onclick="abrirModalClima(); return false;" style="text-decoration:none;color:inherit;display:inline-flex;align-items:center;gap:2px;">${ultimoClima}</a>`;
+            widget.style.opacity = '0.85';
+            widget.title = 'Cache';
+        } else {
+            const agora = new Date();
+            const hora = agora.getHours();
+            let emoji = '🌙';
+            if (hora >= 6 && hora < 12) emoji = '🌞';
+            else if (hora >= 12 && hora < 18) emoji = '🌤️';
+            else if (hora >= 18 && hora < 22) emoji = '🌛';
             
-            if (!weather.ok) throw new Error('Erro na previsão');
-            
-            const wData = await weather.json();
-            
-            if (!wData.current || !wData.daily?.temperature_2m_min?.[0]) {
-                throw new Error('Dados incompletos');
-            }
-            
-            const min = Math.round(wData.daily.temperature_2m_min[0]);
-            const max = Math.round(wData.daily.temperature_2m_max[0]);
-            const code = wData.daily.weathercode[0];
-            const tempAtual = Math.round(wData.current.temperature_2m);
-            const codeAtual = wData.current.weathercode;
-            
-            const emoji = CLIMA_EMOJI_MAP[code] || '🌡️';
-            const climaTexto = `${max}° / ${min}° ${emoji}`;
-            
-            widget.innerHTML = `<a href="#" onclick="abrirModalClima(); return false;" style="text-decoration:none;color:inherit;display:inline-flex;align-items:center;gap:4px;"><span style="color:#6eb233">${max}° / ${min}°</span> <span style="font-size:18px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.3))">${emoji}</span></a>`;
+            widget.innerHTML = `<a href="#" onclick="abrirModalClima(); return false;" style="text-decoration:none;color:inherit;">${emoji}</a>`;
             widget.style.opacity = '1';
-            widget.title = 'Clique para ver previsão completa';
-            
-            localStorage.setItem('ultimo_clima', climaTexto);
-            
-            const previsaoCompleta = {
-                cidade,
-                atual: { temp: tempAtual, emoji: CLIMA_EMOJI_MAP[codeAtual] || '🌡️', desc: CLIMA_DESC_MAP[codeAtual] || 'Clima atual' },
-                hoje: { min, max },
-                dias: wData.daily.time.slice(0, 7).map((time, i) => ({
-                    data: time,
-                    min: Math.round(wData.daily.temperature_2m_min[i]),
-                    max: Math.round(wData.daily.temperature_2m_max[i]),
-                    code: wData.daily.weathercode[i],
-                    chuva: wData.daily.precipitation_probability_max?.[i]
-                })),
-                timestamp: Date.now()
-            };
-            localStorage.setItem('previsao_completa', JSON.stringify(previsaoCompleta));
-            
-            console.log('[CLIMA] Sucesso na tentativa', tentativa);
-            return; // Sucesso - sai da função
-            
-        } catch(e) {
-            console.log(`[CLIMA] Erro na tentativa ${tentativa}:`, e.message);
-            
-            // Se foi a última tentativa, vai para o fallback
-            if (tentativa === 2) {
-                widget.textContent = '';
-                
-                const previsaoSalva = localStorage.getItem('previsao_completa');
-                if (previsaoSalva) {
-                    try {
-                        const dados = JSON.parse(previsaoSalva);
-                        if (dados.cidade === cidade && dados.hoje) {
-                            const emoji = CLIMA_EMOJI_MAP[dados.dias[0].code] || '🌡️';
-                            widget.innerHTML = `<a href="#" onclick="abrirModalClima(); return false;" style="text-decoration:none;color:inherit;display:inline-flex;align-items:center;gap:4px;"><span style="color:#6eb233">${dados.hoje.max}° / ${dados.hoje.min}°</span> <span style="font-size:18px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.3))">${emoji}</span></a>`;
-                            widget.style.opacity = '0.85';
-                            widget.title = 'Dados offline - clique para atualizar';
-                            console.log('[CLIMA] Usando cache');
-                            return;
-                        }
-                    } catch(parseError) {
-                        console.log('[CLIMA] Erro ao parsear cache:', parseError);
-                    }
-                }
-                
-                const ultimoClima = localStorage.getItem('ultimo_clima');
-                if (ultimoClima) {
-                    widget.innerHTML = `<a href="#" onclick="abrirModalClima(); return false;" style="text-decoration:none;color:inherit;display:inline-flex;align-items:center;gap:2px;">${ultimoClima}</a>`;
-                    widget.style.opacity = '0.85';
-                    widget.title = 'Dados offline - clique para atualizar';
-                } else {
-                    const agora = new Date();
-                    const hora = agora.getHours();
-                    
-                    let emoji = '🌙';
-                    if (hora >= 6 && hora < 12) {
-                        emoji = '🌞';
-                    } else if (hora >= 12 && hora < 18) {
-                        emoji = '🌤️';
-                    } else if (hora >= 18 && hora < 22) {
-                        emoji = '🌛';
-                    }
-                    
-                    widget.innerHTML = `<a href="#" onclick="abrirModalClima(); return false;" style="text-decoration:none;color:inherit;">${emoji}</a>`;
-                    widget.style.opacity = '1';
-                    widget.title = 'Clique para ver previsão do tempo';
-                }
-            }
-            // Se não foi a última tentativa, aguarda 1s e tenta novamente
-            else {
-                await new Promise(resolve => setTimeout(resolve, 1000));
-            }
+            widget.title = 'Clima';
         }
     }
 }
@@ -1531,10 +1523,8 @@ async function abrirModalClima() {
     
     const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
     const tipo = connection?.effectiveType;
-    const timeoutMap = { '4g': 20000, '3g': 15000, '2g': 18000, 'slow-2g': 25000 };
-    const timeoutMs = timeoutMap[tipo] ?? 20000;
-    
-    console.log('[CLIMA MODAL] Iniciando:', { cidade, tipo, timeout: timeoutMs, online: navigator.onLine });
+    const timeoutMap = { '4g': 8000, '3g': 12000, '2g': 18000, 'slow-2g': 25000 };
+    const timeoutMs = timeoutMap[tipo] ?? 10000;
     
     try {
         // Geocoding — usa cache de lat/lon se disponível
@@ -1594,25 +1584,20 @@ async function abrirModalClima() {
             timestamp: Date.now()
         };
         localStorage.setItem('previsao_completa', JSON.stringify(dados));
-        console.log('[CLIMA MODAL] Sucesso - dados atualizados');
         renderizarModalClima(dados, false);
 
     } catch(e) {
-        console.log('[CLIMA MODAL] Erro ao carregar:', e.message);
+        console.log('Erro ao carregar previsão completa:', e.message);
 
         // Fetch falhou — carrega cache com indicação Offline
         const previsaoSalva = localStorage.getItem('previsao_completa');
         if (previsaoSalva) {
             try {
-                console.log('[CLIMA MODAL] Usando cache');
                 renderizarModalClima(JSON.parse(previsaoSalva), true);
                 return;
-            } catch(parseError) {
-                console.log('[CLIMA MODAL] Erro ao parsear cache:', parseError);
-            }
+            } catch(parseError) {}
         }
 
-        console.log('[CLIMA MODAL] Sem cache disponível - mostrando erro');
         document.getElementById('clima-loading').style.display = 'none';
         document.getElementById('clima-erro').style.display = 'block';
     }
@@ -1622,16 +1607,16 @@ function renderizarModalClima(dados, offline) {
     document.getElementById('clima-loading').style.display = 'none';
     document.getElementById('clima-erro').style.display = 'none';
     
-    // CORREÇÃO: Mostra "Offline" quando sem rede, "(X min atrás)" quando tem rede mas usando cache
+    // Label inteligente: só mostra tempo se >= 30 min OU offline
     let cidadeLabel = dados.cidade;
     
     if (!navigator.onLine) {
-        // SEM REDE = mostra "Offline"
+        // Sem rede
         cidadeLabel = `${dados.cidade} <span style="font-size:11px;color:#ff9800;font-weight:normal;">(Offline)</span>`;
-    } else if (offline || dados.timestamp) {
-        // COM REDE mas usando cache = mostra tempo
-        const tempoCache = dados.timestamp ? Math.floor((Date.now() - dados.timestamp) / 60000) : null;
-        if (tempoCache !== null) {
+    } else if (dados.timestamp) {
+        // Com rede: só mostra se >= 30 min
+        const tempoCache = Math.floor((Date.now() - dados.timestamp) / 60000);
+        if (tempoCache >= 30) {
             const tempoTexto = tempoCache < 60 
                 ? `${tempoCache} min atrás` 
                 : `${Math.floor(tempoCache / 60)}h atrás`;
