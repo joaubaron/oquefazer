@@ -1606,7 +1606,7 @@ function renderizarModalClima(dados, offline) {
     document.getElementById('clima-cidade').innerHTML = cidadeLabel;
     document.getElementById('clima-atual').innerHTML = `${dados.atual.temp}° ${dados.atual.emoji}`;
     document.getElementById('clima-descricao').textContent = dados.atual.desc;
-    document.getElementById('clima-minmax').innerHTML = `Mín: ${dados.hoje.min}° / Máx: ${dados.hoje.max}°`;
+    document.getElementById('clima-minmax').innerHTML = `Máx: ${dados.hoje.max}° / Mín: ${dados.hoje.min}°`;
     
     let htmlPrevisao = '';
     dados.dias.forEach((dia, i) => {
