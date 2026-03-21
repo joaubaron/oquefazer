@@ -1607,14 +1607,11 @@ function renderizarModalClima(dados, offline) {
     document.getElementById('clima-loading').style.display = 'none';
     document.getElementById('clima-erro').style.display = 'none';
     
-    // Label inteligente: só mostra tempo se >= 30 min OU offline
     let cidadeLabel = dados.cidade;
     
     if (!navigator.onLine) {
-        // Sem rede
         cidadeLabel = `${dados.cidade} <span style="font-size:11px;color:#ff9800;font-weight:normal;">(Offline)</span>`;
     } else if (dados.timestamp) {
-        // Com rede: só mostra se >= 30 min
         const tempoCache = Math.floor((Date.now() - dados.timestamp) / 60000);
         if (tempoCache >= 30) {
             const tempoTexto = tempoCache < 60 
@@ -1629,10 +1626,38 @@ function renderizarModalClima(dados, offline) {
     document.getElementById('clima-descricao').textContent = dados.atual.desc;
     document.getElementById('clima-minmax').innerHTML = `Máx: ${dados.hoje.max}° / Mín: ${dados.hoje.min}°`;
     
+    // ========== CORREÇÃO AQUI ==========
+    // Obter a data de hoje no fuso horário local
+    const hoje = new Date();
+    const hojeLocal = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate());
+    
     let htmlPrevisao = '';
     dados.dias.forEach((dia, i) => {
-        const data = new Date(dia.data);
-        const diaSemana = i === 0 ? 'Hoje' : (i === 1 ? 'Amanhã' : CLIMA_DIAS_SEMANA[data.getDay()]);
+        // Converter a data da API para objeto Date (considerando que vem como YYYY-MM-DD)
+        const dataParts = dia.data.split('-');
+        const dataDia = new Date(
+            parseInt(dataParts[0]), 
+            parseInt(dataParts[1]) - 1, 
+            parseInt(dataParts[2])
+        );
+        
+        // Comparar apenas a data (sem horas) para identificar "Hoje"
+        const dataDiaLocal = new Date(dataDia.getFullYear(), dataDia.getMonth(), dataDia.getDate());
+        const diffDias = Math.round((dataDiaLocal - hojeLocal) / (1000 * 60 * 60 * 24));
+        
+        let diaSemana;
+        if (diffDias === 0) {
+            diaSemana = 'Hoje';
+        } else if (diffDias === 1) {
+            diaSemana = 'Amanhã';
+        } else if (diffDias === -1) {
+            diaSemana = 'Ontem'; // não deve acontecer com dados futuros
+        } else {
+            // Usar getDay() corretamente
+            const diasSemana = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+            diaSemana = diasSemana[dataDia.getDay()];
+        }
+        
         const emoji = CLIMA_EMOJI_MAP[dia.code] || '🌡️';
         htmlPrevisao += `
             <div class="clima-dia-item">
