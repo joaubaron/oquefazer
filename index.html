@@ -1173,12 +1173,11 @@ async function carregarClima() {
         widget.style.opacity = '1';
     }
 
-    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-    const tipo = connection?.effectiveType;
-
-    if (cacheExibido && (tipo === '4g' || tipo === '3g' || tipo === '2g' || tipo === 'slow-2g')) {
-        return;
-    }
+const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+const tipo = connection?.effectiveType;
+if (cacheExibido && dados.cidade === cidade && (tipo === '2g' || tipo === 'slow-2g')) {
+    return;
+}
 
     try {
         const timeoutMs = 15000;
