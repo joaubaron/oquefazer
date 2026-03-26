@@ -946,6 +946,17 @@ document.getElementById('modal').style.display = 'flex';
 gtag('event', 'cidade_nao_encontrada');
 return;
 }
+// ✅ FIX: se cidade mudou, limpa geo_cache e clima_cache para forçar nova busca
+const geoCache = localStorage.getItem('geo_cache');
+if (geoCache) {
+  try {
+    const g = JSON.parse(geoCache);
+    if (g.cidade !== cidade) {
+      localStorage.removeItem('geo_cache');
+      localStorage.removeItem('clima_cache');
+    }
+  } catch(e) { localStorage.removeItem('geo_cache'); }
+}
 localStorage.setItem('cidade', cidade);
 carregarClima();
 let tempo;
@@ -1088,6 +1099,10 @@ const cidade = data.address.city || data.address.town || data.address.village ||
 if (cidade) {
 document.getElementById('cidade').value = cidade;
 gtag('event', 'uso_gps');
+// ✅ FIX: limpa caches antigos ao trocar de cidade via GPS
+//    Evita que coordenadas e clima de outra cidade sejam reutilizados
+localStorage.removeItem('geo_cache');
+localStorage.removeItem('clima_cache');
 localStorage.setItem('cidade', cidade);
 carregarClima();
 }
