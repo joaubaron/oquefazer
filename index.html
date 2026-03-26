@@ -60,11 +60,11 @@ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-
 background: url('fundo.webp') center/cover no-repeat;
 
 display: flex;
-align-items: flex-end; /* ancora embaixo */
+align-items: flex-end;
 justify-content: center;
 
 box-sizing: border-box;
-padding-top: 65px; /* espaço para banner premium fixo */
+padding-top: 65px;
 }
 
 /* ============================================================ */
@@ -176,7 +176,6 @@ transform: scale(1.05);
 box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Versão genérica (quando não há evento contratado) */
 .evento-premium.generico {
 background: linear-gradient(135deg, rgba(102, 126, 234, 0.70) 0%, rgba(118, 75, 162, 0.85) 100%);
 }
@@ -185,7 +184,6 @@ background: linear-gradient(135deg, rgba(102, 126, 234, 0.70) 0%, rgba(118, 75, 
 color: #667eea;
 }
 
-/* Responsivo */
 @media (max-width: 600px) {
 .evento-premium {
 padding: 10px 15px;
@@ -202,7 +200,6 @@ padding: 8px 16px;
 }
 }
 
-/* SCROLL FICA SÓ NA CONTAINER */
 .container {
 background: rgba(255, 255, 255, 0.85);
 padding: 8px 30px 10px 30px;
@@ -467,102 +464,15 @@ border-radius: 20px;
 box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 }
 
-/* Widget de Clima - Efeito Hover */
-#tempo-widget a {
-transition: all 0.2s ease;
-}
-#tempo-widget a:hover {
-opacity: 0.75;
-transform: scale(1.05);
-}
-#tempo-widget a:active {
-transform: scale(0.98);
-}
-
-/* Modal Clima - Previsão 7 dias */
-#clima-conteudo {
--webkit-overflow-scrolling: touch;
-scrollbar-width: none; /* Firefox */
-}
-#clima-conteudo::-webkit-scrollbar {
-display: none; /* Chrome, Safari, Edge */
-}
-
-.clima-dia-item {
-display: flex;
-align-items: center;
-justify-content: space-between;
-padding: 8px 0;
-border-bottom: 1px solid #f0f0f0;
-}
-.clima-dia-item:last-child {
-border-bottom: none;
-}
-.clima-dia-esquerda {
-display: flex;
-align-items: center;
-gap: 10px;
-flex: 1;
-}
-.clima-dia-nome {
-font-size: 14px;
-font-weight: 600;
-color: #333;
-min-width: 60px;
-}
-.clima-dia-emoji {
-font-size: 24px;
-line-height: 1;
-}
-.clima-dia-temp {
-font-size: 16px;
-font-weight: 600;
-color: #333;
-text-align: right;
-}
-.clima-dia-temp-min {
-font-size: 13px;
-color: #999;
-margin-left: 8px;
-}
-
 </style>
 </head>
 <body>
-
-<!-- VERSÃO EVENTO CONTRATADO -->
-<!--
-<div class="evento-premium">
-<a href="https://oktoberfestblumenau.com.br" 
-target="_blank" 
-class="evento-premium-link"
-onclick="gtag('event', 'clique_anuncio', {
-'anunciante_id': 'premium_2026_10_oktoberfest',
-'anunciante_nome': 'Oktoberfest Blumenau 2026',
-'local': 'banner_premium_topo',
-'periodo': 'premium',
-'data_clique': new Date().toISOString().split('T')[0]
-});">
-<img src="./logo_premium.png" style="height:40px; width:40px; object-fit:contain; border-radius:50%; flex-shrink:0;">
-<div class="evento-premium-content">
-<h2 class="evento-premium-titulo">Oktoberfest Blumenau 2026</h2>
-<p class="evento-premium-info">
-<span style="background: rgba(255,255,255,0.2); padding: 1px 5px; border-radius: 20px; font-weight: 700; margin-right: 8px; font-size: 10px;">
-<span style="font-size: 1.4em;">🍻</span> 10 a 26 OUT
-</span>
-Vila Germânica
-</p>
-</div>
-<div class="evento-premium-cta">Saiba Mais</div>
-</a>
-</div>
--->
 
 <!-- VERSÃO GENÉRICA -->
 
 <div class="evento-premium generico">
 <a href="https://wa.me/5547991581967?text=Ol%C3%A1!%20Como%20fa%C3%A7o%20pra%20anunciar%3F"
-target="_blank" 
+target="_blank"
 class="evento-premium-link"
 onclick="gtag('event', 'clique_anuncio', {
 'anunciante_id': 'generico_anuncie_aqui',
@@ -590,14 +500,14 @@ Shows, festivais...
 <div>
 <div class="cidade-row">
 <div class="input-wrapper">
-<input type="text" id="cidade" placeholder="Digite uma cidade" aria-label="Digite uma cidade" onkeydown="if(event.key==='Enter') buscar('hoje')">
+<input type="text" id="cidade" placeholder="Digite uma cidade" aria-label="Digite uma cidade" onkeydown="if(event.key==='Enter') buscar('hoje')" onfocus="this.select()">
 <button type="button" id="geo-btn" class="geo-btn" onclick="detectarCidade()" title="Detectar minha cidade" aria-label="Detectar minha cidade">📍</button>
 </div>
 <button type="button" class="evento-btn" onclick="toggleEvento()">🎫 Acontecendo</button>
 </div>
 <div class="evento-wrapper" id="eventoWrapper">
 <div class="input-wrapper">
-<input type="text" id="evento" aria-label="Nome do local ou evento" placeholder="Digite local ou evento ou escolha período"> <button type="button" class="geo-btn" onclick="buscarEventoAmplo()" title="Buscar" aria-label="Buscar evento" style="display:flex;align-items:center;justify-content:center;"> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6eb233" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"> <polyline points="9 10 4 15 9 20"/> <path d="M20 4v7a4 4 0 0 1-4 4H4"/> </svg> </button>
+<input type="text" id="evento" aria-label="Nome do local ou evento" placeholder="Digite local ou evento ou escolha período" onfocus="this.select()"> <button type="button" class="geo-btn" onclick="buscarEventoAmplo()" title="Buscar" aria-label="Buscar evento" style="display:flex;align-items:center;justify-content:center;"> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6eb233" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"> <polyline points="9 10 4 15 9 20"/> <path d="M20 4v7a4 4 0 0 1-4 4H4"/> </svg> </button>
 </div>
 <div class="evento-dica">💡 Com cidade IA mais precisa. Sem cidade busca ampla.</div>
 </div>
@@ -612,41 +522,11 @@ Shows, festivais...
 <button type="button" class="cat-btn" aria-pressed="false" onclick="toggleCategoria(this, 'Feiras')">🛍️ Feiras</button>
 </div>
 
-<!--
-║      GUIA DE MANUTENÇÃO
-╠══════════════════════════════════════════════════════════════════
-║
-║  📦 PARCEIRO DO MÊS  (R$199)
-║  ─────────────────────────────────────────────────────────────
-║  1. href            → link do Instagram do parceiro
-║  2. anunciante_id   → padrão: 'mensal_nomeparceiro'
-║  3. parceiro-nome   → nome exibido no card
-║  4. parceiro-label  → rótulo + emoji
-║  5. parceiro-acesse → horário de funcionamento
-║  6. parceiro-cidade → cidade do anunciante (usada pela IA)
-║  7. logo_anunciante.png → logo do anunciante (substituir no GitHub)
-║
-║  📦 PARCEIROS DA SEMANA  (R$ 79 — semanal)
-║  ─────────────────────────────────────────────────────────────
-║  Cada card (esquerda / meio / direita):
-║  1. href            → link do Instagram do parceiro
-║  2. anunciante_id   → padrão: 'semanaX_nomeparceiro'
-║  3. semana-nome     → nome exibido no card
-║  4. semana-emoji    → emoji temático
-║  5. anunciante_id   → nome anunciante
-║  . emojis           → 🍻 🎶 🎭 🌱 🎾 🛍️ 🎤 🎬 🎨 🎪 🎟️ 🏆 📚 🍔 🚴 🏛️ 🥟 🍛
--->
-
-<!-- ============================================================ -->
-<!--  PARCEIRO DO MÊS                                             -->
-<!-- ============================================================ -->
-<!-- 1️⃣ LINK -->
 <a href="https://www.instagram.com/pointdabelezabnu"
 target="_blank"
 class="parceiro-card"
 
 onclick="gtag('event', 'clique_anuncio', {
-/* 2️⃣ ANUNCIANTE ID */
 'anunciante_id': 'mensal_2026_03_pointdabeleza',
 'anunciante_nome': this.querySelector('.parceiro-nome').innerText,
 'local': 'card_principal',
@@ -654,39 +534,27 @@ onclick="gtag('event', 'clique_anuncio', {
 'data_clique': new Date().toISOString().split('T')[0]
 });">
 <div style="display:flex; align-items:center; gap:10px;">
-<!-- 7️⃣ LOGO -->
 <img src="./logo_anunciante.png" style="height:40px; width:40px; object-fit:contain; border-radius:50%; flex-shrink:0;">
 <div style="flex:1;">
 <div class="parceiro-linha" style="margin-bottom:5px">
-<!-- 4️⃣ LABEL E EMOJI -->
 <span class="parceiro-label">Um salão de beleza completo</span>
 <span class="parceiro-badge">Destaque</span>
 </div>
 <div class="parceiro-linha">
-<!-- 3️⃣ NOME -->
 <span class="parceiro-nome">Point da Beleza</span>
-<!-- 5️⃣ HORÁRIO -->
 <span class="parceiro-acesse">✂️ Agendamentos por aqui</span>
 </div>
 </div>
 </div>
-<!-- 6️⃣ CIDADE (oculta, usada pela IA) -->
 <span class="parceiro-cidade" style="display:none">Blumenau</span>
 </a>
 
-<!-- ============================================================ -->
-<!--  PARCEIROS DA SEMANA                                         -->
-<!-- ============================================================ -->
-
 <div class="semana-group">
 
-<!-- ── SEMANA 1 · ESQUERDA ─────────────────────────────────── -->
-<!-- 1️⃣ LINK -->
 <a href="https://www.instagram.com/innaturacomidadeverdade?igsh=bzJlemN1cXBjOGY4"
 target="_blank"
 class="semana-card"
 onclick="gtag('event', 'clique_anuncio', {
-/* 2️⃣ ANUNCIANTE ID */
 'anunciante_id': 'semanal_2026_03_s1_esq_innatura',
 'anunciante_nome': this.querySelector('.semana-nome').innerText,
 'local': 'card_semana_esquerda',
@@ -695,20 +563,15 @@ onclick="gtag('event', 'clique_anuncio', {
 });">
 <span class="semana-badge">Destaque</span>
 <div class="semana-linha">
-<!-- 3️⃣ NOME -->
 <span class="semana-nome">Restaurante In Natura</span>
-<!-- 4️⃣ EMOJI -->
 <span class="semana-emoji">🍔</span>
 </div>
 </a>
 
-<!-- ── SEMANA 2 · MEIO ────────────────────────────────────── -->
-<!-- 1️⃣ LINK -->
 <a href="https://www.instagram.com/mercadobonikoski?igsh=MWtsemYzdXg1MjV5cw=="
 target="_blank"
 class="semana-card"
 onclick="gtag('event', 'clique_anuncio', {
-/* 2️⃣ ANUNCIANTE ID */
 'anunciante_id': 'semanal_2026_03_s1_meio_bonikoski',
 'anunciante_nome': this.querySelector('.semana-nome').innerText,
 'local': 'card_semana_meio',
@@ -717,20 +580,15 @@ onclick="gtag('event', 'clique_anuncio', {
 });">
 <span class="semana-badge">Destaque</span>
 <div class="semana-linha">
-<!-- 3️⃣ NOME -->
 <span class="semana-nome">Mercado Bonikoski</span>
-<!-- 4️⃣ EMOJI -->
 <span class="semana-emoji">🛒</span>
 </div>
 </a>
 
-<!-- ── SEMANA 3 · DIREITA ─────────────────────────────────── -->
-<!-- 1️⃣ LINK -->
 <a href="https://www.instagram.com/egua_best_oficial/"
 target="_blank"
 class="semana-card"
 onclick="gtag('event', 'clique_anuncio', {
-/* 2️⃣ ANUNCIANTE ID */
 'anunciante_id': 'semanal_2026_03_s1_dir_eguabest',
 'anunciante_nome': this.querySelector('.semana-nome').innerText,
 'local': 'card_semana_direita',
@@ -739,9 +597,7 @@ onclick="gtag('event', 'clique_anuncio', {
 });">
 <span class="semana-badge">Destaque</span>
 <div class="semana-linha">
-<!-- 3️⃣ NOME -->
 <span class="semana-nome">Égua Best Oficial</span>
-<!-- 4️⃣ EMOJI -->
 <span class="semana-emoji">🦐</span>
 </div>
 </a>
@@ -761,7 +617,6 @@ Resultados podem variar a cada busca com IA
     <span id="tempo-widget" style="font-size:13px;line-height:1;opacity:1;transition:opacity 0.4s ease;" title="Previsão do tempo"></span>
     <a onclick="compartilhar(); return false;" href="#" style="color:#6eb233;text-decoration:none;">Indique</a>
 
-    <!-- NOVO: Ícone SVG do QR Code -->
     <a href="#" onclick="abrirQRCode(); return false;" style="color:#6eb233;text-decoration:none; display: inline-flex; align-items: center;" title="QR Code do App">
         <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24'%3E%3Crect x='3' y='3' width='7' height='7' fill='%236eb233'/%3E%3Crect x='14' y='3' width='7' height='7' fill='%236eb233'/%3E%3Crect x='3' y='14' width='7' height='7' fill='%236eb233'/%3E%3Crect x='14' y='14' width='3' height='3' fill='%236eb233'/%3E%3Crect x='18' y='14' width='3' height='3' fill='%236eb233'/%3E%3Crect x='14' y='18' width='3' height='3' fill='%236eb233'/%3E%3Crect x='18' y='18' width='3' height='3' fill='%236eb233'/%3E%3C/svg%3E" alt="QR Code" class="icone-qrcode">
     </a>
@@ -773,7 +628,6 @@ Resultados podem variar a cada busca com IA
 <!-- MODAL DO QR CODE -->
 <div id="modal-qrcode" role="dialog" aria-modal="true" aria-labelledby="modal-qrcode-titulo" onclick="if(event.target===this)this.style.display='none';" class="modal-overlay" style="z-index: 10002; backdrop-filter: blur(3px);">
     <div class="modal-box" style="text-align: center; max-width: 320px; width: 85%;">
-        <!-- QR CODE GERADO COM QRCODE -->
         <div style="background: #ffffff; padding: 15px; border-radius: 16px; margin: 10px 0; display: flex; justify-content: center;">
             <div id="qrcode-modal" style="background: white; padding: 4px; border-radius: 5px;"></div>
         </div>
@@ -854,7 +708,7 @@ Grandes eventos (festivais, shows, atrações especiais) aparecem em destaque no
 
 <p style="margin-bottom:20px;">
 <strong>Quer anunciar seu negócio?</strong><br>
-Fale comigo no 
+Fale comigo no
 <a href="https://wa.me/5547991581967?text=Ol%C3%A1!%20Como%20fa%C3%A7o%20pra%20anunciar%3F"
 target="_blank"
 style="color:#25D366;font-weight:bold;text-decoration:none;">
@@ -877,42 +731,6 @@ color: white;
 width: auto;
 ">Entendi</button>
 <a href="https://www.instagram.com/joseaugustobaron/" target="_blank" style="font-size:15px;color:#555;text-decoration:none;white-space:nowrap;">2026 <span style="color:#6eb233;">@baron</span></a>
-</div>
-</div>
-</div>
-
-<!-- ============================================================ -->
-<!--  MODAL CLIMA - PREVISÃO COMPLETA                             -->
-<!-- ============================================================ -->
-<div id="modal-clima" role="dialog" aria-modal="true" onclick="if(event.target===this)fecharModalClima();" class="modal-overlay" style="z-index: 10003; backdrop-filter: blur(4px); display: none;">
-<div class="modal-box" style="max-width: 380px; width: 90%; padding: 0; overflow: hidden; max-height: 85vh; display: flex; flex-direction: column;">
-<!-- Header -->
-<div id="clima-header" style="background: white; padding: 16px 20px; color: #333; position: relative; border-bottom: 1px solid #f0f0f0; flex-shrink: 0;">
-<button onclick="fecharModalClima();" style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.05); border: none; color: #666; width: 30px; height: 30px; border-radius: 50%; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: bold;">×</button>
-<div id="clima-cidade" style="font-size: 17px; font-weight: bold; margin-bottom: 6px; color: #6eb233;"></div>
-<div id="clima-atual" style="font-size: 42px; font-weight: 300; margin: 6px 0; color: #333;"></div>
-<div style="font-size: 13px; color: #666;">
-<span id="clima-descricao"></span> &nbsp;
-<span id="clima-minmax"></span>
-</div>
-</div>
-
-<!-- Previsão 7 dias -->
-<div id="clima-conteudo" style="padding: 16px 20px; overflow-y: auto; flex: 1;">
-<div style="font-size: 13px; color: #6eb233; margin-bottom: 10px; letter-spacing: 0.5px; display: flex; align-items: center; gap: 5px; justify-content: center; flex-wrap: wrap;">Ver o clima antes de resolver<img src="oqfazer.png" style="height: 15px; vertical-align: middle; display: inline-block; margin-top: 3px;"></div>
-<div id="clima-previsao-7dias"></div>
-</div>
-
-<!-- Loading -->
-<div id="clima-loading" style="padding: 60px 20px; text-align: center; display: none;">
-<div style="font-size: 32px; margin-bottom: 10px;">🌞</div>
-<div style="font-size: 14px; color: #999;">Carregando previsão...</div>
-</div>
-
-<!-- Erro -->
-<div id="clima-erro" style="padding: 60px 20px; text-align: center; display: none;">
-<div style="font-size: 25px; margin-bottom: 10px;">⚠️</div>
-<div style="font-size: 14px; color: #999;">Não é possível carregar a previsão</div>
 </div>
 </div>
 </div>
@@ -1060,15 +878,12 @@ function atualizarData() {
 }
 atualizarData();
 
-// Função para gerar QR Code igual ao do flyer
 function gerarQRCodeModal() {
     const qrDiv = document.getElementById('qrcode-modal');
     if (!qrDiv) return;
 
-    // Limpa o conteúdo anterior
     qrDiv.innerHTML = '';
 
-    // Cria o QR Code com as mesmas configurações do flyer
     new QRCode(qrDiv, {
     text: "https://joaubaron.github.io/oquefazer/?utm_source=qrcode&utm_medium=flyer&utm_campaign=divulgacao",
     width: 190,
@@ -1079,11 +894,9 @@ function gerarQRCodeModal() {
 });
 }
 
-// Chamar a função quando o modal for aberto
 function abrirQRCode() {
     document.getElementById('modal-qrcode').style.display = 'flex';
 
-    // Garantir que o QR Code seja gerado ao abrir
     setTimeout(gerarQRCodeModal, 100);
 
     if (typeof gtag !== 'undefined') {
@@ -1094,13 +907,11 @@ function abrirQRCode() {
     }
 }
 
-// Adicione esta linha no event listener do ESC (dentro do keydown existente)
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         document.getElementById('modal').style.display = 'none';
         document.getElementById('modal-ajuda').style.display = 'none';
         document.getElementById('modal-qrcode').style.display = 'none';
-        document.getElementById('modal-clima').style.display = 'none';
     }
 });
 
@@ -1119,7 +930,6 @@ categoriaSelecionada = categoria;
 }
 
 function buscar(periodo) {
-// Se o modo evento estiver ativo, os botões de período disparam busca por evento específico
 const eventoWrapper = document.getElementById('eventoWrapper');
 if (eventoWrapper.style.display === 'block') {
 buscarEventoAmplo(periodo);
@@ -1149,7 +959,6 @@ let query;
 if (eventoEspecifico) {
 query = `Buscar APENAS informações sobre: ${eventoEspecifico} em ${cidade} ${tempo}. Mostrar somente este evento. Não mostrar outros eventos. Informar: data, horário, local, descrição e links. Se não encontrar, informar claramente que não há informações confirmadas sobre este evento.`;
 } else {
-// ── Lê o parceiro do mês dinamicamente do HTML ──
 const parceiroMesNome = document.querySelector('.parceiro-nome')?.innerText || '';
 const parceiroMesLabel = document.querySelector('.parceiro-label')?.firstChild?.textContent?.trim() || '';
 const parceiroMesLink = document.querySelector('.parceiro-card')?.href || '';
@@ -1166,16 +975,13 @@ const filtroMap = {
 const hoje = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 if (periodo === 'hoje') tempo = `hoje (${hoje})`;
 
-// ── Destaque só aparece se a cidade buscada for a do parceiro ──
 const destaquesTexto = parceiroMesCidade.toLowerCase() === cidade.toLowerCase()
 ? `BLOCO 1 — DESTAQUE OBRIGATÓRIO: Exiba primeiro Em Destaque: ${parceiroMesNome} — ${parceiroMesLabel}, em ${parceiroMesCidade}. Máximo 2 linhas, use emojis. Exiba o site oficial como fonte: ${parceiroMesLink} . Não busque outros links. BLOCO 2 — EVENTOS: `
 : '';
 
 if (categoriaSelecionada) {
-// ── COM FILTRO — query limpa, sem contradição ──
 query = `${destaquesTexto}${filtroMap[categoriaSelecionada]} em ${cidade} ${tempo}. Listar eventos REAIS confirmados. Não invente eventos. Para cada evento: data, horário, local e link. Nome em negrito. Separadores visuais entre eventos. Se não houver, informar claramente.`;
 } else {
-// ── SEM FILTRO — intocado ──
 query = `${destaquesTexto}Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir eventos de todos os bairros da cidade, não apenas do centro. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Bares, 🎶 Shows, 🎭 Cultura, 🌱 Natureza, 🎾 Esporte, 🛍️ Feiras. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente. Use separadores visuais entre eventos. Negrito no nome. Listar o MÁXIMO de eventos possível, sem limite, agrupados por categoria e dia. Incluir também bares, pubs e restaurantes abertos com programação ou destaque no período, mesmo que não sejam eventos formais.`;
 }
 }
@@ -1195,7 +1001,6 @@ mostrarAviso('Informe um local ou evento.');
 return;
 }
 
-// Salva cidade se fornecida
 if (cidade) {
 localStorage.setItem('cidade', cidade);
 carregarClima();
@@ -1256,7 +1061,6 @@ setTimeout(() => { location.href = url; }, 300);
 
 function mostrarAviso(msg) {
 const m = document.getElementById('modal');
-// msg é sempre string literal do próprio código — nunca input do usuário
 document.getElementById('modal-msg').innerHTML = msg;
 m.style.display = 'flex';
 }
@@ -1289,7 +1093,7 @@ btn.textContent = '📍';
 const msg = err.code === 1 ? 'Permissão de localização negada.' : err.code === 2 ? 'Posição indisponível. Tente novamente.' : '⏱️ Tempo esgotado. Digite uma cidade.';
 mostrarAviso(msg);
 btn.textContent = '📍';
-}, { timeout: 10000 });
+}, { timeout: 15000, enableHighAccuracy: false });
 }
 
 function compartilhar() {
@@ -1309,7 +1113,6 @@ navigator.clipboard.writeText(texto).then(() => { mostrarAviso('Link copiado! �
 }
 }
 
-// Detecta WebView do Facebook/Instagram
 const ua = navigator.userAgent;
 const isWebView = /FBAN|FBAV|Instagram|FB_IAB/i.test(ua);
 
@@ -1323,9 +1126,6 @@ const msg = isAndroid
 mostrarAviso(msg);
 }
 
-// ===============================================
-// CLIMA - CONSTANTES GLOBAIS
-// ===============================================
 const CLIMA_EMOJI_MAP = {
     0:'🌞', 1:'🌤️', 2:'🌥️', 3:'☁️',
     45:'🌥️', 48:'🌥️',
@@ -1336,17 +1136,7 @@ const CLIMA_EMOJI_MAP = {
     85:'🌨️', 86:'🌨️',
     95:'🌩️', 96:'🌩️', 99:'🌩️'
 };
-const CLIMA_DESC_MAP = {
-    0:'Céu limpo', 1:'Parcialmente nublado', 2:'Parcialmente nublado', 3:'Nublado',
-    45:'Neblina', 48:'Neblina',
-    51:'Chuva fraca', 53:'Chuva moderada', 55:'Chuva forte',
-    61:'Chuva fraca', 63:'Chuva moderada', 65:'Chuva forte',
-    71:'Neve fraca', 73:'Neve moderada', 75:'Neve forte', 77:'Neve',
-    80:'Pancadas de chuva', 81:'Pancadas fortes', 82:'Chuva intensa',
-    85:'Neve', 86:'Neve forte',
-    95:'Tempestade', 96:'Tempestade', 99:'Tempestade forte'
-};
-const CLIMA_DIAS_SEMANA = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+
 const fetchComTimeout = (url, ms, opts = {}) => Promise.race([
     fetch(url, opts),
     new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), ms))
@@ -1362,7 +1152,6 @@ async function carregarClima() {
         return;
     }
 
-    // ===== CACHE INTELIGENTE: MOSTRA IMEDIATAMENTE =====
     const previsaoSalva = localStorage.getItem('previsao_completa');
     let cacheExibido = false;
 
@@ -1370,36 +1159,30 @@ async function carregarClima() {
         try {
             const dados = JSON.parse(previsaoSalva);
             if (dados.cidade === cidade && dados.hoje) {
-                // Mostra cache INSTANTANEAMENTE
                 const emoji = CLIMA_EMOJI_MAP[dados.dias[0].code] || '🌡️';
-                widget.innerHTML = `<a href="#" onclick="abrirModalClima(); return false;" style="text-decoration:none;color:inherit;display:inline-flex;align-items:center;gap:4px;"><span style="color:#6eb233">${dados.hoje.max}° / ${dados.hoje.min}°</span> <span style="font-size:18px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.3))">${emoji}</span></a>`;
+                widget.innerHTML = `<span style="color:#6eb233">${dados.hoje.max}° / ${dados.hoje.min}°</span> <span style="font-size:18px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.3))">${emoji}</span>`;
                 widget.style.opacity = '0.85';
-                widget.title = 'Clique para ver previsão';
+                widget.title = 'Previsão do tempo';
                 cacheExibido = true;
             }
         } catch(e) {}
     }
 
-    // Se não tem cache, mostra loading
     if (!cacheExibido) {
         widget.textContent = '⏳';
         widget.style.opacity = '1';
     }
 
-    // ===== VERIFICA CONEXÃO: SÓ ATUALIZA NO WiFi =====
     const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
     const tipo = connection?.effectiveType;
 
-    // Se for 4G ou pior E já tem cache: NÃO tenta atualizar
     if (cacheExibido && (tipo === '4g' || tipo === '3g' || tipo === '2g' || tipo === 'slow-2g')) {
-        return; // Para aqui - mantém o cache
+        return;
     }
 
-    // ===== TENTA ATUALIZAR (só WiFi ou sem cache) =====
     try {
-        const timeoutMs = 15000; // 15s para WiFi
+        const timeoutMs = 15000;
 
-        // Cache de coordenadas
         let lat, lon;
         const cachedLatLon = localStorage.getItem('cidade_latlon');
         if (cachedLatLon) {
@@ -1412,7 +1195,6 @@ async function carregarClima() {
             } catch(e) {}
         }
 
-        // Busca geocoding se necessário
         if (lat == null || lon == null) {
             const geo = await fetchComTimeout(
                 `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cidade)}&count=1&language=pt&format=json`,
@@ -1426,7 +1208,6 @@ async function carregarClima() {
             localStorage.setItem('cidade_latlon', JSON.stringify({ lat, lon, cidade }));
         }
 
-        // Busca clima
         const weather = await fetchComTimeout(
             `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weathercode&daily=temperature_2m_min,temperature_2m_max,weathercode,precipitation_probability_max&temperature_unit=celsius&timezone=auto&forecast_days=7`,
             timeoutMs,
@@ -1446,17 +1227,15 @@ async function carregarClima() {
         const emoji = CLIMA_EMOJI_MAP[code] || '🌡️';
         const climaTexto = `${max}° / ${min}° ${emoji}`;
 
-        // Atualiza widget
-        widget.innerHTML = `<a href="#" onclick="abrirModalClima(); return false;" style="text-decoration:none;color:inherit;display:inline-flex;align-items:center;gap:4px;"><span style="color:#6eb233">${max}° / ${min}°</span> <span style="font-size:18px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.3))">${emoji}</span></a>`;
+        widget.innerHTML = `<span style="color:#6eb233">${max}° / ${min}°</span> <span style="font-size:18px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.3))">${emoji}</span>`;
         widget.style.opacity = '1';
-        widget.title = 'Clique para ver previsão completa';
+        widget.title = 'Previsão do tempo';
 
         localStorage.setItem('ultimo_clima', climaTexto);
 
-        // Salva previsão completa
         const previsaoCompleta = {
             cidade,
-            atual: { temp: tempAtual, emoji: CLIMA_EMOJI_MAP[codeAtual] || '🌡️', desc: CLIMA_DESC_MAP[codeAtual] || 'Clima atual' },
+            atual: { temp: tempAtual, emoji: CLIMA_EMOJI_MAP[codeAtual] || '🌡️' },
             hoje: { min, max },
             dias: wData.daily.time.slice(0, 7).map((time, i) => ({
                 data: time,
@@ -1470,15 +1249,13 @@ async function carregarClima() {
         localStorage.setItem('previsao_completa', JSON.stringify(previsaoCompleta));
 
     } catch(e) {
-        // Se falhou mas já tem cache exibido: mantém
         if (cacheExibido) return;
 
-        // Se falhou e não tem cache: tenta fallbacks
         widget.textContent = '';
 
         const ultimoClima = localStorage.getItem('ultimo_clima');
         if (ultimoClima) {
-            widget.innerHTML = `<a href="#" onclick="abrirModalClima(); return false;" style="text-decoration:none;color:inherit;display:inline-flex;align-items:center;gap:2px;">${ultimoClima}</a>`;
+            widget.innerHTML = ultimoClima;
             widget.style.opacity = '0.85';
             widget.title = 'Cache';
         } else {
@@ -1489,194 +1266,11 @@ async function carregarClima() {
             else if (hora >= 12 && hora < 18) emoji = '🌤️';
             else if (hora >= 18 && hora < 22) emoji = '🌛';
 
-            widget.innerHTML = `<a href="#" onclick="abrirModalClima(); return false;" style="text-decoration:none;color:inherit;">${emoji}</a>`;
+            widget.innerHTML = emoji;
             widget.style.opacity = '1';
             widget.title = 'Clima';
         }
     }
-}
-
-// ===============================================
-// MODAL DE CLIMA - FUNÇÕES
-// ===============================================
-
-function fecharModalClima() {
-    document.getElementById('modal-clima').style.display = 'none';
-}
-
-async function abrirModalClima() {
-    const modal = document.getElementById('modal-clima');
-    const cidade = localStorage.getItem('cidade');
-
-    if (!cidade) {
-        mostrarAviso('Digite uma cidade primeiro');
-        return;
-    }
-
-    gtag('event', 'clima_modal_aberto', {'cidade': cidade});
-
-    modal.style.display = 'flex';
-    document.getElementById('clima-loading').style.display = 'block';
-    document.getElementById('clima-erro').style.display = 'none';
-    document.getElementById('clima-header').style.display = 'none';
-    document.getElementById('clima-conteudo').style.display = 'none';
-
-    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-    const tipo = connection?.effectiveType;
-    const timeoutMap = { '4g': 8000, '3g': 12000, '2g': 18000, 'slow-2g': 25000 };
-    const timeoutMs = timeoutMap[tipo] ?? 10000;
-
-    try {
-        // Geocoding — usa cache de lat/lon se disponível
-        let lat, lon;
-        const cachedLatLon = localStorage.getItem('cidade_latlon');
-        if (cachedLatLon) {
-            try {
-                const parsed = JSON.parse(cachedLatLon);
-                if (parsed.cidade === cidade) { lat = parsed.lat; lon = parsed.lon; }
-            } catch(e) {}
-        }
-        if (lat == null || lon == null) {
-            let geo;
-            try {
-                geo = await fetchComTimeout(
-                    `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cidade)}&count=1&language=pt&format=json`,
-                    timeoutMs
-                );
-            } catch(e) { throw new Error('geocoding: ' + e.message); }
-            if (!geo.ok) throw new Error('Erro na geolocalização');
-            const geoData = await geo.json();
-            if (!geoData.results?.length) throw new Error('Cidade não encontrada');
-            lat = geoData.results[0].latitude;
-            lon = geoData.results[0].longitude;
-            localStorage.setItem('cidade_latlon', JSON.stringify({ lat, lon, cidade }));
-        }
-
-        let weather;
-        try {
-            weather = await fetchComTimeout(
-                `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weathercode&daily=temperature_2m_min,temperature_2m_max,weathercode,precipitation_probability_max&temperature_unit=celsius&timezone=auto&forecast_days=7`,
-                timeoutMs,
-                { headers: { 'Accept': 'application/json' } }
-            );
-        } catch(e) { throw new Error('open-meteo: ' + e.message); }
-
-        if (!weather.ok) throw new Error('Erro na previsão');
-        const wData = await weather.json();
-        if (!wData.current || !wData.daily) throw new Error('Dados incompletos');
-
-        const tempAtual = Math.round(wData.current.temperature_2m);
-        const codeAtual = wData.current.weathercode;
-        const minHoje = Math.round(wData.daily.temperature_2m_min[0]);
-        const maxHoje = Math.round(wData.daily.temperature_2m_max[0]);
-
-        const dados = {
-            cidade,
-            atual: { temp: tempAtual, emoji: CLIMA_EMOJI_MAP[codeAtual] || '🌡️', desc: CLIMA_DESC_MAP[codeAtual] || 'Clima atual' },
-            hoje: { min: minHoje, max: maxHoje },
-            dias: wData.daily.time.slice(0, 7).map((time, i) => ({
-                data: time,
-                min: Math.round(wData.daily.temperature_2m_min[i]),
-                max: Math.round(wData.daily.temperature_2m_max[i]),
-                code: wData.daily.weathercode[i],
-                chuva: wData.daily.precipitation_probability_max?.[i]
-            })),
-            timestamp: Date.now()
-        };
-        localStorage.setItem('previsao_completa', JSON.stringify(dados));
-        renderizarModalClima(dados, false);
-
-    } catch(e) {
-        console.log('Erro ao carregar previsão completa:', e.message);
-
-        // Fetch falhou — carrega cache com indicação Offline
-        const previsaoSalva = localStorage.getItem('previsao_completa');
-        if (previsaoSalva) {
-            try {
-                renderizarModalClima(JSON.parse(previsaoSalva), true);
-                return;
-            } catch(parseError) {}
-        }
-
-        document.getElementById('clima-loading').style.display = 'none';
-        document.getElementById('clima-erro').style.display = 'block';
-    }
-}
-
-function renderizarModalClima(dados, offline) {
-    document.getElementById('clima-loading').style.display = 'none';
-    document.getElementById('clima-erro').style.display = 'none';
-
-    // Label inteligente: só mostra tempo se >= 30 min OU offline
-    let cidadeLabel = dados.cidade;
-
-    if (!navigator.onLine) {
-        // Sem rede
-        cidadeLabel = `${dados.cidade} <span style="font-size:11px;color:#ff9800;font-weight:normal;">(Offline)</span>`;
-    } else if (dados.timestamp) {
-        // Com rede: só mostra se >= 30 min
-        const tempoCache = Math.floor((Date.now() - dados.timestamp) / 60000);
-        if (tempoCache >= 30) {
-            const tempoTexto = tempoCache < 60 
-                ? `${tempoCache} min atrás` 
-                : `${Math.floor(tempoCache / 60)}h atrás`;
-            cidadeLabel = `${dados.cidade} <span style="font-size:11px;color:#ff9800;font-weight:normal;">(${tempoTexto})</span>`;
-        }
-    }
-
-    document.getElementById('clima-cidade').innerHTML = cidadeLabel;
-    document.getElementById('clima-atual').innerHTML = `${dados.atual.temp}° ${dados.atual.emoji}`;
-    document.getElementById('clima-descricao').textContent = dados.atual.desc;
-    document.getElementById('clima-minmax').innerHTML = `Máx: ${dados.hoje.max}° / Mín: ${dados.hoje.min}°`;
-
-
-
-
-
-
-    let htmlPrevisao = '';
-    dados.dias.forEach((dia, i) => {
-        const data = new Date(dia.data);
-        const diaSemana = i === 0 ? 'Hoje' : (i === 1 ? 'Amanhã' : CLIMA_DIAS_SEMANA[data.getDay()]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        const emoji = CLIMA_EMOJI_MAP[dia.code] || '🌡️';
-        htmlPrevisao += `
-            <div class="clima-dia-item">
-                <div class="clima-dia-esquerda">
-                    <div class="clima-dia-nome">${diaSemana}</div>
-                    <div class="clima-dia-emoji">${emoji}</div>
-                </div>
-                <div class="clima-dia-temp">
-                    ${dia.max}°<span class="clima-dia-temp-min">${dia.min}°</span>
-                </div>
-            </div>
-        `;
-    });
-    document.getElementById('clima-previsao-7dias').innerHTML = htmlPrevisao;
-    document.getElementById('clima-header').style.display = '';
-    document.getElementById('clima-conteudo').style.display = '';
 }
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -1687,7 +1281,6 @@ window.addEventListener('DOMContentLoaded', () => {
     carregarClima();
     setTimeout(gerarQRCodeModal, 500);
 
-    // Event listener para Enter no campo de evento
     const eventoInput = document.getElementById('evento');
     eventoInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
@@ -1702,7 +1295,6 @@ if ('serviceWorker' in navigator) {
 navigator.serviceWorker.register('./OneSignalSDKWorker.js', { scope: '/oquefazer/' });
 }
 
-// ── Instalar app — Safari Mac ──
 const isSafariMac = /Macintosh/i.test(navigator.userAgent) && /Safari/i.test(navigator.userAgent) && !/Chrome|CriOS|FxiOS|Edg/i.test(navigator.userAgent);
 const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
 if (isSafariMac && !isStandalone) {
@@ -1711,7 +1303,6 @@ document.getElementById('instalar-mac').style.display = 'block';
 }, 3000);
 }
 
-// ── Instalar app — iOS ──
 const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
 if (isIos && !isStandalone && !isWebView) {
 setTimeout(() => {
@@ -1719,7 +1310,6 @@ document.getElementById('instalar-ios').style.display = 'block';
 }, 3000);
 }
 
-// ── Instalar app ──
 let deferredPrompt;
 window.addEventListener('beforeinstallprompt', (e) => {
 e.preventDefault();
@@ -1735,7 +1325,6 @@ document.getElementById('instalar-banner').style.display = 'none';
 gtag('event', 'pwa_installed');
 });
 
-// ── Drag para mover o banner ──
 (function() {
 const banner = document.getElementById('instalar-banner');
 let dragging = false;
@@ -1780,12 +1369,10 @@ dragging = false;
 banner.style.cursor = 'grab';
 }
 
-// Mouse
 banner.addEventListener('mousedown', (e) => { startDrag(e.clientX, e.clientY); e.preventDefault(); });
 window.addEventListener('mousemove', (e) => { moveDrag(e.clientX, e.clientY); });
 window.addEventListener('mouseup', () => { endDrag(); });
 
-// Touch
 banner.addEventListener('touchstart', (e) => {
 const t = e.touches[0];
 startDrag(t.clientX, t.clientY);
@@ -1798,7 +1385,6 @@ if (moved) e.preventDefault();
 }, { passive: false });
 window.addEventListener('touchend', () => { endDrag(); });
 
-// Clique só instala se não arrastou
 banner.addEventListener('click', async () => {
 if (moved) return;
 if (!deferredPrompt) return;
