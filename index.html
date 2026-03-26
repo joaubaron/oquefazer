@@ -1260,13 +1260,26 @@ async function atualizarClima(cidade, el) {
       localStorage.setItem('geo_cache', JSON.stringify({ cidade, lat, lon, ts: Date.now() }));
     }
 
-    // Tenta wttr.in primeiro (mais rápida), se falhar usa open-meteo como backup
+    // open-meteo principal (estável + emoji preciso), wttr.in como backup
     let min, max, emoji;
     try {
+      const climaRes = await retry(() =>
+        fetchTimeout(
+          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_min,temperature_2m_max,weathercode&timezone=auto&forecast_days=1`,
+          10000
+        )
+      , 1, 500);
+      const clima = await climaRes.json();
+      min = Math.round(clima.daily.temperature_2m_min[0]);
+      max = Math.round(clima.daily.temperature_2m_max[0]);
+      const code = clima.daily.weathercode[0];
+      emoji = CLIMA_EMOJI[code] || '🌡️';
+    } catch(e1) {
+      // Backup: wttr.in — busca por nome da cidade
       const wttrRes = await retry(() =>
         fetchTimeout(
           `https://wttr.in/${encodeURIComponent(cidade)}?format=j1`,
-          8000
+          10000
         )
       , 1, 500);
       const wttr = await wttrRes.json();
@@ -1274,19 +1287,6 @@ async function atualizarClima(cidade, el) {
       max = Math.round(Number(wttr.weather[0].maxtempC));
       const wttrCode = Number(wttr.current_condition[0].weatherCode);
       emoji = WTTR_EMOJI[wttrCode] || '🌡️';
-    } catch(e1) {
-      // Backup: open-meteo — mais robusta, usa coordenadas GPS
-      const climaRes = await retry(() =>
-        fetchTimeout(
-          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_min,temperature_2m_max,weathercode&timezone=auto&forecast_days=1`,
-          15000
-        )
-      );
-      const clima = await climaRes.json();
-      min = Math.round(clima.daily.temperature_2m_min[0]);
-      max = Math.round(clima.daily.temperature_2m_max[0]);
-      const code = clima.daily.weathercode[0];
-      emoji = CLIMA_EMOJI[code] || '🌡️';
     }
 
     el.innerHTML = `<span style="color:#6eb233">${max}° / ${min}°</span> ${emoji}`;

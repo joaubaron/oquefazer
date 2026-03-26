@@ -1,5 +1,5 @@
 // ⚠️ Atualize a versão a cada deploy
-const CACHE_VERSION = '1.1.1.100121';
+const CACHE_VERSION = '1.1.1.100122';
 const CACHE_NAME = `oquefazer-${CACHE_VERSION}`;
 const STATIC_ASSETS = [
 './index.html',
@@ -18,6 +18,7 @@ const PASSTHROUGH_ORIGINS = [
 'nominatim.openstreetmap.org',
 'geocoding-api.open-meteo.com',
 'api.open-meteo.com',
+'wttr.in',
 'cdn.onesignal.com',
 'www.googletagmanager.com',
 'cdnjs.cloudflare.com'
