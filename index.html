@@ -1251,9 +1251,9 @@ async function atualizarClima(cidade, el) {
       const climaRes = await retry(() =>
         fetchTimeout(
           `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_min,temperature_2m_max,weathercode&timezone=auto&forecast_days=1`,
-          15000
+          4000
         )
-      );
+      , 1, 500);
       const clima = await climaRes.json();
       min = Math.round(clima.daily.temperature_2m_min[0]);
       max = Math.round(clima.daily.temperature_2m_max[0]);
