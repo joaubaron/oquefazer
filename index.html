@@ -1099,10 +1099,11 @@ const cidade = data.address.city || data.address.town || data.address.village ||
 if (cidade) {
 document.getElementById('cidade').value = cidade;
 gtag('event', 'uso_gps');
-// ✅ FIX: limpa caches antigos ao trocar de cidade via GPS
-//    Evita que coordenadas e clima de outra cidade sejam reutilizados
-localStorage.removeItem('geo_cache');
+// ✅ FIX: limpa clima_cache da cidade anterior
 localStorage.removeItem('clima_cache');
+// ✅ FIX MOBILE: salva lat/lon REAIS do GPS no geo_cache
+//    Evita 2ª requisição de geocoding que falha em rede fraca
+localStorage.setItem('geo_cache', JSON.stringify({ cidade, lat: latitude, lon: longitude, ts: Date.now() }));
 localStorage.setItem('cidade', cidade);
 carregarClima();
 }
@@ -1160,7 +1161,7 @@ const CLIMA_EMOJI = {
 
 // ✅ FIX 1: AbortController é muito mais confiável que Promise.race no mobile.
 //    cache:'no-store' impede o browser mobile de cachear respostas de erro.
-function fetchTimeout(url, ms = 10000) {
+function fetchTimeout(url, ms = 15000) {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), ms);
   return fetch(url, { signal: ctrl.signal, cache: 'no-store' })
@@ -1168,7 +1169,7 @@ function fetchTimeout(url, ms = 10000) {
 }
 
 // ✅ FIX 2: Delay progressivo entre tentativas — dá tempo à rede se recuperar.
-async function retry(fn, tentativas = 2, delayMs = 600) {
+async function retry(fn, tentativas = 3, delayMs = 1000) {
   let erro;
   for (let i = 0; i <= tentativas; i++) {
     try {
@@ -1282,8 +1283,9 @@ function fallbackClima(el) {
     } catch(e){}
   }
   const h = new Date().getHours();
-  const emoji = h < 6 ? '🌙' : h < 12 ? '🌞' : h < 18 ? '🌤️' : '🌛';
+  const emoji = '🌡️'; // sem cache — não exibe emoji de horário (enganoso)
   el.innerHTML = emoji;
+  el.title = 'Sem conexão para carregar clima';
   el.style.opacity = '1';
 }
 
