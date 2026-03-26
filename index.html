@@ -1155,6 +1155,7 @@ async function carregarClima() {
     const previsaoSalva = localStorage.getItem('previsao_completa');
     let cacheExibido = false;
 
+    // 1. Tenta mostrar o cache IMEDIATAMENTE para o app ser veloz
     if (previsaoSalva) {
         try {
             const dados = JSON.parse(previsaoSalva);
@@ -1173,11 +1174,8 @@ async function carregarClima() {
         widget.style.opacity = '1';
     }
 
-const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-const tipo = connection?.effectiveType;
-if (cacheExibido && dados.cidade === cidade && (tipo === '2g' || tipo === 'slow-2g')) {
-    return;
-}
+    // REMOVIDO: A trava de rede móvel (connection/tipo) saiu daqui.
+    // Agora o código sempre avança para o try abaixo, independente da rede.
 
     try {
         const timeoutMs = 15000;
@@ -1226,6 +1224,7 @@ if (cacheExibido && dados.cidade === cidade && (tipo === '2g' || tipo === 'slow-
         const emoji = CLIMA_EMOJI_MAP[code] || '🌡️';
         const climaTexto = `${max}° / ${min}° ${emoji}`;
 
+        // 2. Aqui o widget é ATUALIZADO com os dados reais (ex: 32°/23°)
         widget.innerHTML = `<span style="color:#6eb233">${max}° / ${min}°</span> <span style="font-size:18px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.3))">${emoji}</span>`;
         widget.style.opacity = '1';
         widget.title = 'Previsão do tempo';
@@ -1248,10 +1247,10 @@ if (cacheExibido && dados.cidade === cidade && (tipo === '2g' || tipo === 'slow-
         localStorage.setItem('previsao_completa', JSON.stringify(previsaoCompleta));
 
     } catch(e) {
+        // Se der erro na internet, mantém o que está no cache
         if (cacheExibido) return;
 
         widget.textContent = '';
-
         const ultimoClima = localStorage.getItem('ultimo_clima');
         if (ultimoClima) {
             widget.innerHTML = ultimoClima;
@@ -1260,14 +1259,9 @@ if (cacheExibido && dados.cidade === cidade && (tipo === '2g' || tipo === 'slow-
         } else {
             const agora = new Date();
             const hora = agora.getHours();
-            let emoji = '🌙';
-            if (hora >= 6 && hora < 12) emoji = '🌞';
-            else if (hora >= 12 && hora < 18) emoji = '🌤️';
-            else if (hora >= 18 && hora < 22) emoji = '🌛';
-
+            let emoji = (hora >= 6 && hora < 12) ? '🌞' : (hora >= 12 && hora < 18) ? '🌤️' : (hora >= 18 && hora < 22) ? '🌛' : '🌙';
             widget.innerHTML = emoji;
             widget.style.opacity = '1';
-            widget.title = 'Clima';
         }
     }
 }
