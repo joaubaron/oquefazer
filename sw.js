@@ -9,7 +9,8 @@ const STATIC_ASSETS = [
 './fundo.webp',
 './logo_anunciante.png',
 './logo_premium.png',
-'./offline.html'
+'./offline.html',
+'./oqfazer.png'
 ];
 
 // URLs externas que nunca devem ser interceptadas
