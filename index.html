@@ -617,7 +617,7 @@ Resultados podem variar a cada busca com IA
 
 <p style="margin-top: 15px; font-size: 14px; color: #555; display: flex; justify-content: center; gap: 22px; align-items: center; flex-wrap: wrap;">
      
-  <!-- <span id="tempo-widget" style="font-size:13px;line-height:1;opacity:1;transition:opacity 0.4s ease;" title="Previsão do tempo"></span> -->
+  <span id="tempo-widget" style="font-size:13px;line-height:1;opacity:1;transition:opacity 0.4s ease;" title="Previsão do tempo"></span>
   
     <a onclick="compartilhar(); return false;" href="#" style="color:#6eb233;text-decoration:none;">Indique</a>
 
@@ -1079,7 +1079,10 @@ btn.textContent = '🔎';
 navigator.geolocation.getCurrentPosition(async (pos) => {
 const { latitude, longitude } = pos.coords;
 try {
-const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`);
+// ✅ Adicionado fetchTimeout + retry — sem isso trava na rede móvel
+const res = await retry(() =>
+  fetchTimeout(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`, 10000)
+);
 const data = await res.json();
 const cidade = data.address.city || data.address.town || data.address.village || data.address.county;
 if (cidade) {
@@ -1140,24 +1143,24 @@ const CLIMA_EMOJI = {
   95:'🌩️'
 };
 
-// timeout agressivo (mobile precisa disso)
-function fetchTimeout(url, ms = 8000) {
-  return Promise.race([
-    fetch(url),
-    new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('timeout')), ms)
-    )
-  ]);
+// ✅ FIX 1: AbortController é muito mais confiável que Promise.race no mobile.
+//    cache:'no-store' impede o browser mobile de cachear respostas de erro.
+function fetchTimeout(url, ms = 10000) {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), ms);
+  return fetch(url, { signal: ctrl.signal, cache: 'no-store' })
+    .finally(() => clearTimeout(timer));
 }
 
-// retry simples (fundamental no 4G)
-async function retry(fn, tentativas = 2) {
+// ✅ FIX 2: Delay progressivo entre tentativas — dá tempo à rede se recuperar.
+async function retry(fn, tentativas = 2, delayMs = 600) {
   let erro;
   for (let i = 0; i <= tentativas; i++) {
     try {
       return await fn();
     } catch (e) {
       erro = e;
+      if (i < tentativas) await new Promise(r => setTimeout(r, delayMs * (i + 1)));
     }
   }
   throw erro;
@@ -1168,94 +1171,83 @@ async function carregarClima() {
   if (!el) return;
 
   const cidade = localStorage.getItem('cidade');
+  if (!cidade) { el.style.opacity = '0'; return; }
 
-  // 🔴 sem cidade = some
-  if (!cidade) {
-    el.style.opacity = '0';
-    return;
-  }
-
-  // 🔹 1. MOSTRA CACHE NA HORA (UX rápida)
+  // 🔹 1. MOSTRA CACHE IMEDIATAMENTE (UX rápida)
   const cache = localStorage.getItem('clima_cache');
   if (cache) {
     try {
       const c = JSON.parse(cache);
       if (c.cidade === cidade) {
         el.innerHTML = `<span style="color:#6eb233">${c.max}° / ${c.min}°</span> ${c.emoji}`;
-        el.style.opacity = '0.8';
+        el.style.opacity = '1';
+        // ✅ FIX 3: Se cache tem menos de 3h, não faz nova requisição.
+        //    Evita chamadas desnecessárias que falham no mobile.
+        if (c.ts && (Date.now() - c.ts) < 3 * 60 * 60 * 1000) return;
+        el.style.opacity = '0.8'; // indica que está atualizando
       }
     } catch(e){}
   } else {
     el.textContent = '⏳';
+    el.style.opacity = '1';
   }
 
-  // 🔹 2. ATUALIZA EM BACKGROUND (não trava UI)
+  // 🔹 2. ATUALIZA EM BACKGROUND
   atualizarClima(cidade, el);
 }
 
 async function atualizarClima(cidade, el) {
   try {
-    const TIMEOUT = 8000;
-
     let lat, lon;
 
-    // 🔹 tenta usar cache de coordenadas
+    // ✅ FIX 4: geo_cache agora tem expiração de 7 dias.
+    //    Coordenadas corrompidas ou antigas não ficam presas para sempre.
     const geoCache = localStorage.getItem('geo_cache');
     if (geoCache) {
       try {
         const g = JSON.parse(geoCache);
-        if (g.cidade === cidade) {
+        const seteD = 7 * 24 * 60 * 60 * 1000;
+        if (g.cidade === cidade && g.ts && (Date.now() - g.ts) < seteD) {
           lat = g.lat;
           lon = g.lon;
         }
       } catch(e){}
     }
 
-    // 🔹 se não tiver, busca (com retry)
     if (!lat) {
       const geoRes = await retry(() =>
         fetchTimeout(
           `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cidade)}&count=1&language=pt`,
-          TIMEOUT
+          10000
         )
       );
-
       const geo = await geoRes.json();
-      if (!geo.results?.length) throw new Error('cidade');
-
+      if (!geo.results?.length) throw new Error('cidade não encontrada');
       lat = geo.results[0].latitude;
       lon = geo.results[0].longitude;
-
-      localStorage.setItem('geo_cache', JSON.stringify({ cidade, lat, lon }));
+      // ✅ salva com timestamp para expirar corretamente
+      localStorage.setItem('geo_cache', JSON.stringify({ cidade, lat, lon, ts: Date.now() }));
     }
 
-    // 🔹 busca clima (com retry)
+    // ✅ FIX 5: forecast_days=1 reduz payload — mais rápido na rede móvel.
     const climaRes = await retry(() =>
       fetchTimeout(
-        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_min,temperature_2m_max,weathercode&timezone=auto`,
-        TIMEOUT
+        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_min,temperature_2m_max,weathercode&timezone=auto&forecast_days=1`,
+        10000
       )
     );
-
     const clima = await climaRes.json();
 
     const min = Math.round(clima.daily.temperature_2m_min[0]);
     const max = Math.round(clima.daily.temperature_2m_max[0]);
     const code = clima.daily.weathercode[0];
-
     const emoji = CLIMA_EMOJI[code] || '🌡️';
 
-    // 🔹 atualiza UI
     el.innerHTML = `<span style="color:#6eb233">${max}° / ${min}°</span> ${emoji}`;
     el.style.opacity = '1';
 
-    // 🔹 salva cache
     localStorage.setItem('clima_cache', JSON.stringify({
-      cidade,
-      min,
-      max,
-      emoji,
-      ts: Date.now()
+      cidade, min, max, emoji, ts: Date.now()
     }));
 
   } catch (e) {
@@ -1263,10 +1255,9 @@ async function atualizarClima(cidade, el) {
   }
 }
 
-// 🛟 nunca deixa vazio
+// 🛟 nunca deixa vazio — usa cache antigo ou emoji por horário
 function fallbackClima(el) {
   const cache = localStorage.getItem('clima_cache');
-
   if (cache) {
     try {
       const c = JSON.parse(cache);
@@ -1275,11 +1266,8 @@ function fallbackClima(el) {
       return;
     } catch(e){}
   }
-
-  // último fallback: emoji por horário
   const h = new Date().getHours();
   const emoji = h < 6 ? '🌙' : h < 12 ? '🌞' : h < 18 ? '🌤️' : '🌛';
-
   el.innerHTML = emoji;
   el.style.opacity = '1';
 }
