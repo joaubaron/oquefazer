@@ -1292,6 +1292,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 if ('serviceWorker' in navigator) {
 navigator.serviceWorker.register('./OneSignalSDKWorker.js', { scope: '/oquefazer/' });
+navigator.serviceWorker.register('./sw.js', { scope: '/oquefazer/' });
 }
 
 const isSafariMac = /Macintosh/i.test(navigator.userAgent) && /Safari/i.test(navigator.userAgent) && !/Chrome|CriOS|FxiOS|Edg/i.test(navigator.userAgent);
