@@ -1126,53 +1126,154 @@ const msg = isAndroid
 mostrarAviso(msg);
 }
 
-const CLIMA_EMOJI_MAP = {
-    0:'🌞', 1:'🌤️', 2:'🌥️', 3:'☁️',
-    45:'🌥️', 48:'🌥️',
-    51:'🌦️', 53:'🌦️', 55:'🌧️',
-    61:'🌧️', 63:'🌧️', 65:'🌧️',
-    71:'🌨️', 73:'🌨️', 75:'🌨️', 77:'🌨️',
-    80:'🌦️', 81:'🌦️', 82:'🌧️',
-    85:'🌨️', 86:'🌨️',
-    95:'🌩️', 96:'🌩️', 99:'🌩️'
+const CLIMA_EMOJI = {
+  0:'🌞',1:'🌤️',2:'🌥️',3:'☁️',
+  45:'🌫️',48:'🌫️',
+  51:'🌦️',53:'🌦️',55:'🌧️',
+  61:'🌧️',63:'🌧️',65:'🌧️',
+  71:'🌨️',73:'🌨️',75:'🌨️',
+  80:'🌦️',81:'🌦️',82:'🌧️',
+  95:'🌩️'
 };
 
-const fetchComTimeout = (url, ms, opts = {}) => Promise.race([
-    fetch(url, opts),
-    new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), ms))
-]);
+function timeoutFetch(url, ms) {
+  return Promise.race([
+    fetch(url),
+    new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('timeout')), ms)
+    )
+  ]);
+}
 
 async function carregarClima() {
-    const widget = document.getElementById('tempo-widget');
-    if (!widget) return;
+  const el = document.getElementById('tempo-widget');
+  if (!el) return;
 
-    const cidade = localStorage.getItem('cidade');
-    if (!cidade) {
-        widget.style.opacity = '0';
-        return;
+  const cidade = localStorage.getItem('cidade');
+  if (!cidade) {
+    el.style.opacity = '0';
+    return;
+  }
+
+  // 🔹 1. MOSTRA CACHE IMEDIATO (instantâneo)
+  const cache = localStorage.getItem('clima_cache');
+  if (cache) {
+    try {
+      const c = JSON.parse(cache);
+      if (c.cidade === cidade) {
+        el.innerHTML = `<span style="color:#6eb233">${c.max}° / ${c.min}°</span> ${c.emoji}`;
+        el.style.opacity = '0.8';
+      }
+    } catch(e){}
+  } else {
+    el.textContent = '⏳';
+  }
+
+  // 🔹 2. BUSCA NOVO (SEM BLOQUEAR)
+  buscarClimaAtual(cidade, el);
+}
+
+async function buscarClimaAtual(cidade, el) {
+  try {
+    // 🔹 timeout menor = melhor no 4G
+    const TIMEOUT = 8000;
+
+    // 🔹 2.1 tenta usar lat/lon cacheado
+    let lat, lon;
+    const geoCache = localStorage.getItem('geo_cache');
+
+    if (geoCache) {
+      const g = JSON.parse(geoCache);
+      if (g.cidade === cidade) {
+        lat = g.lat;
+        lon = g.lon;
+      }
     }
 
-    const previsaoSalva = localStorage.getItem('previsao_completa');
-    let cacheExibido = false;
+    // 🔹 2.2 se não tem, busca (com retry)
+    if (!lat) {
+      const geo = await retry(() =>
+        timeoutFetch(
+          `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cidade)}&count=1`,
+          TIMEOUT
+        ), 2
+      );
 
-    // 1. Tenta mostrar o cache IMEDIATAMENTE para o app ser veloz
-    if (previsaoSalva) {
-        try {
-            const dados = JSON.parse(previsaoSalva);
-            if (dados.cidade === cidade && dados.hoje) {
-                const emoji = CLIMA_EMOJI_MAP[dados.dias[0].code] || '🌡️';
-                widget.innerHTML = `<span style="color:#6eb233">${dados.hoje.max}° / ${dados.hoje.min}°</span> <span style="font-size:18px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.3))">${emoji}</span>`;
-                widget.style.opacity = '0.85';
-                widget.title = 'Previsão do tempo';
-                cacheExibido = true;
-            }
-        } catch(e) {}
+      const data = await geo.json();
+      if (!data.results?.length) throw 'cidade';
+
+      lat = data.results[0].latitude;
+      lon = data.results[0].longitude;
+
+      localStorage.setItem('geo_cache', JSON.stringify({ cidade, lat, lon }));
     }
 
-    if (!cacheExibido) {
-        widget.textContent = '⏳';
-        widget.style.opacity = '1';
+    // 🔹 2.3 busca clima (com retry)
+    const climaRes = await retry(() =>
+      timeoutFetch(
+        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_min,temperature_2m_max,weathercode&timezone=auto`,
+        TIMEOUT
+      ), 2
+    );
+
+    const clima = await climaRes.json();
+
+    const min = Math.round(clima.daily.temperature_2m_min[0]);
+    const max = Math.round(clima.daily.temperature_2m_max[0]);
+    const code = clima.daily.weathercode[0];
+
+    const emoji = CLIMA_EMOJI[code] || '🌡️';
+
+    // 🔹 3. ATUALIZA UI
+    el.innerHTML = `<span style="color:#6eb233">${max}° / ${min}°</span> ${emoji}`;
+    el.style.opacity = '1';
+
+    // 🔹 4. SALVA CACHE
+    localStorage.setItem('clima_cache', JSON.stringify({
+      cidade,
+      min,
+      max,
+      emoji,
+      ts: Date.now()
+    }));
+
+  } catch (e) {
+    // 🔥 FALHA TOTAL (rede móvel ruim)
+    fallbackClima(el);
+  }
+}
+
+// 🔁 retry inteligente (ESSENCIAL pra rede móvel)
+async function retry(fn, tentativas) {
+  let erro;
+  for (let i = 0; i <= tentativas; i++) {
+    try {
+      return await fn();
+    } catch (e) {
+      erro = e;
     }
+  }
+  throw erro;
+}
+
+// 🛟 fallback (NUNCA quebra UI)
+function fallbackClima(el) {
+  const cache = localStorage.getItem('clima_cache');
+
+  if (cache) {
+    const c = JSON.parse(cache);
+    el.innerHTML = `<span style="color:#6eb233">${c.max}° / ${c.min}°</span> ${c.emoji}`;
+    el.style.opacity = '0.6';
+    return;
+  }
+
+  // último fallback: só emoji por horário
+  const h = new Date().getHours();
+  const emoji = h < 6 ? '🌙' : h < 12 ? '🌞' : h < 18 ? '🌤️' : '🌛';
+
+  el.innerHTML = emoji;
+  el.style.opacity = '1';
+}
 
     // REMOVIDO: A trava de rede móvel (connection/tipo) saiu daqui.
     // Agora o código sempre avança para o try abaixo, independente da rede.
