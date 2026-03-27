@@ -502,8 +502,8 @@ Shows, festivais...
 <div>
 <div class="cidade-row">
 <div class="input-wrapper">
-<input type="text" id="cidade" placeholder="Digite uma cidade" aria-label="Digite uma cidade" onkeydown="if(event.key==='Enter') buscar('hoje')" onfocus="this.select()" oninput="atualizarGeoBtnCidade()" onchange="atualizarGeoBtnCidade()">
-<button type="button" id="geo-btn" class="geo-btn" onclick="geoBtnCidadeClick()" title="Detectar minha cidade" aria-label="Detectar minha cidade">📍</button>
+<input type="text" id="cidade" placeholder="Digite uma cidade" aria-label="Digite uma cidade" onkeydown="if(event.key==='Enter') buscar('hoje')" onfocus="this.select()">
+<button type="button" id="geo-btn" class="geo-btn" onclick="detectarCidade()" title="Detectar minha cidade" aria-label="Detectar minha cidade">📍</button>
 </div>
 <button type="button" class="evento-btn" onclick="toggleEvento()">🎫 Acontecendo</button>
 </div>
@@ -1079,29 +1079,6 @@ document.getElementById('modal-msg').innerHTML = msg;
 m.style.display = 'flex';
 }
 
-function atualizarGeoBtnCidade() {
-const val = document.getElementById('cidade').value.trim();
-const btn = document.getElementById('geo-btn');
-if (val) {
-btn.textContent = '⏎';
-btn.title = 'Buscar';
-btn.setAttribute('aria-label', 'Buscar');
-} else {
-btn.textContent = '📍';
-btn.title = 'Detectar minha cidade';
-btn.setAttribute('aria-label', 'Detectar minha cidade');
-}
-}
-
-function geoBtnCidadeClick() {
-const val = document.getElementById('cidade').value.trim();
-if (val) {
-buscar('hoje');
-} else {
-detectarCidade();
-}
-}
-
 function detectarCidade() {
 if (!navigator.geolocation) {
 mostrarAviso('Geolocalização não suportada neste dispositivo.');
@@ -1328,18 +1305,10 @@ function fallbackClima(el) {
 window.addEventListener('DOMContentLoaded', () => {
     localStorage.removeItem('ultimo_clima');
     const ultima = localStorage.getItem('cidade');
-    const cidadeInput = document.getElementById('cidade');
-    cidadeInput.value = ultima || '';
-    cidadeInput.placeholder = ultima ? '' : 'Digite uma cidade';
-    atualizarGeoBtnCidade();
+    document.getElementById('cidade').value = ultima || '';
+    document.getElementById('cidade').placeholder = ultima ? '' : 'Digite uma cidade';
     carregarClima();
     setTimeout(gerarQRCodeModal, 500);
-
-    // Mantém foco quando autocomplete do navegador preenche o campo
-    cidadeInput.addEventListener('change', () => {
-        atualizarGeoBtnCidade();
-        cidadeInput.focus();
-    });
 
     const eventoInput = document.getElementById('evento');
     eventoInput.addEventListener('keypress', (e) => {
