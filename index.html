@@ -957,6 +957,7 @@ if (geoCache) {
   } catch(e) { localStorage.removeItem('geo_cache'); }
 }
 localStorage.setItem('cidade', cidade);
+atualizarGeoBtnEstado();
 carregarClima();
 let tempo;
 if (periodo === 'hoje') {
@@ -1347,6 +1348,14 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+});
+
+// Corrige bfcache: quando usuário volta do Google, ressincroniza campo e botão
+window.addEventListener('pageshow', (e) => {
+    const ultima = localStorage.getItem('cidade');
+    document.getElementById('cidade').value = ultima || '';
+    document.getElementById('cidade').placeholder = ultima ? '' : 'Digite uma cidade';
+    atualizarGeoBtnEstado();
 });
 
 if ('serviceWorker' in navigator) {
