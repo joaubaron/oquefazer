@@ -16,9 +16,6 @@ const STATIC_ASSETS = [
 // URLs externas que nunca devem ser interceptadas
 const PASSTHROUGH_ORIGINS = [
 'nominatim.openstreetmap.org',
-'geocoding-api.open-meteo.com',
-'api.open-meteo.com',
-'wttr.in',
 'cdn.onesignal.com',
 'www.googletagmanager.com',
 'cdnjs.cloudflare.com'
