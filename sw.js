@@ -18,6 +18,7 @@ const PASSTHROUGH_ORIGINS = [
 'cdn.onesignal.com',
 'www.googletagmanager.com',
 'cdnjs.cloudflare.com',
+'nominatim.openstreetmap.org',
 'geocoding-api.open-meteo.com',
 'wttr.in'
 ];
