@@ -502,8 +502,8 @@ Shows, festivais...
 <div>
 <div class="cidade-row">
 <div class="input-wrapper">
-<input type="text" id="cidade" placeholder="Digite uma cidade" aria-label="Digite uma cidade" onkeydown="if(event.key==='Enter') buscar('hoje')" onfocus="this.select()">
-<button type="button" id="geo-btn" class="geo-btn" onclick="detectarCidade()" title="Detectar minha cidade" aria-label="Detectar minha cidade">📍</button>
+<input type="text" id="cidade" placeholder="Digite uma cidade" aria-label="Digite uma cidade" onkeydown="if(event.key==='Enter') buscar('hoje')" onfocus="this.select(); cidadeGanhouFoco();" onblur="cidadePerdeuFoco();">
+<button type="button" id="geo-btn" class="geo-btn" onclick="geoBtnCidadeClick()" title="Detectar minha cidade" aria-label="Detectar minha cidade"><span id="geo-btn-icon">📍</span></button>
 </div>
 <button type="button" class="evento-btn" onclick="toggleEvento()">🎫 Acontecendo</button>
 </div>
@@ -1079,6 +1079,33 @@ document.getElementById('modal-msg').innerHTML = msg;
 m.style.display = 'flex';
 }
 
+// ⏎ aparece só quando campo cidade está com foco; 📍 sempre que não está
+const GEO_ICON_GPS   = '📍';
+const GEO_ICON_ENTER = '⌨️';  // fallback texto
+
+function cidadeGanhouFoco() {
+  const icon = document.getElementById('geo-btn-icon');
+  if (icon) icon.textContent = '⏎';
+}
+
+function cidadePerdeuFoco() {
+  // delay p/ não interferir no click do botão
+  setTimeout(() => {
+    const icon = document.getElementById('geo-btn-icon');
+    if (icon) icon.textContent = GEO_ICON_GPS;
+  }, 150);
+}
+
+function geoBtnCidadeClick() {
+  const icon = document.getElementById('geo-btn-icon');
+  // se está mostrando ⏎ = campo tinha foco = busca cidade
+  if (icon && icon.textContent === '⏎') {
+    buscar('hoje');
+  } else {
+    detectarCidade();
+  }
+}
+
 function detectarCidade() {
 if (!navigator.geolocation) {
 mostrarAviso('Geolocalização não suportada neste dispositivo.');
@@ -1305,8 +1332,9 @@ function fallbackClima(el) {
 window.addEventListener('DOMContentLoaded', () => {
     localStorage.removeItem('ultimo_clima');
     const ultima = localStorage.getItem('cidade');
-    document.getElementById('cidade').value = ultima || '';
-    document.getElementById('cidade').placeholder = ultima ? '' : 'Digite uma cidade';
+    const cidadeInput = document.getElementById('cidade');
+    cidadeInput.value = ultima || '';
+    cidadeInput.placeholder = ultima ? '' : 'Digite uma cidade';
     carregarClima();
     setTimeout(gerarQRCodeModal, 500);
 
