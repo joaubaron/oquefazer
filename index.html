@@ -500,7 +500,7 @@ Shows, festivais...
 <div class="cidade-row">
 <div class="input-wrapper">
 <input type="text" id="cidade" placeholder="Digite uma cidade" aria-label="Digite uma cidade" onkeydown="if(event.key==='Enter') buscar('hoje')" onfocus="this.select()">
-<button type="button" id="geo-btn" class="geo-btn" onclick="detectarCidade()" title="Detectar minha cidade" aria-label="Detectar minha cidade">📍</button>
+<button type="button" id="geo-btn" class="geo-btn" onclick="cidadeBtnClick()" title="Detectar minha cidade" aria-label="Detectar ou buscar cidade" style="display:flex;align-items:center;justify-content:center;"></button>
 </div>
 <button type="button" class="evento-btn" onclick="toggleEvento()">🎫 Acontecendo</button>
 </div>
@@ -1067,7 +1067,7 @@ mostrarAviso('Geolocalização não suportada neste dispositivo.');
 return;
 }
 const btn = document.getElementById('geo-btn');
-btn.textContent = '🔎';
+btn.innerHTML = '🔎';
 navigator.geolocation.getCurrentPosition(async (pos) => {
 const { latitude, longitude } = pos.coords;
 try {
@@ -1082,12 +1082,12 @@ localStorage.setItem('cidade', cidade);
 } catch(e) {
 mostrarAviso('Não foi possível detectar a cidade.');
 } finally {
-btn.textContent = '📍';
+atualizarBtnCidade();
 }
 }, (err) => {
 const msg = err.code === 1 ? 'Permissão de localização negada.' : err.code === 2 ? 'Posição indisponível. Tente novamente.' : '⏱️ Tempo esgotado. Digite uma cidade.';
 mostrarAviso(msg);
-btn.textContent = '📍';
+atualizarBtnCidade();
 }, { timeout: 15000, enableHighAccuracy: false });
 }
 
@@ -1122,10 +1122,41 @@ mostrarAviso(msg);
 }
 
 
+const SVG_ENTER = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6eb233" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 10 4 15 9 20"/><path d="M20 4v7a4 4 0 0 1-4 4H4"/></svg>`;
+
+function atualizarBtnCidade() {
+    const cidade = document.getElementById('cidade');
+    const btn = document.getElementById('geo-btn');
+    if (cidade.value.trim()) {
+        btn.innerHTML = SVG_ENTER;
+        btn.title = 'Buscar';
+        btn.setAttribute('aria-label', 'Buscar');
+    } else {
+        btn.innerHTML = '📍';
+        btn.title = 'Detectar minha cidade';
+        btn.setAttribute('aria-label', 'Detectar minha cidade');
+    }
+}
+
+function cidadeBtnClick() {
+    const cidade = document.getElementById('cidade');
+    if (cidade.value.trim()) {
+        buscar('hoje');
+    } else {
+        detectarCidade();
+    }
+}
+
 window.addEventListener('DOMContentLoaded', () => {
     const ultima = localStorage.getItem('cidade');
     document.getElementById('cidade').value = ultima || '';
     document.getElementById('cidade').placeholder = ultima ? '' : 'Digite uma cidade';
+
+    const cidadeInput = document.getElementById('cidade');
+    cidadeInput.addEventListener('input', atualizarBtnCidade);
+    cidadeInput.addEventListener('change', atualizarBtnCidade);
+    atualizarBtnCidade();
+
     setTimeout(gerarQRCodeModal, 500);
 
     const eventoInput = document.getElementById('evento');
