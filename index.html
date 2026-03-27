@@ -1088,7 +1088,7 @@ function atualizarGeoBtnEstado() {
   const inputVal = document.getElementById('cidade').value.trim();
   const cidadeSalva = localStorage.getItem('cidade') || '';
   if (inputVal && inputVal.toLowerCase() !== cidadeSalva.toLowerCase()) {
-    btn.textContent = '⏎';
+    btn.textContent = '↵';
     btn.title = 'Buscar esta cidade';
     btn.setAttribute('aria-label', 'Buscar esta cidade');
   } else {
@@ -1100,7 +1100,7 @@ function atualizarGeoBtnEstado() {
 
 function geoBtnAcao() {
   const btn = document.getElementById('geo-btn');
-  if (btn.textContent === '⏎') {
+  if (btn.textContent === '↵') {
     buscar('hoje');
   } else {
     detectarCidade();
