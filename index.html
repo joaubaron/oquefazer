@@ -502,8 +502,8 @@ Shows, festivais...
 <div>
 <div class="cidade-row">
 <div class="input-wrapper">
-<input type="text" id="cidade" placeholder="Digite uma cidade" aria-label="Digite uma cidade" onkeydown="if(event.key==='Enter') buscar('hoje')" onfocus="this.select()">
-<button type="button" id="geo-btn" class="geo-btn" onclick="detectarCidade()" title="Detectar minha cidade" aria-label="Detectar minha cidade">📍</button>
+<input type="text" id="cidade" placeholder="Digite uma cidade" aria-label="Digite uma cidade" onkeydown="if(event.key==='Enter') buscar('hoje')" onfocus="this.select()" oninput="atualizarGeoBtnPorTexto(this.value)" onchange="atualizarGeoBtnPorTexto(this.value)">
+<button type="button" id="geo-btn" class="geo-btn" onclick="clicouGeoBtn()" title="Detectar minha cidade" aria-label="Detectar minha cidade">📍</button>
 </div>
 <button type="button" class="evento-btn" onclick="toggleEvento()">🎫 Acontecendo</button>
 </div>
@@ -1302,11 +1302,38 @@ function fallbackClima(el) {
   el.style.opacity = '1';
 }
 
+// ─── Botão 📍 ↔ ⏎ conforme digitação no campo cidade ──────────────────────
+function atualizarGeoBtnPorTexto(valor) {
+  const btn = document.getElementById('geo-btn');
+  if (!btn) return;
+  if (valor && valor.trim().length > 0) {
+    btn.textContent = '⏎';
+    btn.title = 'Buscar';
+    btn.setAttribute('aria-label', 'Buscar');
+  } else {
+    btn.textContent = '📍';
+    btn.title = 'Detectar minha cidade';
+    btn.setAttribute('aria-label', 'Detectar minha cidade');
+  }
+}
+
+// Se o botão mostrar ⏎, executa buscar; se 📍, detecta cidade
+function clicouGeoBtn() {
+  const btn = document.getElementById('geo-btn');
+  if (btn && btn.textContent.trim() === '⏎') {
+    buscar('hoje');
+  } else {
+    detectarCidade();
+  }
+}
+
 window.addEventListener('DOMContentLoaded', () => {
     localStorage.removeItem('ultimo_clima');
     const ultima = localStorage.getItem('cidade');
     document.getElementById('cidade').value = ultima || '';
     document.getElementById('cidade').placeholder = ultima ? '' : 'Digite uma cidade';
+    // Sincroniza o botão com o valor inicial (cidade salva)
+    atualizarGeoBtnPorTexto(ultima || '');
     carregarClima();
     setTimeout(gerarQRCodeModal, 500);
 
@@ -1316,6 +1343,15 @@ window.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             buscarEventoAmplo();
         }
+    });
+
+    // ─── Mantém o foco no campo cidade ao selecionar autocomplete ──────────
+    // O navegador dispara "change" e depois tira o foco — reagendamos o foco.
+    const cidadeInput = document.getElementById('cidade');
+    cidadeInput.addEventListener('change', () => {
+      atualizarGeoBtnPorTexto(cidadeInput.value);
+      // Pequeño timeout para deixar o browser terminar o autocomplete
+      setTimeout(() => cidadeInput.focus(), 0);
     });
 
 });
