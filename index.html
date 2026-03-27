@@ -502,7 +502,7 @@ Shows, festivais...
 <div>
 <div class="cidade-row">
 <div class="input-wrapper">
-<input type="text" id="cidade" placeholder="Digite uma cidade" aria-label="Digite uma cidade" onkeydown="if(event.key==='Enter') buscar('hoje')" onfocus="this.select(); setGeoBtnEnter();" onblur="setGeoBtnAuto();" oninput="setGeoBtnEnter();">
+<input type="text" id="cidade" placeholder="Digite uma cidade" aria-label="Digite uma cidade" onkeydown="if(event.key==='Enter') buscar('hoje')" onfocus="this.select(); setGeoBtnEnter();" onblur="setGeoBtnAuto();" oninput="setGeoBtnEnter();" onchange="setGeoBtnEnter();">
 <button type="button" id="geo-btn" class="geo-btn" onclick="geoBtnClick()" title="Detectar minha cidade" aria-label="Detectar minha cidade">📍</button>
 </div>
 <button type="button" class="evento-btn" onclick="toggleEvento()">🎫 Acontecendo</button>
@@ -1088,6 +1088,7 @@ btn.setAttribute('aria-label', 'Buscar');
 
 function setGeoBtnAuto() {
 const btn = document.getElementById('geo-btn');
+if (document.activeElement === document.getElementById('cidade')) return; // input focado → mantém ⏎
 btn.textContent = '📍';
 btn.title = 'Detectar minha cidade';
 btn.setAttribute('aria-label', 'Detectar minha cidade');
@@ -1132,12 +1133,12 @@ carregarClima();
 } catch(e) {
 mostrarAviso('Não foi possível detectar a cidade.');
 } finally {
-btn.textContent = '📍';
+setGeoBtnAuto();
 }
 }, (err) => {
 const msg = err.code === 1 ? 'Permissão de localização negada.' : err.code === 2 ? 'Posição indisponível. Tente novamente.' : '⏱️ Tempo esgotado. Digite uma cidade.';
 mostrarAviso(msg);
-btn.textContent = '📍';
+setGeoBtnAuto();
 }, { timeout: 15000, enableHighAccuracy: false });
 }
 
