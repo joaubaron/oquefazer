@@ -471,8 +471,26 @@ box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 </head>
 <body>
 
-<!-- VERSÃO GENÉRICA -->
+<div class="evento-premium">
+  <a href="https://www.oktoberfest.com.br" target="_blank" class="evento-premium-link"
+  onclick="gtag('event', 'clique_anuncio', {
+  'anunciante_id': 'premium_2026_10_oktoberfest',
+  'anunciante_nome': 'Oktoberfest Blumenau 2026',
+  'local': 'banner_premium_topo',
+  'periodo': 'outubro',
+  'data_clique': new Date().toISOString().split('T')[0]
+  });">
+    <div class="evento-premium-content">
+      <div class="evento-premium-badge">🍺 EVENTO DESTAQUE</div>
+      <h2 class="evento-premium-titulo">Oktoberfest Blumenau 2026</h2>
+      <p class="evento-premium-info">📆 7 a 25 de outubro · Vila Germânica</p>
+    </div>
+    <div class="evento-premium-cta">Saiba Mais →</div>
+  </a>
+</div>
 
+<!-- VERSÃO GENÉRICA -->
+<!--
 <div class="evento-premium generico">
 <a href="https://wa.me/5547991581967?text=Ol%C3%A1!%20Como%20fa%C3%A7o%20pra%20anunciar%3F"
 target="_blank"
@@ -497,6 +515,7 @@ Shows, festivais...
 <div class="evento-premium-cta">Anunciar</div>
 </a>
 </div>
+-->
 
 <div class="container">
 <h1 style="font-size: 18px; font-weight: normal;">Descubra <img src="oqfazer.png" style="height: 22px; vertical-align: middle; display: inline-block;"> perto de você</h1>
