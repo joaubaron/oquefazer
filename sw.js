@@ -15,10 +15,11 @@ const STATIC_ASSETS = [
 
 // URLs externas que nunca devem ser interceptadas
 const PASSTHROUGH_ORIGINS = [
-'nominatim.openstreetmap.org',
 'cdn.onesignal.com',
 'www.googletagmanager.com',
-'cdnjs.cloudflare.com'
+'cdnjs.cloudflare.com',
+'geocoding-api.open-meteo.com',
+'wttr.in'
 ];
 
 // ===============================
