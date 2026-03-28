@@ -599,218 +599,45 @@ onclick="gtag('event', 'clique_anuncio', {
 </a>
 
 <!-- SEMANA 1 · MEIO -->
-<!-- VERSÃO EVENTO CONTRATADO -->
-<!--
-<div class="evento-premium">
-<a href="https://oktoberfestblumenau.com.br" 
-target="_blank" 
-class="evento-premium-link"
-onclick="gtag('event', 'clique_anuncio', {
-'anunciante_id': 'premium_2026_10_oktoberfest',
-'anunciante_nome': 'Oktoberfest Blumenau 2026',
-'local': 'banner_premium_topo',
-'periodo': 'premium',
-'data_clique': new Date().toISOString().split('T')[0]
-});">
-<img src="./logo_premium.png" style="height:40px; width:40px; object-fit:contain; border-radius:50%; flex-shrink:0;">
-<div class="evento-premium-content">
-<h2 class="evento-premium-titulo">Oktoberfest Blumenau 2026</h2>
-<p class="evento-premium-info">
-<span style="background: rgba(255,255,255,0.2); padding: 1px 5px; border-radius: 20px; font-weight: 700; margin-right: 8px; font-size: 10px;">
-<span style="font-size: 1.4em;">🍻</span> 10 a 26 OUT
-</span>
-Vila Germânica
-</p>
-</div>
-<div class="evento-premium-cta">Saiba Mais</div>
-</a>
-</div>
--->
-
-<!-- VERSÃO GENÉRICA -->
-
-<div class="evento-premium generico">
-<a href="https://wa.me/5547991581967?text=Ol%C3%A1!%20Como%20fa%C3%A7o%20pra%20anunciar%3F"
-target="_blank" 
-class="evento-premium-link"
-onclick="gtag('event', 'clique_anuncio', {
-'anunciante_id': 'generico_anuncie_aqui',
-'anunciante_nome': 'Divulgue seu evento',
-'local': 'banner_generico_topo',
-'periodo': 'generico',
-'data_clique': new Date().toISOString().split('T')[0]
-});">
-<img src="./logo_premium.png" style="height:40px; width:40px; object-fit:contain; border-radius:50%; flex-shrink:0;">
-<div class="evento-premium-content">
-<h2 class="evento-premium-titulo">Divulgue seu evento 🎫</h2>
-<p class="evento-premium-info">
-<span style="background: rgba(255,255,255,0.2); padding: 1px 5px; border-radius: 20px; font-weight: 700; margin-right: 8px; font-size: 10px;">
-<span id="data-atual"></span>
-</span>
-Shows, festivais...
-</p>
-</div>
-<div class="evento-premium-cta">Anunciar</div>
-</a>
-</div>
-
-<div class="container">
-<h1 style="font-size: 18px; font-weight: normal;">Descubra <img src="oqfazer.png" style="height: 22px; vertical-align: middle; display: inline-block;"> perto de você</h1>
-<div>
-<div class="cidade-row">
-<div class="input-wrapper">
-<input type="text" id="cidade" placeholder="Digite uma cidade" aria-label="Digite uma cidade" onkeydown="if(event.key==='Enter') buscar('hoje')">
-<button type="button" id="geo-btn" class="geo-btn" onclick="detectarCidade()" title="Detectar minha cidade" aria-label="Detectar minha cidade">📍</button>
-</div>
-<button type="button" class="evento-btn" onclick="toggleEvento()">🎫 Acontecendo</button>
-</div>
-<div class="evento-wrapper" id="eventoWrapper">
-<div class="input-wrapper">
-<input type="text" id="evento" aria-label="Nome do local ou evento" placeholder="Digite local ou evento ou escolha período"> <button type="button" class="geo-btn" onclick="buscarEventoAmplo()" title="Buscar" aria-label="Buscar evento" style="display:flex;align-items:center;justify-content:center;"> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6eb233" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"> <polyline points="9 10 4 15 9 20"/> <path d="M20 4v7a4 4 0 0 1-4 4H4"/> </svg> </button>
-</div>
-<div class="evento-dica">💡 Com cidade IA mais precisa. Sem cidade busca ampla.</div>
-</div>
-<div class="cat-group">
-<button type="button" class="cat-btn" aria-pressed="false" onclick="toggleCategoria(this, 'Bares')">🍻 Bares</button>
-<button type="button" class="cat-btn" aria-pressed="false" onclick="toggleCategoria(this, 'Shows')">🎶 Shows</button>
-<button type="button" class="cat-btn" aria-pressed="false" onclick="toggleCategoria(this, 'Cultura')">🎭 Cultura</button>
-</div>
-<div class="cat-group">
-<button type="button" class="cat-btn" aria-pressed="false" onclick="toggleCategoria(this, 'Natureza')">🌱 Natureza</button>
-<button type="button" class="cat-btn" aria-pressed="false" onclick="toggleCategoria(this, 'Esporte')">🎾 Esporte</button>
-<button type="button" class="cat-btn" aria-pressed="false" onclick="toggleCategoria(this, 'Feiras')">🛍️ Feiras</button>
-</div>
-
-<!--
-║      GUIA DE MANUTENÇÃO
-╠══════════════════════════════════════════════════════════════════
-║
-║  📦 PARCEIRO DO MÊS  (R$199)
-║  ─────────────────────────────────────────────────────────────
-║  1. href            → link do Instagram do parceiro
-║  2. anunciante_id   → padrão: 'mensal_nomeparceiro'
-║  3. parceiro-nome   → nome exibido no card
-║  4. parceiro-label  → rótulo + emoji
-║  5. parceiro-acesse → horário de funcionamento
-║  6. parceiro-cidade → cidade do anunciante (usada pela IA)
-║  7. logo_anunciante.png → logo do anunciante (substituir no GitHub)
-║
-║  📦 PARCEIROS DA SEMANA  (R$ 79 — semanal)
-║  ─────────────────────────────────────────────────────────────
-║  Cada card (esquerda / meio / direita):
-║  1. href            → link do Instagram do parceiro
-║  2. anunciante_id   → padrão: 'semanaX_nomeparceiro'
-║  3. semana-nome     → nome exibido no card
-║  4. semana-emoji    → emoji temático
-║  5. anunciante_id   → nome anunciante
-║  . emojis           → 🍻 🎶 🎭 🌱 🎾 🛍️ 🎤 🎬 🎨 🎪 🎟️ 🏆 📚 🍔 🚴 🏛️ 🥟 🍛
--->
-
-<!-- ============================================================ -->
-<!--  PARCEIRO DO MÊS                                             -->
-<!-- ============================================================ -->
-<!-- 1️⃣ LINK -->
-<a href="https://www.instagram.com/pointdabelezabnu"
-target="_blank"
-class="parceiro-card"
-
-onclick="gtag('event', 'clique_anuncio', {
-/* 2️⃣ ANUNCIANTE ID */
-'anunciante_id': 'mensal_2026_03_pointdabeleza',
-'anunciante_nome': this.querySelector('.parceiro-nome').innerText,
-'local': 'card_principal',
-'periodo': 'mensal',
-'data_clique': new Date().toISOString().split('T')[0]
-});">
-<div style="display:flex; align-items:center; gap:10px;">
-<!-- 7️⃣ LOGO -->
-<img src="./logo_anunciante.png" style="height:40px; width:40px; object-fit:contain; border-radius:50%; flex-shrink:0;">
-<div style="flex:1;">
-<div class="parceiro-linha" style="margin-bottom:5px">
-<!-- 4️⃣ LABEL E EMOJI -->
-<span class="parceiro-label">Um salão de beleza completo</span>
-<span class="parceiro-badge">Destaque</span>
-</div>
-<div class="parceiro-linha">
-<!-- 3️⃣ NOME -->
-<span class="parceiro-nome">Point da Beleza</span>
-<!-- 5️⃣ HORÁRIO -->
-<span class="parceiro-acesse">✂️ Agendamentos por aqui</span>
-</div>
-</div>
-</div>
-<!-- 6️⃣ CIDADE (oculta, usada pela IA) -->
-<span class="parceiro-cidade" style="display:none">Blumenau</span>
-</a>
-
-<!-- ============================================================ -->
-<!--  PARCEIROS DA SEMANA                                         -->
-<!-- ============================================================ -->
-
-<div class="semana-group">
-
-<!-- ── SEMANA 1 · ESQUERDA ─────────────────────────────────── -->
-<!-- 1️⃣ LINK -->
-<a href="https://www.instagram.com/innaturacomidadeverdade?igsh=bzJlemN1cXBjOGY4"
-target="_blank"
-class="semana-card"
-onclick="gtag('event', 'clique_anuncio', {
-/* 2️⃣ ANUNCIANTE ID */
-'anunciante_id': 'semanal_2026_03_s1_esq_innatura',
-'anunciante_nome': this.querySelector('.semana-nome').innerText,
-'local': 'card_semana_esquerda',
-'periodo': 'semanal',
-'data_clique': new Date().toISOString().split('T')[0]
-});">
-<span class="semana-badge">Destaque</span>
-<div class="semana-linha">
-<!-- 3️⃣ NOME -->
-<span class="semana-nome">Restaurante In Natura</span>
-<!-- 4️⃣ EMOJI -->
-<span class="semana-emoji">🍔</span>
-</div>
-</a>
-
-<!-- ── SEMANA 2 · MEIO ────────────────────────────────────── -->
-<!-- 1️⃣ LINK -->
+<!-- 1. HREF -->
 <a href="https://www.instagram.com/mercadobonikoski?igsh=MWtsemYzdXg1MjV5cw=="
 target="_blank"
 class="semana-card"
 onclick="gtag('event', 'clique_anuncio', {
-/* 2️⃣ ANUNCIANTE ID */
 'anunciante_id': 'semanal_2026_03_s1_meio_bonikoski',
 'anunciante_nome': this.querySelector('.semana-nome').innerText,
 'local': 'card_semana_meio',
 'periodo': 'semanal',
 'data_clique': new Date().toISOString().split('T')[0]
 });">
+<!-- 4. SEMANA-BADGE -->
 <span class="semana-badge">Destaque</span>
 <div class="semana-linha">
-<!-- 3️⃣ NOME -->
+<!-- 2. SEMANA-NOME -->
 <span class="semana-nome">Mercado Bonikoski</span>
-<!-- 4️⃣ EMOJI -->
+<!-- 3. SEMANA-EMOJI -->
 <span class="semana-emoji">🛒</span>
 </div>
 </a>
 
-<!-- ── SEMANA 3 · DIREITA ─────────────────────────────────── -->
-<!-- 1️⃣ LINK -->
+<!-- SEMANA 1 · DIREITA -->
+<!-- 1. HREF -->
 <a href="https://www.instagram.com/egua_best_oficial/"
 target="_blank"
 class="semana-card"
 onclick="gtag('event', 'clique_anuncio', {
-/* 2️⃣ ANUNCIANTE ID */
 'anunciante_id': 'semanal_2026_03_s1_dir_eguabest',
 'anunciante_nome': this.querySelector('.semana-nome').innerText,
 'local': 'card_semana_direita',
 'periodo': 'semanal',
 'data_clique': new Date().toISOString().split('T')[0]
 });">
+<!-- 4. SEMANA-BADGE -->
 <span class="semana-badge">Destaque</span>
 <div class="semana-linha">
-<!-- 3️⃣ NOME -->
+<!-- 2. SEMANA-NOME -->
 <span class="semana-nome">Égua Best Oficial</span>
-<!-- 4️⃣ EMOJI -->
+<!-- 3. SEMANA-EMOJI -->
 <span class="semana-emoji">🦐</span>
 </div>
 </a>
