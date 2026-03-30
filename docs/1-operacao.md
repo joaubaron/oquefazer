@@ -31,16 +31,25 @@ Busque o comentário `BANNER PREMIUM` no código e siga a situação abaixo.
 
 2. Descomente o **banner premium** (laranja) e edite:
 ```html
+<!--
 <div class="evento-premium">
-  <a href="LINK_DO_EVENTO" target="_blank" class="evento-premium-link">
-    <div class="evento-premium-content">
-      <div class="evento-premium-badge">🎪 EVENTO DESTAQUE</div>
-      <h2 class="evento-premium-titulo">Nome do Evento 2026</h2>
-      <p class="evento-premium-info">📆 Data · Local</p>
-    </div>
-    <div class="evento-premium-cta">Saiba Mais →</div>
-  </a>
+<a href="https://oktoberfestblumenau.com.br/" target="_blank" class="evento-premium-link"
+onclick="gtag('event', 'clique_anuncio', {
+'anunciante_id': 'premium_2026_10_oktoberfest',
+'anunciante_nome': 'Oktoberfest Blumenau 2026',
+'local': 'banner_premium_topo',
+'periodo': 'outubro',
+'data_clique': new Date().toISOString().split('T')[0]
+});">
+<img src="./logo_premium.png" style="height:40px; width:40px; object-fit:contain; border-radius:50%; flex-shrink:0;">
+<div class="evento-premium-content">
+<h2 class="evento-premium-titulo">Oktoberfest Blumenau 2026</h2>
+<p class="evento-premium-info">7 a 25 de outubro · Vila Germânica</p>
 </div>
+<div class="evento-premium-cta">Saiba Mais</div>
+</a>
+</div>
+-->
 ```
 
 | Campo | O que colocar |
