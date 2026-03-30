@@ -479,39 +479,56 @@ box-shadow: 0 10px 30px rgba(0,0,0,0.25);
   'periodo': 'outubro',
   'data_clique': new Date().toISOString().split('T')[0]
   });">
+    <!-- 1. HREF: https://oktoberfestblumenau.com.br/ -->
     <img src="./logo_premium.png" style="height:40px; width:40px; object-fit:contain; border-radius:50%; flex-shrink:0;">
+    <!-- 2. LOGO-SRC: ./logo_premium.png -->
     <div class="evento-premium-content">
+      <!-- 3. PREMIUM-TITULO -->
       <h2 class="evento-premium-titulo">Oktoberfest Blumenau 2026</h2>
+      <!-- 4. PREMIUM-INFO -->
       <p class="evento-premium-info">7 a 25 de outubro · Vila Germânica</p>
     </div>
+    <!-- 5. PREMIUM-CTA -->
     <div class="evento-premium-cta">Saiba Mais</div>
+    <!-- 6. ANUNCIANTE-ID: premium_2026_10_oktoberfest -->
+    <!-- 7. ANUNCIANTE-NOME: Oktoberfest Blumenau 2026 -->
+    <!-- 8. PERIODO: outubro -->
   </a>
 </div>
 -->
 
 <!-- BANNER GENÉRICO -->
 <div class="evento-premium generico">
-<a href="https://wa.me/5547991581967?text=Ol%C3%A1!%20Como%20fa%C3%A7o%20pra%20anunciar%3F"
-target="_blank"
-class="evento-premium-link"
-onclick="gtag('event', 'clique_anuncio', {
-'anunciante_id': 'generico_anuncie_aqui',
-'anunciante_nome': 'Divulgue seu evento',
-'local': 'banner_generico_topo',
-'periodo': 'generico',
-'data_clique': new Date().toISOString().split('T')[0]
-});">
-<img src="./logo_premium.png" style="height:40px; width:40px; object-fit:contain; border-radius:50%; flex-shrink:0;">
-<div class="evento-premium-content">
-<h2 class="evento-premium-titulo">Divulgue seu evento 🎫</h2>
-<p class="evento-premium-info">
-<span style="background: rgba(255,255,255,0.2); padding: 1px 5px; border-radius: 20px; font-weight: 700; margin-right: 8px; font-size: 10px;">
-<span id="data-atual"></span>
-</span>
-Shows, festivais...
-</p>
-</div>
-<div class="evento-premium-cta">Anunciar</div>
+
+  <!-- 1. HREF -->
+  href="https://wa.me/5547991581967?text=Ol%C3%A1!%20Como%20fa%C3%A7o%20pra%20anunciar%3F"
+  target="_blank"
+  class="evento-premium-link"
+  onclick="gtag('event', 'clique_anuncio', {
+  'anunciante_id': 'generico_anuncie_aqui',
+  'anunciante_nome': 'Divulgue seu evento',
+  'local': 'banner_generico_topo',
+  'periodo': 'generico',
+  'data_clique': new Date().toISOString().split('T')[0]
+  });">
+  <!-- 2. LOGO-SRC -->
+  <img src="./logo_premium.png" style="height:40px; width:40px; object-fit:contain; border-radius:50%; flex-shrink:0;">
+  <div class="evento-premium-content">
+    <!-- 3. GENERICO-TITULO -->
+    <h2 class="evento-premium-titulo">Divulgue seu evento 🎫</h2>
+    <!-- 4. GENERICO-INFO -->
+    <p class="evento-premium-info">
+      <span style="background: rgba(255,255,255,0.2); padding: 1px 5px; border-radius: 20px; font-weight: 700; margin-right: 8px; font-size: 10px;">
+        <span id="data-atual"></span>
+      </span>
+      Shows, festivais...
+    </p>
+  </div>
+  <!-- 5. GENERICO-CTA -->
+  <div class="evento-premium-cta">Anunciar</div>
+  <!-- 6. ANUNCIANTE-ID: generico_anuncie_aqui -->
+  <!-- 7. ANUNCIANTE-NOME: Divulgue seu evento -->
+  <!-- 8. PERIODO: generico -->
 </a>
 </div>
 
