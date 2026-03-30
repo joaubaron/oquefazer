@@ -31,7 +31,6 @@ Busque o comentário `BANNER PREMIUM` no código e siga a situação abaixo.
 
 2. Descomente o **banner premium** (laranja) e edite:
 ```html
-<!--
 <div class="evento-premium">
 <a href="https://oktoberfestblumenau.com.br/" target="_blank" class="evento-premium-link"
 onclick="gtag('event', 'clique_anuncio', {
@@ -49,7 +48,6 @@ onclick="gtag('event', 'clique_anuncio', {
 <div class="evento-premium-cta">Saiba Mais</div>
 </a>
 </div>
--->
 ```
 
 | Campo | O que colocar |
