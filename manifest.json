@@ -1,0 +1,46 @@
+{
+  "id": "/oquefazer/",
+  "name": "Oquefazer",
+  "short_name": "Oquefazer",
+  "description": "Descubra o que fazer perto de você",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#243447",
+  "theme_color": "#243447",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./icone.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icone.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./icone512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icone512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "./screenshot1.jpg",
+      "sizes": "1080x1920",
+      "type": "image/jpeg",
+      "form_factor": "narrow"
+    }
+  ]
+}

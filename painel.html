@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oquefazer · Painel</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#F7F5F0;--surface:#FFFFFF;--surface2:#F0EDE6;
+    --ink:#1A1814;--ink2:#6B6760;--ink3:#A8A49E;
+    --accent:#2D5A3D;--accent-light:#E8F0EB;
+    --accent2:#C4472A;--accent2-light:#FAEAE6;
+    --amber:#C47D1A;--amber-light:#FAF0E0;
+    --border:rgba(26,24,20,0.1);--radius:16px;--radius-sm:8px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;font-size:15px;}
+  #login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2rem;padding:2rem;}
+  .login-logo{font-family:'DM Serif Display',serif;font-size:2.4rem;letter-spacing:-0.02em;}
+  .login-logo span{color:var(--accent);font-style:italic;}
+  .login-card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);padding:2.5rem 2rem;width:100%;max-width:380px;text-align:center;}
+  .login-card h2{font-family:'DM Serif Display',serif;font-size:1.5rem;font-weight:400;margin-bottom:.5rem;}
+  .login-card p{font-size:14px;color:var(--ink2);margin-bottom:1.75rem;line-height:1.6;}
+  .btn-google{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:12px 20px;background:var(--ink);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;transition:opacity .15s;}
+  .btn-google:hover{opacity:.85;}
+  .property-step{margin-top:1.25rem;display:none;text-align:left;}
+  .property-step label{font-size:12px;font-weight:500;color:var(--ink2);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:6px;}
+  .property-step input{width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:14px;background:var(--bg);color:var(--ink);outline:none;transition:border-color .15s;}
+  .property-step input:focus{border-color:var(--accent);}
+  .property-step .hint{font-size:12px;color:var(--ink3);margin-top:4px;}
+  .btn-load{margin-top:12px;width:100%;padding:11px;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;}
+  #dashboard{display:none;}
+  header{position:sticky;top:0;z-index:50;background:rgba(247,245,240,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between;}
+  .header-logo{font-family:'DM Serif Display',serif;font-size:1.25rem;}
+  .header-logo span{color:var(--accent);font-style:italic;}
+  .header-right{display:flex;align-items:center;gap:12px;}
+  .user-chip{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink2);}
+  .user-avatar{width:28px;height:28px;border-radius:50%;object-fit:cover;}
+  .user-avatar-placeholder{width:28px;height:28px;border-radius:50%;background:var(--accent-light);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;}
+  .btn-refresh,.btn-logout{padding:6px 14px;background:transparent;border:1px solid var(--border);border-radius:100px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink2);cursor:pointer;transition:all .15s;}
+  .btn-refresh:hover,.btn-logout:hover{background:var(--surface);color:var(--ink);}
+  main{max-width:960px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+  .period-bar{display:flex;align-items:center;gap:8px;margin-bottom:1.5rem;flex-wrap:wrap;}
+  .period-label{font-size:13px;color:var(--ink2);}
+  .period-btn{padding:5px 14px;border-radius:100px;border:1px solid var(--border);background:transparent;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink2);cursor:pointer;transition:all .15s;}
+  .period-btn.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .period-btn:hover:not(.active){background:var(--surface);}
+
+  .tab-btn{padding:9px 16px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink2);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;position:relative;bottom:-1px;transition:all .15s;border-radius:6px 6px 0 0;}
+  .tab-btn:hover{color:var(--ink);background:var(--surface2);}
+  .tab-btn.active{color:var(--accent);font-weight:500;border-bottom-color:var(--accent);background:transparent;}
+  /* anunciante shortcuts row */
+  .ad-shortcuts{display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px;margin-bottom:1.5rem;}
+  .ad-shortcuts::-webkit-scrollbar{display:none;}
+  .ad-shortcut-card{flex-shrink:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;min-width:86px;max-width:110px;transition:all .15s;text-align:center;}
+  .ad-shortcut-card:active,.ad-shortcut-card:hover{transform:scale(.97);background:var(--surface2);border-color:var(--accent);}
+  .ad-shortcut-thumb{width:48px;height:48px;border-radius:10px;object-fit:cover;background:var(--surface2);display:block;}
+  .ad-shortcut-label{font-size:11px;font-weight:500;color:var(--ink2);line-height:1.3;word-break:break-word;}
+  .ad-shortcut-pill{font-size:10px;font-weight:500;padding:2px 7px;border-radius:100px;}
+  .tab-content{display:none;}
+  .tab-content.active{display:block;}
+  .section-title{font-family:'DM Serif Display',serif;font-size:1.15rem;font-weight:400;margin-bottom:1rem;}
+  .metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:2rem;}
+  .metric-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.25rem 1rem;}
+  .metric-card.hl-green{background:var(--accent);border-color:var(--accent);}
+  .metric-card.hl-green .metric-label{color:rgba(255,255,255,.7);}
+  .metric-card.hl-green .metric-value,.metric-card.hl-green .metric-sub{color:#fff;}
+  .metric-card.hl-amber{background:var(--amber);border-color:var(--amber);}
+  .metric-card.hl-amber .metric-label{color:rgba(255,255,255,.75);}
+  .metric-card.hl-amber .metric-value,.metric-card.hl-amber .metric-sub{color:#fff;}
+  .metric-label{font-size:12px;color:var(--ink2);text-transform:uppercase;letter-spacing:.05em;font-weight:500;margin-bottom:8px;}
+  .metric-value{font-family:'DM Serif Display',serif;font-size:2.2rem;line-height:1;color:var(--ink);margin-bottom:4px;}
+  .metric-sub{font-size:12px;color:var(--ink3);}
+  .metric-badge{display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:100px;margin-top:6px;}
+  .badge-green{background:var(--accent-light);color:var(--accent);}
+  .table-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:2rem;}
+  .table-header{padding:1rem 1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+  .table-header h3{font-family:'DM Serif Display',serif;font-size:1.05rem;font-weight:400;}
+  .table-header span{font-size:12px;color:var(--ink3);}
+  table{width:100%;border-collapse:collapse;}
+  thead th{text-align:left;font-size:11px;font-weight:500;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;padding:8px 1.25rem;background:var(--surface2);}
+  tbody tr{border-top:1px solid var(--border);}
+  tbody tr:hover{background:var(--bg);}
+  tbody td{padding:11px 1.25rem;font-size:14px;color:var(--ink);}
+  .bar-cell{width:120px;}
+  .mini-bar-wrap{background:var(--surface2);border-radius:4px;height:6px;overflow:hidden;}
+  .mini-bar{height:6px;border-radius:4px;background:var(--accent);transition:width .5s ease;}
+  .rank-num{color:var(--ink3);font-size:13px;}
+  .ad-pill{display:inline-block;font-size:11px;font-weight:500;padding:3px 10px;border-radius:100px;}
+  .ad-premium{background:var(--amber-light);color:var(--amber);}
+  .ad-mensal{background:var(--accent-light);color:var(--accent);}
+  .ad-semanal{background:#EEF0FB;color:#4A52B7;}
+  .funnel-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:2rem;}
+  .funnel-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+  .funnel-label{font-size:13px;color:var(--ink2);min-width:180px;}
+  .funnel-bar-wrap{flex:1;height:32px;background:var(--surface2);border-radius:var(--radius-sm);overflow:hidden;}
+  .funnel-bar{height:100%;border-radius:var(--radius-sm);display:flex;align-items:center;transition:width .6s ease;}
+  .funnel-bar.f1{background:var(--accent);}
+  .funnel-bar.f2{background:#4A8C60;}
+  .funnel-bar.f3{background:#7ABF8E;}
+  .funnel-val{font-size:13px;font-weight:600;color:var(--ink);min-width:32px;text-align:left;}
+  .funnel-pct{font-size:13px;color:var(--ink2);min-width:44px;text-align:right;}
+  .ad-hero{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:2rem;display:flex;align-items:center;gap:16px;}
+  .ad-hero-badge{font-size:1.6rem;width:52px;height:52px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .ad-hero-badge.premium{background:var(--amber-light);}
+  .ad-hero-badge.mensal{background:var(--accent-light);}
+  .ad-hero-badge.semanal{background:#EEF0FB;}
+  .ad-hero-info h2{font-family:'DM Serif Display',serif;font-size:1.4rem;font-weight:400;margin-bottom:6px;}
+  .insight-box{background:var(--accent-light);border-radius:var(--radius);padding:1.25rem 1.5rem;margin-bottom:2rem;}
+  .insight-box p{font-size:14px;color:var(--accent);line-height:1.7;}
+  .loading-overlay{display:none;position:fixed;inset:0;background:rgba(247,245,240,.85);z-index:200;align-items:center;justify-content:center;flex-direction:column;gap:1rem;}
+  .spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .loading-overlay p{font-size:14px;color:var(--ink2);}
+  .error-banner{display:none;background:var(--accent2-light);border:1px solid #F0C0B0;border-radius:var(--radius-sm);padding:12px 16px;font-size:13px;color:var(--accent2);margin-bottom:1.5rem;}
+  .empty-state{padding:2rem;text-align:center;color:var(--ink3);font-size:13px;}
+  .footer-note{font-size:12px;color:var(--ink3);text-align:center;margin-top:2rem;line-height:1.6;}
+  /* ── Tabs bar scroll ── */
+  .tabs-bar-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-bottom:1px solid var(--border);margin-bottom:1.5rem;}
+  .tabs-bar-wrap::-webkit-scrollbar{display:none;}
+  .tabs-bar{display:flex;gap:2px;min-width:max-content;padding:0 0 0 0;}
+
+  /* ── Anunciante cards row ── */
+  .ad-shortcuts{display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px;margin-bottom:1.5rem;}
+  .ad-shortcuts::-webkit-scrollbar{display:none;}
+  .ad-shortcut-card{flex-shrink:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:10px 14px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;min-width:90px;max-width:110px;transition:all .15s;text-align:center;}
+  .ad-shortcut-card:active{transform:scale(.97);background:var(--surface2);}
+  .ad-shortcut-thumb{width:52px;height:52px;border-radius:10px;object-fit:cover;background:var(--surface2);}
+  .ad-shortcut-label{font-size:11px;font-weight:500;color:var(--ink2);line-height:1.3;word-break:break-word;}
+  .ad-shortcut-pill{font-size:10px;font-weight:500;padding:2px 7px;border-radius:100px;}
+
+  @media(max-width:600px){
+    header{padding:0 1rem;}
+    main{padding:1rem 0.85rem 3rem;}
+    .metric-grid{grid-template-columns:repeat(2,1fr);gap:8px;}
+    .metric-card{padding:1rem 1rem 0.85rem;}
+    .metric-value{font-size:1.9rem;}
+    .bar-cell{display:none;}
+    .funnel-label{min-width:110px;font-size:12px;}
+    .ad-hero{flex-direction:column;align-items:flex-start;}
+    .header-right .user-chip span{display:none;}
+    .period-bar{gap:6px;margin-bottom:1.25rem;}
+    .period-btn{padding:5px 12px;font-size:12px;}
+    .tab-btn{padding:8px 13px;font-size:12px;}
+    .table-card{border-radius:12px;}
+    thead th{padding:7px 1rem;}
+    tbody td{padding:10px 1rem;font-size:13px;}
+    .section-title{font-size:1.05rem;}
+  }
+  @media(max-width:380px){
+    .metric-grid{grid-template-columns:repeat(2,1fr);}
+    .metric-value{font-size:1.7rem;}
+  }
+</style>
+</head>
+<body>
+
+<div class="loading-overlay" id="loading">
+  <div class="spinner"></div>
+  <p id="loading-msg">Carregando dados...</p>
+</div>
+
+<div id="login-screen">
+  <div class="login-logo">Oque<span>fazer</span></div>
+  <div class="login-card">
+    <h2>Painel de métricas</h2>
+    <p>Entre com sua conta Google para visualizar os dados do app em tempo real.</p>
+    <button class="btn-google" id="btn-login">
+      <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#fff" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/><path fill="rgba(255,255,255,0.75)" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="rgba(255,255,255,0.5)" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="rgba(255,255,255,0.6)" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
+      Entrar com Google
+    </button>
+    <div class="property-step" id="property-step">
+      <label>ID da propriedade GA4</label>
+      <input type="text" id="property-input" placeholder="Ex: 527272949" />
+      <div class="hint">GA4 → Administrador → Detalhes da propriedade</div>
+      <button class="btn-load" id="btn-load-data">Carregar dados →</button>
+    </div>
+  </div>
+</div>
+
+<div id="dashboard">
+  <header>
+    <div class="header-logo">Oque<span>fazer</span></div>
+    <div class="header-right">
+      <div class="user-chip">
+        <img id="user-avatar" class="user-avatar" style="display:none" />
+        <div id="user-avatar-ph" class="user-avatar-placeholder">?</div>
+        <span id="user-name"></span>
+      </div>
+      <button class="btn-refresh" id="btn-refresh">↻ Atualizar</button>
+      <button class="btn-logout" id="btn-logout">Sair</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="error-banner" id="error-banner"></div>
+ <div class="period-bar">
+  <span class="period-label">Período:</span>
+  <button class="period-btn" data-days="7">7 dias</button>
+  <button class="period-btn active" data-days="28">28 dias</button>
+  <button class="period-btn" data-days="60">60 dias</button>
+  <button class="period-btn" data-days="90">90 dias</button>
+</div>
+    <div class="tabs-bar-wrap">
+      <div class="tabs-bar" id="tabs-bar">
+        <button class="tab-btn active" data-tab="geral">📊 Geral</button>
+        <button class="tab-btn" data-tab="instalacao">📱 App</button>
+        <button class="tab-btn" data-tab="comportamento">👥 Usuário</button>
+        <button class="tab-btn tab-ad" data-tab="anunciantes">📋 Anunciantes</button>
+      </div>
+    </div>
+
+    <!-- VISÃO GERAL -->
+    <div class="tab-content active" id="tab-geral">
+      <p class="section-title">Visão geral do app</p>
+      <div class="metric-grid">
+        <div class="metric-card hl-green">
+          <div class="metric-label">Abriram o app</div>
+          <div class="metric-value" id="m-users">—</div>
+          <div class="metric-sub">usuários únicos</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Sessões totais</div>
+          <div class="metric-value" id="m-sessions">—</div>
+          <div class="metric-sub">acessos no período</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">App instalado</div>
+          <div class="metric-value" id="m-installs">—</div>
+          <div class="metric-sub">vezes</div>
+          <span class="metric-badge badge-green" id="m-install-rate"></span>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Cliques em anúncios</div>
+          <div class="metric-value" id="m-ad-clicks">—</div>
+          <div class="metric-sub">no período</div>
+        </div>
+      </div>
+      <div class="table-card">
+        <div class="table-header"><h3>Buscas por cidade</h3><span id="city-count"></span></div>
+        <table>
+          <thead><tr><th style="width:36px">#</th><th>Cidade</th><th>Buscas</th><th class="bar-cell"></th></tr></thead>
+          <tbody id="city-tbody"><tr><td colspan="4" class="empty-state">Carregando...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- INSTALAÇÃO -->
+    <div class="tab-content" id="tab-instalacao">
+      <p class="section-title">Jornada de instalação</p>
+      <div class="funnel-card">
+        <div class="funnel-row">
+          <div class="funnel-label">Abriram o app</div>
+          <div class="funnel-bar-wrap"><div class="funnel-bar f1" id="f-bar1" style="width:100%"></div></div>
+          <div class="funnel-val" id="f-val1">—</div>
+          <div class="funnel-pct">100%</div>
+        </div>
+        <div class="funnel-row">
+          <div class="funnel-label">Viram instalar</div>
+          <div class="funnel-bar-wrap"><div class="funnel-bar f2" id="f-bar2" style="width:0%"></div></div>
+          <div class="funnel-val" id="f-val2">—</div>
+          <div class="funnel-pct" id="f-pct2">—</div>
+        </div>
+        <div class="funnel-row" style="margin-bottom:0">
+          <div class="funnel-label">Instalaram de fato</div>
+          <div class="funnel-bar-wrap"><div class="funnel-bar f3" id="f-bar3" style="width:0%"></div></div>
+          <div class="funnel-val" id="f-val3">—</div>
+          <div class="funnel-pct" id="f-pct3">—</div>
+        </div>
+      </div>
+      <div class="insight-box"><p id="install-insight">Carregando...</p></div>
+    </div>
+
+    <!-- COMPORTAMENTO -->
+    <div class="tab-content" id="tab-comportamento">
+      <p class="section-title">Como as pessoas usam o app</p>
+      <div class="metric-grid">
+        <div class="metric-card">
+          <div class="metric-label">Usaram GPS</div>
+          <div class="metric-value" id="m-gps">—</div>
+          <div class="metric-sub">localização automática</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Compartilharam</div>
+          <div class="metric-value" id="m-share">—</div>
+          <div class="metric-sub">indicações do app</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Pediram ajuda</div>
+          <div class="metric-value" id="m-help">—</div>
+          <div class="metric-sub">acessaram o tutorial</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Leram QR Code</div>
+          <div class="metric-value" id="m-qrcode">—</div>
+          <div class="metric-sub">scans no período</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Buscas sem cidade</div>
+          <div class="metric-value" id="m-nocity">—</div>
+          <div class="metric-sub">sem preencher</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Notificações</div>
+          <div class="metric-value" id="m-notif">—</div>
+          <div class="metric-sub">cliques em push</div>
+        </div>
+      </div>
+      <div class="table-card">
+        <div class="table-header"><h3>Períodos mais buscados</h3><span id="periodo-total"></span></div>
+        <table>
+          <thead><tr><th style="width:36px">#</th><th>Período</th><th>Buscas</th><th class="bar-cell"></th></tr></thead>
+          <tbody id="periodo-tbody"><tr><td colspan="4" class="empty-state">Carregando...</td></tr></tbody>
+        </table>
+      </div>
+      <div class="table-card">
+        <div class="table-header"><h3>Notificações clicadas</h3><span id="notif-total"></span></div>
+        <table>
+          <thead><tr><th style="width:36px">#</th><th>Anunciante</th><th>Cliques</th><th class="bar-cell"></th></tr></thead>
+          <tbody id="notif-tbody"><tr><td colspan="4" class="empty-state">Carregando...</td></tr></tbody>
+        </table>
+      </div>
+      <div class="table-card">
+        <div class="table-header"><h3>Categorias mais usadas</h3><span id="categoria-total"></span></div>
+        <table>
+          <thead><tr><th style="width:36px">#</th><th>Categoria</th><th>Buscas</th><th class="bar-cell"></th></tr></thead>
+          <tbody id="categoria-tbody"><tr><td colspan="4" class="empty-state">Carregando...</td></tr></tbody>
+        </table>
+      </div>
+      <div class="table-card">
+        <div class="table-header"><h3>Termos buscados no Acontecendo</h3><span id="ampla-total"></span></div>
+        <table>
+          <thead><tr><th style="width:36px">#</th><th>Termo</th><th>Buscas</th><th class="bar-cell"></th></tr></thead>
+          <tbody id="ampla-tbody"><tr><td colspan="4" class="empty-state">Carregando...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TODOS ANUNCIANTES -->
+    <div class="tab-content" id="tab-anunciantes">
+      <p class="section-title">Todos os anunciantes</p>
+      <!-- Linha de cards com thumb dos anunciantes -->
+      <div class="ad-shortcuts" id="ad-shortcuts-row"></div>
+      <div class="table-card">
+        <div class="table-header"><h3>Cliques por anunciante</h3><span id="ad-count"></span></div>
+        <table>
+          <thead><tr><th style="width:36px">#</th><th>Anunciante</th><th>Tipo</th><th>Cliques</th></tr></thead>
+          <tbody id="ad-tbody"><tr><td colspan="4" class="empty-state">Carregando...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TABS DINÂMICAS POR ANUNCIANTE -->
+    <div id="ad-tabs-container"></div>
+
+    <div class="footer-note">
+      Dados do Google Analytics 4 · processamento 24–48h<br>
+      <span id="last-updated"></span>
+    </div>
+  </main>
+</div>
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>
+let accessToken=null,propertyId=null,currentDays=28;
+function showLoading(m){document.getElementById('loading').style.display='flex';document.getElementById('loading-msg').textContent=m||'Carregando...';}
+function hideLoading(){document.getElementById('loading').style.display='none';}
+function showError(m){const el=document.getElementById('error-banner');el.textContent=m;el.style.display='block';setTimeout(()=>el.style.display='none',8000);}
+function fmt(n){return(parseInt(n)||0).toLocaleString('pt-BR');}
+
+document.getElementById('tabs-bar').addEventListener('click',e=>{
+  const btn=e.target.closest('.tab-btn');if(!btn)return;
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  const el=document.getElementById('tab-'+btn.dataset.tab);if(el)el.classList.add('active');
+  if(btn.dataset.ad&&!btn.dataset.loaded){btn.dataset.loaded='1';loadAdDetail(btn.dataset.ad);}
+});
+
+function initGoogleAuth(){
+  if(typeof google==='undefined'||!google.accounts){setTimeout(initGoogleAuth,300);return;}
+  document.getElementById('btn-login').addEventListener('click',()=>{
+    google.accounts.oauth2.initTokenClient({
+      client_id:'492148966746-c83eg3a6ihnvca245dhtgtqvgem8dhkr.apps.googleusercontent.com',
+      scope:'https://www.googleapis.com/auth/analytics.readonly',
+      callback:resp=>{if(resp.error){showError('Erro: '+resp.error);return;}accessToken=resp.access_token;fetchUserInfo();}
+    }).requestAccessToken();
+  });
+}
+
+function fetchUserInfo(){
+  showLoading('Autenticando...');
+  fetch('https://www.googleapis.com/oauth2/v3/userinfo',{headers:{Authorization:'Bearer '+accessToken}})
+    .then(r=>r.json()).then(u=>{
+      const name=u.given_name||'Usuário';
+      document.getElementById('user-name').textContent=name;
+      if(u.picture){document.getElementById('user-avatar').src=u.picture;document.getElementById('user-avatar').style.display='block';document.getElementById('user-avatar-ph').style.display='none';}
+      else{document.getElementById('user-avatar-ph').textContent=name[0];}
+      hideLoading();showPropertyStep();
+    }).catch(()=>{hideLoading();showPropertyStep();});
+}
+
+function showPropertyStep(){
+  document.getElementById('property-step').style.display='block';
+  const saved=localStorage.getItem('oqf_property_id');
+  if(saved)document.getElementById('property-input').value=saved;
+  document.getElementById('btn-load-data').addEventListener('click',()=>{
+    const val=document.getElementById('property-input').value.trim();
+    if(!val||isNaN(val)){alert('Digite o ID numérico da propriedade GA4.');return;}
+    propertyId=val;localStorage.setItem('oqf_property_id',val);
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('dashboard').style.display='block';
+    loadAllData();
+  });
+}
+
+async function gaReport(dimensions,metrics,dimFilter,limit){
+  const body={dateRanges:[{startDate:currentDays+'daysAgo',endDate:'today'}],dimensions:dimensions.map(n=>({name:n})),metrics:metrics.map(n=>({name:n})),limit:limit||50};
+  if(dimFilter)body.dimensionFilter=dimFilter;
+  const r=await fetch('https://analyticsdata.googleapis.com/v1beta/properties/'+propertyId+':runReport',{method:'POST',headers:{Authorization:'Bearer '+accessToken,'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'Erro GA4');}
+  return r.json();
+}
+
+async function loadAllData(){
+  showLoading('Buscando dados no Google Analytics...');
+  try{
+    await loadOverview();
+    await Promise.all([loadInstallFunnel(),loadCities(),loadAdClicks(),loadBehavior(),loadPeriodos(),loadCategorias(),loadBuscaAmpla(),loadNotificacoes()]);
+  document.getElementById('last-updated').textContent='Última atualização: '+new Date().toLocaleString('pt-BR');}
+  catch(e){showError('Erro: '+e.message);}
+  hideLoading();
+}
+
+async function loadOverview(){
+  const d=await gaReport([],['activeUsers','sessions']);
+  const r=d.rows?.[0]?.metricValues||[{value:'0'},{value:'0'}];
+  document.getElementById('m-users').textContent=fmt(r[0].value);
+  document.getElementById('m-sessions').textContent=fmt(r[1].value);
+}
+
+async function loadInstallFunnel(){
+  const d=await gaReport(['eventName'],['eventCount','totalUsers'],{filter:{fieldName:'eventName',inListFilter:{values:['pwa_install','pwa_installed']}}});
+  let installUsers=0,installedUsers=0,installed=0;
+  (d.rows||[]).forEach(r=>{const ev=r.dimensionValues[0].value,cnt=parseInt(r.metricValues[0].value),usr=parseInt(r.metricValues[1].value);if(ev==='pwa_install')installUsers=usr;if(ev==='pwa_installed'){installed=cnt;installedUsers=usr;}});
+  document.getElementById('m-installs').textContent=fmt(installed);
+  const rate=installUsers>0?Math.round((installedUsers/installUsers)*100):0;
+  document.getElementById('m-install-rate').textContent=rate+'% instalaram de fato';
+  const total=parseInt(document.getElementById('m-users').textContent.replace(/\D/g,''))||1;
+  document.getElementById('f-val1').textContent=fmt(total);
+  const p2=Math.round((installUsers/total)*100),p3=Math.round((installedUsers/total)*100);
+  document.getElementById('f-val2').textContent=fmt(installUsers);document.getElementById('f-bar2').style.width=p2+'%';document.getElementById('f-pct2').textContent=p2+'%';
+  document.getElementById('f-val3').textContent=fmt(installedUsers);document.getElementById('f-bar3').style.width=p3+'%';document.getElementById('f-pct3').textContent=rate+'%'; // ← installedUsers, não installed
+  const ins=document.getElementById('install-insight');
+  if(rate>=80)ins.innerHTML='<strong>'+rate+'% de taxa de instalação</strong> — resultado excelente. A média de apps web fica abaixo de 20%. Quem instala volta com muito mais frequência, vendo os anúncios toda vez que decidir o que fazer.';
+  else if(rate>=50)ins.innerHTML='<strong>'+rate+'% de taxa de instalação</strong> — acima da média. Usuários instalados acessam o app direto da tela inicial.';
+  else ins.innerHTML='<strong>'+fmt(installedUsers)+'</strong> usuários instalaram no período. Cada usuário instalado é um canal direto de retorno ao app.'; // ← installedUsers, não installed
+}
+
+async function loadCities(){
+  let d=await gaReport(['city'],['eventCount'],{filter:{fieldName:'eventName',stringFilter:{matchType:'EXACT',value:'busca'}}});
+  let rows=d.rows||[];
+  if(!rows.length){const d2=await gaReport(['city'],['sessions']);rows=d2.rows||[];}
+  rows=rows.filter(r=>{const c=r.dimensionValues[0].value;return c&&c!=='(not set)'&&c!=='(não definida)';});
+  rows.sort((a,b)=>parseInt(b.metricValues[0].value)-parseInt(a.metricValues[0].value));
+  const top=rows.slice(0,20),max=top.length?parseInt(top[0].metricValues[0].value):1;
+  document.getElementById('city-count').textContent=rows.length+' cidades';
+  const tb=document.getElementById('city-tbody');
+  if(!top.length){tb.innerHTML='<tr><td colspan="4" class="empty-state">Nenhuma busca registrada</td></tr>';return;}
+  tb.innerHTML=top.map((r,i)=>{const city=r.dimensionValues[0].value,val=parseInt(r.metricValues[0].value),pct=Math.round((val/max)*100);return '<tr><td class="rank-num">'+(i+1)+'</td><td>'+city+'</td><td style="font-weight:500">'+fmt(val)+'</td><td class="bar-cell"><div class="mini-bar-wrap"><div class="mini-bar" style="width:'+pct+'%"></div></div></td></tr>';}).join('');
+}
+
+async function loadAdClicks(){
+  const d=await gaReport(['customEvent:anunciante_id'],['eventCount'],{filter:{fieldName:'eventName',stringFilter:{matchType:'EXACT',value:'clique_anuncio'}}});
+  let rows=(d.rows||[]).filter(r=>{const id=r.dimensionValues[0].value;return id&&id!=='(not set)'&&!id.startsWith('generico_');});
+  rows.sort((a,b)=>parseInt(b.metricValues[0].value)-parseInt(a.metricValues[0].value));
+  const total=rows.reduce((acc,r)=>acc+parseInt(r.metricValues[0].value),0);
+  document.getElementById('m-ad-clicks').textContent=fmt(total);
+  document.getElementById('ad-count').textContent=rows.length+' anunciantes';
+  const tb=document.getElementById('ad-tbody');
+  if(!rows.length){tb.innerHTML='<tr><td colspan="4" class="empty-state">Nenhum clique registrado</td></tr>';}
+  else tb.innerHTML=rows.map((r,i)=>{const id=r.dimensionValues[0].value,val=parseInt(r.metricValues[0].value),tipo=detectTipo(id);return '<tr><td class="rank-num">'+(i+1)+'</td><td style="font-weight:500">'+formatAdId(id)+'</td><td><span class="ad-pill '+tipo.cls+'">'+tipo.label+'</span></td><td style="font-weight:500">'+fmt(val)+'</td></tr>';}).join('');
+  buildAdShortcuts(rows);
+  buildAdTabs(rows);
+}
+
+async function loadBehavior(){
+  const d=await gaReport(['eventName'],['eventCount'],{filter:{fieldName:'eventName',inListFilter:{values:['uso_gps','compartilhou','abriu_ajuda','cidade_nao_encontrada','clique_qrcode','notificacao_clicada']}}});
+  const map={};(d.rows||[]).forEach(r=>{map[r.dimensionValues[0].value]=parseInt(r.metricValues[0].value);});
+  document.getElementById('m-gps').textContent=fmt(map['uso_gps']||0);
+  document.getElementById('m-share').textContent=fmt(map['compartilhou']||0);
+  document.getElementById('m-help').textContent=fmt(map['abriu_ajuda']||0);
+  document.getElementById('m-nocity').textContent=fmt(map['cidade_nao_encontrada']||0);
+  document.getElementById('m-notif').textContent=fmt(map['notificacao_clicada']||0);
+  const qr=map['clique_qrcode']||0;
+  document.getElementById('m-qrcode').textContent=fmt(qr);
+}
+
+async function loadCategorias(){
+  const d=await gaReport(["customEvent:categoria"],["eventCount"],{filter:{fieldName:"eventName",stringFilter:{matchType:"EXACT",value:"busca"}}});
+  const lbl={"todas":"Todas (sem filtro)","Bares":"🍻 Bares","Shows":"🎶 Shows","Cultura":"🎭 Cultura","Natureza":"🌱 Natureza","Esporte":"🎾 Esporte","Feiras":"🛍️ Feiras"};
+  let rows=(d.rows||[]).filter(r=>{const c=r.dimensionValues[0].value;return c&&c!=="(not set)";});
+  rows.sort((a,b)=>parseInt(b.metricValues[0].value)-parseInt(a.metricValues[0].value));
+  const total=rows.reduce((acc,r)=>acc+parseInt(r.metricValues[0].value),0),max=rows.length?parseInt(rows[0].metricValues[0].value):1;
+  document.getElementById("categoria-total").textContent=fmt(total)+" buscas";
+  const tb=document.getElementById("categoria-tbody");
+  if(!rows.length){tb.innerHTML="<tr><td colspan=4 class=empty-state>Nenhuma busca registrada</td></tr>";return;}
+  tb.innerHTML=rows.map((r,i)=>{const c=r.dimensionValues[0].value,val=parseInt(r.metricValues[0].value),pct=Math.round((val/max)*100),pt=total?Math.round((val/total)*100):0;return "<tr><td class=rank-num>"+(i+1)+"</td><td style=font-weight:500>"+(lbl[c]||c)+"</td><td style=font-weight:500>"+fmt(val)+" <span style=font-size:12px;color:var(--ink3)>("+pt+"%)</span></td><td class=bar-cell><div class=mini-bar-wrap><div class=mini-bar style=width:"+pct+"%></div></div></td></tr>";}).join("");
+}
+
+async function loadBuscaAmpla(){
+  const d=await gaReport(["customEvent:termo"],["eventCount"],{filter:{fieldName:"eventName",stringFilter:{matchType:"EXACT",value:"busca_ampla"}}},30);
+  let rows=(d.rows||[]).filter(r=>{const t=r.dimensionValues[0].value;return t&&t!=="(not set)";});
+  rows.sort((a,b)=>parseInt(b.metricValues[0].value)-parseInt(a.metricValues[0].value));
+  const total=rows.reduce((acc,r)=>acc+parseInt(r.metricValues[0].value),0),max=rows.length?parseInt(rows[0].metricValues[0].value):1;
+  document.getElementById("ampla-total").textContent=fmt(total)+" buscas";
+  const tb=document.getElementById("ampla-tbody");
+  if(!rows.length){tb.innerHTML="<tr><td colspan=4 class=empty-state>Nenhuma busca registrada</td></tr>";return;}
+  tb.innerHTML=rows.map((r,i)=>{const t=r.dimensionValues[0].value,val=parseInt(r.metricValues[0].value),pct=Math.round((val/max)*100);return "<tr><td class=rank-num>"+(i+1)+"</td><td style=font-weight:500>"+t+"</td><td style=font-weight:500>"+fmt(val)+"</td><td class=bar-cell><div class=mini-bar-wrap><div class=mini-bar style=width:"+pct+"%></div></div></td></tr>";}).join("");
+}
+
+async function loadNotificacoes(){
+  const d=await gaReport(['customEvent:anunciante_id'],['eventCount'],{filter:{fieldName:'eventName',stringFilter:{matchType:'EXACT',value:'notificacao_clicada'}}});
+  let rows=(d.rows||[]).filter(r=>{const id=r.dimensionValues[0].value;return id&&id!=='(not set)';});
+  rows.sort((a,b)=>parseInt(b.metricValues[0].value)-parseInt(a.metricValues[0].value));
+  const total=rows.reduce((acc,r)=>acc+parseInt(r.metricValues[0].value),0),max=rows.length?parseInt(rows[0].metricValues[0].value):1;
+  document.getElementById('notif-total').textContent=fmt(total)+' cliques';
+  const tb=document.getElementById('notif-tbody');
+  if(!rows.length){tb.innerHTML='<tr><td colspan="4" class="empty-state">Nenhum clique registrado</td></tr>';return;}
+  tb.innerHTML=rows.map((r,i)=>{const id=r.dimensionValues[0].value,val=parseInt(r.metricValues[0].value),pct=Math.round((val/max)*100);return '<tr><td class="rank-num">'+(i+1)+'</td><td style="font-weight:500">'+formatAdId(id)+'</td><td style="font-weight:500">'+fmt(val)+'</td><td class="bar-cell"><div class="mini-bar-wrap"><div class="mini-bar" style="width:'+pct+'%"></div></div></td></tr>';}).join('');
+}
+
+async function loadPeriodos(){
+  const d=await gaReport(['customEvent:periodo'],['eventCount'],{filter:{fieldName:'eventName',stringFilter:{matchType:'EXACT',value:'periodo_selecionado'}}});
+  const rows=(d.rows||[]).sort((a,b)=>parseInt(b.metricValues[0].value)-parseInt(a.metricValues[0].value));
+  const total=rows.reduce((acc,r)=>acc+parseInt(r.metricValues[0].value),0),max=rows.length?parseInt(rows[0].metricValues[0].value):1;
+  const lbl={'hoje':'Hoje','fimdesemana':'Fim de semana','7dias':'7 dias'};
+  document.getElementById('periodo-total').textContent=fmt(total)+' buscas';
+  const tb=document.getElementById('periodo-tbody');
+  if(!rows.length){tb.innerHTML='<tr><td colspan="4" class="empty-state">Nenhuma busca registrada</td></tr>';return;}
+  tb.innerHTML=rows.map((r,i)=>{const p=r.dimensionValues[0].value,val=parseInt(r.metricValues[0].value),pct=Math.round((val/max)*100),pt=total?Math.round((val/total)*100):0;return '<tr><td class="rank-num">'+(i+1)+'</td><td style="font-weight:500">'+(lbl[p]||p)+'</td><td style="font-weight:500">'+fmt(val)+' <span style="font-size:12px;color:var(--ink3)">('+pt+'%)</span></td><td class="bar-cell"><div class="mini-bar-wrap"><div class="mini-bar" style="width:'+pct+'%"></div></div></td></tr>';}).join('');
+}
+
+// Mapa de thumb PNGs por prefixo de anunciante_id
+const AD_THUMBS={
+  'premium_': 'painel/banner_premium_topo',
+  'generico_': 'painel/banner_generico_topo',
+  'mensal_':   'painel/card_principal',
+  'semanal_esq':'painel/semana_esquerda',
+  'semanal_mei':'painel/semana_meio',
+  'semanal_dir':'painel/semana_direita',
+  'semanal_':  'painel/banner_generico_topo',
+};
+function adThumb(id){
+  if(id.startsWith('premium_'))return AD_THUMBS['premium_']+'.png';
+  if(id.startsWith('generico_'))return AD_THUMBS['generico_']+'.png';
+  if(id.startsWith('mensal_'))return AD_THUMBS['mensal_']+'.png';
+  if(id.startsWith('semanal_')){
+    if(id.includes('_esq'))return AD_THUMBS['semanal_esq']+'.png';
+    if(id.includes('_meio'))return AD_THUMBS['semanal_mei']+'.png';
+    if(id.includes('_dir'))return AD_THUMBS['semanal_dir']+'.png';
+    return AD_THUMBS['semanal_']+'.png';
+  }
+  return null;
+}
+
+function buildAdShortcuts(rows){
+  const wrap=document.getElementById('ad-shortcuts-row');
+  if(!wrap)return;
+  wrap.innerHTML='';
+  rows.forEach(r=>{
+    const id=r.dimensionValues[0].value,nome=formatAdId(id),tipo=detectTipo(id),thumb=adThumb(id);
+    const card=document.createElement('div');card.className='ad-shortcut-card';card.title=nome;
+    card.dataset.tab='ad-'+id.replace(/[^a-z0-9]/gi,'_');
+    const pillCls=tipo.cls==='ad-premium'?'ad-premium':tipo.cls==='ad-semanal'?'ad-semanal':'ad-mensal';
+    const pillLabel=tipo.cls==='ad-premium'?'Premium':tipo.cls==='ad-mensal'?'Mensal':tipo.cls==='ad-semanal'?'Semanal':'Genérico';
+    card.innerHTML=(thumb?`<img class="ad-shortcut-thumb" src="${thumb}" alt="${nome}" onerror="this.style.display='none'">`:'')
+      +`<div class="ad-shortcut-label">${nome}</div>`
+      +`<span class="ad-shortcut-pill ${pillCls}">${pillLabel}</span>`;
+    card.addEventListener('click',()=>{
+      // esconde todos os tab-content de anunciante e mostra o selecionado
+      document.querySelectorAll('#ad-tabs-container .tab-content').forEach(t=>t.classList.remove('active'));
+      const target=document.getElementById('tab-'+card.dataset.tab);
+      if(target){
+        target.classList.add('active');
+        if(!card.dataset.loaded){card.dataset.loaded='1';loadAdDetail(id);}
+        target.scrollIntoView({behavior:'smooth',block:'start'});
+      }
+    });
+    wrap.appendChild(card);
+  });
+}
+
+function buildAdTabs(rows){
+  const container=document.getElementById('ad-tabs-container');
+  container.innerHTML='';
+  rows.forEach(r=>{
+    const id=r.dimensionValues[0].value,nome=formatAdId(id),tipo=detectTipo(id),tabId='ad-'+id.replace(/[^a-z0-9]/gi,'_'),cliques=parseInt(r.metricValues[0].value);
+    const classMap={'ad-premium':'premium','ad-mensal':'mensal','ad-semanal':'semanal'};
+    const emojiMap={'ad-premium':'★','ad-mensal':'◆','ad-semanal':'▲'};
+    const hlMap={'ad-premium':'hl-amber','ad-mensal':'hl-green','ad-semanal':'hl-green'};
+    const thumb=adThumb(id);
+    const heroImgHtml=thumb?`<img src="${thumb}" alt="${nome}" style="width:52px;height:52px;border-radius:10px;object-fit:cover;flex-shrink:0;" onerror="this.style.display='none'">`:`<div class="ad-hero-badge ${classMap[tipo.cls]||'mensal'}">${emojiMap[tipo.cls]||'●'}</div>`;
+    const div=document.createElement('div');div.className='tab-content';div.id='tab-'+tabId;
+    div.innerHTML=`<div class="ad-hero">${heroImgHtml}<div class="ad-hero-info"><h2>${nome}</h2><p><span class="ad-pill ${tipo.cls}">${tipo.label}</span></p></div></div><div class="metric-grid"><div class="metric-card ${hlMap[tipo.cls]||'hl-green'}"><div class="metric-label">Cliques no período</div><div class="metric-value">${fmt(cliques)}</div><div class="metric-sub">pessoas foram ao seu link</div></div><div class="metric-card"><div class="metric-label">Usuários no app</div><div class="metric-value" id="${tabId}-total-users">—</div><div class="metric-sub">no mesmo período</div></div><div class="metric-card"><div class="metric-label">Taxa de clique</div><div class="metric-value" id="${tabId}-ctr">—</div><div class="metric-sub">dos usuários clicaram</div></div></div><div class="table-card"><div class="table-header"><h3>Cidades de onde vieram os cliques</h3><span id="${tabId}-city-count"></span></div><table><thead><tr><th style="width:36px">#</th><th>Cidade</th><th>Cliques</th><th class="bar-cell"></th></tr></thead><tbody id="${tabId}-city-tbody"><tr><td colspan="4" class="empty-state">Clique na aba para carregar</td></tr></tbody></table></div><div class="insight-box" id="${tabId}-insight" style="display:none"><p id="${tabId}-insight-text"></p></div>`;
+    container.appendChild(div);
+  });
+}
+
+async function loadAdDetail(anuncianteId){
+  const tabId='ad-'+anuncianteId.replace(/[^a-z0-9]/gi,'_');
+  try{
+    // Busca total de cliques do anunciante
+    const dTotal=await gaReport([],['eventCount'],{andGroup:{expressions:[{filter:{fieldName:'eventName',stringFilter:{matchType:'EXACT',value:'clique_anuncio'}}},{filter:{fieldName:'customEvent:anunciante_id',stringFilter:{matchType:'EXACT',value:anuncianteId}}}]}});
+    const totalCliques=parseInt(dTotal.rows?.[0]?.metricValues?.[0]?.value||'0');
+    // Busca cliques por cidade
+    const d=await gaReport(['city'],['eventCount'],{andGroup:{expressions:[{filter:{fieldName:'eventName',stringFilter:{matchType:'EXACT',value:'clique_anuncio'}}},{filter:{fieldName:'customEvent:anunciante_id',stringFilter:{matchType:'EXACT',value:anuncianteId}}}]}});
+    let rows=(d.rows||[]).filter(r=>{const c=r.dimensionValues[0].value;return c&&c!=='(not set)'&&c!=='(não definida)';});
+    rows.sort((a,b)=>parseInt(b.metricValues[0].value)-parseInt(a.metricValues[0].value));
+    const max=rows.length?parseInt(rows[0].metricValues[0].value):1;
+    const totalUsers=parseInt(document.getElementById('m-users').textContent.replace(/\D/g,''))||0;
+    const ctr=totalUsers>0?((totalCliques/totalUsers)*100).toFixed(1):'0';
+    const tu=document.getElementById(tabId+'-total-users');if(tu)tu.textContent=fmt(totalUsers);
+    const ct=document.getElementById(tabId+'-ctr');if(ct)ct.textContent=ctr+'%';
+    const cc=document.getElementById(tabId+'-city-count');if(cc)cc.textContent=rows.length+(rows.length===1?' cidade':' cidades');
+    const tb=document.getElementById(tabId+'-city-tbody');
+    if(tb){
+      if(!rows.length)tb.innerHTML='<tr><td colspan="4" class="empty-state">Nenhum clique registrado no período</td></tr>';
+      else tb.innerHTML=rows.slice(0,20).map((r,i)=>{const city=r.dimensionValues[0].value,val=parseInt(r.metricValues[0].value),pct=Math.round((val/max)*100);return '<tr><td class="rank-num">'+(i+1)+'</td><td>'+city+'</td><td style="font-weight:500">'+fmt(val)+'</td><td class="bar-cell"><div class="mini-bar-wrap"><div class="mini-bar" style="width:'+pct+'%"></div></div></td></tr>';}).join('');
+    }
+    const ibox=document.getElementById(tabId+'-insight'),itxt=document.getElementById(tabId+'-insight-text');
+    if(ibox&&itxt){
+      const topCity=rows.length?rows[0].dimensionValues[0].value:null;
+      if(totalCliques===0)itxt.innerHTML='Nenhum clique registrado neste período. Os dados do GA4 têm processamento de 24–48h.';
+      else if(topCity)itxt.innerHTML='<strong>'+fmt(totalCliques)+' pessoas</strong> foram ao seu link neste período, vindas de <strong>'+rows.length+' '+(rows.length===1?'cidade':'cidades')+'</strong>. A maior concentração foi em <strong>'+topCity+'</strong>. Essas são pessoas que estavam ativamente decidindo onde ir e escolheram saber mais sobre você.';
+      else itxt.innerHTML='<strong>'+fmt(totalCliques)+' cliques</strong> no período — pessoas que estavam decidindo onde ir e escolheram conhecer mais sobre você.';
+      ibox.style.display='block';
+    }
+  }catch(e){const tb=document.getElementById(tabId+'-city-tbody');if(tb)tb.innerHTML='<tr><td colspan="4" class="empty-state">Erro: '+e.message+'</td></tr>';}
+}
+
+function detectTipo(id){
+  if(id.startsWith('premium_'))return{label:'Premium',cls:'ad-premium'};
+  if(id.startsWith('mensal_'))return{label:'Mensal',cls:'ad-mensal'};
+  if(id.startsWith('semanal_'))return{label:'Semanal',cls:'ad-semanal'};
+  return{label:'Anúncio',cls:'ad-mensal'};
+}
+
+function formatAdId(id){
+  if(!id||id==='(not set)')return'—';
+  if(id.startsWith('generico_'))return id.replace('generico_','').replace(/_/g,' ').replace(/\b\w/g,l=>l.toUpperCase());
+  const parts=id.split('_');
+  if((id.startsWith('premium_')||id.startsWith('mensal_'))&&parts.length>=4){const nome=parts.slice(3).join(' ').replace(/-/g,' ');return nome.charAt(0).toUpperCase()+nome.slice(1);}
+  if(id.startsWith('semanal_')&&parts.length>=6){const nome=parts.slice(5).join(' ').replace(/-/g,' ');return nome.charAt(0).toUpperCase()+nome.slice(1);}
+  return id.replace(/_/g,' ').replace(/\b\w/g,l=>l.toUpperCase());
+}
+
+document.querySelectorAll('.period-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.period-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');currentDays=parseInt(btn.dataset.days);
+    loadAllData();
+  });
+});
+document.getElementById('btn-refresh').addEventListener('click',()=>{loadAllData();});
+document.getElementById('btn-logout').addEventListener('click',()=>{
+  accessToken=null;propertyId=null;
+  document.getElementById('dashboard').style.display='none';document.getElementById('login-screen').style.display='flex';
+  document.getElementById('property-step').style.display='none';document.getElementById('property-input').value='';
+  document.getElementById('ad-tabs-container').innerHTML='';
+});
+window.addEventListener('load',initGoogleAuth);
+</script>
+</body>
+</html>

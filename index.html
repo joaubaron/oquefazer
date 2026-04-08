@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#243447">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Oquefazer">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="author" content="José Augusto Baron">
+<link rel="author" href="mailto:jabaron@gmail.com">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="icone.png">
+<link rel="apple-touch-icon" href="icone.png">
+<link rel="preload" as="image" href="fundo.webp">
+<title>Oquefazer</title>
+<meta name="description" content="Descubra o que fazer perto de você">
+<meta property="og:title" content="Oquefazer — Descubra o que fazer perto de você">
+<meta property="og:description" content="Shows, bares, feiras, eventos culturais e muito mais na sua cidade. Busque pelo período e categoria.">
+<meta property="og:url" content="https://joaubaron.github.io/oquefazer/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://joaubaron.github.io/oquefazer/icone.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Oquefazer — Descubra o que fazer perto de você">
+<meta name="twitter:description" content="Shows, bares, feiras, eventos culturais e muito mais na sua cidade.">
+<meta name="twitter:image" content="https://joaubaron.github.io/oquefazer/icone.png">
+<link rel="canonical" href="https://joaubaron.github.io/oquefazer/">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HB14E8QNFC"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-HB14E8QNFC');
+</script>
+<!-- OneSignal -->
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+window.OneSignalDeferred = window.OneSignalDeferred || [];
+OneSignalDeferred.push(async function(OneSignal) {
+await OneSignal.init({
+appId: "63ba3fe9-c20a-4980-a519-163fef4bdf45",
+});
+OneSignal.Notifications.addEventListener("click", (event) => {
+const anunciante = event.notification.additionalData?.anunciante_id || 'desconhecido';
+gtag('event', 'notificacao_clicada', { anunciante_id: anunciante });
+});
+});
+</script>
+<style>
+/* GARANTE QUE O FLEX TENHA ALTURA REAL */
+html, body {
+height: 100%;
+margin: 0;
+}
+
+body {
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+background: url('fundo.webp') center/cover no-repeat;
+
+display: flex;
+align-items: flex-end;
+justify-content: center;
+
+box-sizing: border-box;
+padding-top: 65px;
+}
+
+/* ============================================================ */
+/* BANNER PREMIUM EVENTO GRANDE */
+/* ============================================================ */
+.evento-premium {
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+z-index: 10000;
+background: linear-gradient(135deg, rgba(255, 107, 53, 0.70) 0%, rgba(247, 147, 30, 0.85) 50%, rgba(255, 215, 0, 0.85) 100%);
+padding: 18px 20px;
+box-shadow: 0 4px 20px rgba(255, 107, 53, 0.4);
+animation: slideDown 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), pulse 3s ease-in-out infinite;
+border-radius: 0 0 25px 25px;
+overflow: hidden;
+}
+.evento-premium::before {
+content: '';
+position: absolute;
+top: 0; left: -60%;
+width: 40%;
+height: 100%;
+background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.35) 50%, transparent 80%);
+animation: shine 5s ease-in-out infinite;
+}
+@keyframes shine {
+0% { left: -60%; }
+65%, 100% { left: 120%; }
+}
+@keyframes pulse {
+0%, 100% { opacity: 0.9; }
+50% { opacity: 1; }
+}
+@keyframes slideDown {
+from {
+transform: translateY(-100%);
+opacity: 0;
+}
+to {
+transform: translateY(0);
+opacity: 1;
+}
+}
+
+.evento-premium-link {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 12px;
+text-decoration: none;
+max-width: 1200px;
+margin: 0 auto;
+}
+
+.evento-premium-content {
+flex: 1;
+min-width: 0;
+}
+
+.evento-premium-badge {
+display: inline-block;
+background: rgba(255, 255, 255, 0.25);
+color: white;
+font-size: 9px;
+font-weight: 800;
+letter-spacing: 1px;
+text-transform: uppercase;
+padding: 3px 8px;
+border-radius: 4px;
+margin-bottom: 4px;
+backdrop-filter: blur(10px);
+}
+
+.evento-premium-titulo {
+font-size: 16px;
+font-weight: 800;
+color: white;
+line-height: 1.2;
+margin: 0 0 2px 0;
+text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.evento-premium-info {
+font-size: 12px;
+color: rgba(255, 255, 255, 0.95);
+font-weight: 600;
+margin: 0;
+}
+
+.evento-premium-cta {
+background: white;
+color: #ff6b35;
+font-size: 13px;
+font-weight: 800;
+padding: 10px 20px;
+border-radius: 25px;
+white-space: nowrap;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+transition: all 0.3s ease;
+display: flex;
+align-items: center;
+gap: 6px;
+}
+
+.evento-premium-link:hover .evento-premium-cta {
+transform: scale(1.05);
+box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.evento-premium.generico {
+background: linear-gradient(135deg, rgba(102, 126, 234, 0.70) 0%, rgba(118, 75, 162, 0.85) 100%);
+}
+
+.evento-premium.generico .evento-premium-cta {
+color: #667eea;
+}
+
+@media (max-width: 600px) {
+.evento-premium {
+padding: 10px 15px;
+}
+.evento-premium-titulo {
+font-size: 14px;
+}
+.evento-premium-info {
+font-size: 11px;
+}
+.evento-premium-cta {
+font-size: 11px;
+padding: 8px 16px;
+}
+}
+
+.container {
+background: rgba(255, 255, 255, 0.85);
+padding: 8px 30px 10px 30px;
+border-radius: 25px;
+box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+
+width: 90%;
+max-width: 420px;
+text-align: center;
+
+max-height: 90vh;
+overflow-y: auto;
+
+-webkit-overflow-scrolling: touch;
+
+margin-bottom: 20px;
+}
+h1 {
+margin-top: 5px;
+margin-bottom: 8px;
+font-size: 18.5px;
+color: #6eb233;
+}
+.input-wrapper {
+position: relative;
+margin-bottom: 12px;
+}
+input {
+width: 100%;
+padding: 8px;
+padding-right: 48px;
+border-radius: 14px;
+border: 1px solid #ddd;
+font-size: 14px;
+outline: none;
+box-sizing: border-box;
+}
+input:focus {
+border-color: #6eb233;
+box-shadow: 0 0 0 3px rgba(110,179,51,0.2);
+}
+#evento {
+padding-right: 48px;
+}
+#evento:focus {
+background: white !important;
+}
+#evento:-webkit-autofill,
+#evento:-webkit-autofill:focus {
+-webkit-box-shadow: 0 0 0 1000px white inset !important;
+background-color: white !important;
+}
+.geo-btn {
+position: absolute;
+right: 10px;
+top: 50%;
+transform: translateY(-50%);
+background: none;
+border: none;
+cursor: pointer;
+font-size: 20px;
+padding: 0;
+width: auto;
+line-height: 1;
+}
+button {
+width: 100%;
+padding: 12px;
+border: none;
+border-radius: 14px;
+font-size: 16px;
+font-weight: bold;
+cursor: pointer;
+background: #6eb233;
+color: white;
+}
+.btn-group {
+display: flex;
+gap: 8px;
+margin-bottom: 8px;
+}
+.btn-group button {
+font-size: 13px;
+padding: 7px 6px;
+}
+.cat-group {
+display: flex;
+gap: 6px;
+margin-bottom: 8px;
+}
+.cat-btn {
+flex: 1;
+font-size: 12px;
+padding: 6px 2px;
+background: white;
+color: #4d8a1f;
+border: 1.5px solid #6eb233;
+border-radius: 14px;
+cursor: pointer;
+font-weight: bold;
+width: auto;
+transition: background 0.2s ease, color 0.2s ease;
+}
+.cat-btn.ativo {
+background: #6eb233;
+color: white;
+}
+.cidade-row {
+display: flex;
+gap: 8px;
+margin-bottom: 8px;
+align-items: center;
+}
+.cidade-row .input-wrapper {
+flex: 1;
+margin-bottom: 0;
+}
+.evento-btn {
+width: auto;
+padding: 8px 12px;
+font-size: 12px;
+white-space: nowrap;
+flex-shrink: 0;
+background: white;
+color: #4d8a1f;
+border: 1.5px solid #6eb233;
+border-radius: 14px;
+transition: background 0.2s ease, color 0.2s ease;
+}
+.evento-btn.ativo {
+background: #6eb233;
+color: white;
+}
+.evento-wrapper {
+margin-bottom: 8px;
+display: none;
+}
+.evento-wrapper input {
+padding-right: 48px;
+}
+.evento-dica {
+font-size: 12px;
+color: #4d8a1f;
+margin-top: 4px;
+padding-left: 4px;
+opacity: 0.85;
+font-weight: 500;
+}
+
+/* PARCEIRO DO MÊS */
+.parceiro-card {
+display: block;
+background: linear-gradient(135deg, #f4fbed 0%, #edf7e0 100%);
+border: 1.5px solid #a8d870;
+border-radius: 14px;
+padding: 8px 12px;
+margin-bottom: 5px;
+text-decoration: none;
+overflow: hidden;
+position: relative;
+}
+
+.parceiro-linha {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.parceiro-label {
+font-size: 12px;
+color: #5a8a2a;
+font-weight: 700;
+letter-spacing: 0.4px;
+text-transform: none;
+}
+.parceiro-nome {
+font-size: 14px;
+font-weight: bold;
+color: #1a2a0a;
+}
+.parceiro-badge {
+background: rgba(110,178,51,0.12);
+color: #5a8a2a;
+font-size: 7px;
+font-weight: 700;
+border-radius: 5px;
+padding: 2px 6px;
+letter-spacing: 0.5px;
+text-transform: uppercase;
+}
+.parceiro-acesse {
+display: flex;
+align-items: center;
+gap: 4px;
+font-size: 10px;
+color: #4d8a1f;
+font-weight: 700;
+white-space: nowrap;
+}
+.parceiro-acesse svg { width: 16px; height: 16px; }
+
+/* PARCEIROS DA SEMANA */
+.semana-group {
+display: flex;
+gap: 6px;
+margin-bottom: 8px;
+}
+.semana-card {
+flex: 1;
+display: block;
+background: #f0f7ff;
+border: 1.5px solid #a8ccee;
+border-radius: 12px;
+padding: 8px;
+text-decoration: none;
+position: relative;
+text-align: left;
+overflow: hidden;
+}
+.semana-badge {
+display: block;
+font-size: 7px;
+color: #5a8a2a;
+font-weight: 700;
+letter-spacing: 0.3px;
+text-transform: uppercase;
+margin-bottom: 4px;
+opacity: 0.7;
+}
+.semana-linha {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 4px;
+}
+.semana-nome {
+font-size: 10px;
+font-weight: bold;
+color: #1a2a0a;
+line-height: 1.2;
+flex: 1;
+}
+.semana-emoji {
+font-size: 14px;
+flex-shrink: 0;
+line-height: 1;
+}
+.icone-qrcode {
+width: 19px !important;
+height: 19px !important;
+}
+.modal-overlay {
+position: fixed;
+top: 0; left: 0; width: 100%; height: 100%;
+background: rgba(0,0,0,0.6);
+display: none;
+align-items: center; justify-content: center;
+}
+.modal-box {
+background: white;
+padding: 25px 20px;
+border-radius: 20px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+</style>
+</head>
+<body>
+
+<!-- BANNER PREMIUM 
+[1. HREF: https://oktoberfestblumenau.com.br/]
+[2. LOGO-SRC: ./logo_premium.png]
+[3. PREMIUM-TITULO: Oktoberfest Blumenau 2026]
+[4. PREMIUM-INFO: 7 a 25 de outubro · Vila Germânica]
+[5. PREMIUM-CTA: Saiba Mais]
+[6. ANUNCIANTE-ID: premium_2026_10_oktoberfest]
+[7. ANUNCIANTE-NOME: Oktoberfest Blumenau 2026]
+[8. PERIODO: outubro]
+-->
+
+<!--
+<div class="evento-premium">
+<a href="https://oktoberfestblumenau.com.br/" target="_blank" class="evento-premium-link"
+onclick="gtag('event', 'clique_anuncio', {
+'anunciante_id': 'premium_2026_10_oktoberfest',
+'anunciante_nome': 'Oktoberfest Blumenau 2026',
+'local': 'banner_premium_topo',
+'periodo': 'outubro',
+'data_clique': new Date().toISOString().split('T')[0]
+});">
+<img src="./logo_premium.png" style="height:40px; width:40px; object-fit:contain; border-radius:50%; flex-shrink:0;">
+<div class="evento-premium-content">
+<h2 class="evento-premium-titulo">Oktoberfest Blumenau 2026</h2>
+<p class="evento-premium-info">7 a 25 de outubro · Vila Germânica</p>
+</div>
+<div class="evento-premium-cta">Saiba Mais</div>
+</a>
+</div>
+-->
+
+<!-- BANNER GENÉRICO -->
+
+<div class="evento-premium generico">
+<a href="https://wa.me/5547991581967?text=Ol%C3%A1!%20Como%20fa%C3%A7o%20pra%20anunciar%3F"
+target="_blank"
+class="evento-premium-link"
+onclick="gtag('event', 'clique_anuncio', {
+'anunciante_id': 'generico_anuncie_aqui',
+'anunciante_nome': 'Divulgue seu evento',
+'local': 'banner_generico_topo',
+'periodo': 'generico',
+'data_clique': new Date().toISOString().split('T')[0]
+});">
+<img src="./logo_premium.png" style="height:40px; width:40px; object-fit:contain; border-radius:50%; flex-shrink:0;">
+<div class="evento-premium-content">
+<h2 class="evento-premium-titulo">Divulgue seu evento 🎫</h2>
+<p class="evento-premium-info">
+<span style="background: rgba(255,255,255,0.2); padding: 1px 5px; border-radius: 20px; font-weight: 700; margin-right: 8px; font-size: 10px;">
+<span id="data-atual"></span>
+</span>
+Shows, festivais...
+</p>
+</div>
+<div class="evento-premium-cta">Anunciar</div>
+</a>
+</div>
+
+<div class="container">
+<h1 style="font-size: 18px; font-weight: normal;">Descubra <img src="oqfazer.png" style="height: 22px; vertical-align: middle; display: inline-block;"> perto de você</h1>
+<div>
+<div class="cidade-row">
+<div class="input-wrapper">
+<input type="text" id="cidade" placeholder="Digite uma cidade" aria-label="Digite uma cidade" onkeydown="if(event.key==='Enter') buscar('hoje')" oninput="atualizarGeoBtnEstado()" onfocus="this.select()">
+<button type="button" id="geo-btn" class="geo-btn" onclick="geoBtnAcao()" title="Detectar minha cidade" aria-label="Detectar minha cidade">📍</button>
+</div>
+<button type="button" class="evento-btn" onclick="toggleEvento()">🎫 Eventos</button>
+</div>
+<div class="evento-wrapper" id="eventoWrapper">
+<div class="input-wrapper">
+<input type="text" id="evento" aria-label="Nome do local ou evento" placeholder="Digite local ou evento ou escolha período" onfocus="this.select()"> <button type="button" class="geo-btn" onclick="buscarEventoAmplo()" title="Buscar" aria-label="Buscar evento" style="display:flex;align-items:center;justify-content:center;"> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6eb233" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"> <polyline points="9 10 4 15 9 20"/> <path d="M20 4v7a4 4 0 0 1-4 4H4"/> </svg> </button>
+</div>
+<div class="evento-dica">💡 Com cidade IA mais precisa. Sem cidade busca ampla.</div>
+</div>
+<div class="cat-group">
+<button type="button" class="cat-btn" aria-pressed="false" onclick="toggleCategoria(this, 'Bares')">🍻 Bares</button>
+<button type="button" class="cat-btn" aria-pressed="false" onclick="toggleCategoria(this, 'Shows')">🎶 Shows</button>
+<button type="button" class="cat-btn" aria-pressed="false" onclick="toggleCategoria(this, 'Cultura')">🎭 Cultura</button>
+</div>
+<div class="cat-group">
+<button type="button" class="cat-btn" aria-pressed="false" onclick="toggleCategoria(this, 'Natureza')">🌱 Natureza</button>
+<button type="button" class="cat-btn" aria-pressed="false" onclick="toggleCategoria(this, 'Esporte')">🎾 Esporte</button>
+<button type="button" class="cat-btn" aria-pressed="false" onclick="toggleCategoria(this, 'Feiras')">🛍️ Feiras</button>
+</div>
+
+<!-- PARCEIRO DO MÊS -->
+<!-- 1. HREF -->
+<a href="https://www.instagram.com/pointdabelezabnu"
+target="_blank"
+class="parceiro-card"
+onclick="gtag('event', 'clique_anuncio', {
+'anunciante_id': 'mensal_2026_03_pointdabeleza',
+'anunciante_nome': this.querySelector('.parceiro-nome').innerText,
+'local': 'card_principal',
+'periodo': 'mensal',
+'data_clique': new Date().toISOString().split('T')[0]
+});">
+<div style="display:flex; align-items:center; gap:10px;">
+<img src="./logo_anunciante.png" style="height:40px; width:40px; object-fit:contain; border-radius:50%; flex-shrink:0;">
+<div style="flex:1;">
+<div class="parceiro-linha" style="margin-bottom:5px">
+<!-- 2. PARCEIRO-LABEL -->
+<span class="parceiro-label">Um salão de beleza completo</span>
+<span class="parceiro-badge">Destaque</span>
+</div>
+<div class="parceiro-linha">
+<!-- 3. PARCEIRO-NOME -->
+<span class="parceiro-nome">Point da Beleza</span>
+<!-- 4. PARCEIRO-ACESSE -->
+<span class="parceiro-acesse">✂️ Agendamentos por aqui</span>
+</div>
+</div>
+</div>
+<!-- 5. PARCEIRO-CIDADE -->
+<span class="parceiro-cidade" style="display:none">Blumenau</span>
+</a>
+
+<div class="semana-group">
+
+<!-- SEMANA 1 · ESQUERDA -->
+<!-- 1. HREF -->
+<a href="https://www.instagram.com/innaturacomidadeverdade?igsh=bzJlemN1cXBjOGY4"
+target="_blank"
+class="semana-card"
+onclick="gtag('event', 'clique_anuncio', {
+'anunciante_id': 'semanal_2026_03_s1_esq_innatura',
+'anunciante_nome': this.querySelector('.semana-nome').innerText,
+'local': 'card_semana_esquerda',
+'periodo': 'semanal',
+'data_clique': new Date().toISOString().split('T')[0]
+});">
+<!-- 4. SEMANA-BADGE -->
+<span class="semana-badge">Destaque</span>
+<div class="semana-linha">
+<!-- 2. SEMANA-NOME -->
+<span class="semana-nome">Restaurante In Natura</span>
+<!-- 3. SEMANA-EMOJI -->
+<span class="semana-emoji">🍔</span>
+</div>
+</a>
+
+<!-- SEMANA 1 · MEIO -->
+<!-- 1. HREF -->
+<a href="https://www.instagram.com/mercadobonikoski?igsh=MWtsemYzdXg1MjV5cw=="
+target="_blank"
+class="semana-card"
+onclick="gtag('event', 'clique_anuncio', {
+'anunciante_id': 'semanal_2026_03_s1_meio_bonikoski',
+'anunciante_nome': this.querySelector('.semana-nome').innerText,
+'local': 'card_semana_meio',
+'periodo': 'semanal',
+'data_clique': new Date().toISOString().split('T')[0]
+});">
+<!-- 4. SEMANA-BADGE -->
+<span class="semana-badge">Destaque</span>
+<div class="semana-linha">
+<!-- 2. SEMANA-NOME -->
+<span class="semana-nome">Mercado Bonikoski</span>
+<!-- 3. SEMANA-EMOJI -->
+<span class="semana-emoji">🛒</span>
+</div>
+</a>
+
+<!-- SEMANA 1 · DIREITA -->
+<!-- 1. HREF -->
+<a href="https://www.instagram.com/egua_best_oficial/"
+target="_blank"
+class="semana-card"
+onclick="gtag('event', 'clique_anuncio', {
+'anunciante_id': 'semanal_2026_03_s1_dir_eguabest',
+'anunciante_nome': this.querySelector('.semana-nome').innerText,
+'local': 'card_semana_direita',
+'periodo': 'semanal',
+'data_clique': new Date().toISOString().split('T')[0]
+});">
+<!-- 4. SEMANA-BADGE -->
+<span class="semana-badge">Destaque</span>
+<div class="semana-linha">
+<!-- 2. SEMANA-NOME -->
+<span class="semana-nome">Égua Best Oficial</span>
+<!-- 3. SEMANA-EMOJI -->
+<span class="semana-emoji">🦐</span>
+</div>
+</a>
+
+</div>
+
+<div class="btn-group">
+<button type="button" onclick="buscar('hoje')" style="flex:1">Hoje</button>
+<button type="button" onclick="buscar('fimdesemana')" style="flex:2">Fim de semana</button>
+<button type="button" onclick="buscar('7dias')" style="flex:1">7 dias</button>
+</div>
+<p style="margin-top: 15px; font-size: 14px; color: #555;">
+Resultados podem variar a cada busca com IA
+</p>
+
+<p style="margin-top: 15px; font-size: 14px; color: #555; display: flex; justify-content: center; gap: 36px; align-items: center; flex-wrap: wrap;">
+
+<a onclick="compartilhar(); return false;" href="#" style="color:#6eb233;text-decoration:none;">Indique</a>
+
+<a href="#" onclick="abrirQRCode(); return false;" style="color:#6eb233;text-decoration:none; display: inline-flex; align-items: center;" title="QR Code do App">
+<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24'%3E%3Crect x='3' y='3' width='7' height='7' fill='%236eb233'/%3E%3Crect x='14' y='3' width='7' height='7' fill='%236eb233'/%3E%3Crect x='3' y='14' width='7' height='7' fill='%236eb233'/%3E%3Crect x='14' y='14' width='3' height='3' fill='%236eb233'/%3E%3Crect x='18' y='14' width='3' height='3' fill='%236eb233'/%3E%3Crect x='14' y='18' width='3' height='3' fill='%236eb233'/%3E%3Crect x='18' y='18' width='3' height='3' fill='%236eb233'/%3E%3C/svg%3E" alt="QR Code" class="icone-qrcode">
+</a>
+
+<button onclick="document.getElementById('modal-ajuda').style.display='flex'; gtag('event','abriu_ajuda');" aria-label="Ajuda — como usar o app" style="background:#6eb233;color:white;border:none;border-radius:50%;width:18px;height:18px;font-size:12px;font-weight:bold;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;">?</button>
+<a href="https://wa.me/5547991581967?text=Ol%C3%A1!%20Como%20fa%C3%A7o%20pra%20anunciar%3F" target="_blank" style="color:#6eb233;text-decoration:none;">Anunciar</a>
+</p>
+
+<!-- MODAL DO QR CODE -->
+<div id="modal-qrcode" role="dialog" aria-modal="true" aria-labelledby="modal-qrcode-titulo" onclick="if(event.target===this)this.style.display='none';" class="modal-overlay" style="z-index: 10002; backdrop-filter: blur(3px);">
+<div class="modal-box" style="text-align: center; max-width: 320px; width: 85%;">
+<div style="background: #ffffff; padding: 15px; border-radius: 16px; margin: 10px 0; display: flex; justify-content: center;">
+<div id="qrcode-modal" style="background: white; padding: 4px; border-radius: 5px;"></div>
+</div>
+
+<p style="margin: 15px 0 10px; font-size: 14px; color: #333;">
+Escaneia 👆 e vê os eventos perto de você!
+</p>
+
+<div style="display: flex; gap: 10px; justify-content: center;">
+<button onclick="document.getElementById('modal-qrcode').style.display='none';" style="
+padding: 8px 16px;
+border: none;
+border-radius: 10px;
+font-size: 13px;
+font-weight: bold;
+cursor: pointer;
+background: #6eb233;
+color: white;
+width: auto;
+min-width: 100px;
+">Fechar</button>
+</div>
+</div>
+</div>
+
+<!-- Modal -->
+<div id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-msg" onclick="if(event.target===this)this.style.display='none';" class="modal-overlay" style="z-index: 10001;">
+<div class="modal-box" style="text-align: center; max-width: 300px;">
+<p id="modal-msg" style="margin-bottom: 20px; font-size: 16px; color: #333;">
+Por favor, digite uma cidade
+</p>
+<button onclick="document.getElementById('modal').style.display='none'; document.getElementById('cidade').focus();" style="
+padding: 8px 16px;
+border: none;
+border-radius: 10px;
+font-size: 13px;
+font-weight: bold;
+cursor: pointer;
+background: #6eb233;
+color: white;
+width: auto;
+">Entendi</button>
+</div>
+</div>
+
+<!-- Modal Ajuda -->
+<div id="modal-ajuda" role="dialog" aria-modal="true" aria-labelledby="modal-ajuda-titulo" onclick="if(event.target===this)this.style.display='none';" class="modal-overlay" style="z-index: 10001;">
+<div class="modal-box" style="text-align: left; max-width: 400px; max-height: 85vh; overflow-y: auto;">
+<div style="font-size: 14px; color: #333; line-height: 1.6;">
+<p id="modal-ajuda-titulo" style="margin-bottom: 15px;">O app <strong><img src="oqfazer.png" style="height: 17px; vertical-align: middle; display: inline-block;"></strong> mostra tudo que está rolando perto de você! Shows, bares, feiras, eventos culturais, esportes e muito mais. Basta digitar a cidade (ou usar seu GPS) e escolher o período.</p>
+
+<p style="margin-bottom: 15px;"><strong>Como usar?</strong><br>
+<strong>1.</strong> Digite a cidade ou toque no 📍 para detectar automaticamente.<br>
+<strong>2.</strong> Escolha uma categoria (opcional): Bares, Shows, Cultura, Natureza, Esporte ou Feiras.<br>
+<strong>3.</strong> Selecione o período: Hoje, Fim de semana ou 7 dias.<br>
+<strong>4.</strong> Pronto! O app vai buscar eventos confirmados e lugares abertos na sua região.<br>
+<strong>5.</strong> Quer algo específico? Clique em <strong>🎫 Eventos</strong>, digite o local ou evento (com ou sem cidade) e pressione Enter para ver tudo, ou escolha <strong>Hoje</strong>, <strong>Fim de semana</strong> ou <strong>7 dias</strong> para filtrar o período.</p>
+
+<p style="margin-bottom: 15px;"><strong>O que significam os rótulos?</strong><br>
+🌟 <strong style="color: #6eb233;">DESTAQUE</strong><br>
+São lugares e eventos que eu visitei, curti e recomendo genuinamente! Sem cobrança, só indicação de coração.<br><br>
+🤝 <strong style="color: #6eb233;">PATROCINADO</strong><br>
+Conteúdo pago por empresas que querem aparecer no app. Sempre identificado com total transparência.<br><br>
+👍 <strong style="color: #6eb233;">PARCEIRO</strong><br>
+Para colaborações sem pagamento (permutas, parcerias estratégicas).<br><br>
+💥 <strong style="color: #6eb233;">NOVIDADE</strong><br>
+Para lugares recém-inaugurados que você quer destacar.</p>
+
+<p style="margin-bottom: 15px;"><strong>Banner Premium no topo</strong><br>
+🎫 <strong style="color: #ff6b35;">EVENTO</strong><br>
+Grandes eventos (festivais, shows, atrações especiais) aparecem em destaque no banner fixo - topo da tela. Ele garante máxima visibilidade para eventos que contratam publicidade destacada.</p>
+
+<p style="margin-bottom: 15px;"><strong>Dicas importantes</strong><br>
+• Resultados usam IA e podem variar a cada busca.<br>
+• Sempre confirme datas e horários nos sites oficiais dos eventos.<br>
+• Instale o app na tela inicial para acesso rápido.<br>
+• Compartilhe com amigos que estão sem ideia do que fazer!</p>
+
+<p style="margin-bottom:20px;">
+<strong>Quer anunciar seu negócio?</strong><br>
+Fale comigo no
+<a href="https://wa.me/5547991581967?text=Ol%C3%A1!%20Como%20fa%C3%A7o%20pra%20anunciar%3F"
+target="_blank"
+style="color:#25D366;font-weight:bold;text-decoration:none;">
+WhatsApp
+</a>
+</p>
+
+</div>
+
+<div style="display: flex; align-items: center; gap: 50px;">
+<button onclick="document.getElementById('modal-ajuda').style.display='none';" style="
+padding: 8px 16px;
+border: none;
+border-radius: 10px;
+font-size: 13px;
+font-weight: bold;
+cursor: pointer;
+background: #6eb233;
+color: white;
+width: auto;
+">Entendi</button>
+<a href="https://www.instagram.com/joseaugustobaron/" target="_blank" style="font-size:15px;color:#555;text-decoration:none;white-space:nowrap;">2026 <span style="color:#6eb233;">@baron</span></a>
+</div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!--  INSTALAR APP — Safari Mac                                   -->
+<!-- ============================================================ -->
+<div id="instalar-mac" style="
+display: none;
+position: fixed;
+bottom: 20px;
+left: 50%;
+transform: translateX(-50%);
+background: #1c1c1e;
+color: white;
+padding: 14px 18px;
+border-radius: 18px;
+font-size: 13px;
+font-weight: 500;
+box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+z-index: 9999;
+max-width: 300px;
+width: 88%;
+text-align: center;
+line-height: 1.5;
+">
+<div style="margin-bottom:6px; font-size:15px; font-weight:700;">💻 Instalar o app</div>
+No menu <strong style="color:#6eb233;">File</strong> do Safari, clique em<br>
+<strong style="color:#6eb233;">"Add to Dock"</strong>
+<div style="margin-top:10px;">
+<button onclick="document.getElementById('instalar-mac').style.display='none';" style="
+background: #6eb233; color: white; border: none;
+border-radius: 10px; padding: 6px 20px;
+font-size: 13px; font-weight: bold; cursor: pointer; width: auto;
+">Entendi</button>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!--  INSTALAR APP — iOS (Safari)                                 -->
+<!-- ============================================================ -->
+<div id="instalar-ios" style="
+display: none;
+position: fixed;
+bottom: 20px;
+left: 50%;
+transform: translateX(-50%);
+background: #1c1c1e;
+color: white;
+padding: 14px 18px;
+border-radius: 18px;
+font-size: 13px;
+font-weight: 500;
+box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+z-index: 9999;
+max-width: 300px;
+width: 88%;
+text-align: center;
+line-height: 1.5;
+">
+<div style="margin-bottom:6px; font-size:15px; font-weight:700;">📲 Instalar o app</div>
+Toque em <strong style="color:#6eb233;">Compartilhar</strong> <span style="font-size:16px;">⬆️</span> e depois em<br>
+<strong style="color:#6eb233;">"Adicionar à Tela de Início"</strong>
+<div style="margin-top:10px;">
+<button onclick="document.getElementById('instalar-ios').style.display='none';" style="
+background: #6eb233; color: white; border: none;
+border-radius: 10px; padding: 6px 20px;
+font-size: 13px; font-weight: bold; cursor: pointer; width: auto;
+">Entendi</button>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!--  INSTALAR APP — Android / PWA                                -->
+<!-- ============================================================ -->
+<div id="instalar-banner" style="
+display: none;
+position: fixed;
+bottom: 20px;
+left: 50%;
+transform: translateX(-50%);
+background: #6eb233;
+color: white;
+padding: 12px 22px;
+border-radius: 50px;
+font-size: 15px;
+font-weight: bold;
+box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+z-index: 9999;
+white-space: nowrap;
+align-items: center;
+gap: 8px;
+user-select: none;
+touch-action: none;
+cursor: grab;
+">
+<span style="font-size:11px; opacity:0.7; letter-spacing:0.5px;">⠿</span>
+<span id="instalar-banner-texto">📱 Instalar app</span>
+</div>
+
+<script>
+let categoriaSelecionada = '';
+
+function toggleEvento() {
+const cats = document.querySelectorAll('.cat-btn');
+const wrapper = document.getElementById('eventoWrapper');
+const btn = document.querySelector('.evento-btn');
+if (wrapper.style.display === 'none' || wrapper.style.display === '') {
+wrapper.style.display = 'block';
+document.getElementById('evento').focus();
+btn.classList.add('ativo');
+cats.forEach(b => {
+b.classList.remove('ativo');
+b.disabled = true;
+b.style.opacity = '0.4';
+b.style.cursor = 'not-allowed';
+});
+categoriaSelecionada = '';
+} else {
+wrapper.style.display = 'none';
+document.getElementById('evento').value = '';
+btn.classList.remove('ativo');
+cats.forEach(b => {
+b.disabled = false;
+b.style.opacity = '1';
+b.style.cursor = 'pointer';
+});
+const cidadeInput = document.getElementById('cidade');
+if (!cidadeInput.value.trim()) {
+const ultima = localStorage.getItem('cidade');
+if (ultima) {
+cidadeInput.value = ultima;
+} else {
+cidadeInput.placeholder = 'Digite uma cidade';
+}
+}
+}
+}
+
+function atualizarData() {
+const hoje = new Date();
+const dia = hoje.getDate().toString().padStart(2, '0');
+const mes = hoje.toLocaleDateString('pt-BR', { month: 'long' }).toUpperCase();
+document.getElementById('data-atual').textContent = `${dia} ${mes}`;
+}
+atualizarData();
+
+function gerarQRCodeModal() {
+const qrDiv = document.getElementById('qrcode-modal');
+if (!qrDiv) return;
+
+qrDiv.innerHTML = '';
+
+new QRCode(qrDiv, {
+text: "https://joaubaron.github.io/oquefazer/?utm_source=qrcode&utm_medium=flyer&utm_campaign=divulgacao",
+width: 190,
+height: 190,
+colorDark: "#0d0f0e",
+colorLight: "#ffffff",
+correctLevel: QRCode.CorrectLevel.H
+});
+}
+
+function abrirQRCode() {
+document.getElementById('modal-qrcode').style.display = 'flex';
+
+setTimeout(gerarQRCodeModal, 100);
+
+if (typeof gtag !== 'undefined') {
+gtag('event', 'clique_qrcode', {
+'local': 'rodape',
+'acao': 'abrir_modal_qrcode'
+});
+}
+}
+
+document.addEventListener('keydown', (e) => {
+if (e.key === 'Escape') {
+document.getElementById('modal').style.display = 'none';
+document.getElementById('modal-ajuda').style.display = 'none';
+document.getElementById('modal-qrcode').style.display = 'none';
+}
+});
+
+function toggleCategoria(btn, categoria) {
+const todos = document.querySelectorAll('.cat-btn');
+if (categoriaSelecionada === categoria) {
+btn.classList.remove('ativo');
+btn.setAttribute('aria-pressed', 'false');
+categoriaSelecionada = '';
+} else {
+todos.forEach(b => { b.classList.remove('ativo'); b.setAttribute('aria-pressed', 'false'); });
+btn.classList.add('ativo');
+btn.setAttribute('aria-pressed', 'true');
+categoriaSelecionada = categoria;
+}
+}
+
+function buscar(periodo) {
+const eventoWrapper = document.getElementById('eventoWrapper');
+if (eventoWrapper.style.display === 'block') {
+buscarEventoAmplo(periodo);
+return;
+}
+
+const cidade = document.getElementById("cidade").value.trim();
+if (!cidade) {
+document.getElementById('modal').style.display = 'flex';
+gtag('event', 'cidade_nao_encontrada');
+return;
+}
+localStorage.setItem('cidade', cidade);
+atualizarGeoBtnEstado();
+let tempo;
+if (periodo === 'hoje') {
+tempo = 'hoje';
+} else if (periodo === 'fimdesemana') {
+tempo = 'neste fim de semana (sexta, sábado e domingo)';
+} else {
+tempo = 'nos próximos 7 dias a partir de hoje';
+}
+
+const eventoEspecifico = document.getElementById('evento').value.trim();
+let query;
+
+if (eventoEspecifico) {
+query = `Buscar APENAS informações sobre: ${eventoEspecifico} em ${cidade} ${tempo}. Mostrar somente este evento. Não mostrar outros eventos. Informar: data, horário, local, descrição e links. Se não encontrar, informar claramente que não há informações confirmadas sobre este evento.`;
+} else {
+const parceiroMesNome = document.querySelector('.parceiro-nome')?.innerText || '';
+const parceiroMesLabel = document.querySelector('.parceiro-label')?.firstChild?.textContent?.trim() || '';
+const parceiroMesLink = document.querySelector('.parceiro-card')?.href || '';
+const parceiroMesCidade = document.querySelector('.parceiro-cidade')?.innerText || '';
+
+const filtroMap = {
+'Bares':    'Mostrar APENAS bares, pubs e restaurantes com ambiente de bar abertos hoje. Ignorar shows, feiras, eventos culturais e esportivos. ',
+'Shows':    'Mostrar APENAS shows, apresentações musicais e eventos com artistas ao vivo. Ignorar bares sem show, feiras e eventos culturais. ',
+'Cultura':  'Mostrar APENAS eventos culturais: teatro, cinema, exposições, museus e dança. Ignorar bares, shows e feiras. ',
+'Natureza': 'Mostrar APENAS atividades ao ar livre: trilhas, parques, ecoturismo e esportes na natureza. Ignorar bares, shows e feiras. ',
+'Esporte':  'Mostrar APENAS eventos esportivos: jogos, campeonatos, corridas e competições. Ignorar bares, shows e feiras. ',
+'Feiras':   'Mostrar APENAS feiras, mercados, exposições de produtos e artesanato. Ignorar bares, shows e eventos esportivos. '
+};
+const hoje = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+if (periodo === 'hoje') tempo = `hoje (${hoje})`;
+
+const destaquesTexto = parceiroMesCidade.toLowerCase() === cidade.toLowerCase()
+? `BLOCO 1 — DESTAQUE OBRIGATÓRIO: Exiba primeiro Em Destaque: ${parceiroMesNome} — ${parceiroMesLabel}, em ${parceiroMesCidade}. Máximo 2 linhas, use emojis. Exiba o site oficial como fonte: ${parceiroMesLink} . Não busque outros links. BLOCO 2 — EVENTOS: `
+: '';
+
+if (categoriaSelecionada) {
+query = `${destaquesTexto}${filtroMap[categoriaSelecionada]} em ${cidade} ${tempo}. Listar eventos REAIS confirmados. Não invente eventos. Para cada evento: data, horário, local e link. Nome em negrito. Separadores visuais entre eventos. Se não houver, informar claramente.`;
+} else {
+query = `${destaquesTexto}Todos os eventos reais em ${cidade} ${tempo}, em ordem cronológica no formato 📆 calendário. Não invente eventos. Incluir eventos de todos os bairros da cidade, não apenas do centro. Incluir shows, cultura, gastronomia, restaurantes, bares, esportes, feiras, festivais, mercados, exposições, workshops. Apenas eventos com data confirmada. Para cada evento: data, horário, local e link. Para restaurantes: incluir especialidade. Categorias: 🍻 Bares, 🎶 Shows, 🎭 Cultura, 🌱 Natureza, 🎾 Esporte, 🛍️ Feiras. Para cada evento incluir pelo menos um link. Se houver mais, incluir todos: site oficial, Instagram, Sympla, Eventbrite ou site da prefeitura. Se não houver eventos confirmados, informar claramente. Use separadores visuais entre eventos. Negrito no nome. Listar o MÁXIMO de eventos possível, sem limite, agrupados por categoria e dia. Incluir também bares, pubs e restaurantes abertos com programação ou destaque no período, mesmo que não sejam eventos formais.`;
+}
+}
+
+gtag('event', 'busca', { cidade, periodo, categoria: categoriaSelecionada || 'todas' });
+gtag('event', 'periodo_selecionado', { periodo });
+const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
+setTimeout(() => { location.href = url; }, 300);
+}
+
+function buscarEventoAmplo(periodo) {
+const cidade = document.getElementById("cidade").value.trim();
+const eventoEspecifico = document.getElementById('evento').value.trim();
+
+if (!eventoEspecifico) {
+mostrarAviso('Informe um local ou evento.');
+return;
+}
+
+if (cidade) {
+localStorage.setItem('cidade', cidade);
+}
+
+let localizacao = cidade ? `em ${cidade}` : '';
+const hoje = new Date();
+const fmtDia = (d) => d.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+let filtroPeriodo = '';
+if (periodo === 'hoje') {
+filtroPeriodo = ` — foco em hoje (${fmtDia(hoje)})`;
+} else if (periodo === 'fimdesemana') {
+const diasAteFds = (5 - hoje.getDay() + 7) % 7;
+const sexta = new Date(hoje); sexta.setDate(hoje.getDate() + diasAteFds);
+const sabado = new Date(sexta); sabado.setDate(sexta.getDate() + (sexta.getDay() === 6 ? 0 : 1));
+const domingo = new Date(sabado); domingo.setDate(sabado.getDate() + 1);
+filtroPeriodo = ` — foco neste fim de semana (${fmtDia(sexta)}, ${fmtDia(sabado)} e ${fmtDia(domingo)})`;
+} else if (periodo === '7dias') {
+const fim = new Date(hoje); fim.setDate(hoje.getDate() + 6);
+filtroPeriodo = ` — foco nos próximos 7 dias (${fmtDia(hoje)} até ${fmtDia(fim)})`;
+}
+const query = `"${eventoEspecifico}" ${localizacao}${filtroPeriodo}
+
+BUSQUE E MOSTRE TUDO QUE ENCONTRAR SOBRE ESTE TERMO:
+
+🔹 SE FOR UM ESTABELECIMENTO (bar, restaurante, casa de show, etc):
+- Nome completo do local
+- Endereço completo
+- Horário de funcionamento
+- Tipo de cozinha/especialidade
+- Descrição do ambiente
+- Instagram e site oficial
+
+🔹 SE HOUVER EVENTOS NESTE LOCAL:
+Liste todos os eventos programados:
+- Nome do evento
+- Data completa e horário
+- Descrição
+- Links (Sympla, Instagram, site oficial)
+
+🔹 SE HOUVER EVENTOS EM OUTROS LOCAIS COM O MESMO NOME:
+Liste também (ex: "Festa do Baron" acontecendo em outro lugar)
+
+🔹 SE FOR UM EVENTO ESPECÍFICO SEM LOCAL FIXO:
+- Data completa e horário
+- Local e cidade
+- Descrição
+- Links de venda
+
+⚠️ REGRA DE OURO: Se encontrar MÚLTIPLAS informações (o local E eventos nele, ou eventos em vários lugares), mostre TUDO de forma organizada. Não escolha apenas um tipo de informação.
+
+Formato: Use separadores visuais (---) entre as seções para organizar.`;
+
+gtag('event', 'busca_ampla', { cidade: cidade || 'qualquer', termo: eventoEspecifico });
+const url = "https://www.google.com/search?udm=50&hl=pt-BR&q=" + encodeURIComponent(query);
+setTimeout(() => { location.href = url; }, 300);
+}
+
+function mostrarAviso(msg) {
+const m = document.getElementById('modal');
+document.getElementById('modal-msg').innerHTML = msg;
+m.style.display = 'flex';
+}
+
+// ===============================
+// GEO BTN — 📍 GPS ou ↩️ buscar nova cidade
+// ===============================
+function atualizarGeoBtnEstado() {
+const btn = document.getElementById('geo-btn');
+const inputVal = document.getElementById('cidade').value.trim();
+const cidadeSalva = localStorage.getItem('cidade') || '';
+if (inputVal && inputVal.toLowerCase() !== cidadeSalva.toLowerCase()) {
+// Substituído '✔️' pelo SVG
+btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6eb233" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 10 4 15 9 20"/><path d="M20 4v7a4 4 0 0 1-4 4H4"/></svg>`;
+btn.title = 'Buscar esta cidade';
+btn.setAttribute('aria-label', 'Buscar esta cidade');
+} else {
+btn.textContent = '📍';
+btn.title = 'Detectar minha cidade';
+btn.setAttribute('aria-label', 'Detectar minha cidade');
+}
+}
+
+function geoBtnAcao() {
+const btn = document.getElementById('geo-btn');
+// Agora verifica se contém o SVG (ou mantém pelo title)
+if (btn.innerHTML.includes('svg')) {
+buscar('hoje');
+} else {
+detectarCidade();
+}
+}
+
+function detectarCidade() {
+if (!navigator.geolocation) {
+mostrarAviso('Geolocalização não suportada neste dispositivo.');
+return;
+}
+const btn = document.getElementById('geo-btn');
+btn.textContent = '🔎';
+navigator.geolocation.getCurrentPosition(async (pos) => {
+const { latitude, longitude } = pos.coords;
+try {
+// ✅ Adicionado fetchTimeout + retry — sem isso trava na rede móvel
+const res = await retry(() =>
+fetchTimeout(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`, 10000)
+);
+const data = await res.json();
+const cidade = data.address.city || data.address.town || data.address.village || data.address.county;
+if (cidade) {
+document.getElementById('cidade').value = cidade;
+gtag('event', 'uso_gps');
+// ✅ FIX MOBILE: salva lat/lon REAIS do GPS no geo_cache
+//    Evita 2ª requisição de geocoding que falha em rede fraca
+localStorage.setItem('geo_cache', JSON.stringify({ cidade, lat: latitude, lon: longitude, ts: Date.now() }));
+localStorage.setItem('cidade', cidade);
+atualizarGeoBtnEstado();
+}
+} catch(e) {
+mostrarAviso('Não foi possível detectar a cidade.');
+} finally {
+btn.textContent = '📍';
+}
+}, (err) => {
+const msg = err.code === 1 ? 'Permissão de localização negada.' : err.code === 2 ? 'Posição indisponível. Tente novamente.' : '⏱️ Tempo esgotado. Digite uma cidade.';
+mostrarAviso(msg);
+btn.textContent = '📍';
+}, { timeout: 15000, enableHighAccuracy: false });
+}
+
+function compartilhar() {
+const texto = `Achei esse app que mostra o que fazer na cidade 🎶
+
+Tem shows, bares, eventos e feiras rolando!
+
+👉 https://joaubaron.github.io/oquefazer/
+
+Manda pra galera que sempre pergunta: *vamos onde hoje?*`;
+
+if (navigator.share) {
+navigator.share({ text: texto });
+gtag('event', 'compartilhou');
+} else {
+navigator.clipboard.writeText(texto).then(() => { mostrarAviso('Link copiado! 🔗'); gtag('event', 'compartilhou'); });
+}
+}
+
+const ua = navigator.userAgent;
+const isWebView = /FBAN|FBAV|Instagram|FB_IAB/i.test(ua);
+
+if (isWebView) {
+const isAndroid = /Android/i.test(ua);
+
+const msg = isAndroid
+? '<span style="font-size:13px">Toque 3 pontinhos (⋮)</span><br><strong style="font-size:13px">Abrir no navegador</strong>'
+: '<span style="font-size:13px">Toque em "..."</span><br><strong style="font-size:13px">Abrir no Safari</strong>';
+
+mostrarAviso(msg);
+}
+
+// ✅ FIX 1: AbortController é muito mais confiável que Promise.race no mobile.
+//    cache:'no-store' impede o browser mobile de cachear respostas de erro.
+function fetchTimeout(url, ms = 15000) {
+const ctrl = new AbortController();
+const timer = setTimeout(() => ctrl.abort(), ms);
+return fetch(url, { signal: ctrl.signal, cache: 'no-store' })
+.finally(() => clearTimeout(timer));
+}
+
+// ✅ FIX 2: Delay progressivo entre tentativas — dá tempo à rede se recuperar.
+async function retry(fn, tentativas = 3, delayMs = 1000) {
+let erro;
+for (let i = 0; i <= tentativas; i++) {
+try {
+return await fn();
+} catch (e) {
+erro = e;
+if (i < tentativas) await new Promise(r => setTimeout(r, delayMs * (i + 1)));
+}
+}
+throw erro;
+}
+
+
+window.addEventListener('DOMContentLoaded', () => {
+const ultima = localStorage.getItem('cidade');
+document.getElementById('cidade').value = ultima || '';
+document.getElementById('cidade').placeholder = ultima ? '' : 'Digite uma cidade';
+atualizarGeoBtnEstado();
+setTimeout(gerarQRCodeModal, 500);
+
+const eventoInput = document.getElementById('evento');
+eventoInput.addEventListener('keypress', (e) => {
+if (e.key === 'Enter') {
+e.preventDefault();
+buscarEventoAmplo();
+}
+});
+
+});
+
+// Corrige bfcache: quando usuário volta do Google, ressincroniza campo e botão
+window.addEventListener('pageshow', (e) => {
+const ultima = localStorage.getItem('cidade');
+document.getElementById('cidade').value = ultima || '';
+document.getElementById('cidade').placeholder = ultima ? '' : 'Digite uma cidade';
+atualizarGeoBtnEstado();
+});
+
+if ('serviceWorker' in navigator) {
+navigator.serviceWorker.register('./OneSignalSDKWorker.js', { scope: '/oquefazer/' });
+navigator.serviceWorker.register('./sw.js', { scope: '/oquefazer/' });
+}
+
+const isSafariMac = /Macintosh/i.test(navigator.userAgent) && /Safari/i.test(navigator.userAgent) && !/Chrome|CriOS|FxiOS|Edg/i.test(navigator.userAgent);
+const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+if (isSafariMac && !isStandalone) {
+setTimeout(() => {
+document.getElementById('instalar-mac').style.display = 'block';
+}, 3000);
+}
+
+const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+if (isIos && !isStandalone && !isWebView) {
+setTimeout(() => {
+document.getElementById('instalar-ios').style.display = 'block';
+}, 3000);
+}
+
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+e.preventDefault();
+deferredPrompt = e;
+if (!localStorage.getItem('pwa_dispensado')) {
+const banner = document.getElementById('instalar-banner');
+banner.style.display = 'flex';
+}
+});
+
+window.addEventListener('appinstalled', () => {
+document.getElementById('instalar-banner').style.display = 'none';
+gtag('event', 'pwa_installed');
+});
+
+(function() {
+const banner = document.getElementById('instalar-banner');
+let dragging = false;
+let startX, startY, origLeft, origTop;
+let moved = false;
+
+function getPos() {
+const rect = banner.getBoundingClientRect();
+return { left: rect.left, top: rect.top };
+}
+
+function startDrag(cx, cy) {
+dragging = true;
+moved = false;
+banner.style.transform = 'none';
+const pos = getPos();
+banner.style.left = pos.left + 'px';
+banner.style.top = pos.top + 'px';
+banner.style.bottom = 'auto';
+startX = cx;
+startY = cy;
+origLeft = pos.left;
+origTop = pos.top;
+banner.style.cursor = 'grabbing';
+banner.style.transition = 'none';
+}
+
+function moveDrag(cx, cy) {
+if (!dragging) return;
+const dx = cx - startX;
+const dy = cy - startY;
+if (Math.abs(dx) > 4 || Math.abs(dy) > 4) moved = true;
+const maxX = window.innerWidth - banner.offsetWidth;
+const maxY = window.innerHeight - banner.offsetHeight;
+banner.style.left = Math.max(0, Math.min(maxX, origLeft + dx)) + 'px';
+banner.style.top  = Math.max(0, Math.min(maxY, origTop  + dy)) + 'px';
+}
+
+function endDrag() {
+if (!dragging) return;
+dragging = false;
+banner.style.cursor = 'grab';
+}
+
+banner.addEventListener('mousedown', (e) => { startDrag(e.clientX, e.clientY); e.preventDefault(); });
+window.addEventListener('mousemove', (e) => { moveDrag(e.clientX, e.clientY); });
+window.addEventListener('mouseup', () => { endDrag(); });
+
+banner.addEventListener('touchstart', (e) => {
+const t = e.touches[0];
+startDrag(t.clientX, t.clientY);
+}, { passive: true });
+window.addEventListener('touchmove', (e) => {
+if (!dragging) return;
+const t = e.touches[0];
+moveDrag(t.clientX, t.clientY);
+if (moved) e.preventDefault();
+}, { passive: false });
+window.addEventListener('touchend', () => { endDrag(); });
+
+banner.addEventListener('click', async () => {
+if (moved) return;
+if (!deferredPrompt) return;
+banner.style.display = 'none';
+deferredPrompt.prompt();
+const { outcome } = await deferredPrompt.userChoice;
+if (outcome === 'dismissed') banner.style.display = 'flex';
+gtag('event', 'pwa_install', { outcome });
+deferredPrompt = null;
+});
+})();
+</script>
+</body>
+</html>
